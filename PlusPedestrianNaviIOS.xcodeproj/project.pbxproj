@@ -1,0 +1,406 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		078BEDC2212E5FFF00D497C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */; };
+		078BEDC4212E5FFF00D497C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078BEDC3212E5FFF00D497C9 /* ViewController.swift */; };
+		078BEDC7212E5FFF00D497C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 078BEDC5212E5FFF00D497C9 /* Main.storyboard */; };
+		078BEDC9212E600100D497C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 078BEDC8212E600100D497C9 /* Assets.xcassets */; };
+		078BEDCC212E600100D497C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 078BEDCA212E600100D497C9 /* LaunchScreen.storyboard */; };
+		176E6F5951930FF493A8837A /* libPods-PlusPedestrianNaviIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC1B3902B023501B4254522 /* libPods-PlusPedestrianNaviIOS.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		078BEDBE212E5FFF00D497C9 /* PlusPedestrianNaviIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlusPedestrianNaviIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		078BEDC3212E5FFF00D497C9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		078BEDC6212E5FFF00D497C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		078BEDC8212E600100D497C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		078BEDCB212E600100D497C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		078BEDCD212E600100D497C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1DC1B3902B023501B4254522 /* libPods-PlusPedestrianNaviIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlusPedestrianNaviIOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		76D48CC66E7E6DC0607E9F6C /* Pods-PlusPedestrianNaviIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.debug.xcconfig"; sourceTree = "<group>"; };
+		DE918DF8083130D875EAD52F /* Pods-PlusPedestrianNaviIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		078BEDBB212E5FFF00D497C9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				176E6F5951930FF493A8837A /* libPods-PlusPedestrianNaviIOS.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		06A6755E843B8D6A9BCFCF75 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				76D48CC66E7E6DC0607E9F6C /* Pods-PlusPedestrianNaviIOS.debug.xcconfig */,
+				DE918DF8083130D875EAD52F /* Pods-PlusPedestrianNaviIOS.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		078BEDB5212E5FFF00D497C9 = {
+			isa = PBXGroup;
+			children = (
+				078BEDC0212E5FFF00D497C9 /* PlusPedestrianNaviIOS */,
+				078BEDBF212E5FFF00D497C9 /* Products */,
+				06A6755E843B8D6A9BCFCF75 /* Pods */,
+				EED45B2291D016ECA191174A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		078BEDBF212E5FFF00D497C9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				078BEDBE212E5FFF00D497C9 /* PlusPedestrianNaviIOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		078BEDC0212E5FFF00D497C9 /* PlusPedestrianNaviIOS */ = {
+			isa = PBXGroup;
+			children = (
+				078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */,
+				078BEDC3212E5FFF00D497C9 /* ViewController.swift */,
+				078BEDC5212E5FFF00D497C9 /* Main.storyboard */,
+				078BEDC8212E600100D497C9 /* Assets.xcassets */,
+				078BEDCA212E600100D497C9 /* LaunchScreen.storyboard */,
+				078BEDCD212E600100D497C9 /* Info.plist */,
+			);
+			path = PlusPedestrianNaviIOS;
+			sourceTree = "<group>";
+		};
+		EED45B2291D016ECA191174A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1DC1B3902B023501B4254522 /* libPods-PlusPedestrianNaviIOS.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		078BEDBD212E5FFF00D497C9 /* PlusPedestrianNaviIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 078BEDD0212E600100D497C9 /* Build configuration list for PBXNativeTarget "PlusPedestrianNaviIOS" */;
+			buildPhases = (
+				6974514A1D27A6E1B3EE0761 /* [CP] Check Pods Manifest.lock */,
+				078BEDBA212E5FFF00D497C9 /* Sources */,
+				078BEDBB212E5FFF00D497C9 /* Frameworks */,
+				078BEDBC212E5FFF00D497C9 /* Resources */,
+				FF6DCD2FC2382971BF4DEE8E /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PlusPedestrianNaviIOS;
+			productName = PlusPedestrianNaviIOS;
+			productReference = 078BEDBE212E5FFF00D497C9 /* PlusPedestrianNaviIOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		078BEDB6212E5FFF00D497C9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "박정규";
+				TargetAttributes = {
+					078BEDBD212E5FFF00D497C9 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+				};
+			};
+			buildConfigurationList = 078BEDB9212E5FFF00D497C9 /* Build configuration list for PBXProject "PlusPedestrianNaviIOS" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 078BEDB5212E5FFF00D497C9;
+			productRefGroup = 078BEDBF212E5FFF00D497C9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				078BEDBD212E5FFF00D497C9 /* PlusPedestrianNaviIOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		078BEDBC212E5FFF00D497C9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				078BEDCC212E600100D497C9 /* LaunchScreen.storyboard in Resources */,
+				078BEDC9212E600100D497C9 /* Assets.xcassets in Resources */,
+				078BEDC7212E5FFF00D497C9 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6974514A1D27A6E1B3EE0761 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PlusPedestrianNaviIOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF6DCD2FC2382971BF4DEE8E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		078BEDBA212E5FFF00D497C9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				078BEDC4212E5FFF00D497C9 /* ViewController.swift in Sources */,
+				078BEDC2212E5FFF00D497C9 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		078BEDC5212E5FFF00D497C9 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				078BEDC6212E5FFF00D497C9 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		078BEDCA212E600100D497C9 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				078BEDCB212E600100D497C9 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		078BEDCE212E600100D497C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		078BEDCF212E600100D497C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		078BEDD1212E600100D497C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 76D48CC66E7E6DC0607E9F6C /* Pods-PlusPedestrianNaviIOS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BAZME32E6Z;
+				INFOPLIST_FILE = PlusPedestrianNaviIOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.plusapps.PlusPedestrianNaviIOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		078BEDD2212E600100D497C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE918DF8083130D875EAD52F /* Pods-PlusPedestrianNaviIOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BAZME32E6Z;
+				INFOPLIST_FILE = PlusPedestrianNaviIOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.plusapps.PlusPedestrianNaviIOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		078BEDB9212E5FFF00D497C9 /* Build configuration list for PBXProject "PlusPedestrianNaviIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				078BEDCE212E600100D497C9 /* Debug */,
+				078BEDCF212E600100D497C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		078BEDD0212E600100D497C9 /* Build configuration list for PBXNativeTarget "PlusPedestrianNaviIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				078BEDD1212E600100D497C9 /* Debug */,
+				078BEDD2212E600100D497C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 078BEDB6212E5FFF00D497C9 /* Project object */;
+}
