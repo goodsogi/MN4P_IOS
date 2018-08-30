@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		076A8E652137A7A100858716 /* HexColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A8E642137A7A100858716 /* HexColorManager.swift */; };
 		078BEDC2212E5FFF00D497C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */; };
 		078BEDC4212E5FFF00D497C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078BEDC3212E5FFF00D497C9 /* ViewController.swift */; };
 		078BEDC7212E5FFF00D497C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 078BEDC5212E5FFF00D497C9 /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		076A8E642137A7A100858716 /* HexColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColorManager.swift; sourceTree = "<group>"; };
 		078BEDBE212E5FFF00D497C9 /* PlusPedestrianNaviIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlusPedestrianNaviIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		078BEDC3212E5FFF00D497C9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				078BEDC8212E600100D497C9 /* Assets.xcassets */,
 				078BEDCA212E600100D497C9 /* LaunchScreen.storyboard */,
 				078BEDCD212E600100D497C9 /* Info.plist */,
+				076A8E642137A7A100858716 /* HexColorManager.swift */,
 			);
 			path = PlusPedestrianNaviIOS;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				076A8E652137A7A100858716 /* HexColorManager.swift in Sources */,
 				078BEDC4212E5FFF00D497C9 /* ViewController.swift in Sources */,
 				078BEDC2212E5FFF00D497C9 /* AppDelegate.swift in Sources */,
 			);

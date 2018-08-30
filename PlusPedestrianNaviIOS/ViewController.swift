@@ -11,18 +11,18 @@ import GoogleMaps
 import CoreLocation
 
 class ViewController: UIViewController, GMSMapViewDelegate , CLLocationManagerDelegate{
-   
-  
-    @IBOutlet weak var drawerTrailing: NSLayoutConstraint!
+ 
     @IBOutlet weak var mainScreen: UIView!
     
-    
-    var hamburgerMenuIsVisible = false
-    
-    @IBOutlet weak var drawer: UIView!
-    @IBOutlet weak var mapView: GMSMapView!
+    @IBOutlet weak var drawerView: UIStackView!
     
     @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var drawerViewTrailing: NSLayoutConstraint!
+    var hamburgerMenuIsVisible = false
+   
+    @IBOutlet weak var ticketView: UITextView!
+    @IBOutlet weak var mapView: GMSMapView!
+   
     var locationManager:CLLocationManager!
    
     @IBOutlet weak var topSearchBar: UIView!
@@ -38,13 +38,13 @@ class ViewController: UIViewController, GMSMapViewDelegate , CLLocationManagerDe
     func handleDrawer() {
         if !hamburgerMenuIsVisible {
             
-            drawerTrailing.constant = self.view.frame.size.width;
-            //1
+            drawerViewTrailing.constant = self.view.frame.size.width;
+           
             hamburgerMenuIsVisible = true
         } else {
             
-            drawerTrailing.constant = 0
-            //2
+            drawerViewTrailing.constant = 0
+           
             hamburgerMenuIsVisible = false
         }
         
@@ -66,32 +66,41 @@ class ViewController: UIViewController, GMSMapViewDelegate , CLLocationManagerDe
         initTopSearchBar()
         
         addTapGestureToDrawer()
+        drawTicketViewBackground()
     }
     
+    func drawTicketViewBackground() {
+
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 50, height: 30))
+        let img = renderer.image { ctx in
+            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#000000", alpha: 0).cgColor)
+            ctx.cgContext.setStrokeColor(HexColorManager.colorWithHexString(hexString: "#0078FF", alpha: 1.0).cgColor)
+            ctx.cgContext.setLineWidth(10)
+
+            let rectangle = CGRect(x: 0, y: 0, width: 50, height: 30)
+            ctx.cgContext.addRect(rectangle)
+            ctx.cgContext.drawPath(using: .fillStroke)
+        }
+
+
+        ticketView.backgroundColor = UIColor(patternImage: img)
+    }
+    
+    
     func addTapGestureToDrawer() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.drawerTapped(_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.emptyViewTapped(_:)))
         tapGesture.numberOfTapsRequired = 1
         tapGesture.numberOfTouchesRequired = 1
-        drawer.addGestureRecognizer(tapGesture)
-        drawer.isUserInteractionEnabled = true
-        
-        
-        let emptyViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.emptyViewTapped(_:)))
-        emptyViewTapGesture.numberOfTapsRequired = 1
-        emptyViewTapGesture.numberOfTouchesRequired = 1
-        emptyView.addGestureRecognizer(emptyViewTapGesture)
+        emptyView.addGestureRecognizer(tapGesture)
         emptyView.isUserInteractionEnabled = true
+        
 
     }
     
     @objc func emptyViewTapped(_ sender: UITapGestureRecognizer) {
-        
-    }
-    
-    @objc func drawerTapped(_ sender: UITapGestureRecognizer) {
-        
         handleDrawer()
     }
+   
 
     
     
