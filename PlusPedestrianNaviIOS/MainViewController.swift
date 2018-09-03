@@ -238,6 +238,10 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        // TODO: Info.plist 수정하세요 
+        
+        
         let userLocation:CLLocation = locations[0] as CLLocation
         
         // Call stopUpdatingLocation() to stop listening for location updates,

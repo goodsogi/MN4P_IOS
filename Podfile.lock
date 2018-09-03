@@ -1,16 +1,20 @@
 PODS:
+  - Alamofire (4.7.3)
   - GoogleMaps (1.12.3)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.7)
   - GoogleMaps
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
     - GoogleMaps
 
 SPEC CHECKSUMS:
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   GoogleMaps: a4ac67918d0b5ba5f6b9893ac80487e357779e6c
 
-PODFILE CHECKSUM: ccb5a1dcec905a27ea8969d67cace49551ab44f3
+PODFILE CHECKSUM: 3ef129b44bdedb4fbe7cec3d5ac3f1fbc6dff680
 
 COCOAPODS: 1.5.3
