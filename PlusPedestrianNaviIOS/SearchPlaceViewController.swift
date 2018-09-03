@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class SearchPlaceViewController: UIViewController, UITextFieldDelegate {
     
@@ -34,7 +35,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate {
         
         //검색어가 nil일 경우 처리
         if let searchKeyword = searchKeywordInput.text {
-        searchPlace(searchKeyword: searchKeyword)
+            searchPlace(searchKeyword: searchKeyword)
         }
         return true
     }
@@ -42,61 +43,33 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate {
     
     func searchPlace(searchKeyword:String) {
         // TODO: 로딩바 표시
-    
+        
         
         let url:String = "https://api2.sktelecom.com/tmap/pois"
         let param = ["version": "1", "appKey": TMAP_APP_KEY, "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO", "searchKeyword": searchKeyword]
         Alamofire.request(url,
-            method: .get,
-            parameters: param,
-            encoding: URLEncoding.default,
-            headers: ["Content-Type":"application/json", "Accept":"application/json"]
+                          method: .get,
+                          parameters: param,
+                          encoding: URLEncoding.default,
+                          headers: ["Content-Type":"application/json", "Accept":"application/json"]
             )
             .validate(statusCode: 200..<300)
             .responseJSON {
                 response in
-                //이미 deserialize되었으므로 JSONDecoder를 사용할 수 없음. 만약 사용하려면 Alamofire가 raw 데이터를 반환하게 설정을 변경해야 함
-                if let JSON = response.result.value as? NSDictionary{
-                    self.parseJson(JSON)
+               
+                // TODO: 수정하세요
+                let swiftyJsonVar = JSON(response.result.value!)
+                for subJson in swiftyJsonVar["searchPoiInfo"]["pois"]["poi"].arrayValue {
+                    
+                    let name = subJson["name"].stringValue
+                    print(name)
                 }
+                
         }
     }
     
-    func parseJson(_ JSON:NSDictionary) {
+    func parseJson(_ jsonData:NSDictionary) {
         
-        
-//        var searchPlaceModel = [SearchPlaceModel]()
-//        searchPlaceModel.append(SearchPlaceModel())
-        
-        guard let searchPoiInfo = JSON.object(forKey: "searchPoiInfo") as? NSDictionary else {
-            return
-        }
-        
-        guard let pois = searchPoiInfo.object(forKey: "pois") as? NSDictionary else {
-            return
-        }
-        
-        guard let poi = pois.object(forKey: "poi") as? NSDictionary else {
-            return
-        }
-        
-        
-        do {
-            
-            try poi.forEach({ (<#(key: Any, value: Any)#>) in
-                <#code#>
-            })
-        
-        
-    } catch {
-        
-        
-    print("error when encoding or decoding=\(error)")
-    }
-        
-        
-        var searchPlaceModel:SearchPlaceModel = SearchPlaceModel()
-        searchPlaceModel.setLat(
         
     }
     
