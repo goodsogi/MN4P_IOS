@@ -10,13 +10,33 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class SearchPlaceViewController: UIViewController, UITextFieldDelegate {
+class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
     
-    let TMAP_APP_KEY:String = "483c875f-2e12-4ecd-9bf5-f31508d5e5c9"; // 티맵 앱 key
+    let TMAP_APP_KEY:String = "c605ee67-a552-478c-af19-9675d1fc8ba3"; // 티맵 앱 key
+    
+    @IBOutlet weak var searchPlaceTable: UITableView!
+    var searchPlaceModels = [SearchPlaceModel]()
     
     @IBOutlet weak var searchKeywordInput: UITextField!
     @IBAction func onBackTapped(_ sender: Any) {
         self.dismiss(animated: true)
+    }
+    
+   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = searchPlaceTable.dequeueReusableCell(withIdentifier: "custom") as! SearchPlaceTableCell
+        cell.name = searchPlaceModels[indexPath.row].getName()
+    
+    //스크롤을 해야 데이터가 전부 표시되는 이슈 발생
+        cell.layoutSubviews()
+    
+    print("return cell position: " + String(indexPath.row)) 
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(searchPlaceModels.count)
+        return searchPlaceModels.count
     }
     
     
@@ -24,6 +44,12 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         searchKeywordInput.delegate = self
         searchKeywordInput.becomeFirstResponder()
+        
+       
+        searchPlaceTable.register(SearchPlaceTableCell.self, forCellReuseIdentifier: "custom")
+        searchPlaceTable.delegate = self
+        searchPlaceTable.dataSource = self
+       
     }
     
     
@@ -56,22 +82,56 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate {
             .validate(statusCode: 200..<300)
             .responseJSON {
                 response in
-               
-                // TODO: 수정하세요
-                let swiftyJsonVar = JSON(response.result.value!)
-                for subJson in swiftyJsonVar["searchPoiInfo"]["pois"]["poi"].arrayValue {
+                if let responseData = response.result.value {
+                    let swiftyJsonVar = JSON(responseData)
                     
-                    let name = subJson["name"].stringValue
-                    print(name)
+//                    var searchPlaceModels = [SearchPlaceModel]()
+                    
+                    var searchPlaceModel:SearchPlaceModel
+                    
+                    for subJson in swiftyJsonVar["searchPoiInfo"]["pois"]["poi"].arrayValue {
+                        searchPlaceModel = SearchPlaceModel()
+                        
+                        let name = subJson["name"].stringValue
+                        let telNo = subJson["telNo"].stringValue
+                        let upperAddrName = subJson["upperAddrName"].stringValue
+                        let middleAddrName = subJson["middleAddrName"].stringValue
+                        let roadName = subJson["roadName"].stringValue
+                        let firstBuildNo = subJson["firstBuildNo"].stringValue
+                        let secondBuildNo = subJson["secondBuildNo"].stringValue
+                        let bizName = subJson["lowerBizName"].stringValue
+                        let lat = subJson["noorLat"].doubleValue
+                        let lng = subJson["noorLon"].doubleValue
+                       
+                        var address = upperAddrName + " " + middleAddrName + " " + roadName + " " + firstBuildNo
+                        if secondBuildNo != "" {
+                            address = address + "-" + secondBuildNo
+                        }
+                        
+                        
+                        searchPlaceModel.setName(name: name)
+                        searchPlaceModel.setAddress(address: address)
+                        searchPlaceModel.setLat(lat: lat)
+                        searchPlaceModel.setLng(lng: lng)
+                        searchPlaceModel.setBizname(bizName: bizName)
+                        searchPlaceModel.setTelNo(telNo: telNo)
+                       
+                        self.searchPlaceModels.append(searchPlaceModel)
+                        
+                       
+                    }
+//                    self.searchPlaceTable.delegate = self
+                    self.searchPlaceTable.reloadData()
+                    
+                   print(self.searchPlaceModels[0].getName())
+                } else {
+                    //TODO: 오류가 발생한 경우 처리하세요
+                    
                 }
                 
         }
     }
     
-    func parseJson(_ jsonData:NSDictionary) {
-        
-        
-    }
     
     
 }

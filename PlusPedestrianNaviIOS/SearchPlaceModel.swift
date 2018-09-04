@@ -9,13 +9,13 @@
 import Foundation
 
 class SearchPlaceModel {
-    var lat: Double? = nil
-    var lng: Double? = nil
-    var name: String? = nil
-    var address: String? = nil
-    var telNo: String? = nil
-    var bizName: String? = nil
-    var distance: Int? = nil
+    private var lat: Double? = nil
+    private var lng: Double? = nil
+    private var name: String? = nil
+    private var address: String? = nil
+    private var telNo: String? = nil
+    private var bizName: String? = nil
+    private var distance: Int? = nil
     
     func setLat(lat:Double) {
         self.lat = lat
@@ -24,7 +24,7 @@ class SearchPlaceModel {
     func setLng(lng:Double) {
         self.lng = lng
     }
-   
+    
     func setName(name:String) {
         self.name = name
     }
@@ -40,6 +40,42 @@ class SearchPlaceModel {
     func setDistance(distance:Int) {
         self.distance = distance
     }
+    
+    func setTelNo(telNo:String) {
+        self.telNo = telNo
+    }
+    
+    
+    func getLat() -> Double? {
+        return self.lat
+    }
+    
+    func getLng() -> Double? {
+        return self.lng
+    }
+    
+    func getName() -> String? {
+        return self.name
+    }
+    
+    func getTelNo() -> String? {
+        return self.telNo
+    }
+    
+    func getBizName() -> String? {
+        return self.bizName
+    }
+    
+    
+    func getAddress() -> String? {
+        return self.address
+    }
+    
+    func getDistance() -> Int? {
+        return self.distance
+    }
+    
+    
     
 }
 

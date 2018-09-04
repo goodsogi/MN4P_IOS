@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		070BA288213E3E9300B00383 /* SearchPlaceTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070BA287213E3E9300B00383 /* SearchPlaceTableCell.swift */; };
 		076A8E652137A7A100858716 /* HexColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A8E642137A7A100858716 /* HexColorManager.swift */; };
 		078BEDC2212E5FFF00D497C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */; };
 		078BEDC4212E5FFF00D497C9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078BEDC3212E5FFF00D497C9 /* MainViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		070BA287213E3E9300B00383 /* SearchPlaceTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceTableCell.swift; sourceTree = "<group>"; };
 		076A8E642137A7A100858716 /* HexColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColorManager.swift; sourceTree = "<group>"; };
 		078BEDBE212E5FFF00D497C9 /* PlusPedestrianNaviIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlusPedestrianNaviIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				07F2223F21392ABF00EDFBB0 /* SearchPlaceViewController.swift */,
+				070BA287213E3E9300B00383 /* SearchPlaceTableCell.swift */,
 				078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */,
 				078BEDC3212E5FFF00D497C9 /* MainViewController.swift */,
 				078BEDC5212E5FFF00D497C9 /* Main.storyboard */,
@@ -214,6 +217,7 @@
 				07F2224021392ABF00EDFBB0 /* SearchPlaceViewController.swift in Sources */,
 				07AE17B0213D28180045A2A8 /* SearchPlaceModel.swift in Sources */,
 				076A8E652137A7A100858716 /* HexColorManager.swift in Sources */,
+				070BA288213E3E9300B00383 /* SearchPlaceTableCell.swift in Sources */,
 				07AE17AB213CF33E0045A2A8 /* Toast.swift in Sources */,
 				078BEDC4212E5FFF00D497C9 /* MainViewController.swift in Sources */,
 				078BEDC2212E5FFF00D497C9 /* AppDelegate.swift in Sources */,

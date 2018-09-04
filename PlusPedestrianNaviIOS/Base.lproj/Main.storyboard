@@ -63,7 +63,7 @@
                                             <constraint firstItem="MVg-0h-AaW" firstAttribute="trailing" secondItem="mN6-oQ-M2e" secondAttribute="leading" id="xu0-0S-ySz"/>
                                         </constraints>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1T7-Ip-Uks" userLabel="SearchPlace List">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1T7-Ip-Uks" userLabel="SearchPlace List">
                                         <rect key="frame" x="9" y="79" width="357" height="667"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
@@ -83,6 +83,7 @@
                         <constraints>
                             <constraint firstItem="8zY-vx-7e7" firstAttribute="top" secondItem="gZa-j6-0lZ" secondAttribute="top" id="39U-FM-RRg"/>
                             <constraint firstItem="8zY-vx-7e7" firstAttribute="leading" secondItem="kFr-wh-hC9" secondAttribute="leading" id="6ai-jb-Bno"/>
+                            <constraint firstItem="1T7-Ip-Uks" firstAttribute="bottom" secondItem="kFr-wh-hC9" secondAttribute="bottom" constant="79" id="GGp-k7-Mzg"/>
                             <constraint firstItem="8zY-vx-7e7" firstAttribute="height" secondItem="gZa-j6-0lZ" secondAttribute="height" id="xzs-qS-2UE"/>
                             <constraint firstItem="8zY-vx-7e7" firstAttribute="width" secondItem="gZa-j6-0lZ" secondAttribute="width" id="yP0-qo-2xn"/>
                         </constraints>
@@ -90,6 +91,7 @@
                     </view>
                     <connections>
                         <outlet property="searchKeywordInput" destination="MVg-0h-AaW" id="lsH-cu-IHk"/>
+                        <outlet property="searchPlaceTable" destination="1T7-Ip-Uks" id="eca-6Z-JQ6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IH8-vo-8bx" userLabel="First Responder" sceneMemberID="firstResponder"/>
