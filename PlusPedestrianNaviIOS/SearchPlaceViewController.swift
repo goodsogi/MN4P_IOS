@@ -12,6 +12,8 @@ import SwiftyJSON
 
 class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
     
+    var delegate: MainViewControllerDelegate? 
+    
     let TMAP_APP_KEY:String = "c605ee67-a552-478c-af19-9675d1fc8ba3"; // 티맵 앱 key
     
     @IBOutlet weak var searchPlaceTable: UITableView!
@@ -24,7 +26,9 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
     
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = searchPlaceTable.dequeueReusableCell(withIdentifier: "custom") as! SearchPlaceTableCell
-        cell.name = searchPlaceModels[indexPath.row].getName()
+        cell.placeName = searchPlaceModels[indexPath.row].getName()
+    cell.address = searchPlaceModels[indexPath.row].getAddress()
+    cell.placeMarker = UIImage(named: "place_pin_gray.png")
     
     //스크롤을 해야 데이터가 전부 표시되는 이슈 발생
         cell.layoutSubviews()
@@ -40,6 +44,18 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
     }
     
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if let delegate = self.delegate {
+            delegate.onPlaceSelected(placeModel: searchPlaceModels[indexPath.row])
+        }
+        self.dismiss(animated: true)
+       
+    }
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchKeywordInput.delegate = self
@@ -49,6 +65,9 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
         searchPlaceTable.register(SearchPlaceTableCell.self, forCellReuseIdentifier: "custom")
         searchPlaceTable.delegate = self
         searchPlaceTable.dataSource = self
+        searchPlaceTable.rowHeight = 60
+        //estimatedRowHeight는 영향을 안 미침 
+//        searchPlaceTable.estimatedRowHeight = 60
        
     }
     
@@ -84,9 +103,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
                 response in
                 if let responseData = response.result.value {
                     let swiftyJsonVar = JSON(responseData)
-                    
-//                    var searchPlaceModels = [SearchPlaceModel]()
-                    
+                   
                     var searchPlaceModel:SearchPlaceModel
                     
                     for subJson in swiftyJsonVar["searchPoiInfo"]["pois"]["poi"].arrayValue {
@@ -120,10 +137,10 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
                         
                        
                     }
-//                    self.searchPlaceTable.delegate = self
+
                     self.searchPlaceTable.reloadData()
                     
-                   print(self.searchPlaceModels[0].getName())
+                    print(self.searchPlaceModels[0].getName() as Any)
                 } else {
                     //TODO: 오류가 발생한 경우 처리하세요
                     

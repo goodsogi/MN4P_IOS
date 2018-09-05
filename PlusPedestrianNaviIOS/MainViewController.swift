@@ -10,8 +10,15 @@ import UIKit
 import GoogleMaps
 import CoreLocation
 
-class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManagerDelegate{
-        
+
+protocol MainViewControllerDelegate {
+    func onPlaceSelected(placeModel: SearchPlaceModel)
+}
+
+
+class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManagerDelegate, MainViewControllerDelegate{
+   
+    
     @IBOutlet weak var writeAppReviewMenu: UIView!
     @IBOutlet weak var settingsMenu: UIView!
     @IBOutlet weak var favoritesMenu: UIView!
@@ -40,6 +47,35 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
         
     }
+    
+    func onPlaceSelected(placeModel: SearchPlaceModel) {
+        
+        
+        //Toast는 안뜨는 듯
+//        Toast.show(message: placeModel.getName() ?? "", controller: self)
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            
+            self.showSelectedPlace(placeModel: placeModel)
+        })
+    }
+    
+    func showSelectedPlace(placeModel: SearchPlaceModel) {
+    
+        mapView.clear()
+        
+        let camera = GMSCameraPosition.camera(withLatitude: placeModel.getLat() ?? 0, longitude: placeModel.getLng() ?? 0, zoom: 14)
+        mapView.camera = camera
+        
+        
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: placeModel.getLat() ?? 0, longitude: placeModel.getLng() ?? 0)
+        marker.title = "selected place marker"
+        marker.map = self.mapView
+        
+    }
+    
     
     func handleDrawer() {
         if !hamburgerMenuIsVisible {
@@ -148,7 +184,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     }
     
     func showScreen(viewControllerStoryboardId:String) {
-        let viewController = self.storyboard?.instantiateViewController(withIdentifier: viewControllerStoryboardId)
+        let viewController  = self.storyboard?.instantiateViewController(withIdentifier: viewControllerStoryboardId)
+        (viewController as! SearchPlaceViewController).delegate  = self
         self.present(viewController!, animated: true, completion: nil)
     }
     

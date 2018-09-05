@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		070BA288213E3E9300B00383 /* SearchPlaceTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070BA287213E3E9300B00383 /* SearchPlaceTableCell.swift */; };
+		0718413A213F82BC00CC0D7A /* NotoSansKR-Medium-Hestia.otf in Resources */ = {isa = PBXBuildFile; fileRef = 07184138213F82BC00CC0D7A /* NotoSansKR-Medium-Hestia.otf */; };
+		0718413B213F82BC00CC0D7A /* NotoSansKR-Regular-Hestia.otf in Resources */ = {isa = PBXBuildFile; fileRef = 07184139213F82BC00CC0D7A /* NotoSansKR-Regular-Hestia.otf */; };
 		076A8E652137A7A100858716 /* HexColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A8E642137A7A100858716 /* HexColorManager.swift */; };
 		078BEDC2212E5FFF00D497C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */; };
 		078BEDC4212E5FFF00D497C9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078BEDC3212E5FFF00D497C9 /* MainViewController.swift */; };
@@ -22,6 +24,8 @@
 
 /* Begin PBXFileReference section */
 		070BA287213E3E9300B00383 /* SearchPlaceTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceTableCell.swift; sourceTree = "<group>"; };
+		07184138213F82BC00CC0D7A /* NotoSansKR-Medium-Hestia.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium-Hestia.otf"; sourceTree = "<group>"; };
+		07184139213F82BC00CC0D7A /* NotoSansKR-Regular-Hestia.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular-Hestia.otf"; sourceTree = "<group>"; };
 		076A8E642137A7A100858716 /* HexColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColorManager.swift; sourceTree = "<group>"; };
 		078BEDBE212E5FFF00D497C9 /* PlusPedestrianNaviIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlusPedestrianNaviIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,6 +63,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		07184137213F821300CC0D7A /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				07184138213F82BC00CC0D7A /* NotoSansKR-Medium-Hestia.otf */,
+				07184139213F82BC00CC0D7A /* NotoSansKR-Regular-Hestia.otf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
 		078BEDB5212E5FFF00D497C9 = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +93,7 @@
 		078BEDC0212E5FFF00D497C9 /* PlusPedestrianNaviIOS */ = {
 			isa = PBXGroup;
 			children = (
+				07184137213F821300CC0D7A /* fonts */,
 				07F2223F21392ABF00EDFBB0 /* SearchPlaceViewController.swift */,
 				070BA287213E3E9300B00383 /* SearchPlaceTableCell.swift */,
 				078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */,
@@ -164,6 +178,8 @@
 			files = (
 				078BEDCC212E600100D497C9 /* LaunchScreen.storyboard in Resources */,
 				078BEDC9212E600100D497C9 /* Assets.xcassets in Resources */,
+				0718413B213F82BC00CC0D7A /* NotoSansKR-Regular-Hestia.otf in Resources */,
+				0718413A213F82BC00CC0D7A /* NotoSansKR-Medium-Hestia.otf in Resources */,
 				078BEDC7212E5FFF00D497C9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
