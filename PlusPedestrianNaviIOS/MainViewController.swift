@@ -40,6 +40,20 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     @IBOutlet weak var topSearchBar: UIView!
     @IBOutlet weak var topSearchBarLabel: UILabel!
     
+    
+    @IBOutlet weak var placeNameView: UILabel!
+    @IBOutlet weak var bizNameView: UILabel!
+    @IBOutlet weak var addressView: UILabel!
+    @IBOutlet weak var telNoView: UILabel!
+    
+    @IBOutlet weak var placeInfoBoard: UIView!    
+    @IBOutlet weak var findRouteButton: UIView!
+    
+    var selectedPlaceTelNo:String!
+    
+    var currentLocationMarker:GMSMarker!
+    
+    
     @IBAction func hamburgerButtonTapped(_ sender: Any) {
         //if the hamburger menu is NOT visible, then move the ubeView back to where it used to be
         
@@ -55,13 +69,81 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
 //        Toast.show(message: placeModel.getName() ?? "", controller: self)
         
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             
-            self.showSelectedPlace(placeModel: placeModel)
+            self.showSelectedPlaceOnMap(placeModel: placeModel)
+            self.showSelectedPlaceOnBoard(placeModel: placeModel)
+            self.drawFindRouteButtonBackground()
+            self.addTapGestureToFindRouteButton()
+            self.addTapGestureToTelNoView(telNo: placeModel.getTelNo() ?? "")
         })
     }
     
-    func showSelectedPlace(placeModel: SearchPlaceModel) {
+    func addTapGestureToTelNoView(telNo:String) {
+        
+        guard !telNo.isEmpty else {
+            print("No tel no")
+            return
+        }
+        
+        selectedPlaceTelNo = telNo
+        
+        //#selector는 parameter를 못넘기는 듯
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.telNoViewTapped(_: )))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        telNoView.addGestureRecognizer(tapGesture)
+        telNoView.isUserInteractionEnabled = true
+        
+    }
+    
+    
+    @objc func telNoViewTapped(_ sender: UITapGestureRecognizer) {
+        
+        guard let telUrl = URL(string: "tel://" + selectedPlaceTelNo) else { return }
+        UIApplication.shared.open(telUrl)
+        
+    }
+    
+    func drawFindRouteButtonBackground() {
+        
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 100, height: 40))
+        let img = renderer.image {
+            
+            ctx in
+            let clipPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 100, height: 40), cornerRadius: 6.0).cgPath
+
+            ctx.cgContext.addPath(clipPath)
+            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#0078FF", alpha: 1).cgColor)
+
+            ctx.cgContext.closePath()
+            ctx.cgContext.fillPath()
+
+            
+        }
+        
+        
+        findRouteButton.backgroundColor = UIColor(patternImage: img)
+    }
+    
+    func addTapGestureToFindRouteButton() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.findRouteButtonTapped(_:)))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        findRouteButton.addGestureRecognizer(tapGesture)
+        findRouteButton.isUserInteractionEnabled = true
+        
+        
+    }
+    
+    @objc func findRouteButtonTapped(_ sender: UITapGestureRecognizer) {
+        
+        showScreen(viewControllerStoryboardId: "FindRoute")
+        
+    }
+    
+    
+    func showSelectedPlaceOnMap(placeModel: SearchPlaceModel) {
     
         mapView.clear()
         
@@ -73,6 +155,19 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         marker.position = CLLocationCoordinate2D(latitude: placeModel.getLat() ?? 0, longitude: placeModel.getLng() ?? 0)
         marker.title = "selected place marker"
         marker.map = self.mapView
+        
+        
+    }
+    
+    func showSelectedPlaceOnBoard(placeModel: SearchPlaceModel) {
+        
+        placeInfoBoard.isHidden = false
+     
+        placeNameView.text = placeModel.getName()
+        addressView.text = placeModel.getAddress()
+        bizNameView.text = placeModel.getBizName()
+        telNoView.text = placeModel.getTelNo()
+        
         
     }
     
@@ -185,7 +280,12 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     
     func showScreen(viewControllerStoryboardId:String) {
         let viewController  = self.storyboard?.instantiateViewController(withIdentifier: viewControllerStoryboardId)
-        (viewController as! SearchPlaceViewController).delegate  = self
+        
+        if(viewControllerStoryboardId == "SearchPlace") {
+            
+            (viewController as! SearchPlaceViewController).delegate  = self
+        }
+        
         self.present(viewController!, animated: true, completion: nil)
     }
     
@@ -274,12 +374,20 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         }
     }
     
+    func showCurrentLocationOnMap(userLocation: CLLocation) {
+        
+        currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude , longitude: userLocation.coordinate.longitude )
+        
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         // TODO: Info.plist 수정하세요 
         
         
         let userLocation:CLLocation = locations[0] as CLLocation
+        
+        showCurrentLocationOnMap(userLocation: userLocation)
         
         // Call stopUpdatingLocation() to stop listening for location updates,
         // other wise this function will be called every time when user location changes.
@@ -296,14 +404,24 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     }
     
     func initMapView() {
-        let camera = GMSCameraPosition.camera(withLatitude: 37.583442, longitude: 127.096359, zoom: 14)
+        let camera = GMSCameraPosition.camera(withLatitude: 37.534459, longitude: 126.983314, zoom: 14)
         mapView.camera = camera
         
         
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: 37.583442, longitude: 127.096359)
-        marker.title = "My marker"
-        marker.map = self.mapView
+        currentLocationMarker = GMSMarker()
+        
+        currentLocationMarker.position = CLLocationCoordinate2D(latitude: 37.534459, longitude: 126.983314)
+        currentLocationMarker.title = "current location marker"
+        currentLocationMarker.icon = self.getScaledImage(image: UIImage(named: "current_location_marker.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
+        currentLocationMarker.map = self.mapView
+    }
+    
+    func getScaledImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+        image.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {

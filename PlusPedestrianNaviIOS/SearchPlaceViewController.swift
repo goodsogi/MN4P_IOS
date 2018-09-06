@@ -20,6 +20,10 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
     var searchPlaceModels = [SearchPlaceModel]()
     
     @IBOutlet weak var searchKeywordInput: UITextField!
+    
+    
+    
+    
     @IBAction func onBackTapped(_ sender: Any) {
         self.dismiss(animated: true)
     }
