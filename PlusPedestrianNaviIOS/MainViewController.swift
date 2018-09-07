@@ -49,9 +49,11 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     @IBOutlet weak var placeInfoBoard: UIView!    
     @IBOutlet weak var findRouteButton: UIView!
     
-    var selectedPlaceTelNo:String!
+    var selectedPlaceModel:SearchPlaceModel!
     
     var currentLocationMarker:GMSMarker!
+    
+    var isFirstLocation:Bool = true
     
     
     @IBAction func hamburgerButtonTapped(_ sender: Any) {
@@ -71,8 +73,11 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             
-            self.showSelectedPlaceOnMap(placeModel: placeModel)
-            self.showSelectedPlaceOnBoard(placeModel: placeModel)
+            
+            self.selectedPlaceModel = placeModel
+            
+            self.showSelectedPlaceOnMap()
+            self.showSelectedPlaceOnBoard()
             self.drawFindRouteButtonBackground()
             self.addTapGestureToFindRouteButton()
             self.addTapGestureToTelNoView(telNo: placeModel.getTelNo() ?? "")
@@ -81,12 +86,10 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     
     func addTapGestureToTelNoView(telNo:String) {
         
-        guard !telNo.isEmpty else {
+        guard !(selectedPlaceModel?.getTelNo()?.isEmpty)! else {
             print("No tel no")
             return
         }
-        
-        selectedPlaceTelNo = telNo
         
         //#selector는 parameter를 못넘기는 듯
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.telNoViewTapped(_: )))
@@ -100,7 +103,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     
     @objc func telNoViewTapped(_ sender: UITapGestureRecognizer) {
         
-        guard let telUrl = URL(string: "tel://" + selectedPlaceTelNo) else { return }
+        guard let telUrl = URL(string: "tel://" + selectedPlaceModel.getTelNo()!) else { return }
         UIApplication.shared.open(telUrl)
         
     }
@@ -137,36 +140,35 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     }
     
     @objc func findRouteButtonTapped(_ sender: UITapGestureRecognizer) {
-        
+                
         showScreen(viewControllerStoryboardId: "FindRoute")
-        
     }
     
     
-    func showSelectedPlaceOnMap(placeModel: SearchPlaceModel) {
+    func showSelectedPlaceOnMap() {
     
         mapView.clear()
         
-        let camera = GMSCameraPosition.camera(withLatitude: placeModel.getLat() ?? 0, longitude: placeModel.getLng() ?? 0, zoom: 14)
+        let camera = GMSCameraPosition.camera(withLatitude: selectedPlaceModel.getLat() ?? 0, longitude: selectedPlaceModel.getLng() ?? 0, zoom: 14)
         mapView.camera = camera
         
         
         let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: placeModel.getLat() ?? 0, longitude: placeModel.getLng() ?? 0)
+        marker.position = CLLocationCoordinate2D(latitude: selectedPlaceModel.getLat() ?? 0, longitude: selectedPlaceModel.getLng() ?? 0)
         marker.title = "selected place marker"
         marker.map = self.mapView
         
         
     }
     
-    func showSelectedPlaceOnBoard(placeModel: SearchPlaceModel) {
+    func showSelectedPlaceOnBoard() {
         
         placeInfoBoard.isHidden = false
      
-        placeNameView.text = placeModel.getName()
-        addressView.text = placeModel.getAddress()
-        bizNameView.text = placeModel.getBizName()
-        telNoView.text = placeModel.getTelNo()
+        placeNameView.text = selectedPlaceModel.getName()
+        addressView.text = selectedPlaceModel.getAddress()
+        bizNameView.text = selectedPlaceModel.getBizName()
+        telNoView.text = selectedPlaceModel.getTelNo()
         
         
     }
@@ -276,6 +278,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
         showScreen(viewControllerStoryboardId: "FindRoute")
         
+        
+        
     }
     
     func showScreen(viewControllerStoryboardId:String) {
@@ -284,6 +288,11 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         if(viewControllerStoryboardId == "SearchPlace") {
             
             (viewController as! SearchPlaceViewController).delegate  = self
+        }
+        
+        if(viewControllerStoryboardId == "FindRoute") {
+            
+            (viewController as! FindRouteViewController).selectedPlaceModel  = selectedPlaceModel
         }
         
         self.present(viewController!, animated: true, completion: nil)
@@ -374,7 +383,19 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         }
     }
     
+    func showFirstCurrentLocationOnMap(userLocation: CLLocation) {
+        
+        let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 14)
+        mapView.camera = camera
+        
+        currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude , longitude: userLocation.coordinate.longitude )
+        
+    }
+    
     func showCurrentLocationOnMap(userLocation: CLLocation) {
+        
+        let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 14)
+        mapView.camera = camera
         
         currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude , longitude: userLocation.coordinate.longitude )
         
@@ -387,15 +408,20 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
         let userLocation:CLLocation = locations[0] as CLLocation
         
-        showCurrentLocationOnMap(userLocation: userLocation)
+        if(isFirstLocation) {
+            isFirstLocation = false
+            showFirstCurrentLocationOnMap(userLocation: userLocation)
+        } else {
+//        showCurrentLocationOnMap(userLocation: userLocation)
+        }
         
         // Call stopUpdatingLocation() to stop listening for location updates,
         // other wise this function will be called every time when user location changes.
         
         // manager.stopUpdatingLocation()
         
-        print("user latitude = \(userLocation.coordinate.latitude)")
-        print("user longitude = \(userLocation.coordinate.longitude)")
+        print("main user latitude = \(userLocation.coordinate.latitude)")
+        print("main user longitude = \(userLocation.coordinate.longitude)")
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
