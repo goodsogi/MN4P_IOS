@@ -63,22 +63,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
         
         
         
-        print("startX: " + String(userLocation.coordinate.longitude) + " startY: " +  String(userLocation.coordinate.latitude) + " endX: " +  String(selectedPlaceModel?.getLng()! ?? 0) + " endY: " + String(selectedPlaceModel?.getLat()! ?? 0)
-            + " startName: " + startPointView.text! + " endName: " + endPointView.text!
-        )
-              
-              
-              
-              //        let param = ["version": "1", "appKey": TMAP_APP_KEY, "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO", "startX": userLocation.coordinate.longitude , "startY": userLocation.coordinate.latitude , "endX": selectedPlaceModel?.getLng()! , "endY": selectedPlaceModel?.getLat()! , "passList": ""
-//            , "angle": "0" , "searchOption": "0" , "startName": startPointView.text!, "endName": endPointView.text!] as [String : Any]
-//
-//
-        
-        
-        
-        
-     
-            //headers: ["Content-Type":"application/json", "Accept":"application/json"] 값을 지정하면 오류 발생
+        //headers: ["Content-Type":"application/json", "Accept":"application/json"] 값을 지정하면 오류 발생
         Alamofire.request(url,
                           method: .post,
                           parameters: param,
@@ -88,45 +73,18 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
             .responseJSON {
                 response in
                 if let responseData = response.result.value {
-//                    let swiftyJsonVar = JSON(responseData)
-//
-//                    var searchPlaceModel:SearchPlaceModel
-//
-//                    for subJson in swiftyJsonVar["searchPoiInfo"]["pois"]["poi"].arrayValue {
-//                        searchPlaceModel = SearchPlaceModel()
-//
-//                        let name = subJson["name"].stringValue
-//                        let telNo = subJson["telNo"].stringValue
-//                        let upperAddrName = subJson["upperAddrName"].stringValue
-//                        let middleAddrName = subJson["middleAddrName"].stringValue
-//                        let roadName = subJson["roadName"].stringValue
-//                        let firstBuildNo = subJson["firstBuildNo"].stringValue
-//                        let secondBuildNo = subJson["secondBuildNo"].stringValue
-//                        let bizName = subJson["lowerBizName"].stringValue
-//                        let lat = subJson["noorLat"].doubleValue
-//                        let lng = subJson["noorLon"].doubleValue
-//
-//                        var address = upperAddrName + " " + middleAddrName + " " + roadName + " " + firstBuildNo
-//                        if secondBuildNo != "" {
-//                            address = address + "-" + secondBuildNo
-//                        }
-//
-//
-//                        searchPlaceModel.setName(name: name)
-//                        searchPlaceModel.setAddress(address: address)
-//                        searchPlaceModel.setLat(lat: lat)
-//                        searchPlaceModel.setLng(lng: lng)
-//                        searchPlaceModel.setBizname(bizName: bizName)
-//                        searchPlaceModel.setTelNo(telNo: telNo)
-//
-//                        self.searchPlaceModels.append(searchPlaceModel)
-//
-//
-//                    }
-//
-//                    self.searchPlaceTable.reloadData()
+                    let swiftyJsonVar = JSON(responseData)
                     
-                    print(responseData as Any)
+                    let directionModel:DirectionModel = DirectionModel()
+                    
+                    let routePointModels:[RoutePointModel] = self.convertToRoutePointModels(json: swiftyJsonVar)
+                    directionModel.setRoutePointModels(routePointModels: routePointModels)
+                    directionModel.setGeofenceModels(geofenceModels: self.convertToGeofenceModel(routePointModels: routePointModels))
+                    directionModel.setTotalTime(totalTime: swiftyJsonVar["features"][0]["properties"]["totalTime"].intValue)
+                    directionModel.setTotalDistance(totalDistance: swiftyJsonVar["features"][0]["properties"]["totalDistance"].intValue)
+                    
+                    
+                    print(directionModel as Any)
                 } else {
                     //TODO: 오류가 발생한 경우 처리하세요
                     
@@ -134,8 +92,79 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
                 
         }
     }
+    
+    
+    func convertToGeofenceModel(routePointModels:[RoutePointModel]) -> [RoutePointModel]{
+        var geofenceModels:[RoutePointModel] = [RoutePointModel]()
         
+        for routePointModel in routePointModels {
+            if (routePointModel.getType() == PPNConstants.TYPE_POINT) {
+                geofenceModels.append(routePointModel)
+            }
+        }
         
+        return geofenceModels
+        
+    }
+    
+    func convertToRoutePointModels(json:JSON) -> [RoutePointModel]{
+        var routePointModels:[RoutePointModel] = [RoutePointModel]()
+        var routePointModel:RoutePointModel
+        
+        var isFirstIndexPassed:Bool = false
+        
+        for subJson in json["features"].arrayValue {
+            
+            if(isFirstIndexPassed && subJson["properties"]["index"].intValue == 0) {
+                break
+            }
+            
+            if(subJson["properties"]["index"].intValue == 0) {
+                isFirstIndexPassed = true;
+            }
+            
+            if (subJson["geometry"]["type"].stringValue == "Point") {
+                routePointModel = RoutePointModel()
+                
+                routePointModel.setLat(lat: subJson["geometry"]["coordinates"][1].doubleValue);
+                routePointModel.setLng(lng: subJson["geometry"]["coordinates"][0].doubleValue);
+                routePointModel.setRoadNo(roadNo: 0); //0:자전거 도로 없음
+                routePointModel.setDescription(description: self.convertToKindDescription(description: subJson["properties"]["description"].stringValue));
+                routePointModel.setType(type: PPNConstants.TYPE_POINT);
+                routePointModels.append(routePointModel);
+                
+            } else {
+                
+                for coordinates in subJson["geometry"]["coordinates"].arrayValue {
+                    routePointModel = RoutePointModel()
+                    
+                    routePointModel.setLat(lat: coordinates[1].doubleValue);
+                    routePointModel.setLng(lng: coordinates[0].doubleValue);
+                    routePointModel.setRoadNo(roadNo: subJson["properties"]["roadType"].intValue); //0:자전거 도로 없음
+                    routePointModel.setDescription(description: self.convertToKindDescription(description: subJson["properties"]["description"].stringValue));
+                    routePointModel.setType(type: PPNConstants.TYPE_LINE);
+                    routePointModels.append(routePointModel);
+                    
+                }
+                
+            }
+            
+            
+            
+            
+        }
+        return routePointModels
+    }
+    
+    func convertToKindDescription(description:String) -> String{
+        if (description.contains("도착")) {
+            return "잠시후 목적지에 도착합니다";
+        } else {
+            return description + "하세요";
+        }
+        
+        return description;
+    }
     
     
     @IBAction func onBackTapped(_ sender: Any) {
@@ -150,9 +179,9 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
         let img = renderer.image {
             
             ctx in
-           
+            
             let circlePath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 3, height: 3)).cgPath
-                        
+            
             ctx.cgContext.addPath(circlePath)
             ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#000000", alpha: 1).cgColor)
             
@@ -223,7 +252,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
     
     func initMapView() {
         let camera = GMSCameraPosition.camera(withLatitude: 37.534459, longitude: 126.983314, zoom: 14)
-        mapView.camera = camera     
+        mapView.camera = camera
     }
     
     func getScaledImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{

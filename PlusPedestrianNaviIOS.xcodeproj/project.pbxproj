@@ -11,6 +11,9 @@
 		0718413A213F82BC00CC0D7A /* NotoSansKR-Medium-Hestia.otf in Resources */ = {isa = PBXBuildFile; fileRef = 07184138213F82BC00CC0D7A /* NotoSansKR-Medium-Hestia.otf */; };
 		0718413B213F82BC00CC0D7A /* NotoSansKR-Regular-Hestia.otf in Resources */ = {isa = PBXBuildFile; fileRef = 07184139213F82BC00CC0D7A /* NotoSansKR-Regular-Hestia.otf */; };
 		0745C312214226A10090D395 /* FindRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0745C311214226A10090D395 /* FindRouteViewController.swift */; };
+		0749B9A02146381F0082E1E6 /* DirectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749B99F2146381F0082E1E6 /* DirectionModel.swift */; };
+		0749B9A221463A800082E1E6 /* RoutePointModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749B9A121463A800082E1E6 /* RoutePointModel.swift */; };
+		0749B9A4214646E20082E1E6 /* PPNConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749B9A3214646E20082E1E6 /* PPNConstants.swift */; };
 		076A8E652137A7A100858716 /* HexColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A8E642137A7A100858716 /* HexColorManager.swift */; };
 		078BEDC2212E5FFF00D497C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */; };
 		078BEDC4212E5FFF00D497C9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078BEDC3212E5FFF00D497C9 /* MainViewController.swift */; };
@@ -29,6 +32,9 @@
 		07184139213F82BC00CC0D7A /* NotoSansKR-Regular-Hestia.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular-Hestia.otf"; sourceTree = "<group>"; };
 		0745C311214226A10090D395 /* FindRouteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindRouteViewController.swift; sourceTree = "<group>"; };
 		0745C31421423AC70090D395 /* MyHomeLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MyHomeLocation.gpx; sourceTree = "<group>"; };
+		0749B99F2146381F0082E1E6 /* DirectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionModel.swift; sourceTree = "<group>"; };
+		0749B9A121463A800082E1E6 /* RoutePointModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePointModel.swift; sourceTree = "<group>"; };
+		0749B9A3214646E20082E1E6 /* PPNConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPNConstants.swift; sourceTree = "<group>"; };
 		076A8E642137A7A100858716 /* HexColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColorManager.swift; sourceTree = "<group>"; };
 		078BEDBE212E5FFF00D497C9 /* PlusPedestrianNaviIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlusPedestrianNaviIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +116,9 @@
 				07AE17AA213CF33E0045A2A8 /* Toast.swift */,
 				07AE17AF213D28180045A2A8 /* SearchPlaceModel.swift */,
 				0745C311214226A10090D395 /* FindRouteViewController.swift */,
+				0749B99F2146381F0082E1E6 /* DirectionModel.swift */,
+				0749B9A121463A800082E1E6 /* RoutePointModel.swift */,
+				0749B9A3214646E20082E1E6 /* PPNConstants.swift */,
 			);
 			path = PlusPedestrianNaviIOS;
 			sourceTree = "<group>";
@@ -236,8 +245,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				07F2224021392ABF00EDFBB0 /* SearchPlaceViewController.swift in Sources */,
+				0749B9A02146381F0082E1E6 /* DirectionModel.swift in Sources */,
 				07AE17B0213D28180045A2A8 /* SearchPlaceModel.swift in Sources */,
 				076A8E652137A7A100858716 /* HexColorManager.swift in Sources */,
+				0749B9A221463A800082E1E6 /* RoutePointModel.swift in Sources */,
+				0749B9A4214646E20082E1E6 /* PPNConstants.swift in Sources */,
 				070BA288213E3E9300B00383 /* SearchPlaceTableCell.swift in Sources */,
 				07AE17AB213CF33E0045A2A8 /* Toast.swift in Sources */,
 				078BEDC4212E5FFF00D497C9 /* MainViewController.swift in Sources */,
