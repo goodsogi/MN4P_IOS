@@ -32,6 +32,11 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
     
     var locationManager:CLLocationManager!
     
+    var selectedRouteOption:Int?
+    
+    var firstDirectionModel:DirectionModel!
+    var secondDirectionModel:DirectionModel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         drawMarkerLine()
@@ -49,6 +54,23 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
         endPointView.text = selectedPlaceModel?.getName()
     }
     
+    func getSearchOption() -> String {
+        switch selectedRouteOption {
+        case PPNConstants.FIRST_ROUTE_OPTION:
+            //TODO 수정하세요
+            return "0"
+            
+        case PPNConstants.SECOND_ROUTE_OPTION:
+            //TODO 수정하세요
+           return "4"
+            
+        default:
+            print("getSearchOption default")
+        }
+        
+         return "0"
+    }
+    
     
     func getRoute() {
         
@@ -59,7 +81,10 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
         //검색 옵션 0: 추천 (기본값), 4: 추천+번화가우선, 10: 최단, 30: 최단거리+계단제외
         
         
-        let param = [  "startX": String(userLocation.coordinate.longitude) , "startY": String(userLocation.coordinate.latitude) , "endX": String(selectedPlaceModel?.getLng()! ?? 0) , "endY": String(selectedPlaceModel?.getLat()! ?? 0) , "angle": "0" , "searchOption": "0" , "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO","startName": startPointView.text!, "endName": endPointView.text!]
+        let searchOption:String = getSearchOption()
+        
+        
+        let param = [  "startX": String(userLocation.coordinate.longitude) , "startY": String(userLocation.coordinate.latitude) , "endX": String(selectedPlaceModel?.getLng()! ?? 0) , "endY": String(selectedPlaceModel?.getLat()! ?? 0) , "angle": "0" , "searchOption": searchOption , "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO","startName": startPointView.text!, "endName": endPointView.text!]
         
         
         
@@ -73,20 +98,29 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
             .responseJSON {
                 response in
                 if let responseData = response.result.value {
-                    let swiftyJsonVar = JSON(responseData)
                     
-                    let directionModel:DirectionModel = DirectionModel()
-                    
-                    let routePointModels:[RoutePointModel] = self.convertToRoutePointModels(json: swiftyJsonVar)
-                    directionModel.setRoutePointModels(routePointModels: routePointModels)
-                    directionModel.setGeofenceModels(geofenceModels: self.convertToGeofenceModel(routePointModels: routePointModels))
-                    directionModel.setTotalTime(totalTime: swiftyJsonVar["features"][0]["properties"]["totalTime"].intValue)
-                    directionModel.setTotalDistance(totalDistance: swiftyJsonVar["features"][0]["properties"]["totalDistance"].intValue)
-                    
-                    self.drawRouteOnMap(directionModel: directionModel)
+                    //마지막으로 첫 번째 옵션의 경로 가져옴
+                    if (self.selectedRouteOption == PPNConstants.FIRST_ROUTE_OPTION) {
                     
                     
-                    print(directionModel as Any)
+                    self.firstDirectionModel = self.getDirectionModel(responseData: responseData);
+                        
+                    self.drawRouteOnMap()
+                        
+                    
+                        
+                    }
+                    
+                    //두 번째 옵션의 경로를 가져옴
+                    if (self.selectedRouteOption == PPNConstants.SECOND_ROUTE_OPTION) {
+                        
+                        
+                        self.secondDirectionModel = self.getDirectionModel(responseData: responseData);
+                        self.selectedRouteOption = PPNConstants.FIRST_ROUTE_OPTION
+                        self.getRoute();
+                    }
+                    
+                   
                 } else {
                     //TODO: 오류가 발생한 경우 처리하세요
                     
@@ -95,7 +129,21 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
         }
     }
     
-    func drawRouteOnMap(directionModel:DirectionModel) {
+    func getDirectionModel(responseData:Any) -> DirectionModel {
+        let swiftyJsonVar = JSON(responseData)
+        
+        let directionModel:DirectionModel = DirectionModel()
+        
+        let routePointModels:[RoutePointModel] = self.convertToRoutePointModels(json: swiftyJsonVar)
+        directionModel.setRoutePointModels(routePointModels: routePointModels)
+        directionModel.setGeofenceModels(geofenceModels: self.convertToGeofenceModel(routePointModels: routePointModels))
+        directionModel.setTotalTime(totalTime: swiftyJsonVar["features"][0]["properties"]["totalTime"].intValue)
+        directionModel.setTotalDistance(totalDistance: swiftyJsonVar["features"][0]["properties"]["totalDistance"].intValue)
+        
+        return directionModel
+    }
+    
+    func drawRouteOnMap() {
         
         //출발지와 도착지 마커 그림
         
@@ -103,34 +151,64 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
         
         let startMarker = GMSMarker()
         
-        startMarker.position = CLLocationCoordinate2D(latitude: directionModel.getRoutePointModels()![0].getLat()!, longitude: directionModel.getRoutePointModels()![0].getLng()!)
+        startMarker.position = CLLocationCoordinate2D(latitude: firstDirectionModel.getRoutePointModels()![0].getLat()!, longitude: firstDirectionModel.getRoutePointModels()![0].getLng()!)
         startMarker.title = "start marker"
         startMarker.icon = self.getScaledImage(image: UIImage(named: "start_pin.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
         startMarker.map = self.mapView
         
         let endMarker = GMSMarker()
         
-        endMarker.position = CLLocationCoordinate2D(latitude: directionModel.getRoutePointModels()![directionModel.getRoutePointModels()!.count - 1].getLat()!, longitude: directionModel.getRoutePointModels()![directionModel.getRoutePointModels()!.count - 1].getLng()!)
+        endMarker.position = CLLocationCoordinate2D(latitude: firstDirectionModel.getRoutePointModels()![firstDirectionModel.getRoutePointModels()!.count - 1].getLat()!, longitude: firstDirectionModel.getRoutePointModels()![firstDirectionModel.getRoutePointModels()!.count - 1].getLng()!)
         endMarker.title = "end marker"
         endMarker.icon = self.getScaledImage(image: UIImage(named: "destination_pin.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
         endMarker.map = self.mapView
         
+        //TODO: 수정하세요(색상, 선 굵기, 부드럽게 처리 등)
+        //두번째 옵션의 경로 polyline 그림
         
-        //polyline 그림
+        let path2 = GMSMutablePath()
+        
+        for routePointModel in firstDirectionModel.getRoutePointModels()! {
+            path2.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
+        }
+       
+        let polyline2 = GMSPolyline(path: path2)
+        polyline2.strokeWidth = 10.0
+        polyline2.strokeColor = .blue
+        polyline2.geodesic = true
+        polyline2.map = mapView
+        
+        
+        //첫번째 옵션의 경로 polyline 그림
         
         let path = GMSMutablePath()
         
-        for routePointModel in directionModel.getRoutePointModels()! {
+        for routePointModel in firstDirectionModel.getRoutePointModels()! {
             path.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
         }
-       
+        
         let polyline = GMSPolyline(path: path)
         polyline.strokeWidth = 10.0
-        polyline.strokeColor = .blue
+        polyline.strokeColor = .green
         polyline.geodesic = true
         polyline.map = mapView
         
         
+        delay(seconds: 1) { () -> () in
+            //fit map to markers
+            var bounds = GMSCoordinateBounds()
+            bounds = bounds.includingCoordinate(startMarker.position)
+            bounds = bounds.includingCoordinate(endMarker.position)
+            let update = GMSCameraUpdate.fit(bounds, withPadding: 100.0)
+            self.mapView.animate(with: update)
+        }
+    }
+    
+    func delay(seconds: Double, completion:@escaping ()->()) {
+        let when = DispatchTime.now() + seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            completion()
+        }
     }
     
     
@@ -273,6 +351,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
         
         if(isFirstLocation) {
             isFirstLocation = false;
+            selectedRouteOption = PPNConstants.SECOND_ROUTE_OPTION
             getRoute()
         }
         

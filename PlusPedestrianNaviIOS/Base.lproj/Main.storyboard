@@ -220,12 +220,21 @@
                                         <rect key="frame" x="0.0" y="118" width="375" height="549"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z2k-DI-9OB" userLabel="Route Info Board">
+                                        <rect key="frame" x="0.0" y="573" width="375" height="85"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="85" id="gKo-09-q23"/>
+                                        </constraints>
+                                    </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="rka-lr-QkE" firstAttribute="width" secondItem="JV0-9g-TEU" secondAttribute="width" id="6H7-zx-JeL"/>
+                                    <constraint firstItem="z2k-DI-9OB" firstAttribute="leading" secondItem="JV0-9g-TEU" secondAttribute="leading" id="9lN-YW-b1A"/>
                                     <constraint firstItem="3ok-Hh-ggQ" firstAttribute="leading" secondItem="JV0-9g-TEU" secondAttribute="leading" id="IdB-2o-DOa"/>
+                                    <constraint firstItem="z2k-DI-9OB" firstAttribute="width" secondItem="JV0-9g-TEU" secondAttribute="width" id="JtO-JE-6Km"/>
                                     <constraint firstItem="rka-lr-QkE" firstAttribute="top" secondItem="3ok-Hh-ggQ" secondAttribute="bottom" id="VEF-dL-LpG"/>
+                                    <constraint firstAttribute="bottom" secondItem="z2k-DI-9OB" secondAttribute="bottom" constant="9" id="WCh-Md-yP4"/>
                                     <constraint firstItem="3ok-Hh-ggQ" firstAttribute="width" secondItem="JV0-9g-TEU" secondAttribute="width" id="d9L-7u-cwT"/>
                                     <constraint firstItem="3ok-Hh-ggQ" firstAttribute="top" secondItem="JV0-9g-TEU" secondAttribute="top" id="mBd-TX-gjM"/>
                                     <constraint firstItem="rka-lr-QkE" firstAttribute="leading" secondItem="JV0-9g-TEU" secondAttribute="leading" id="nDx-Xp-Lnr"/>
@@ -234,6 +243,7 @@
                             </view>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="JV0-9g-TEU" firstAttribute="leading" secondItem="E4R-mJ-FbY" secondAttribute="leading" id="28K-ln-1iY"/>
                             <constraint firstItem="JV0-9g-TEU" firstAttribute="top" secondItem="mxI-xM-h4j" secondAttribute="top" id="N3E-KV-AFG"/>
                             <constraint firstItem="JV0-9g-TEU" firstAttribute="leading" secondItem="mxI-xM-h4j" secondAttribute="leading" id="Usb-cc-42b"/>
                             <constraint firstItem="JV0-9g-TEU" firstAttribute="height" secondItem="mxI-xM-h4j" secondAttribute="height" id="cHj-G9-YZc"/>
