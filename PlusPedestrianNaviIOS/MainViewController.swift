@@ -276,6 +276,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
         handleDrawer()
         
+        //왜 작동을 멈추지 않지??
+        locationManager.stopUpdatingLocation()
+        
         showScreen(viewControllerStoryboardId: "FindRoute")
         
         

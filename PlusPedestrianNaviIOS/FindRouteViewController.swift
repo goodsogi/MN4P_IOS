@@ -83,6 +83,8 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
                     directionModel.setTotalTime(totalTime: swiftyJsonVar["features"][0]["properties"]["totalTime"].intValue)
                     directionModel.setTotalDistance(totalDistance: swiftyJsonVar["features"][0]["properties"]["totalDistance"].intValue)
                     
+                    self.drawRouteOnMap(directionModel: directionModel)
+                    
                     
                     print(directionModel as Any)
                 } else {
@@ -91,6 +93,44 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
                 }
                 
         }
+    }
+    
+    func drawRouteOnMap(directionModel:DirectionModel) {
+        
+        //출발지와 도착지 마커 그림
+        
+        mapView.clear()
+        
+        let startMarker = GMSMarker()
+        
+        startMarker.position = CLLocationCoordinate2D(latitude: directionModel.getRoutePointModels()![0].getLat()!, longitude: directionModel.getRoutePointModels()![0].getLng()!)
+        startMarker.title = "start marker"
+        startMarker.icon = self.getScaledImage(image: UIImage(named: "start_pin.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
+        startMarker.map = self.mapView
+        
+        let endMarker = GMSMarker()
+        
+        endMarker.position = CLLocationCoordinate2D(latitude: directionModel.getRoutePointModels()![directionModel.getRoutePointModels()!.count - 1].getLat()!, longitude: directionModel.getRoutePointModels()![directionModel.getRoutePointModels()!.count - 1].getLng()!)
+        endMarker.title = "end marker"
+        endMarker.icon = self.getScaledImage(image: UIImage(named: "destination_pin.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
+        endMarker.map = self.mapView
+        
+        
+        //polyline 그림
+        
+        let path = GMSMutablePath()
+        
+        for routePointModel in directionModel.getRoutePointModels()! {
+            path.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
+        }
+       
+        let polyline = GMSPolyline(path: path)
+        polyline.strokeWidth = 10.0
+        polyline.strokeColor = .blue
+        polyline.geodesic = true
+        polyline.map = mapView
+        
+        
     }
     
     

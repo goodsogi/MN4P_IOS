@@ -144,6 +144,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
 
                     self.searchPlaceTable.reloadData()
                     
+                    //이상한 검색어로 호출하면 아래에서 오류 발생(index out of range)
                     print(self.searchPlaceModels[0].getName() as Any)
                 } else {
                     //TODO: 오류가 발생한 경우 처리하세요
