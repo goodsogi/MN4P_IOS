@@ -163,37 +163,53 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
         endMarker.icon = self.getScaledImage(image: UIImage(named: "destination_pin.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
         endMarker.map = self.mapView
         
-        //TODO: 수정하세요(색상, 선 굵기, 부드럽게 처리 등)
-        //두번째 옵션의 경로 polyline 그림
-        
-        let path2 = GMSMutablePath()
-        
-        for routePointModel in firstDirectionModel.getRoutePointModels()! {
-            path2.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
-        }
        
-        let polyline2 = GMSPolyline(path: path2)
-        polyline2.strokeWidth = 10.0
-        polyline2.strokeColor = .blue
-        polyline2.geodesic = true
-        polyline2.map = mapView
+        //두번째 옵션의 경로 polyline 그림
+        let secondPath = GMSMutablePath()
+        
+        for routePointModel in secondDirectionModel.getRoutePointModels()! {
+            secondPath.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
+        }
+        
+        let secondPolylineEdge = GMSPolyline(path: secondPath)
+        secondPolylineEdge.strokeWidth = 9.0
+        secondPolylineEdge.strokeColor = HexColorManager.colorWithHexString(hexString: "b38dafc0")
+        secondPolylineEdge.geodesic = true
+        secondPolylineEdge.map = mapView
+        
+       
+       
+        let secondPolyline = GMSPolyline(path: secondPath)
+        secondPolyline.strokeWidth = 6.0
+        secondPolyline.strokeColor = HexColorManager.colorWithHexString(hexString: "b3a3cade")
+        secondPolyline.geodesic = true
+        secondPolyline.map = mapView
+      
         
         
         //첫번째 옵션의 경로 polyline 그림
-        
-        let path = GMSMutablePath()
+        let firstPath = GMSMutablePath()
         
         for routePointModel in firstDirectionModel.getRoutePointModels()! {
-            path.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
+            firstPath.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
         }
         
-        let polyline = GMSPolyline(path: path)
-        polyline.strokeWidth = 10.0
-        polyline.strokeColor = .green
-        polyline.geodesic = true
-        polyline.map = mapView
+        let firstPolylineEdge = GMSPolyline(path: firstPath)
+        firstPolylineEdge.strokeWidth = 9.0
+        firstPolylineEdge.strokeColor = HexColorManager.colorWithHexString(hexString: "0078FF")
+        firstPolylineEdge.geodesic = true
+        firstPolylineEdge.map = mapView
+        
+     
+        
+        let firstPolyline = GMSPolyline(path: firstPath)
+        firstPolyline.strokeWidth = 6.0
+        firstPolyline.strokeColor = HexColorManager.colorWithHexString(hexString: "32AAFF")
+        firstPolyline.geodesic = true
+        firstPolyline.map = mapView
         
         
+        //경로가 모두 표시되게 zoom 조정
         delay(seconds: 1) { () -> () in
             //fit map to markers
             var bounds = GMSCoordinateBounds()
@@ -202,6 +218,12 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
             let update = GMSCameraUpdate.fit(bounds, withPadding: 100.0)
             self.mapView.animate(with: update)
         }
+        
+        
+        //경로 선택 보드 표시
+        
+        
+        
     }
     
     func delay(seconds: Double, completion:@escaping ()->()) {
