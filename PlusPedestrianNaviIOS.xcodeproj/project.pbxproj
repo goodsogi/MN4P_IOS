@@ -16,6 +16,8 @@
 		0749B9A4214646E20082E1E6 /* PPNConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749B9A3214646E20082E1E6 /* PPNConstants.swift */; };
 		076A8E652137A7A100858716 /* HexColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A8E642137A7A100858716 /* HexColorManager.swift */; };
 		076ACEE32147D4020042B254 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076ACEE22147D4020042B254 /* UserDefault.swift */; };
+		077853E22152408D0059B489 /* RouteSelectBoardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077853E12152408D0059B489 /* RouteSelectBoardManager.swift */; };
+		077853E42152483C0059B489 /* GoogleMapDrawingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077853E32152483C0059B489 /* GoogleMapDrawingManager.swift */; };
 		078BEDC2212E5FFF00D497C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */; };
 		078BEDC4212E5FFF00D497C9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078BEDC3212E5FFF00D497C9 /* MainViewController.swift */; };
 		078BEDC7212E5FFF00D497C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 078BEDC5212E5FFF00D497C9 /* Main.storyboard */; };
@@ -38,6 +40,8 @@
 		0749B9A3214646E20082E1E6 /* PPNConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPNConstants.swift; sourceTree = "<group>"; };
 		076A8E642137A7A100858716 /* HexColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColorManager.swift; sourceTree = "<group>"; };
 		076ACEE22147D4020042B254 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
+		077853E12152408D0059B489 /* RouteSelectBoardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSelectBoardManager.swift; sourceTree = "<group>"; };
+		077853E32152483C0059B489 /* GoogleMapDrawingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapDrawingManager.swift; sourceTree = "<group>"; };
 		078BEDBE212E5FFF00D497C9 /* PlusPedestrianNaviIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlusPedestrianNaviIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		078BEDC3212E5FFF00D497C9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +126,8 @@
 				0749B9A121463A800082E1E6 /* RoutePointModel.swift */,
 				0749B9A3214646E20082E1E6 /* PPNConstants.swift */,
 				076ACEE22147D4020042B254 /* UserDefault.swift */,
+				077853E12152408D0059B489 /* RouteSelectBoardManager.swift */,
+				077853E32152483C0059B489 /* GoogleMapDrawingManager.swift */,
 			);
 			path = PlusPedestrianNaviIOS;
 			sourceTree = "<group>";
@@ -257,6 +263,8 @@
 				07AE17AB213CF33E0045A2A8 /* Toast.swift in Sources */,
 				076ACEE32147D4020042B254 /* UserDefault.swift in Sources */,
 				078BEDC4212E5FFF00D497C9 /* MainViewController.swift in Sources */,
+				077853E42152483C0059B489 /* GoogleMapDrawingManager.swift in Sources */,
+				077853E22152408D0059B489 /* RouteSelectBoardManager.swift in Sources */,
 				078BEDC2212E5FFF00D497C9 /* AppDelegate.swift in Sources */,
 				0745C312214226A10090D395 /* FindRouteViewController.swift in Sources */,
 			);

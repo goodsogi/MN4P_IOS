@@ -9,6 +9,9 @@
 import Foundation
 
 class SearchPlaceModel {
+     
+    
+    
     private var lat: Double? = nil
     private var lng: Double? = nil
     private var name: String? = nil

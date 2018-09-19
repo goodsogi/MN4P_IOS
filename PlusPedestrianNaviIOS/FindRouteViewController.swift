@@ -12,7 +12,7 @@ import SwiftyJSON
 import GoogleMaps
 import CoreLocation
 
-class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocationManagerDelegate{
+class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollViewDelegate , CLLocationManagerDelegate{
     
     var selectedPlaceModel:SearchPlaceModel?
     
@@ -37,13 +37,359 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
     var firstDirectionModel:DirectionModel!
     var secondDirectionModel:DirectionModel!
     
+    
+    @IBOutlet weak var firstDotOnIndicator: UIImageView!
+    
+    @IBOutlet weak var secondDotOnIndicator: UIImageView!
+    
+    @IBOutlet weak var routeSelectBoard: UIScrollView!
+    
+    @IBOutlet weak var pagerIndicator: UIView!
+    
+    
+    @IBOutlet weak var startButtonOnMainRoute: UIView!
+    
+    @IBOutlet weak var startButtonOnSubRoute: UIView!
+    
+    var firstPolyline : GMSPolyline!
+    var firstPolylineEdge : GMSPolyline!
+    var secondPolyline : GMSPolyline!
+    var secondPolylineEdge : GMSPolyline!
+    
+    
+    
+    @IBOutlet weak var firstRouteType: UITextField!
+    
+    @IBOutlet weak var firstRouteTotalTime: UITextField!
+    
+    @IBOutlet weak var firstRouteTotalDistance: UITextField!
+    
+    
+    @IBOutlet weak var firstRouteDetail: UITextField!
+    
+    
+    @IBOutlet weak var firstRouteCalorie: UITextField!
+    
+    
+    @IBOutlet weak var secondRouteType: UITextField!
+    
+    
+    @IBOutlet weak var secondRouteTotalTime: UITextField!
+    
+    
+    @IBOutlet weak var secondRouteTotalDistance: UITextField!
+    
+    
+    @IBOutlet weak var secondRouteDetail: UITextField!
+    
+    @IBOutlet weak var secondRouteCalorie: UITextField!
+    
+    var routeSelectBoardManager:RouteSelectBoardManager!
+    
+    
+    
+    
+    var previousPage: Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        routeSelectBoard.delegate = self
+        
+        initRouteSelectBoardManager()
         drawMarkerLine()
         showStartPointName()
         showEndPointName()
         
+        
     }
+    
+    func initRouteSelectBoardManager() {
+        routeSelectBoardManager = RouteSelectBoardManager()
+      
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let pageWidth: CGFloat = scrollView.frame.size.width
+        let fractionalPage: CGFloat = scrollView.contentOffset.x / pageWidth
+        let page: Int = lround(Double(fractionalPage))
+        
+        print("pageWidth: " + pageWidth.description + " fractionalPage: " + fractionalPage.description + "  scrollView.contentOffset.x: " + scrollView.contentOffset.x.description + " page: " + page.description + " previousPage: " + previousPage.description)
+        
+        if (previousPage != page) {
+            // Page has changed, do your thing!
+            // ...
+            // Finally, update previous page
+            if(page == 0) {
+                showMainRoute()
+            } else if(page == 1) {
+                showSubRoute()
+            }
+            
+            
+            previousPage = page;
+            
+            
+            
+        }
+    }
+    
+    func showMainRoute() {
+        
+        //pager indicator 표시
+        
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 5, height: 5))
+        
+        let img = renderer.image {
+            
+            
+            
+            ctx in
+            
+            
+            
+            //CGRect(x: 0, y: 0로 지정해야 원이 그려짐
+            
+            let circlePath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 5, height: 5)).cgPath
+            
+            
+            
+            ctx.cgContext.addPath(circlePath)
+            
+            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#32AAFF", alpha: 1).cgColor)
+            
+            
+            
+            ctx.cgContext.closePath()
+            
+            ctx.cgContext.fillPath()
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        firstDotOnIndicator.backgroundColor = UIColor(patternImage: img)
+        
+        
+        let renderer2 = UIGraphicsImageRenderer(size: CGSize(width: 5, height: 5))
+        
+        let img2 = renderer2.image {
+            
+            
+            
+            ctx in
+            
+            
+            
+            //CGRect(x: 0, y: 0로 지정해야 원이 그려짐
+            
+            let circlePath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 5, height: 5)).cgPath
+            
+            
+            
+            ctx.cgContext.addPath(circlePath)
+            
+            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#d9d9d9", alpha: 1).cgColor)
+            
+            
+            
+            ctx.cgContext.closePath()
+            
+            ctx.cgContext.fillPath()
+            
+        }
+        
+        secondDotOnIndicator.backgroundColor = UIColor(patternImage: img2)
+        
+        
+        
+        //경로 그림
+        
+        firstPolylineEdge.map = nil
+        firstPolyline.map = nil
+        secondPolylineEdge.map = nil
+        secondPolyline.map = nil
+        
+        //두번째 옵션의 경로 polyline 그림
+        let secondPath = GMSMutablePath()
+        
+        for routePointModel in secondDirectionModel.getRoutePointModels()! {
+            secondPath.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
+        }
+        
+        secondPolylineEdge = GMSPolyline(path: secondPath)
+        secondPolylineEdge.strokeWidth = 9.0
+        secondPolylineEdge.strokeColor = HexColorManager.colorWithHexString(hexString: "b38dafc0")
+        secondPolylineEdge.geodesic = true
+        secondPolylineEdge.map = mapView
+        
+        
+        
+        secondPolyline = GMSPolyline(path: secondPath)
+        secondPolyline.strokeWidth = 6.0
+        secondPolyline.strokeColor = HexColorManager.colorWithHexString(hexString: "b3a3cade")
+        secondPolyline.geodesic = true
+        secondPolyline.map = mapView
+        
+        
+        
+        //첫번째 옵션의 경로 polyline 그림
+        let firstPath = GMSMutablePath()
+        
+        for routePointModel in firstDirectionModel.getRoutePointModels()! {
+            firstPath.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
+        }
+        
+        firstPolylineEdge = GMSPolyline(path: firstPath)
+        firstPolylineEdge.strokeWidth = 9.0
+        firstPolylineEdge.strokeColor = HexColorManager.colorWithHexString(hexString: "0078FF")
+        firstPolylineEdge.geodesic = true
+        firstPolylineEdge.map = mapView
+        
+        
+        
+        firstPolyline = GMSPolyline(path: firstPath)
+        firstPolyline.strokeWidth = 6.0
+        firstPolyline.strokeColor = HexColorManager.colorWithHexString(hexString: "32AAFF")
+        firstPolyline.geodesic = true
+        firstPolyline.map = mapView
+       
+        
+        
+        
+    }
+    
+    func showSubRoute() {
+        //pager indicator 표시
+        
+        
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 5, height: 5))
+        
+        let img = renderer.image {
+            
+            
+            
+            ctx in
+            
+            
+            
+            //CGRect(x: 0, y: 0로 지정해야 원이 그려짐
+            
+            let circlePath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 5, height: 5)).cgPath
+            
+            
+            
+            ctx.cgContext.addPath(circlePath)
+            
+            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#d9d9d9", alpha: 1).cgColor)
+            
+            
+            
+            ctx.cgContext.closePath()
+            
+            ctx.cgContext.fillPath()
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        firstDotOnIndicator.backgroundColor = UIColor(patternImage: img)
+        
+        
+        let renderer2 = UIGraphicsImageRenderer(size: CGSize(width: 5, height: 5))
+        
+        let img2 = renderer2.image {
+            
+            
+            
+            ctx in
+            
+            
+            
+            //CGRect(x: 0, y: 0로 지정해야 원이 그려짐
+            
+            let circlePath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 5, height: 5)).cgPath
+            
+            
+            
+            ctx.cgContext.addPath(circlePath)
+            
+            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#32AAFF", alpha: 1).cgColor)
+            
+            
+            
+            ctx.cgContext.closePath()
+            
+            ctx.cgContext.fillPath()
+            
+        }
+        
+        secondDotOnIndicator.backgroundColor = UIColor(patternImage: img2)
+        
+        
+        //경로 그림
+        
+        firstPolylineEdge.map = nil
+        firstPolyline.map = nil
+        secondPolylineEdge.map = nil
+        secondPolyline.map = nil
+        
+        //첫번째 옵션의 경로 polyline 그림
+        let firstPath = GMSMutablePath()
+        
+        for routePointModel in firstDirectionModel.getRoutePointModels()! {
+            firstPath.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
+        }
+        
+        firstPolylineEdge = GMSPolyline(path: firstPath)
+        firstPolylineEdge.strokeWidth = 9.0
+        firstPolylineEdge.strokeColor = HexColorManager.colorWithHexString(hexString: "b38dafc0")
+        firstPolylineEdge.geodesic = true
+        firstPolylineEdge.map = mapView
+        
+        
+        
+        firstPolyline = GMSPolyline(path: firstPath)
+        firstPolyline.strokeWidth = 6.0
+        firstPolyline.strokeColor = HexColorManager.colorWithHexString(hexString: "b3a3cade")
+        firstPolyline.geodesic = true
+        firstPolyline.map = mapView
+        
+        
+        //두번째 옵션의 경로 polyline 그림
+        let secondPath = GMSMutablePath()
+        
+        for routePointModel in secondDirectionModel.getRoutePointModels()! {
+            secondPath.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
+        }
+        
+        secondPolylineEdge = GMSPolyline(path: secondPath)
+        secondPolylineEdge.strokeWidth = 9.0
+        secondPolylineEdge.strokeColor = HexColorManager.colorWithHexString(hexString: "0078FF")
+        secondPolylineEdge.geodesic = true
+        secondPolylineEdge.map = mapView
+        
+        
+        
+        secondPolyline = GMSPolyline(path: secondPath)
+        secondPolyline.strokeWidth = 6.0
+        secondPolyline.strokeColor = HexColorManager.colorWithHexString(hexString: "32AAFF")
+        secondPolyline.geodesic = true
+        secondPolyline.map = mapView
+        
+        
+        
+       
+    }
+    
     
     func showStartPointName() {
         //TODO: 나중에 수정하세요
@@ -106,6 +452,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
                     self.firstDirectionModel = self.getDirectionModel(responseData: responseData);
                         
                     self.drawRouteOnMap()
+                    self.fillOutRouteSelectBoard()
                         
                     
                         
@@ -129,6 +476,94 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
         }
     }
     
+    func fillOutRouteSelectBoard() {
+        
+        showFirstRouteType()
+        
+        showFirstRouteTotalTime()
+        
+        showFirstRouteTotalDistance()
+        
+        showFirstRouteDetail()
+        
+        showFirstRouteCalorie()
+        
+        
+        showSecondRouteType()
+        
+        showSecondRouteTotalTime()
+        
+        showSecondRouteTotalDistance()
+        
+        showSecondRouteDetail()
+        
+        showSecondRouteCalorie()
+        
+        
+    }
+    
+    func showFirstRouteType() {
+        //TODO: 수정하세요
+        
+        firstRouteType.text = "추천"
+        
+    }
+    
+    func showFirstRouteTotalTime() {
+        let formattedTime:String = routeSelectBoardManager.getFormattedTime(time: firstDirectionModel.getTotalTime()!)
+        firstRouteTotalTime.text = formattedTime
+    }
+    
+    func showFirstRouteTotalDistance() {
+        let formattedDistance:String = routeSelectBoardManager.getFormattedDistance(distance: firstDirectionModel.getTotalDistance()!)
+        firstRouteTotalDistance.text = formattedDistance
+    }
+    
+    func showFirstRouteDetail() {
+        
+        let routeDetail: String = routeSelectBoardManager.getRouteDetail(geofenceModels:firstDirectionModel.getGeofenceModels()!)
+        firstRouteDetail.text = routeDetail
+        
+        
+    }
+    
+    func showFirstRouteCalorie() {
+        let calorie:String = routeSelectBoardManager.getCalorie(totalTime: firstDirectionModel.getTotalTime()!)
+        firstRouteCalorie.text = calorie
+    }
+    
+    
+    func showSecondRouteType() {
+        //TODO: 수정하세요
+        
+        secondRouteType.text = "최단거리"
+        
+        
+        
+    }
+    
+    func showSecondRouteTotalTime() {
+        let formattedTime:String = routeSelectBoardManager.getFormattedTime(time: secondDirectionModel.getTotalTime()!)
+        secondRouteTotalTime.text = formattedTime
+    }
+    
+    func showSecondRouteTotalDistance() {
+        let formattedDistance:String = routeSelectBoardManager.getFormattedDistance(distance: secondDirectionModel.getTotalDistance()!)
+        secondRouteTotalDistance.text = formattedDistance
+    }
+    
+    func showSecondRouteDetail() {
+        let routeDetail: String = routeSelectBoardManager.getRouteDetail(geofenceModels:secondDirectionModel.getGeofenceModels()!)
+        secondRouteDetail.text = routeDetail
+    }
+    
+    func showSecondRouteCalorie() {
+        let calorie:String = routeSelectBoardManager.getCalorie(totalTime: secondDirectionModel.getTotalTime()!)
+        secondRouteCalorie.text = calorie
+    }
+    
+    
+    
     func getDirectionModel(responseData:Any) -> DirectionModel {
         let swiftyJsonVar = JSON(responseData)
         
@@ -143,7 +578,16 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
         return directionModel
     }
     
+    
+    
     func drawRouteOnMap() {
+        
+        
+        
+        
+        
+        
+        
         
         //출발지와 도착지 마커 그림
         
@@ -171,7 +615,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
             secondPath.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
         }
         
-        let secondPolylineEdge = GMSPolyline(path: secondPath)
+        secondPolylineEdge = GMSPolyline(path: secondPath)
         secondPolylineEdge.strokeWidth = 9.0
         secondPolylineEdge.strokeColor = HexColorManager.colorWithHexString(hexString: "b38dafc0")
         secondPolylineEdge.geodesic = true
@@ -179,7 +623,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
         
        
        
-        let secondPolyline = GMSPolyline(path: secondPath)
+        secondPolyline = GMSPolyline(path: secondPath)
         secondPolyline.strokeWidth = 6.0
         secondPolyline.strokeColor = HexColorManager.colorWithHexString(hexString: "b3a3cade")
         secondPolyline.geodesic = true
@@ -194,7 +638,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
             firstPath.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
         }
         
-        let firstPolylineEdge = GMSPolyline(path: firstPath)
+        firstPolylineEdge = GMSPolyline(path: firstPath)
         firstPolylineEdge.strokeWidth = 9.0
         firstPolylineEdge.strokeColor = HexColorManager.colorWithHexString(hexString: "0078FF")
         firstPolylineEdge.geodesic = true
@@ -202,7 +646,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
         
      
         
-        let firstPolyline = GMSPolyline(path: firstPath)
+        firstPolyline = GMSPolyline(path: firstPath)
         firstPolyline.strokeWidth = 6.0
         firstPolyline.strokeColor = HexColorManager.colorWithHexString(hexString: "32AAFF")
         firstPolyline.geodesic = true
@@ -222,9 +666,141 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate , CLLocation
         
         //경로 선택 보드 표시
         
+        routeSelectBoard.isHidden = false
+        pagerIndicator.isHidden = false
         
         
+        //dot 그림
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 5, height: 5))
+        
+        let img = renderer.image {
+            
+            
+            
+            ctx in
+            
+            
+            
+            //CGRect(x: 0, y: 0로 지정해야 원이 그려짐
+            
+            let circlePath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 5, height: 5)).cgPath
+            
+            
+            
+            ctx.cgContext.addPath(circlePath)
+            
+            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#32AAFF", alpha: 1).cgColor)
+            
+            
+            
+            ctx.cgContext.closePath()
+            
+            ctx.cgContext.fillPath()
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        firstDotOnIndicator.backgroundColor = UIColor(patternImage: img)
+        
+
+        let renderer2 = UIGraphicsImageRenderer(size: CGSize(width: 5, height: 5))
+        
+        let img2 = renderer2.image {
+            
+            
+            
+            ctx in
+            
+            
+            
+            //CGRect(x: 0, y: 0로 지정해야 원이 그려짐
+            
+            let circlePath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 5, height: 5)).cgPath
+            
+            
+            
+            ctx.cgContext.addPath(circlePath)
+            
+            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#d9d9d9", alpha: 1).cgColor)
+            
+            
+            
+            ctx.cgContext.closePath()
+            
+            ctx.cgContext.fillPath()
+            
+        }
+        
+        secondDotOnIndicator.backgroundColor = UIColor(patternImage: img2)
+        
+        //시작 버튼 생성
+        
+       drawStartButtonBackground()
+       addTapGestureToStartButton()
     }
+    
+    func drawStartButtonBackground() {
+        
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 85, height: 40))
+        let img = renderer.image {
+            
+            ctx in
+            let clipPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 85, height: 40), cornerRadius: 6.0).cgPath
+            
+            ctx.cgContext.addPath(clipPath)
+            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#0078FF", alpha: 1).cgColor)
+            
+            ctx.cgContext.closePath()
+            ctx.cgContext.fillPath()
+            
+            
+        }
+        
+        
+        startButtonOnMainRoute.backgroundColor = UIColor(patternImage: img)
+        
+        startButtonOnSubRoute.backgroundColor = UIColor(patternImage: img)
+    }
+    
+    func addTapGestureToStartButton() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.startButtonOnMainRouteTapped(_:)))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        startButtonOnMainRoute.addGestureRecognizer(tapGesture)
+        startButtonOnMainRoute.isUserInteractionEnabled = true
+        
+        
+        let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(self.startButtonOnSubRouteTapped(_:)))
+        tapGesture2.numberOfTapsRequired = 1
+        tapGesture2.numberOfTouchesRequired = 1
+        startButtonOnSubRoute.addGestureRecognizer(tapGesture)
+        startButtonOnSubRoute.isUserInteractionEnabled = true
+    }
+    
+    
+    @objc func startButtonOnMainRouteTapped(_ sender: UITapGestureRecognizer) {
+        
+        let viewController  = self.storyboard?.instantiateViewController(withIdentifier: "Navigation")
+       
+        //TODO: 추가 처리하세요
+        
+        self.present(viewController!, animated: true, completion: nil)
+    }
+    
+    @objc func startButtonOnSubRouteTapped(_ sender: UITapGestureRecognizer) {
+        
+        let viewController  = self.storyboard?.instantiateViewController(withIdentifier: "Navigation")
+        
+        //TODO: 추가 처리하세요
+        
+        self.present(viewController!, animated: true, completion: nil)
+    }
+    
     
     func delay(seconds: Double, completion:@escaping ()->()) {
         let when = DispatchTime.now() + seconds
