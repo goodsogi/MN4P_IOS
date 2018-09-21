@@ -498,8 +498,8 @@
                         <viewLayoutGuide key="safeArea" id="E4R-mJ-FbY"/>
                     </view>
                     <connections>
-                        <outlet property="dot1" destination="K8U-2I-6FO" id="GMQ-Nm-Fhj"/>
-                        <outlet property="dot2" destination="dGw-gE-els" id="N9j-Fs-acb"/>
+                        <outlet property="dot1OnMarkerLine" destination="K8U-2I-6FO" id="GMQ-Nm-Fhj"/>
+                        <outlet property="dot2OnMarkerLine" destination="dGw-gE-els" id="N9j-Fs-acb"/>
                         <outlet property="endPointView" destination="yRg-Ff-o6O" id="DLn-W6-hW7"/>
                         <outlet property="findRouteTopBar" destination="3ok-Hh-ggQ" id="auT-mc-nPS"/>
                         <outlet property="firstDotOnIndicator" destination="QTf-ca-VVq" id="Bak-Tj-ftn"/>
@@ -546,13 +546,98 @@
         <!--Navigation-->
         <scene sceneID="pYv-0g-gbW">
             <objects>
-                <viewController storyboardIdentifier="Navigation" id="Oum-9e-iqh" userLabel="Navigation" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Navigation" id="Oum-9e-iqh" userLabel="Navigation" customClass="NavigationViewController" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g6i-A1-lEi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="laB-JB-xyn" userLabel="Navigation Screen">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d8F-kF-8DG" userLabel="Navigation Top Bar">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nRQ-bH-vSz" userLabel="Back Button">
+                                                <rect key="frame" x="7" y="20" width="45" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="45" id="RuD-u9-0XK"/>
+                                                    <constraint firstAttribute="height" constant="45" id="kMP-X0-jbK"/>
+                                                </constraints>
+                                                <state key="normal" backgroundImage="go_back_unpressed_small"/>
+                                                <connections>
+                                                    <action selector="hamburgerButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yOF-4I-CZR"/>
+                                                    <action selector="onBackTapped:" destination="Oum-9e-iqh" eventType="touchUpInside" id="B2d-wh-XZE"/>
+                                                    <action selector="onBackTapped:" destination="qux-fl-5mk" eventType="touchUpInside" id="dUj-RA-JJH"/>
+                                                    <action selector="onBackTapped:" destination="UTV-8r-lA2" eventType="touchUpInside" id="mLy-Kd-x8t"/>
+                                                </connections>
+                                            </button>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s1M-Ob-NrO" userLabel="Screen Title">
+                                                <rect key="frame" x="64" y="34" width="8" height="17"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="s1M-Ob-NrO" firstAttribute="centerY" secondItem="nRQ-bH-vSz" secondAttribute="centerY" id="B9g-x8-9Ov"/>
+                                            <constraint firstAttribute="height" constant="59" id="Jpi-b7-81z"/>
+                                            <constraint firstItem="nRQ-bH-vSz" firstAttribute="top" secondItem="d8F-kF-8DG" secondAttribute="top" constant="20" id="dAP-iZ-5W8"/>
+                                            <constraint firstItem="s1M-Ob-NrO" firstAttribute="leading" secondItem="nRQ-bH-vSz" secondAttribute="trailing" constant="12" id="tSZ-dC-8AE"/>
+                                            <constraint firstItem="nRQ-bH-vSz" firstAttribute="leading" secondItem="d8F-kF-8DG" secondAttribute="leading" constant="7" id="vaV-Sa-Abg"/>
+                                        </constraints>
+                                    </view>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e1L-zl-hdd" userLabel="No GPS Alert Bar">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2nX-IH-uev" userLabel="No GPS Message">
+                                                <rect key="frame" x="211" y="20.5" width="25" height="17"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="2nX-IH-uev" firstAttribute="leading" secondItem="e1L-zl-hdd" secondAttribute="leading" constant="211" id="SdW-OW-DGb"/>
+                                            <constraint firstAttribute="height" constant="59" id="dS7-pm-5Qa"/>
+                                            <constraint firstItem="2nX-IH-uev" firstAttribute="centerY" secondItem="e1L-zl-hdd" secondAttribute="centerY" id="xZ2-DI-nnl"/>
+                                            <constraint firstAttribute="trailing" secondItem="2nX-IH-uev" secondAttribute="trailing" constant="139" id="zb8-8V-xAF"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eIB-nV-Q26" customClass="GMSMapView">
+                                        <rect key="frame" x="0.0" y="59" width="375" height="608"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="e1L-zl-hdd" firstAttribute="width" secondItem="laB-JB-xyn" secondAttribute="width" id="7HT-fQ-dQL"/>
+                                    <constraint firstItem="eIB-nV-Q26" firstAttribute="leading" secondItem="laB-JB-xyn" secondAttribute="leading" id="AvQ-Zw-xa1"/>
+                                    <constraint firstItem="e1L-zl-hdd" firstAttribute="top" secondItem="laB-JB-xyn" secondAttribute="top" id="MIP-46-to9"/>
+                                    <constraint firstItem="d8F-kF-8DG" firstAttribute="top" secondItem="laB-JB-xyn" secondAttribute="top" id="SE0-QH-R4q"/>
+                                    <constraint firstItem="e1L-zl-hdd" firstAttribute="leading" secondItem="laB-JB-xyn" secondAttribute="leading" id="SR3-hL-3vA"/>
+                                    <constraint firstItem="d8F-kF-8DG" firstAttribute="leading" secondItem="laB-JB-xyn" secondAttribute="leading" id="bZd-5Q-R8b"/>
+                                    <constraint firstItem="eIB-nV-Q26" firstAttribute="bottom" secondItem="laB-JB-xyn" secondAttribute="bottom" id="eNe-fr-tAd"/>
+                                    <constraint firstItem="d8F-kF-8DG" firstAttribute="width" secondItem="laB-JB-xyn" secondAttribute="width" id="hxV-Ju-MsA"/>
+                                    <constraint firstItem="eIB-nV-Q26" firstAttribute="top" secondItem="d8F-kF-8DG" secondAttribute="bottom" id="iL4-2x-SYm"/>
+                                    <constraint firstItem="eIB-nV-Q26" firstAttribute="width" secondItem="laB-JB-xyn" secondAttribute="width" id="nXf-bo-mwT"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="laB-JB-xyn" firstAttribute="leading" secondItem="g6i-A1-lEi" secondAttribute="leading" id="2Kp-mc-QTu"/>
+                            <constraint firstItem="laB-JB-xyn" firstAttribute="height" secondItem="g6i-A1-lEi" secondAttribute="height" id="4HL-0V-hZR"/>
+                            <constraint firstItem="laB-JB-xyn" firstAttribute="width" secondItem="g6i-A1-lEi" secondAttribute="width" id="Ry1-aB-ag6"/>
+                            <constraint firstItem="laB-JB-xyn" firstAttribute="top" secondItem="g6i-A1-lEi" secondAttribute="top" id="V75-HE-abE"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="AS6-Lj-red"/>
                     </view>
+                    <connections>
+                        
+                        <outlet property="mapView" destination="eIB-nV-Q26" id="ReP-kH-Rs3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wfx-RU-ebI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

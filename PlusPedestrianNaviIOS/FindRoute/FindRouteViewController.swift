@@ -16,8 +16,8 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     
     var selectedPlaceModel:SearchPlaceModel?
     
-    @IBOutlet weak var dot1: UIView!
-    @IBOutlet weak var dot2: UIView!
+    @IBOutlet weak var dot1OnMarkerLine: UIView!
+    @IBOutlet weak var dot2OnMarkerLine: UIView!
     
     @IBOutlet weak var startPointView: UITextField!
     @IBOutlet weak var endPointView: UITextField!
@@ -421,17 +421,17 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     }
     
     func addTapGestureToStartButton() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.startButtonOnMainRouteTapped(_:)))
-        tapGesture.numberOfTapsRequired = 1
-        tapGesture.numberOfTouchesRequired = 1
-        startButtonOnMainRoute.addGestureRecognizer(tapGesture)
+        let firstStartButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.startButtonOnMainRouteTapped(_:)))
+        firstStartButtonTapGesture.numberOfTapsRequired = 1
+        firstStartButtonTapGesture.numberOfTouchesRequired = 1
+        startButtonOnMainRoute.addGestureRecognizer(firstStartButtonTapGesture)
         startButtonOnMainRoute.isUserInteractionEnabled = true
         
         
-        let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(self.startButtonOnSubRouteTapped(_:)))
-        tapGesture2.numberOfTapsRequired = 1
-        tapGesture2.numberOfTouchesRequired = 1
-        startButtonOnSubRoute.addGestureRecognizer(tapGesture)
+        let secondStartButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.startButtonOnSubRouteTapped(_:)))
+        secondStartButtonTapGesture.numberOfTapsRequired = 1
+        secondStartButtonTapGesture.numberOfTouchesRequired = 1
+        startButtonOnSubRoute.addGestureRecognizer(secondStartButtonTapGesture)
         startButtonOnSubRoute.isUserInteractionEnabled = true
     }
     
@@ -440,6 +440,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
         
         let viewController  = self.storyboard?.instantiateViewController(withIdentifier: "Navigation")
         
+        (viewController as! NavigationViewController).selectedPlaceModel = selectedPlaceModel
         //TODO: 추가 처리하세요
         
         self.present(viewController!, animated: true, completion: nil)
@@ -450,18 +451,12 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
         let viewController  = self.storyboard?.instantiateViewController(withIdentifier: "Navigation")
         
         //TODO: 추가 처리하세요
+        (viewController as! NavigationViewController).selectedPlaceModel = selectedPlaceModel
         
         self.present(viewController!, animated: true, completion: nil)
     }
     
-    
-    func delay(seconds: Double, completion:@escaping ()->()) {
-        let when = DispatchTime.now() + seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            completion()
-        }
-    }
-    
+       
     
     func convertToGeofenceModel(routePointModels:[RoutePointModel]) -> [RoutePointModel]{
         var geofenceModels:[RoutePointModel] = [RoutePointModel]()
@@ -547,8 +542,8 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
         let img = ImageMaker.getCircle(width: 3, height: 3, colorHexString: "#000000", alpha: 1)
         
         
-        dot1.backgroundColor = UIColor(patternImage: img)
-        dot2.backgroundColor = UIColor(patternImage: img)
+        dot1OnMarkerLine.backgroundColor = UIColor(patternImage: img)
+        dot2OnMarkerLine.backgroundColor = UIColor(patternImage: img)
         
         
     }
@@ -607,10 +602,10 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
         print("Error \(error)")
     }
     
-    func initMapView() {
-        let camera = GMSCameraPosition.camera(withLatitude: 37.534459, longitude: 126.983314, zoom: 14)
-        mapView.camera = camera
-    }
+//    func initMapView() {
+//        let camera = GMSCameraPosition.camera(withLatitude: 37.534459, longitude: 126.983314, zoom: 14)
+//        mapView.camera = camera
+//    }
     
     //    func getScaledImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
     //        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
