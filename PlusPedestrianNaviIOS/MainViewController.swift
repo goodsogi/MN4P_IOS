@@ -17,7 +17,7 @@ protocol MainViewControllerDelegate {
 
 
 class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManagerDelegate, MainViewControllerDelegate{
-   
+    
     
     @IBOutlet weak var writeAppReviewMenu: UIView!
     @IBOutlet weak var settingsMenu: UIView!
@@ -51,10 +51,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     
     var selectedPlaceModel:SearchPlaceModel!
     
-    var currentLocationMarker:GMSMarker!
-    
     var isFirstLocation:Bool = true
-    
+    var googleMapDrawingManager:GoogleMapDrawingManager!
     
     @IBAction func hamburgerButtonTapped(_ sender: Any) {
         //if the hamburger menu is NOT visible, then move the ubeView back to where it used to be
@@ -68,7 +66,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
         
         //Toast는 안뜨는 듯
-//        Toast.show(message: placeModel.getName() ?? "", controller: self)
+        //        Toast.show(message: placeModel.getName() ?? "", controller: self)
         
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
@@ -76,7 +74,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
             
             self.selectedPlaceModel = placeModel
             
-            self.showSelectedPlaceOnMap()
+            self.googleMapDrawingManager.showSelectedPlaceOnMap(selectedPlaceModel: placeModel)
             self.showSelectedPlaceOnBoard()
             self.drawFindRouteButtonBackground()
             self.addTapGestureToFindRouteButton()
@@ -110,20 +108,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     
     func drawFindRouteButtonBackground() {
         
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 100, height: 40))
-        let img = renderer.image {
-            
-            ctx in
-            let clipPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 100, height: 40), cornerRadius: 6.0).cgPath
-
-            ctx.cgContext.addPath(clipPath)
-            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#0078FF", alpha: 1).cgColor)
-
-            ctx.cgContext.closePath()
-            ctx.cgContext.fillPath()
-
-            
-        }
+        
+        let img = ImageMaker.getRoundRectangle(width: 100, height: 40, colorHexString: "#0078FF", cornerRadius: 6.0, alpha: 1)
         
         
         findRouteButton.backgroundColor = UIColor(patternImage: img)
@@ -140,31 +126,21 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     }
     
     @objc func findRouteButtonTapped(_ sender: UITapGestureRecognizer) {
-                
+        
         showScreen(viewControllerStoryboardId: "FindRoute")
     }
     
     
-    func showSelectedPlaceOnMap() {
     
-        mapView.clear()
-        
-        let camera = GMSCameraPosition.camera(withLatitude: selectedPlaceModel.getLat() ?? 0, longitude: selectedPlaceModel.getLng() ?? 0, zoom: 14)
-        mapView.camera = camera
-        
-        
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: selectedPlaceModel.getLat() ?? 0, longitude: selectedPlaceModel.getLng() ?? 0)
-        marker.title = "selected place marker"
-        marker.map = self.mapView
-        
-        
-    }
     
     func showSelectedPlaceOnBoard() {
         
         placeInfoBoard.isHidden = false
-     
+        
+        ViewElevationMaker.run(view:placeInfoBoard)
+        
+        
+        
         placeNameView.text = selectedPlaceModel.getName()
         addressView.text = selectedPlaceModel.getAddress()
         bizNameView.text = selectedPlaceModel.getBizName()
@@ -203,11 +179,17 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         // Do any additional setup after loading the view, typically from a nib.
         initMapView()
         initTopSearchBar()
-        
+        initGoogleMapDrawingManager()
         addTapGestureToDrawer()
         addTapGestureToDrawerMenu()
         drawTicketViewBackground()
         
+    }
+    
+    func initGoogleMapDrawingManager() {
+        googleMapDrawingManager = GoogleMapDrawingManager()
+        googleMapDrawingManager.setMapView(mapView:mapView)
+        googleMapDrawingManager.createCurrentLocationMarker()
     }
     
     func drawTicketViewBackground() {
@@ -346,13 +328,14 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     
     func initTopSearchBar() {
         //안드로이드 material design의 elevation 효과
+        ViewElevationMaker.run(view: topSearchBar)
         
         //Double 변수 선언은 아래처럼 함. var대신 let사용 권장. let은 상수로 한번 지정하면 변경 불가
-        let elevation: Double = 2.0
-        topSearchBar.layer.shadowColor = UIColor.black.cgColor
-        topSearchBar.layer.shadowOffset = CGSize(width: 0, height: elevation)
-        topSearchBar.layer.shadowOpacity = 0.24
-        topSearchBar.layer.shadowRadius = CGFloat(elevation)
+        //        let elevation: Double = 2.0
+        //        topSearchBar.layer.shadowColor = UIColor.black.cgColor
+        //        topSearchBar.layer.shadowOffset = CGSize(width: 0, height: elevation)
+        //        topSearchBar.layer.shadowOpacity = 0.24
+        //        topSearchBar.layer.shadowRadius = CGFloat(elevation)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.showSearchPlaceScreenWithOutCloseDrawer(_:)))
         tapGesture.numberOfTapsRequired = 1
@@ -386,23 +369,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         }
     }
     
-    func showFirstCurrentLocationOnMap(userLocation: CLLocation) {
-        
-        let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 14)
-        mapView.camera = camera
-        
-        currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude , longitude: userLocation.coordinate.longitude )
-        
-    }
     
-    func showCurrentLocationOnMap(userLocation: CLLocation) {
-        
-        let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 14)
-        mapView.camera = camera
-        
-        currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude , longitude: userLocation.coordinate.longitude )
-        
-    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
@@ -413,9 +380,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
         if(isFirstLocation) {
             isFirstLocation = false
-            showFirstCurrentLocationOnMap(userLocation: userLocation)
+            googleMapDrawingManager.showFirstCurrentLocationOnMap(userLocation: userLocation)
         } else {
-//        showCurrentLocationOnMap(userLocation: userLocation)
+            //        googleMapDrawingManager.showCurrentLocationOnMap(userLocation: userLocation)
         }
         
         // Call stopUpdatingLocation() to stop listening for location updates,
@@ -436,26 +403,19 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         let camera = GMSCameraPosition.camera(withLatitude: 37.534459, longitude: 126.983314, zoom: 14)
         mapView.camera = camera
         
+        //이 메소드가 viewDidLoad보다 먼저 호출됨
         
-        currentLocationMarker = GMSMarker()
         
-        currentLocationMarker.position = CLLocationCoordinate2D(latitude: 37.534459, longitude: 126.983314)
-        currentLocationMarker.title = "current location marker"
-        currentLocationMarker.icon = self.getScaledImage(image: UIImage(named: "current_location_marker.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
-        currentLocationMarker.map = self.mapView
     }
     
-    func getScaledImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
-        image.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return newImage
-    }
+    
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        
         NSLog("marker was tapped")
-        //TODO 나중에 참조하세요
+        
+        //TODO 나중에 마커 탭 처리할 때 참조하세요
+        
         //        tappedMarker = marker
         //
         //        //get position of tapped marker

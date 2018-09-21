@@ -501,8 +501,10 @@
                         <outlet property="dot1" destination="K8U-2I-6FO" id="GMQ-Nm-Fhj"/>
                         <outlet property="dot2" destination="dGw-gE-els" id="N9j-Fs-acb"/>
                         <outlet property="endPointView" destination="yRg-Ff-o6O" id="DLn-W6-hW7"/>
+                        <outlet property="findRouteTopBar" destination="3ok-Hh-ggQ" id="auT-mc-nPS"/>
                         <outlet property="firstDotOnIndicator" destination="QTf-ca-VVq" id="Bak-Tj-ftn"/>
                         <outlet property="firstRouteCalorie" destination="hNx-7v-lXW" id="esd-U5-DT7"/>
+                        <outlet property="firstRouteContent" destination="JCA-4c-WjI" id="Jif-TY-BFI"/>
                         <outlet property="firstRouteDetail" destination="sgj-nf-g0A" id="sip-Qv-kb4"/>
                         <outlet property="firstRouteTotalDistance" destination="Xmm-hL-l9g" id="qkg-yX-tRW"/>
                         <outlet property="firstRouteTotalTime" destination="ACl-D0-GLX" id="5NS-zg-YEk"/>
@@ -512,6 +514,7 @@
                         <outlet property="routeSelectBoard" destination="z2k-DI-9OB" id="rNE-Xj-kzv"/>
                         <outlet property="secondDotOnIndicator" destination="EUd-F2-fKF" id="BCf-4Q-vNm"/>
                         <outlet property="secondRouteCalorie" destination="55c-AR-YfW" id="KxY-Qy-3gD"/>
+                        <outlet property="secondRouteContent" destination="pfW-bU-ux0" id="5uo-5c-84x"/>
                         <outlet property="secondRouteDetail" destination="7Mp-jH-sbs" id="cfc-Pu-vXw"/>
                         <outlet property="secondRouteTotalDistance" destination="2Tn-iY-X3U" id="t4n-sn-fMM"/>
                         <outlet property="secondRouteTotalTime" destination="GAW-x8-BlZ" id="h6O-tV-og1"/>

@@ -21,23 +21,22 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
     
     @IBOutlet weak var searchKeywordInput: UITextField!
     
-    
-    
+       
     
     @IBAction func onBackTapped(_ sender: Any) {
         self.dismiss(animated: true)
     }
     
-   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = searchPlaceTable.dequeueReusableCell(withIdentifier: "custom") as! SearchPlaceTableCell
         cell.placeName = searchPlaceModels[indexPath.row].getName()
-    cell.address = searchPlaceModels[indexPath.row].getAddress()
-    cell.placeMarker = UIImage(named: "place_pin_gray.png")
-    
-    //스크롤을 해야 데이터가 전부 표시되는 이슈 발생
+        cell.address = searchPlaceModels[indexPath.row].getAddress()
+        cell.placeMarker = UIImage(named: "place_pin_gray.png")
+        
+        //스크롤을 해야 데이터가 전부 표시되는 이슈 발생
         cell.layoutSubviews()
-    
-    print("return cell position: " + String(indexPath.row)) 
+        
+        print("return cell position: " + String(indexPath.row))
         return cell
     }
     
@@ -54,7 +53,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
             delegate.onPlaceSelected(placeModel: searchPlaceModels[indexPath.row])
         }
         self.dismiss(animated: true)
-       
+        
     }
     
     
@@ -65,14 +64,14 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
         searchKeywordInput.delegate = self
         searchKeywordInput.becomeFirstResponder()
         
-       
+        
         searchPlaceTable.register(SearchPlaceTableCell.self, forCellReuseIdentifier: "custom")
         searchPlaceTable.delegate = self
         searchPlaceTable.dataSource = self
         searchPlaceTable.rowHeight = 60
         //estimatedRowHeight는 영향을 안 미침 
-//        searchPlaceTable.estimatedRowHeight = 60
-       
+        //        searchPlaceTable.estimatedRowHeight = 60
+        
     }
     
     
@@ -107,7 +106,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
                 response in
                 if let responseData = response.result.value {
                     let swiftyJsonVar = JSON(responseData)
-                   
+                    
                     var searchPlaceModel:SearchPlaceModel
                     
                     for subJson in swiftyJsonVar["searchPoiInfo"]["pois"]["poi"].arrayValue {
@@ -123,7 +122,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
                         let bizName = subJson["lowerBizName"].stringValue
                         let lat = subJson["noorLat"].doubleValue
                         let lng = subJson["noorLon"].doubleValue
-                       
+                        
                         var address = upperAddrName + " " + middleAddrName + " " + roadName + " " + firstBuildNo
                         if secondBuildNo != "" {
                             address = address + "-" + secondBuildNo
@@ -136,12 +135,12 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
                         searchPlaceModel.setLng(lng: lng)
                         searchPlaceModel.setBizname(bizName: bizName)
                         searchPlaceModel.setTelNo(telNo: telNo)
-                       
+                        
                         self.searchPlaceModels.append(searchPlaceModel)
                         
-                       
+                        
                     }
-
+                    
                     self.searchPlaceTable.reloadData()
                     
                     //이상한 검색어로 호출하면 아래에서 오류 발생(index out of range)

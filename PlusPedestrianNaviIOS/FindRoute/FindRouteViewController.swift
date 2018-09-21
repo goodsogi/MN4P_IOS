@@ -51,12 +51,9 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     
     @IBOutlet weak var startButtonOnSubRoute: UIView!
     
-    var firstPolyline : GMSPolyline!
-    var firstPolylineEdge : GMSPolyline!
-    var secondPolyline : GMSPolyline!
-    var secondPolylineEdge : GMSPolyline!
     
     
+    @IBOutlet weak var findRouteTopBar: UIView!
     
     @IBOutlet weak var firstRouteType: UITextField!
     
@@ -85,16 +82,20 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     @IBOutlet weak var secondRouteCalorie: UITextField!
     
     var routeSelectBoardManager:RouteSelectBoardManager!
+    var googleMapDrawingManager:GoogleMapDrawingManager!
     
+    @IBOutlet weak var firstRouteContent: UIView!
     
-    
+    @IBOutlet weak var secondRouteContent: UIView!
     
     var previousPage: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         routeSelectBoard.delegate = self
+        ViewElevationMaker.run(view:findRouteTopBar)
         
+        initGoogleMapDrawingManager()
         initRouteSelectBoardManager()
         drawMarkerLine()
         showStartPointName()
@@ -103,9 +104,15 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
         
     }
     
+    func initGoogleMapDrawingManager() {
+        googleMapDrawingManager = GoogleMapDrawingManager()
+        googleMapDrawingManager.setMapView(mapView:mapView)
+    }
+    
+    
     func initRouteSelectBoardManager() {
         routeSelectBoardManager = RouteSelectBoardManager()
-      
+        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -121,9 +128,9 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
             // ...
             // Finally, update previous page
             if(page == 0) {
-                showMainRoute()
+                showFirstRoute()
             } else if(page == 1) {
-                showSubRoute()
+                showSecondRoute()
             }
             
             
@@ -134,260 +141,48 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
         }
     }
     
-    func showMainRoute() {
+    func showFirstRoute() {
         
         //pager indicator 표시
         
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 5, height: 5))
         
-        let img = renderer.image {
-            
-            
-            
-            ctx in
-            
-            
-            
-            //CGRect(x: 0, y: 0로 지정해야 원이 그려짐
-            
-            let circlePath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 5, height: 5)).cgPath
-            
-            
-            
-            ctx.cgContext.addPath(circlePath)
-            
-            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#32AAFF", alpha: 1).cgColor)
-            
-            
-            
-            ctx.cgContext.closePath()
-            
-            ctx.cgContext.fillPath()
-            
-            
-            
-        }
+        
+        let blueDot = ImageMaker.getCircle(width: 5, height: 5, colorHexString: "#32AAFF", alpha: 1)
         
         
         
-        
-        
-        firstDotOnIndicator.backgroundColor = UIColor(patternImage: img)
-        
-        
-        let renderer2 = UIGraphicsImageRenderer(size: CGSize(width: 5, height: 5))
-        
-        let img2 = renderer2.image {
-            
-            
-            
-            ctx in
-            
-            
-            
-            //CGRect(x: 0, y: 0로 지정해야 원이 그려짐
-            
-            let circlePath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 5, height: 5)).cgPath
-            
-            
-            
-            ctx.cgContext.addPath(circlePath)
-            
-            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#d9d9d9", alpha: 1).cgColor)
-            
-            
-            
-            ctx.cgContext.closePath()
-            
-            ctx.cgContext.fillPath()
-            
-        }
-        
-        secondDotOnIndicator.backgroundColor = UIColor(patternImage: img2)
+        firstDotOnIndicator.backgroundColor = UIColor(patternImage: blueDot)
         
         
         
-        //경로 그림
+        let grayDot = ImageMaker.getCircle(width: 5, height: 5, colorHexString: "#D9D9D9", alpha: 1)
         
-        firstPolylineEdge.map = nil
-        firstPolyline.map = nil
-        secondPolylineEdge.map = nil
-        secondPolyline.map = nil
-        
-        //두번째 옵션의 경로 polyline 그림
-        let secondPath = GMSMutablePath()
-        
-        for routePointModel in secondDirectionModel.getRoutePointModels()! {
-            secondPath.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
-        }
-        
-        secondPolylineEdge = GMSPolyline(path: secondPath)
-        secondPolylineEdge.strokeWidth = 9.0
-        secondPolylineEdge.strokeColor = HexColorManager.colorWithHexString(hexString: "b38dafc0")
-        secondPolylineEdge.geodesic = true
-        secondPolylineEdge.map = mapView
+        secondDotOnIndicator.backgroundColor = UIColor(patternImage: grayDot)
         
         
-        
-        secondPolyline = GMSPolyline(path: secondPath)
-        secondPolyline.strokeWidth = 6.0
-        secondPolyline.strokeColor = HexColorManager.colorWithHexString(hexString: "b3a3cade")
-        secondPolyline.geodesic = true
-        secondPolyline.map = mapView
-        
-        
-        
-        //첫번째 옵션의 경로 polyline 그림
-        let firstPath = GMSMutablePath()
-        
-        for routePointModel in firstDirectionModel.getRoutePointModels()! {
-            firstPath.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
-        }
-        
-        firstPolylineEdge = GMSPolyline(path: firstPath)
-        firstPolylineEdge.strokeWidth = 9.0
-        firstPolylineEdge.strokeColor = HexColorManager.colorWithHexString(hexString: "0078FF")
-        firstPolylineEdge.geodesic = true
-        firstPolylineEdge.map = mapView
-        
-        
-        
-        firstPolyline = GMSPolyline(path: firstPath)
-        firstPolyline.strokeWidth = 6.0
-        firstPolyline.strokeColor = HexColorManager.colorWithHexString(hexString: "32AAFF")
-        firstPolyline.geodesic = true
-        firstPolyline.map = mapView
-       
-        
+        googleMapDrawingManager.showFirstRoute(firstDirectionModel: firstDirectionModel, secondDirectionModel: secondDirectionModel)
         
         
     }
     
-    func showSubRoute() {
+    func showSecondRoute() {
         //pager indicator 표시
         
         
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 5, height: 5))
         
-        let img = renderer.image {
-            
-            
-            
-            ctx in
-            
-            
-            
-            //CGRect(x: 0, y: 0로 지정해야 원이 그려짐
-            
-            let circlePath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 5, height: 5)).cgPath
-            
-            
-            
-            ctx.cgContext.addPath(circlePath)
-            
-            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#d9d9d9", alpha: 1).cgColor)
-            
-            
-            
-            ctx.cgContext.closePath()
-            
-            ctx.cgContext.fillPath()
-            
-            
-            
-        }
+        let grayDot = ImageMaker.getCircle(width: 5, height: 5, colorHexString: "#D9D9D9", alpha: 1)
+        
+        firstDotOnIndicator.backgroundColor = UIColor(patternImage: grayDot)
         
         
         
+        let blueDot = ImageMaker.getCircle(width: 5, height: 5, colorHexString: "#32AAFF", alpha: 1)
+        
+        secondDotOnIndicator.backgroundColor = UIColor(patternImage: blueDot)
+        
+        googleMapDrawingManager.showSecondRoute(firstDirectionModel: firstDirectionModel, secondDirectionModel: secondDirectionModel)
         
         
-        firstDotOnIndicator.backgroundColor = UIColor(patternImage: img)
-        
-        
-        let renderer2 = UIGraphicsImageRenderer(size: CGSize(width: 5, height: 5))
-        
-        let img2 = renderer2.image {
-            
-            
-            
-            ctx in
-            
-            
-            
-            //CGRect(x: 0, y: 0로 지정해야 원이 그려짐
-            
-            let circlePath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 5, height: 5)).cgPath
-            
-            
-            
-            ctx.cgContext.addPath(circlePath)
-            
-            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#32AAFF", alpha: 1).cgColor)
-            
-            
-            
-            ctx.cgContext.closePath()
-            
-            ctx.cgContext.fillPath()
-            
-        }
-        
-        secondDotOnIndicator.backgroundColor = UIColor(patternImage: img2)
-        
-        
-        //경로 그림
-        
-        firstPolylineEdge.map = nil
-        firstPolyline.map = nil
-        secondPolylineEdge.map = nil
-        secondPolyline.map = nil
-        
-        //첫번째 옵션의 경로 polyline 그림
-        let firstPath = GMSMutablePath()
-        
-        for routePointModel in firstDirectionModel.getRoutePointModels()! {
-            firstPath.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
-        }
-        
-        firstPolylineEdge = GMSPolyline(path: firstPath)
-        firstPolylineEdge.strokeWidth = 9.0
-        firstPolylineEdge.strokeColor = HexColorManager.colorWithHexString(hexString: "b38dafc0")
-        firstPolylineEdge.geodesic = true
-        firstPolylineEdge.map = mapView
-        
-        
-        
-        firstPolyline = GMSPolyline(path: firstPath)
-        firstPolyline.strokeWidth = 6.0
-        firstPolyline.strokeColor = HexColorManager.colorWithHexString(hexString: "b3a3cade")
-        firstPolyline.geodesic = true
-        firstPolyline.map = mapView
-        
-        
-        //두번째 옵션의 경로 polyline 그림
-        let secondPath = GMSMutablePath()
-        
-        for routePointModel in secondDirectionModel.getRoutePointModels()! {
-            secondPath.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
-        }
-        
-        secondPolylineEdge = GMSPolyline(path: secondPath)
-        secondPolylineEdge.strokeWidth = 9.0
-        secondPolylineEdge.strokeColor = HexColorManager.colorWithHexString(hexString: "0078FF")
-        secondPolylineEdge.geodesic = true
-        secondPolylineEdge.map = mapView
-        
-        
-        
-        secondPolyline = GMSPolyline(path: secondPath)
-        secondPolyline.strokeWidth = 6.0
-        secondPolyline.strokeColor = HexColorManager.colorWithHexString(hexString: "32AAFF")
-        secondPolyline.geodesic = true
-        secondPolyline.map = mapView
-        
-        
-        
-       
     }
     
     
@@ -408,13 +203,13 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
             
         case PPNConstants.SECOND_ROUTE_OPTION:
             //TODO 수정하세요
-           return "4"
+            return "4"
             
         default:
             print("getSearchOption default")
         }
         
-         return "0"
+        return "0"
     }
     
     
@@ -447,14 +242,14 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
                     
                     //마지막으로 첫 번째 옵션의 경로 가져옴
                     if (self.selectedRouteOption == PPNConstants.FIRST_ROUTE_OPTION) {
-                    
-                    
-                    self.firstDirectionModel = self.getDirectionModel(responseData: responseData);
                         
-                    self.drawRouteOnMap()
-                    self.fillOutRouteSelectBoard()
                         
-                    
+                        self.firstDirectionModel = self.getDirectionModel(responseData: responseData);
+                        
+                        self.drawRouteOnMap()
+                        self.fillOutRouteSelectBoard()
+                        
+                        
                         
                     }
                     
@@ -467,7 +262,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
                         self.getRoute();
                     }
                     
-                   
+                    
                 } else {
                     //TODO: 오류가 발생한 경우 처리하세요
                     
@@ -477,6 +272,11 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     }
     
     func fillOutRouteSelectBoard() {
+        
+        
+        ViewElevationMaker.run(view:firstRouteContent)
+        
+        ViewElevationMaker.run(view: secondRouteContent)
         
         showFirstRouteType()
         
@@ -582,86 +382,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     
     func drawRouteOnMap() {
         
-        
-        
-        
-        
-        
-        
-        
-        //출발지와 도착지 마커 그림
-        
-        mapView.clear()
-        
-        let startMarker = GMSMarker()
-        
-        startMarker.position = CLLocationCoordinate2D(latitude: firstDirectionModel.getRoutePointModels()![0].getLat()!, longitude: firstDirectionModel.getRoutePointModels()![0].getLng()!)
-        startMarker.title = "start marker"
-        startMarker.icon = self.getScaledImage(image: UIImage(named: "start_pin.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
-        startMarker.map = self.mapView
-        
-        let endMarker = GMSMarker()
-        
-        endMarker.position = CLLocationCoordinate2D(latitude: firstDirectionModel.getRoutePointModels()![firstDirectionModel.getRoutePointModels()!.count - 1].getLat()!, longitude: firstDirectionModel.getRoutePointModels()![firstDirectionModel.getRoutePointModels()!.count - 1].getLng()!)
-        endMarker.title = "end marker"
-        endMarker.icon = self.getScaledImage(image: UIImage(named: "destination_pin.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
-        endMarker.map = self.mapView
-        
-       
-        //두번째 옵션의 경로 polyline 그림
-        let secondPath = GMSMutablePath()
-        
-        for routePointModel in secondDirectionModel.getRoutePointModels()! {
-            secondPath.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
-        }
-        
-        secondPolylineEdge = GMSPolyline(path: secondPath)
-        secondPolylineEdge.strokeWidth = 9.0
-        secondPolylineEdge.strokeColor = HexColorManager.colorWithHexString(hexString: "b38dafc0")
-        secondPolylineEdge.geodesic = true
-        secondPolylineEdge.map = mapView
-        
-       
-       
-        secondPolyline = GMSPolyline(path: secondPath)
-        secondPolyline.strokeWidth = 6.0
-        secondPolyline.strokeColor = HexColorManager.colorWithHexString(hexString: "b3a3cade")
-        secondPolyline.geodesic = true
-        secondPolyline.map = mapView
-      
-        
-        
-        //첫번째 옵션의 경로 polyline 그림
-        let firstPath = GMSMutablePath()
-        
-        for routePointModel in firstDirectionModel.getRoutePointModels()! {
-            firstPath.addLatitude(routePointModel.getLat()!, longitude: routePointModel.getLng()!)
-        }
-        
-        firstPolylineEdge = GMSPolyline(path: firstPath)
-        firstPolylineEdge.strokeWidth = 9.0
-        firstPolylineEdge.strokeColor = HexColorManager.colorWithHexString(hexString: "0078FF")
-        firstPolylineEdge.geodesic = true
-        firstPolylineEdge.map = mapView
-        
-     
-        
-        firstPolyline = GMSPolyline(path: firstPath)
-        firstPolyline.strokeWidth = 6.0
-        firstPolyline.strokeColor = HexColorManager.colorWithHexString(hexString: "32AAFF")
-        firstPolyline.geodesic = true
-        firstPolyline.map = mapView
-        
-        
-        //경로가 모두 표시되게 zoom 조정
-        delay(seconds: 1) { () -> () in
-            //fit map to markers
-            var bounds = GMSCoordinateBounds()
-            bounds = bounds.includingCoordinate(startMarker.position)
-            bounds = bounds.includingCoordinate(endMarker.position)
-            let update = GMSCameraUpdate.fit(bounds, withPadding: 100.0)
-            self.mapView.animate(with: update)
-        }
+        googleMapDrawingManager.drawRouteOnMap(firstDirectionModel: firstDirectionModel, secondDirectionModel: secondDirectionModel, isShowSecondRoute: true)
         
         
         //경로 선택 보드 표시
@@ -670,97 +391,29 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
         pagerIndicator.isHidden = false
         
         
-        //dot 그림
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 5, height: 5))
         
-        let img = renderer.image {
-            
-            
-            
-            ctx in
-            
-            
-            
-            //CGRect(x: 0, y: 0로 지정해야 원이 그려짐
-            
-            let circlePath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 5, height: 5)).cgPath
-            
-            
-            
-            ctx.cgContext.addPath(circlePath)
-            
-            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#32AAFF", alpha: 1).cgColor)
-            
-            
-            
-            ctx.cgContext.closePath()
-            
-            ctx.cgContext.fillPath()
-            
-            
-            
-        }
+        
+        let blueDot = ImageMaker.getCircle(width: 5, height: 5, colorHexString: "#32AAFF", alpha: 1)
+        
+        
+        firstDotOnIndicator.backgroundColor = UIColor(patternImage: blueDot)
         
         
         
+        let grayDot = ImageMaker.getCircle(width: 5, height: 5, colorHexString: "#D9D9D9", alpha: 1)
         
-        
-        firstDotOnIndicator.backgroundColor = UIColor(patternImage: img)
-        
-
-        let renderer2 = UIGraphicsImageRenderer(size: CGSize(width: 5, height: 5))
-        
-        let img2 = renderer2.image {
-            
-            
-            
-            ctx in
-            
-            
-            
-            //CGRect(x: 0, y: 0로 지정해야 원이 그려짐
-            
-            let circlePath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 5, height: 5)).cgPath
-            
-            
-            
-            ctx.cgContext.addPath(circlePath)
-            
-            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#d9d9d9", alpha: 1).cgColor)
-            
-            
-            
-            ctx.cgContext.closePath()
-            
-            ctx.cgContext.fillPath()
-            
-        }
-        
-        secondDotOnIndicator.backgroundColor = UIColor(patternImage: img2)
+        secondDotOnIndicator.backgroundColor = UIColor(patternImage: grayDot)
         
         //시작 버튼 생성
         
-       drawStartButtonBackground()
-       addTapGestureToStartButton()
+        drawStartButtonBackground()
+        addTapGestureToStartButton()
     }
     
     func drawStartButtonBackground() {
         
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 85, height: 40))
-        let img = renderer.image {
-            
-            ctx in
-            let clipPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: 85, height: 40), cornerRadius: 6.0).cgPath
-            
-            ctx.cgContext.addPath(clipPath)
-            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#0078FF", alpha: 1).cgColor)
-            
-            ctx.cgContext.closePath()
-            ctx.cgContext.fillPath()
-            
-            
-        }
         
+        let img = ImageMaker.getRoundRectangle(width: 85, height: 40, colorHexString: "#0078FF", cornerRadius: 6.0, alpha: 1)
         
         startButtonOnMainRoute.backgroundColor = UIColor(patternImage: img)
         
@@ -786,7 +439,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     @objc func startButtonOnMainRouteTapped(_ sender: UITapGestureRecognizer) {
         
         let viewController  = self.storyboard?.instantiateViewController(withIdentifier: "Navigation")
-       
+        
         //TODO: 추가 처리하세요
         
         self.present(viewController!, animated: true, completion: nil)
@@ -891,20 +544,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     func drawMarkerLine() {
         
         
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 3, height: 3))
-        let img = renderer.image {
-            
-            ctx in
-            
-            let circlePath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 3, height: 3)).cgPath
-            
-            ctx.cgContext.addPath(circlePath)
-            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#000000", alpha: 1).cgColor)
-            
-            ctx.cgContext.closePath()
-            ctx.cgContext.fillPath()
-            
-        }
+        let img = ImageMaker.getCircle(width: 3, height: 3, colorHexString: "#000000", alpha: 1)
         
         
         dot1.backgroundColor = UIColor(patternImage: img)
@@ -972,13 +612,13 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
         mapView.camera = camera
     }
     
-    func getScaledImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
-        image.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return newImage
-    }
+    //    func getScaledImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
+    //        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+    //        image.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+    //        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+    //        UIGraphicsEndImageContext()
+    //        return newImage
+    //    }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         NSLog("marker was tapped")
