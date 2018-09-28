@@ -93,7 +93,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     override func viewDidLoad() {
         super.viewDidLoad()
         routeSelectBoard.delegate = self
-        ViewElevationMaker.run(view:findRouteTopBar)
+//        ViewElevationMaker.run(view:findRouteTopBar)
         
         initGoogleMapDrawingManager()
         initRouteSelectBoardManager()
