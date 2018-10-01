@@ -1,7 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-#platform :ios, '10.0'
-#use_frameworks!
+platform :ios, '10.0'
+use_frameworks!
 
 target 'PlusPedestrianNaviIOS' do
 pod 'GoogleMaps'
@@ -11,4 +11,5 @@ pod 'GoogleMaps'
 
 pod 'Alamofire', '~> 4.7'
 pod 'SwiftyJSON', '~> 4.0'
+pod "Floaty", "~> 4.0.0"
 end

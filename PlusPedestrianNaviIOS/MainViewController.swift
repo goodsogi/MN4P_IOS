@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import CoreLocation
+import Floaty
 
 
 protocol MainViewControllerDelegate {
@@ -16,7 +17,7 @@ protocol MainViewControllerDelegate {
 }
 
 
-class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManagerDelegate, MainViewControllerDelegate{
+class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManagerDelegate, MainViewControllerDelegate, FloatyDelegate{
     
     
     @IBOutlet weak var writeAppReviewMenu: UIView!
@@ -32,7 +33,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     @IBOutlet weak var drawerViewTrailing: NSLayoutConstraint!
     var hamburgerMenuIsVisible = false
     
-    @IBOutlet weak var ticketView: UITextView!
+//    @IBOutlet weak var ticketView: UITextView!
     @IBOutlet weak var mapView: GMSMapView!
     
     var locationManager:CLLocationManager!
@@ -53,6 +54,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     
     var isFirstLocation:Bool = true
     var googleMapDrawingManager:GoogleMapDrawingManager!
+    
+    var floaty:Floaty = Floaty()
     
     @IBAction func hamburgerButtonTapped(_ sender: Any) {
         //if the hamburger menu is NOT visible, then move the ubeView back to where it used to be
@@ -75,11 +78,20 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
             self.selectedPlaceModel = placeModel
             
             self.googleMapDrawingManager.showSelectedPlaceOnMap(selectedPlaceModel: placeModel)
+            
+            self.moveFloaty()
             self.showSelectedPlaceOnBoard()
             self.drawFindRouteButtonBackground()
             self.addTapGestureToFindRouteButton()
             self.addTapGestureToTelNoView(telNo: placeModel.getTelNo() ?? "")
         })
+    }
+    
+    func moveFloaty() {
+//        floaty.paddingX = 40
+        floaty.paddingY = floaty.frame.height + 20
+        
+    
     }
     
     func addTapGestureToTelNoView(telNo:String) {
@@ -178,12 +190,52 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
         // Do any additional setup after loading the view, typically from a nib.
         initMapView()
+        initFloaty()
         initTopSearchBar()
         initGoogleMapDrawingManager()
         addTapGestureToDrawer()
         addTapGestureToDrawerMenu()
-        drawTicketViewBackground()
+//        drawTicketViewBackground()
         
+    }
+    
+    func initFloaty() {
+        
+        floaty.buttonColor = UIColor.white
+        floaty.hasShadow = true
+       
+        
+        floaty.addItem(icon: UIImage(named: "current_location_big")) { item in
+           
+            
+        }
+       
+        //기본적으로 오른쪽 하단에 위치, 아래는 padding 값을 주는 것임
+//        floaty.paddingX = 40
+//        floaty.paddingY = floaty.frame.height + 20
+        
+       
+        floaty.fabDelegate = self
+        
+        self.view.addSubview(floaty)
+        
+    }
+    
+    // MARK: - Floaty Delegate Methods
+    func floatyWillOpen(_ floaty: Floaty) {
+        print("Floaty Will Open")
+    }
+    
+    func floatyDidOpen(_ floaty: Floaty) {
+        print("Floaty Did Open")
+    }
+    
+    func floatyWillClose(_ floaty: Floaty) {
+        print("Floaty Will Close")
+    }
+    
+    func floatyDidClose(_ floaty: Floaty) {
+        print("Floaty Did Close")
     }
     
     func initGoogleMapDrawingManager() {
@@ -192,22 +244,22 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         googleMapDrawingManager.createCurrentLocationMarker()
     }
     
-    func drawTicketViewBackground() {
-        
-        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 50, height: 30))
-        let img = renderer.image { ctx in
-            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#000000", alpha: 0).cgColor)
-            ctx.cgContext.setStrokeColor(HexColorManager.colorWithHexString(hexString: "#0078FF", alpha: 1.0).cgColor)
-            ctx.cgContext.setLineWidth(10)
-            
-            let rectangle = CGRect(x: 0, y: 0, width: 50, height: 30)
-            ctx.cgContext.addRect(rectangle)
-            ctx.cgContext.drawPath(using: .fillStroke)
-        }
-        
-        
-        ticketView.backgroundColor = UIColor(patternImage: img)
-    }
+//    func drawTicketViewBackground() {
+//
+//        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 50, height: 30))
+//        let img = renderer.image { ctx in
+//            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#000000", alpha: 0).cgColor)
+//            ctx.cgContext.setStrokeColor(HexColorManager.colorWithHexString(hexString: "#0078FF", alpha: 1.0).cgColor)
+//            ctx.cgContext.setLineWidth(10)
+//
+//            let rectangle = CGRect(x: 0, y: 0, width: 50, height: 30)
+//            ctx.cgContext.addRect(rectangle)
+//            ctx.cgContext.drawPath(using: .fillStroke)
+//        }
+//
+//
+//        ticketView.backgroundColor = UIColor(patternImage: img)
+//    }
     
     
     func addTapGestureToDrawer() {
@@ -228,17 +280,17 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         searchMenu.addGestureRecognizer(searchMenuTapGesture)
         searchMenu.isUserInteractionEnabled = true
         
-        let findRouteMenuTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.showFindRouteScreen(_:)))
-        findRouteMenuTapGesture.numberOfTapsRequired = 1
-        findRouteMenuTapGesture.numberOfTouchesRequired = 1
-        findRouteMenu.addGestureRecognizer(findRouteMenuTapGesture)
-        findRouteMenu.isUserInteractionEnabled = true
-        
-        let favoritesMenuTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.showFavoritesScreen(_:)))
-        favoritesMenuTapGesture.numberOfTapsRequired = 1
-        favoritesMenuTapGesture.numberOfTouchesRequired = 1
-        favoritesMenu.addGestureRecognizer(favoritesMenuTapGesture)
-        favoritesMenu.isUserInteractionEnabled = true
+//        let findRouteMenuTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.showFindRouteScreen(_:)))
+//        findRouteMenuTapGesture.numberOfTapsRequired = 1
+//        findRouteMenuTapGesture.numberOfTouchesRequired = 1
+//        findRouteMenu.addGestureRecognizer(findRouteMenuTapGesture)
+//        findRouteMenu.isUserInteractionEnabled = true
+//
+//        let favoritesMenuTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.showFavoritesScreen(_:)))
+//        favoritesMenuTapGesture.numberOfTapsRequired = 1
+//        favoritesMenuTapGesture.numberOfTouchesRequired = 1
+//        favoritesMenu.addGestureRecognizer(favoritesMenuTapGesture)
+//        favoritesMenu.isUserInteractionEnabled = true
         
         let settingsMenuTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.showSettingsScreen(_:)))
         settingsMenuTapGesture.numberOfTapsRequired = 1

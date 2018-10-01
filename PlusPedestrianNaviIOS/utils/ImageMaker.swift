@@ -34,6 +34,29 @@ class ImageMaker {
         
     }
     
+    static func getRoundRectangleByCorners(width: CGFloat, height: CGFloat, colorHexString: String,  byRoundingCorners: UIRectCorner, cornerRadii: CGFloat, alpha: CGFloat) -> UIImage {
+        
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height))
+        let img = renderer.image {
+            
+            ctx in
+            let clipPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: width, height: height), byRoundingCorners: byRoundingCorners , cornerRadii: CGSize(width: cornerRadii, height: cornerRadii)).cgPath
+            
+            ctx.cgContext.addPath(clipPath)
+            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: colorHexString, alpha: alpha).cgColor)
+            
+            ctx.cgContext.closePath()
+            ctx.cgContext.fillPath()
+            
+            
+        }
+        
+        
+        return img
+        
+        
+    }
+    
     
     static func getCircle(width: CGFloat, height: CGFloat, colorHexString: String, alpha: CGFloat) -> UIImage {
         

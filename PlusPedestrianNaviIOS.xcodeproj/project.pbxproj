@@ -30,7 +30,7 @@
 		07CA0F4A2154A5A500E6C4C4 /* ImageMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CA0F492154A5A500E6C4C4 /* ImageMaker.swift */; };
 		07CA0F502154D49700E6C4C4 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CA0F4F2154D49700E6C4C4 /* NavigationViewController.swift */; };
 		07F2224021392ABF00EDFBB0 /* SearchPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F2223F21392ABF00EDFBB0 /* SearchPlaceViewController.swift */; };
-		176E6F5951930FF493A8837A /* libPods-PlusPedestrianNaviIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DC1B3902B023501B4254522 /* libPods-PlusPedestrianNaviIOS.a */; };
+		E5CA30C438E61684791DC7BF /* Pods_PlusPedestrianNaviIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E012498CEAF2062C3035DB05 /* Pods_PlusPedestrianNaviIOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,9 +60,9 @@
 		07CA0F492154A5A500E6C4C4 /* ImageMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMaker.swift; sourceTree = "<group>"; };
 		07CA0F4F2154D49700E6C4C4 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		07F2223F21392ABF00EDFBB0 /* SearchPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceViewController.swift; sourceTree = "<group>"; };
-		1DC1B3902B023501B4254522 /* libPods-PlusPedestrianNaviIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PlusPedestrianNaviIOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D48CC66E7E6DC0607E9F6C /* Pods-PlusPedestrianNaviIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		DE918DF8083130D875EAD52F /* Pods-PlusPedestrianNaviIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.release.xcconfig"; sourceTree = "<group>"; };
+		E012498CEAF2062C3035DB05 /* Pods_PlusPedestrianNaviIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlusPedestrianNaviIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				176E6F5951930FF493A8837A /* libPods-PlusPedestrianNaviIOS.a in Frameworks */,
+				E5CA30C438E61684791DC7BF /* Pods_PlusPedestrianNaviIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,7 +179,7 @@
 		EED45B2291D016ECA191174A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1DC1B3902B023501B4254522 /* libPods-PlusPedestrianNaviIOS.a */,
+				E012498CEAF2062C3035DB05 /* Pods_PlusPedestrianNaviIOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -196,6 +196,7 @@
 				078BEDBB212E5FFF00D497C9 /* Frameworks */,
 				078BEDBC212E5FFF00D497C9 /* Resources */,
 				FF6DCD2FC2382971BF4DEE8E /* [CP] Copy Pods Resources */,
+				3D1B00CEC5A60DCCB96EC07E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -254,6 +255,32 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3D1B00CEC5A60DCCB96EC07E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Floaty.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6974514A1D27A6E1B3EE0761 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

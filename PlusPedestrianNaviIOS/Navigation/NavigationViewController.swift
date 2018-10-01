@@ -33,9 +33,11 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     
     var directionModel:DirectionModel!
     
+    @IBOutlet weak var directionBoard: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        drawDirectionBoardBackground()
         initGoogleMapDrawingManager()
         determineMyCurrentLocation()
     }
@@ -43,6 +45,13 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     @IBAction func onBackTapped(_ sender: Any) {
         self.dismiss(animated: true)
     }
+    
+    func drawDirectionBoardBackground() {
+        let img = ImageMaker.getRoundRectangleByCorners(width: 200, height: 102, colorHexString: "#288353", byRoundingCorners: [UIRectCorner.topRight , UIRectCorner.bottomRight], cornerRadii: 6.0, alpha: 0.7)
+        
+        directionBoard.backgroundColor = UIColor(patternImage: img)
+    }
+    
     func determineMyCurrentLocation() {
         locationManager = CLLocationManager()
         locationManager.delegate = self
