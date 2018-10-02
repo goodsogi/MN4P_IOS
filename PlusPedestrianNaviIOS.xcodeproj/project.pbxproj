@@ -14,6 +14,7 @@
 		0749B9A02146381F0082E1E6 /* DirectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749B99F2146381F0082E1E6 /* DirectionModel.swift */; };
 		0749B9A221463A800082E1E6 /* RoutePointModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749B9A121463A800082E1E6 /* RoutePointModel.swift */; };
 		0749B9A4214646E20082E1E6 /* PPNConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749B9A3214646E20082E1E6 /* PPNConstants.swift */; };
+		07697F6C21636CCB003D2566 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07697F6B21636CCA003D2566 /* LocalFileManager.swift */; };
 		076A8E652137A7A100858716 /* HexColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A8E642137A7A100858716 /* HexColorManager.swift */; };
 		076ACEE32147D4020042B254 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076ACEE22147D4020042B254 /* UserDefault.swift */; };
 		077853E22152408D0059B489 /* RouteSelectBoardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077853E12152408D0059B489 /* RouteSelectBoardManager.swift */; };
@@ -42,6 +43,7 @@
 		0749B99F2146381F0082E1E6 /* DirectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionModel.swift; sourceTree = "<group>"; };
 		0749B9A121463A800082E1E6 /* RoutePointModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePointModel.swift; sourceTree = "<group>"; };
 		0749B9A3214646E20082E1E6 /* PPNConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPNConstants.swift; sourceTree = "<group>"; };
+		07697F6B21636CCA003D2566 /* LocalFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
 		076A8E642137A7A100858716 /* HexColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColorManager.swift; sourceTree = "<group>"; };
 		076ACEE22147D4020042B254 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		077853E12152408D0059B489 /* RouteSelectBoardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSelectBoardManager.swift; sourceTree = "<group>"; };
@@ -129,7 +131,6 @@
 				078BEDCA212E600100D497C9 /* LaunchScreen.storyboard */,
 				078BEDCD212E600100D497C9 /* Info.plist */,
 				0749B9A3214646E20082E1E6 /* PPNConstants.swift */,
-				076ACEE22147D4020042B254 /* UserDefault.swift */,
 			);
 			path = PlusPedestrianNaviIOS;
 			sourceTree = "<group>";
@@ -137,12 +138,14 @@
 		07CA0F4B2154A95500E6C4C4 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				076ACEE22147D4020042B254 /* UserDefault.swift */,
 				07CA0F452154978100E6C4C4 /* ActionDelayManager.swift */,
 				07CA0F4321548C2500E6C4C4 /* ViewElevationMaker.swift */,
 				07AE17AA213CF33E0045A2A8 /* Toast.swift */,
 				076A8E642137A7A100858716 /* HexColorManager.swift */,
 				07CA0F492154A5A500E6C4C4 /* ImageMaker.swift */,
 				077853E32152483C0059B489 /* GoogleMapDrawingManager.swift */,
+				07697F6B21636CCA003D2566 /* LocalFileManager.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -339,6 +342,7 @@
 				0749B9A221463A800082E1E6 /* RoutePointModel.swift in Sources */,
 				0749B9A4214646E20082E1E6 /* PPNConstants.swift in Sources */,
 				070BA288213E3E9300B00383 /* SearchPlaceTableCell.swift in Sources */,
+				07697F6C21636CCB003D2566 /* LocalFileManager.swift in Sources */,
 				07AE17AB213CF33E0045A2A8 /* Toast.swift in Sources */,
 				076ACEE32147D4020042B254 /* UserDefault.swift in Sources */,
 				078BEDC4212E5FFF00D497C9 /* MainViewController.swift in Sources */,

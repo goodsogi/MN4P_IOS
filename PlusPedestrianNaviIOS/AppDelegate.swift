@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             print("\(error.localizedDescription)")
             // [START_EXCLUDE silent]
             NotificationCenter.default.post(
-                name: Notification.Name(rawValue: "SignInNotification"), object: nil, userInfo: nil)
+                name: Notification.Name(rawValue: PPNConstants.NOTIFICATION_NAME), object: nil, userInfo: nil)
             // [END_EXCLUDE]
         } else {
             // Perform any operations on signed in user here.
@@ -78,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 //            let email = user.profile.email
             // [START_EXCLUDE]
             NotificationCenter.default.post(
-                name: Notification.Name(rawValue: "SignInNotification"),
+                name: Notification.Name(rawValue: PPNConstants.NOTIFICATION_NAME),
                 object: nil,
                 userInfo: ["fullName": fullName ?? "", "profileImageUrl": pic])
 
@@ -93,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Perform any operations when the user disconnects from app here.
         // [START_EXCLUDE]
         NotificationCenter.default.post(
-            name: Notification.Name(rawValue: "SignInNotification"),
+            name: Notification.Name(rawValue: PPNConstants.NOTIFICATION_NAME),
             object: nil,
             userInfo: ["statusText": "User has disconnected."])
         // [END_EXCLUDE]

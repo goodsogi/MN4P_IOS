@@ -196,7 +196,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         super.viewDidLoad()
         
         //TODO: 테스트후 삭제하세요
-        GIDSignIn.sharedInstance()?.signOut()
+        //GIDSignIn.sharedInstance()?.signOut()
         
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -206,7 +206,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         initGoogleMapDrawingManager()
         addTapGestureToDrawer()
         addTapGestureToDrawerMenu()
-        addTapGestureToSignIn()
+        
 //        drawTicketViewBackground()
         
         initGoogleSignIn()
@@ -223,15 +223,41 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         // [START_EXCLUDE]
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(MainViewController.receiveSignInNotification(_:)),
-                                               name: NSNotification.Name(rawValue: "SignInNotification"),
+                                               name: NSNotification.Name(rawValue: PPNConstants.NOTIFICATION_NAME),
                                                object: nil)
+        
+        //이미 로그인한 경우 처리
+        let isSignedIn = UserDefault.load(key: PPNConstants.IS_SIGN_IN)
+        
+        //앱을 run해도 UserDefault값이 남아 있음
+        if isSignedIn == "true" {
+            
+            let userName = UserDefault.load(key: PPNConstants.USER_NAME)
+            
+            self.signInLabel.text = userName
+            
+            
+            if let image = LocalFileManager.load(fileName: PPNConstants.PROFILE_IMAGE_NAME) {
+           self.profileIcon.image = image
+                
+                //둥근 이미지 처리
+                self.profileIcon.layer.borderWidth = 1
+                self.profileIcon.layer.masksToBounds = false
+                self.profileIcon.layer.borderColor = UIColor.black.cgColor
+                self.profileIcon.layer.cornerRadius = self.profileIcon.frame.height/2
+                self.profileIcon.clipsToBounds = true
+            }
+        } else {
+           addTapGestureToSignIn()
+            
+        }
         
         
     }
         
     
     @objc func receiveSignInNotification(_ notification: NSNotification) {
-        if notification.name.rawValue == "SignInNotification" {
+        if notification.name.rawValue == PPNConstants.NOTIFICATION_NAME {
            
             if notification.userInfo != nil {
                 guard let userInfo = notification.userInfo as? [String:String] else { return }
@@ -239,6 +265,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
                 self.signInLabel.text = userInfo["fullName"]!
                 self.showProfileImage(imageUrl: userInfo["profileImageUrl"]!)
                 
+                //UserDefault(안드로이드의 SharedPreferences)에 저장
+                UserDefault.save(key: PPNConstants.IS_SIGN_IN, value: "true")
+                UserDefault.save(key: PPNConstants.USER_NAME, value: userInfo["fullName"]!)
             }
         }
     }
@@ -258,12 +287,23 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
                                 // Show the downloaded image:
                                 if let data = response.data {
                                          self.profileIcon.image = UIImage(data: data)
+                                    
+                                    //둥근 이미지 처리
+                                    self.profileIcon.layer.borderWidth = 1
+                                    self.profileIcon.layer.masksToBounds = false
+                                    self.profileIcon.layer.borderColor = UIColor.black.cgColor
+                                    self.profileIcon.layer.cornerRadius = self.profileIcon.frame.height/2
+                                    self.profileIcon.clipsToBounds = true
+                                    
+                                    //이미지 파일로 저장
+                                    LocalFileManager.save(image: self.profileIcon.image!, fileName: PPNConstants.PROFILE_IMAGE_NAME)
+                                    
                                      }
                              }
                      }
         
     }
-    
+   
     
     func initFloaty() {
         
