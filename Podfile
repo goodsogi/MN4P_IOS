@@ -12,4 +12,5 @@ pod 'GoogleMaps'
 pod 'Alamofire', '~> 4.7'
 pod 'SwiftyJSON', '~> 4.0'
 pod "Floaty", "~> 4.0.0"
+pod 'GoogleSignIn'
 end

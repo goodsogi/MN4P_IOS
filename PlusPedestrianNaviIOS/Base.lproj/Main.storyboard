@@ -1168,7 +1168,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="addressView" destination="6DQ-aN-vQX" id="rvS-Bu-bLI"/>
+                        <outlet property="addressView" destination="6DQ-aN-vQX" id="3eG-6N-Abm"/>
                         <outlet property="bizNameView" destination="LFd-Ev-sp6" id="bMD-bQ-UUa"/>
                         <outlet property="drawerView" destination="eFs-7n-mWz" id="2x9-PS-ymm"/>
                         <outlet property="drawerViewTrailing" destination="2fH-Xk-RI0" id="mOp-9d-1db"/>
@@ -1180,10 +1180,11 @@
                         <outlet property="mapView" destination="flQ-yi-35f" id="6y7-Sr-Lw1"/>
                         <outlet property="placeInfoBoard" destination="qXt-mU-Mmz" id="0NX-XZ-6nx"/>
                         <outlet property="placeNameView" destination="U71-nU-TgI" id="Enc-pr-gxs"/>
+                        <outlet property="profileIcon" destination="peY-9P-fHZ" id="yOS-4w-cEu"/>
                         <outlet property="searchMenu" destination="Utf-YF-4ik" id="mhM-Lu-QHO"/>
                         <outlet property="settingsMenu" destination="pJ0-qJ-Jfg" id="Hhd-6u-z2T"/>
+                        <outlet property="signInLabel" destination="lIa-ZJ-Y59" id="dbt-Uc-Tn8"/>
                         <outlet property="telNoView" destination="8fP-VL-62p" id="e9x-YM-YWP"/>
-                        
                         <outlet property="topSearchBar" destination="t1z-Fs-t7j" id="9Eb-K4-5qp"/>
                         <outlet property="topSearchBarLabel" destination="fXV-hF-Kzx" id="Fjd-FT-8W1"/>
                         <outlet property="writeAppReviewMenu" destination="xQa-ou-nl9" id="eOj-o3-P7r"/>

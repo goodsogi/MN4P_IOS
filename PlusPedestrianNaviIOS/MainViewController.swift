@@ -10,14 +10,15 @@ import UIKit
 import GoogleMaps
 import CoreLocation
 import Floaty
-
+import GoogleSignIn
+import Alamofire
 
 protocol MainViewControllerDelegate {
     func onPlaceSelected(placeModel: SearchPlaceModel)
 }
 
 
-class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManagerDelegate, MainViewControllerDelegate, FloatyDelegate{
+class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManagerDelegate, MainViewControllerDelegate, FloatyDelegate, GIDSignInUIDelegate{
     
     
     @IBOutlet weak var writeAppReviewMenu: UIView!
@@ -42,9 +43,10 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     @IBOutlet weak var topSearchBarLabel: UILabel!
     
     
+    @IBOutlet weak var addressView: UILabel!
     @IBOutlet weak var placeNameView: UILabel!
     @IBOutlet weak var bizNameView: UILabel!
-    @IBOutlet weak var addressView: UILabel!
+   
     @IBOutlet weak var telNoView: UILabel!
     
     @IBOutlet weak var placeInfoBoard: UIView!    
@@ -56,6 +58,12 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     var googleMapDrawingManager:GoogleMapDrawingManager!
     
     var floaty:Floaty = Floaty()
+    
+    var userLocation:CLLocation?
+    
+    @IBOutlet weak var signInLabel: UILabel!
+    
+    @IBOutlet weak var profileIcon: UIImageView!
     
     @IBAction func hamburgerButtonTapped(_ sender: Any) {
         //if the hamburger menu is NOT visible, then move the ubeView back to where it used to be
@@ -89,7 +97,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     
     func moveFloaty() {
 //        floaty.paddingX = 40
-        floaty.paddingY = floaty.frame.height + 20
+        floaty.paddingY = 120
         
     
     }
@@ -187,6 +195,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //TODO: 테스트후 삭제하세요
+        GIDSignIn.sharedInstance()?.signOut()
+        
         
         // Do any additional setup after loading the view, typically from a nib.
         initMapView()
@@ -195,9 +206,64 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         initGoogleMapDrawingManager()
         addTapGestureToDrawer()
         addTapGestureToDrawerMenu()
+        addTapGestureToSignIn()
 //        drawTicketViewBackground()
         
+        initGoogleSignIn()
+        
+       
+        
     }
+    
+    
+    func initGoogleSignIn() {
+        GIDSignIn.sharedInstance().uiDelegate = self
+        
+        // TODO(developer) Configure the sign-in button look/feel
+        // [START_EXCLUDE]
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(MainViewController.receiveSignInNotification(_:)),
+                                               name: NSNotification.Name(rawValue: "SignInNotification"),
+                                               object: nil)
+        
+        
+    }
+        
+    
+    @objc func receiveSignInNotification(_ notification: NSNotification) {
+        if notification.name.rawValue == "SignInNotification" {
+           
+            if notification.userInfo != nil {
+                guard let userInfo = notification.userInfo as? [String:String] else { return }
+               
+                self.signInLabel.text = userInfo["fullName"]!
+                self.showProfileImage(imageUrl: userInfo["profileImageUrl"]!)
+                
+            }
+        }
+    }
+    
+    
+    func showProfileImage(imageUrl url: String) {
+        print("profile image icon: " + url)
+        
+        // The image to dowload
+                 let remoteImageURL = URL(string: url)!
+        
+                 // Use Alamofire to download the image
+                Alamofire.request(remoteImageURL).responseData { (response) in
+                         if response.error == nil {
+                                 print(response.result)
+                
+                                // Show the downloaded image:
+                                if let data = response.data {
+                                         self.profileIcon.image = UIImage(data: data)
+                                     }
+                             }
+                     }
+        
+    }
+    
     
     func initFloaty() {
         
@@ -207,7 +273,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
         floaty.addItem(icon: UIImage(named: "current_location_big")) { item in
            
-            
+            if let userLocation = self.userLocation {
+            self.googleMapDrawingManager.showFirstCurrentLocationOnMap(userLocation: userLocation)
+            }
         }
        
         //기본적으로 오른쪽 하단에 위치, 아래는 padding 값을 주는 것임
@@ -268,6 +336,23 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         tapGesture.numberOfTouchesRequired = 1
         emptyView.addGestureRecognizer(tapGesture)
         emptyView.isUserInteractionEnabled = true
+        
+        
+    }
+    
+    func addTapGestureToSignIn() {
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.signIn(_:)))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.numberOfTouchesRequired = 1
+        signInLabel.addGestureRecognizer(tapGesture)
+        signInLabel.isUserInteractionEnabled = true
+    }
+    
+    //@objc가 없으면 오류 발생
+    @objc func signIn(_ sender: UITapGestureRecognizer) {
+        
+       GIDSignIn.sharedInstance().signIn()
         
         
     }
@@ -428,11 +513,11 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         // TODO: Info.plist 수정하세요 
         
         
-        let userLocation:CLLocation = locations[0] as CLLocation
+        userLocation = locations[0] as CLLocation
         
         if(isFirstLocation) {
             isFirstLocation = false
-            googleMapDrawingManager.showFirstCurrentLocationOnMap(userLocation: userLocation)
+            googleMapDrawingManager.showFirstCurrentLocationOnMap(userLocation: userLocation!)
         } else {
             //        googleMapDrawingManager.showCurrentLocationOnMap(userLocation: userLocation)
         }
@@ -442,8 +527,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
         // manager.stopUpdatingLocation()
         
-        print("main user latitude = \(userLocation.coordinate.latitude)")
-        print("main user longitude = \(userLocation.coordinate.longitude)")
+        print("main user latitude = \(userLocation?.coordinate.latitude)")
+        print("main user longitude = \(userLocation?.coordinate.longitude)")
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
