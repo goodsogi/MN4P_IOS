@@ -95,6 +95,9 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
         
         let url:String = "https://api2.sktelecom.com/tmap/pois"
         let param = ["version": "1", "appKey": TMAP_APP_KEY, "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO", "searchKeyword": searchKeyword]
+        
+        SpinnerView.show(onView: self.view)
+        
         Alamofire.request(url,
                           method: .get,
                           parameters: param,
@@ -103,8 +106,12 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
             )
             .validate(statusCode: 200..<300)
             .responseJSON {
+                
                 response in
                 if let responseData = response.result.value {
+                    
+                    SpinnerView.remove()
+                    
                     let swiftyJsonVar = JSON(responseData)
                     
                     var searchPlaceModel:SearchPlaceModel
@@ -147,7 +154,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
                     print(self.searchPlaceModels[0].getName() as Any)
                 } else {
                     //TODO: 오류가 발생한 경우 처리하세요
-                    
+                    SpinnerView.remove()
                 }
                 
         }

@@ -87,7 +87,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
             
             self.googleMapDrawingManager.showSelectedPlaceOnMap(selectedPlaceModel: placeModel)
             
-            self.moveFloaty()
+//            self.moveFloaty()
             self.showSelectedPlaceOnBoard()
             self.drawFindRouteButtonBackground()
             self.addTapGestureToFindRouteButton()
@@ -95,12 +95,29 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         })
     }
     
-    func moveFloaty() {
-//        floaty.paddingX = 40
-        floaty.paddingY = 120
-        
-    
-    }
+//    func moveFloaty() {
+////        floaty.paddingX = 40
+////        floaty.paddingY = 120
+////        floaty.frame.origin.y - 120
+////
+////        //View will slide 120px up
+//        let xPosition = floaty.frame.origin.x
+//        let yPosition = floaty.frame.origin.y - 120
+//
+//        let height = floaty.frame.size.height
+//        let width = floaty.frame.size.width
+//
+//        UIView.animate(withDuration: 1.0, animations: {
+//
+//            self.floaty.frame = CGRect(x: xPosition, y: yPosition, width: width, height: height )
+//
+//        })
+//
+//        // 새로운 y로 이동했다가 다시 원래로 돌아옴
+////        var frame:CGRect = floaty.frame
+////        frame.origin.y = frame.origin.y - 120
+////        floaty.frame = frame
+//    }
     
     func addTapGestureToTelNoView(telNo:String) {
         
@@ -201,7 +218,11 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
         // Do any additional setup after loading the view, typically from a nib.
         initMapView()
-        initFloaty()
+        
+        //길찾기 버튼과 겹쳐지는 이슈발생
+        //paddingY를 지정하여 시각적으로는 분리되지만 터치 이벤트는 겹쳐서 작동하여
+        //길찾기 버튼 클릭했는데 floaty가 작동하는 이슈 발생하여 일단 뺌
+        //initFloaty()
         initTopSearchBar()
         initGoogleMapDrawingManager()
         addTapGestureToDrawer()
@@ -305,29 +326,28 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     }
    
     
-    func initFloaty() {
-        
-        floaty.buttonColor = UIColor.white
-        floaty.hasShadow = true
-       
-        
-        floaty.addItem(icon: UIImage(named: "current_location_big")) { item in
-           
-            if let userLocation = self.userLocation {
-            self.googleMapDrawingManager.showFirstCurrentLocationOnMap(userLocation: userLocation)
-            }
-        }
-       
-        //기본적으로 오른쪽 하단에 위치, 아래는 padding 값을 주는 것임
-//        floaty.paddingX = 40
-//        floaty.paddingY = floaty.frame.height + 20
-        
-       
-        floaty.fabDelegate = self
-        
-        self.view.addSubview(floaty)
-        
-    }
+//    func initFloaty() {
+//        floaty.buttonColor = UIColor.white
+//        floaty.hasShadow = true
+//
+//
+//        floaty.addItem(icon: UIImage(named: "current_location_big")) { item in
+//
+//            if let userLocation = self.userLocation {
+//            self.googleMapDrawingManager.showFirstCurrentLocationOnMap(userLocation: userLocation)
+//            }
+//        }
+//
+//        //기본적으로 오른쪽 하단에 위치, 아래는 padding 값을 주는 것임
+////        floaty.paddingX = 40
+////        floaty.paddingY = 120
+//
+//
+//        floaty.fabDelegate = self
+//
+//        self.view.addSubview(floaty)
+//
+//    }
     
     // MARK: - Floaty Delegate Methods
     func floatyWillOpen(_ floaty: Floaty) {

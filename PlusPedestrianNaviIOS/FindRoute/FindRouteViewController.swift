@@ -198,15 +198,15 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     func getSearchOption() -> String {
         switch selectedRouteOption {
         case PPNConstants.FIRST_ROUTE_OPTION:
-            //TODO 수정하세요
+            //추천
             return "0"
             
         case PPNConstants.SECOND_ROUTE_OPTION:
-            //TODO 수정하세요
-            return "4"
+            //최단거리
+            return "10"
             
         default:
-            print("getSearchOption default")
+            print("getSearchOption 추천")
         }
         
         return "0"
@@ -242,7 +242,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
                     
                     //마지막으로 첫 번째 옵션의 경로 가져옴
                     if (self.selectedRouteOption == PPNConstants.FIRST_ROUTE_OPTION) {
-                        
+                        SpinnerView.remove()
                         
                         self.firstDirectionModel = self.getDirectionModel(responseData: responseData);
                         
@@ -255,7 +255,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
                     
                     //두 번째 옵션의 경로를 가져옴
                     if (self.selectedRouteOption == PPNConstants.SECOND_ROUTE_OPTION) {
-                        
+                        SpinnerView.remove()
                         
                         self.secondDirectionModel = self.getDirectionModel(responseData: responseData);
                         self.selectedRouteOption = PPNConstants.FIRST_ROUTE_OPTION
@@ -265,7 +265,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
                     
                 } else {
                     //TODO: 오류가 발생한 경우 처리하세요
-                    
+                    SpinnerView.remove()
                 }
                 
         }
@@ -334,11 +334,8 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     
     
     func showSecondRouteType() {
-        //TODO: 수정하세요
         
         secondRouteType.text = "최단거리"
-        
-        
         
     }
     

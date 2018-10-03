@@ -124,7 +124,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         let param = [  "startX": String(userLocation.coordinate.longitude) , "startY": String(userLocation.coordinate.latitude) , "endX": String(selectedPlaceModel?.getLng()! ?? 0) , "endY": String(selectedPlaceModel?.getLat()! ?? 0) , "angle": "0" , "searchOption": searchOption , "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO","startName": "start", "endName": "end"]
         
         
-        
+        SpinnerView.show(onView: self.view)
         //headers: ["Content-Type":"application/json", "Accept":"application/json"] 값을 지정하면 오류 발생
         Alamofire.request(url,
                           method: .post,
@@ -136,6 +136,8 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
                 response in
                 if let responseData = response.result.value {
                     
+                    SpinnerView.remove()
+                    
                     self.directionModel = self.getDirectionModel(responseData: responseData);
                     
                     self.drawRouteOnMap()
@@ -143,7 +145,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
                     
                 } else {
                     //TODO: 오류가 발생한 경우 처리하세요
-                    
+                    SpinnerView.remove()
                 }
                 
         }
