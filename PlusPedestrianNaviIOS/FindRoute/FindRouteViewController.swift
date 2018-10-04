@@ -32,7 +32,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     
     var locationManager:CLLocationManager!
     
-    var selectedRouteOption:Int?
+    var selectedRouteNo:Int?
     
     var firstDirectionModel:DirectionModel!
     var secondDirectionModel:DirectionModel!
@@ -195,21 +195,21 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
         endPointView.text = selectedPlaceModel?.getName()
     }
     
-    func getSearchOption() -> String {
-        switch selectedRouteOption {
-        case PPNConstants.FIRST_ROUTE_OPTION:
+    func getRouteOption() -> String {
+        switch selectedRouteNo {
+        case PPNConstants.FIRST_ROUTE:
             //추천
-            return "0"
+            return PPNConstants.RECOMMEND_ROUTE_OPTION
             
-        case PPNConstants.SECOND_ROUTE_OPTION:
+        case PPNConstants.SECOND_ROUTE:
             //최단거리
-            return "10"
+            return PPNConstants.SHORTEST_ROUTE_OPTION
             
         default:
             print("getSearchOption 추천")
         }
         
-        return "0"
+        return PPNConstants.RECOMMEND_ROUTE_OPTION
     }
     
     
@@ -222,7 +222,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
         //검색 옵션 0: 추천 (기본값), 4: 추천+번화가우선, 10: 최단, 30: 최단거리+계단제외
         
         
-        let searchOption:String = getSearchOption()
+        let searchOption:String = getRouteOption()
         
         
         let param = [  "startX": String(userLocation.coordinate.longitude) , "startY": String(userLocation.coordinate.latitude) , "endX": String(selectedPlaceModel?.getLng()! ?? 0) , "endY": String(selectedPlaceModel?.getLat()! ?? 0) , "angle": "0" , "searchOption": searchOption , "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO","startName": startPointView.text!, "endName": endPointView.text!]
@@ -238,37 +238,66 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
             .validate(statusCode: 200..<300)
             .responseJSON {
                 response in
-                if let responseData = response.result.value {
-                    
-                    //마지막으로 첫 번째 옵션의 경로 가져옴
-                    if (self.selectedRouteOption == PPNConstants.FIRST_ROUTE_OPTION) {
+                
+                switch response.result {
+                case .success:
+                    if let responseData = response.result.value {
+                        
                         SpinnerView.remove()
                         
-                        self.firstDirectionModel = self.getDirectionModel(responseData: responseData);
                         
-                        self.drawRouteOnMap()
-                        self.fillOutRouteSelectBoard()
+                        //마지막으로 첫 번째 옵션의 경로 가져옴
+                        if (self.selectedRouteNo == PPNConstants.FIRST_ROUTE) {
+                            SpinnerView.remove()
+                            
+                            self.firstDirectionModel = self.getDirectionModel(responseData: responseData);
+                            
+                            self.drawRouteOnMap()
+                            self.fillOutRouteSelectBoard()
+                            
+                            
+                            
+                        }
                         
+                        //두 번째 옵션의 경로를 가져옴
+                        if (self.selectedRouteNo == PPNConstants.SECOND_ROUTE) {
+                            SpinnerView.remove()
+                            
+                            self.secondDirectionModel = self.getDirectionModel(responseData: responseData);
+                            self.selectedRouteNo = PPNConstants.FIRST_ROUTE
+                            self.getRoute();
+                        }
+                
+                        
+                    } else {
+                        //TODO: 오류가 발생한 경우 처리하세요
+                        SpinnerView.remove()
                         
                         
                     }
-                    
-                    //두 번째 옵션의 경로를 가져옴
-                    if (self.selectedRouteOption == PPNConstants.SECOND_ROUTE_OPTION) {
-                        SpinnerView.remove()
-                        
-                        self.secondDirectionModel = self.getDirectionModel(responseData: responseData);
-                        self.selectedRouteOption = PPNConstants.FIRST_ROUTE_OPTION
-                        self.getRoute();
-                    }
-                    
-                    
-                } else {
-                    //TODO: 오류가 발생한 경우 처리하세요
+                    print("Validation Successful")
+                case .failure(let error):
                     SpinnerView.remove()
+                    
+                    //TODO 나중에 제대로 작동하는지 확인하세요
+                    if(error.localizedDescription.contains("forbidden")) {
+                        self.showOverApiAlert()
+                    }
+                    
+                    print(error)
                 }
                 
+                
         }
+    }
+    
+    func showOverApiAlert() {
+        
+        let modalViewController = self.storyboard?.instantiateViewController(withIdentifier: "OverApiAlertPopup")
+        modalViewController!.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        modalViewController!.modalTransitionStyle = UIModalTransitionStyle.coverVertical
+        present(modalViewController!, animated: true, completion: nil)
+        
     }
     
     func fillOutRouteSelectBoard() {
@@ -418,14 +447,14 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     }
     
     func addTapGestureToStartButton() {
-        let firstStartButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.startButtonOnMainRouteTapped(_:)))
+        let firstStartButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onTapStartButtonOnFirstRoute(_:)))
         firstStartButtonTapGesture.numberOfTapsRequired = 1
         firstStartButtonTapGesture.numberOfTouchesRequired = 1
         startButtonOnMainRoute.addGestureRecognizer(firstStartButtonTapGesture)
         startButtonOnMainRoute.isUserInteractionEnabled = true
         
         
-        let secondStartButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.startButtonOnSubRouteTapped(_:)))
+        let secondStartButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onTapStartButtonOnSecondRoute(_:)))
         secondStartButtonTapGesture.numberOfTapsRequired = 1
         secondStartButtonTapGesture.numberOfTouchesRequired = 1
         startButtonOnSubRoute.addGestureRecognizer(secondStartButtonTapGesture)
@@ -433,22 +462,24 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     }
     
     
-    @objc func startButtonOnMainRouteTapped(_ sender: UITapGestureRecognizer) {
+    @objc func onTapStartButtonOnFirstRoute(_ sender: UITapGestureRecognizer) {
         
         let viewController  = self.storyboard?.instantiateViewController(withIdentifier: "Navigation")
         
         (viewController as! NavigationViewController).selectedPlaceModel = selectedPlaceModel
-        //TODO: 추가 처리하세요
+        
+        (viewController as! NavigationViewController).selectedRouteOption = PPNConstants.RECOMMEND_ROUTE_OPTION
         
         self.present(viewController!, animated: true, completion: nil)
     }
     
-    @objc func startButtonOnSubRouteTapped(_ sender: UITapGestureRecognizer) {
+    @objc func onTapStartButtonOnSecondRoute(_ sender: UITapGestureRecognizer) {
         
         let viewController  = self.storyboard?.instantiateViewController(withIdentifier: "Navigation")
         
-        //TODO: 추가 처리하세요
         (viewController as! NavigationViewController).selectedPlaceModel = selectedPlaceModel
+        
+        (viewController as! NavigationViewController).selectedRouteOption = PPNConstants.SHORTEST_ROUTE_OPTION
         
         self.present(viewController!, animated: true, completion: nil)
     }
@@ -509,10 +540,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
                 }
                 
             }
-            
-            
-            
-            
+         
         }
         return routePointModels
     }
@@ -581,7 +609,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
         
         if(isFirstLocation) {
             isFirstLocation = false;
-            selectedRouteOption = PPNConstants.SECOND_ROUTE_OPTION
+            selectedRouteNo = PPNConstants.SECOND_ROUTE
             getRoute()
         }
         

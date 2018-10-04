@@ -586,21 +586,20 @@
                                         </constraints>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e1L-zl-hdd" userLabel="No GPS Alert Bar">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2nX-IH-uev" userLabel="No GPS Message">
-                                                <rect key="frame" x="211" y="21" width="25" height="17"/>
-                                                <nil key="textColor"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="GPS 신호를 찾는 중..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2nX-IH-uev" userLabel="No GPS Message">
+                                                <rect key="frame" x="123.5" y="55" width="128" height="17"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="1" green="0.319832426" blue="0.37018155730000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstItem="2nX-IH-uev" firstAttribute="leading" secondItem="e1L-zl-hdd" secondAttribute="leading" constant="211" id="SdW-OW-DGb"/>
-                                            <constraint firstAttribute="height" constant="59" id="dS7-pm-5Qa"/>
-                                            <constraint firstItem="2nX-IH-uev" firstAttribute="centerY" secondItem="e1L-zl-hdd" secondAttribute="centerY" id="xZ2-DI-nnl"/>
-                                            <constraint firstAttribute="trailing" secondItem="2nX-IH-uev" secondAttribute="trailing" constant="139" id="zb8-8V-xAF"/>
+                                            <constraint firstItem="2nX-IH-uev" firstAttribute="top" secondItem="e1L-zl-hdd" secondAttribute="top" constant="55" id="BVt-CA-kZ8"/>
+                                            <constraint firstItem="2nX-IH-uev" firstAttribute="centerX" secondItem="e1L-zl-hdd" secondAttribute="centerX" id="ThH-tu-qK3"/>
+                                            <constraint firstAttribute="height" constant="90" id="dS7-pm-5Qa"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eIB-nV-Q26" customClass="GMSMapView">
@@ -662,7 +661,7 @@
                                             <constraint firstItem="6Jh-kA-6rz" firstAttribute="leading" secondItem="Ske-4U-1Ex" secondAttribute="trailing" constant="10" id="zop-fq-OM9"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sp6-SU-CWA" userLabel="Direction Board">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sp6-SU-CWA" userLabel="Direction Board">
                                         <rect key="frame" x="0.0" y="140" width="200" height="102"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yNQ-vk-iqZ" userLabel="Direction Arrow">
@@ -742,11 +741,74 @@
                     <connections>
                         <outlet property="directionBoard" destination="Sp6-SU-CWA" id="4cL-Dt-Oo3"/>
                         <outlet property="mapView" destination="eIB-nV-Q26" id="ReP-kH-Rs3"/>
+                        <outlet property="noGpsAlertBar" destination="e1L-zl-hdd" id="miO-Bd-ofd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wfx-RU-ebI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1057" y="1657"/>
+        </scene>
+        <!--Over Api Alert Popup-->
+        <scene sceneID="tU0-TS-LTh">
+            <objects>
+                <viewController storyboardIdentifier="OverApiAlertPopup" id="ZWO-x3-tka" userLabel="Over Api Alert Popup" customClass="OverApiAlertModalViewController" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TIa-Oz-Fcc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hX3-4z-Xgc" userLabel="Content">
+                                <rect key="frame" x="16" y="253.5" width="343" height="180"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="오늘 서비스는 종료되었습니다. 내일 이용해주세요." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1yb-n0-8CT" userLabel="Message">
+                                        <rect key="frame" x="16" y="24" width="311" height="60"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="Yr9-vk-IEj"/>
+                                        </constraints>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uw8-wv-iG3">
+                                        <rect key="frame" x="130.5" y="108" width="82" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="82" id="Lvf-Kg-LRs"/>
+                                            <constraint firstAttribute="height" constant="36" id="TIC-uX-vN4"/>
+                                        </constraints>
+                                        <state key="normal" title="확인">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onConfirmButtonTapped:" destination="ZWO-x3-tka" eventType="touchUpInside" id="6ao-R5-WgR"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Uw8-wv-iG3" firstAttribute="top" secondItem="1yb-n0-8CT" secondAttribute="bottom" constant="24" id="CP0-iA-2HA"/>
+                                    <constraint firstItem="Uw8-wv-iG3" firstAttribute="centerX" secondItem="hX3-4z-Xgc" secondAttribute="centerX" id="cFI-pO-fnJ"/>
+                                    <constraint firstItem="1yb-n0-8CT" firstAttribute="leading" secondItem="hX3-4z-Xgc" secondAttribute="leading" constant="16" id="fQj-g1-fQg"/>
+                                    <constraint firstAttribute="height" constant="180" id="ijY-1a-xca"/>
+                                    <constraint firstItem="1yb-n0-8CT" firstAttribute="top" secondItem="hX3-4z-Xgc" secondAttribute="top" constant="24" id="nWw-qx-obT"/>
+                                    <constraint firstItem="1yb-n0-8CT" firstAttribute="trailing" secondItem="hX3-4z-Xgc" secondAttribute="trailing" constant="-16" id="opT-Mh-qsE"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="hX3-4z-Xgc" firstAttribute="centerY" secondItem="Wpn-OO-DZf" secondAttribute="centerY" id="Vbt-YN-Lhs"/>
+                            <constraint firstItem="hX3-4z-Xgc" firstAttribute="leading" secondItem="Wpn-OO-DZf" secondAttribute="leading" constant="16" id="dP5-Uh-Laf"/>
+                            <constraint firstItem="hX3-4z-Xgc" firstAttribute="trailing" secondItem="Wpn-OO-DZf" secondAttribute="trailing" constant="-16" id="r1o-dm-LS2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Wpn-OO-DZf"/>
+                    </view>
+                    <connections>
+                        <outlet property="confirmButton" destination="Uw8-wv-iG3" id="bTU-Om-NE2"/>
+                        <outlet property="popup" destination="hX3-4z-Xgc" id="d77-hb-Qkg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MY1-Hl-Rqo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1851" y="1656"/>
         </scene>
         <!--Settings-->
         <scene sceneID="gyD-JD-06s">

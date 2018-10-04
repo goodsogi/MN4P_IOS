@@ -29,9 +29,16 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     
     var googleMapDrawingManager:GoogleMapDrawingManager!
     
-    var selectedRouteOption:Int?
+    var selectedRouteOption:String?
     
     var directionModel:DirectionModel!
+    
+    var locationCatchedTime:Double!
+    
+    var isGpsUnavailable: Bool! = true
+    
+    @IBOutlet weak var noGpsAlertBar: UIView!
+    
     
     @IBOutlet weak var directionBoard: UIView!
     override func viewDidLoad() {
@@ -76,9 +83,13 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         
         userLocation = locations[0] as CLLocation
       
+        handleGpsAvailability()
+        
+        
+        
         if(isFirstLocation) {
             isFirstLocation = false;
-            selectedRouteOption = PPNConstants.SECOND_ROUTE_OPTION
+           
             getRoute()
         }
         
@@ -91,23 +102,43 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         print("navigation user longitude = \(userLocation.coordinate.longitude)")
     }
     
-    func getSearchOption() -> String {
-        switch selectedRouteOption {
-        case PPNConstants.FIRST_ROUTE_OPTION:
-            //TODO 수정하세요
-            return "0"
-            
-        case PPNConstants.SECOND_ROUTE_OPTION:
-            //TODO 수정하세요
-            return "0"
-            
-        default:
-            print("getSearchOption default")
+    func handleGpsAvailability() {
+        
+        locationCatchedTime = getCurrentTimeInMillis()
+        
+        print("locationCatchedTime: " + locationCatchedTime.description)
+        
+        if(isGpsUnavailable) {
+            isGpsUnavailable = false
+            noGpsAlertBar.isHidden = true
         }
         
-        return "0"
+        ActionDelayManager.run(seconds: 5) { () -> () in
+            if(self.isLongInterval()) {
+                self.isGpsUnavailable = true
+                self.noGpsAlertBar.isHidden = false
+            }
+        }           
     }
     
+    
+    func getCurrentTimeInMillis() -> Double {
+        let currentDateTime = Date()
+        return currentDateTime.timeIntervalSince1970
+    }
+   
+    func isLongInterval() -> Bool {
+        let currentTime: Double = getCurrentTimeInMillis()
+        print("currentTime: " + currentTime.description)
+        
+        let interval: Double = currentTime - locationCatchedTime
+        print("locationCatchedTime: " + locationCatchedTime.description)
+        
+        //왜 interval이 5가 아니고 10이지??
+        print("interval: " + interval.description)
+        
+        return interval >= 4.5
+    }
     
     func getRoute() {
         
@@ -117,11 +148,9 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         //각도는 경로에 영향을 안미치는 듯 보임. 유효값: 0 ~ 359
         //검색 옵션 0: 추천 (기본값), 4: 추천+번화가우선, 10: 최단, 30: 최단거리+계단제외
         
+        print("route option: " + selectedRouteOption!)
         
-        let searchOption:String = getSearchOption()
-        
-        
-        let param = [  "startX": String(userLocation.coordinate.longitude) , "startY": String(userLocation.coordinate.latitude) , "endX": String(selectedPlaceModel?.getLng()! ?? 0) , "endY": String(selectedPlaceModel?.getLat()! ?? 0) , "angle": "0" , "searchOption": searchOption , "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO","startName": "start", "endName": "end"]
+        let param = [  "startX": String(userLocation.coordinate.longitude) , "startY": String(userLocation.coordinate.latitude) , "endX": String(selectedPlaceModel?.getLng()! ?? 0) , "endY": String(selectedPlaceModel?.getLat()! ?? 0) , "angle": "0" , "searchOption": selectedRouteOption! , "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO","startName": "start", "endName": "end"]
         
         
         SpinnerView.show(onView: self.view)
@@ -134,22 +163,52 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
             .validate(statusCode: 200..<300)
             .responseJSON {
                 response in
-                if let responseData = response.result.value {
-                    
+                
+                switch response.result {
+                case .success:
+                    if let responseData = response.result.value {
+                        
+                        SpinnerView.remove()
+                        
+                      
+                        self.directionModel = self.getDirectionModel(responseData: responseData);
+
+                        self.drawRouteOnMap()
+                        
+                        
+                    } else {
+                        //TODO: 오류가 발생한 경우 처리하세요
+                        SpinnerView.remove()
+                        
+                        
+                    }
+                    print("Validation Successful")
+                case .failure(let error):
                     SpinnerView.remove()
                     
-                    self.directionModel = self.getDirectionModel(responseData: responseData);
+                    //TODO 나중에 제대로 작동하는지 확인하세요 
+                    if(error.localizedDescription.contains("forbidden")) {
+                        self.showOverApiAlert()
+                    }
                     
-                    self.drawRouteOnMap()
-                    
-                    
-                } else {
-                    //TODO: 오류가 발생한 경우 처리하세요
-                    SpinnerView.remove()
+                    print(error)
                 }
+                   
                 
         }
     }
+    
+    func showOverApiAlert() {
+              
+        let modalViewController = self.storyboard?.instantiateViewController(withIdentifier: "OverApiAlertPopup")
+        modalViewController!.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        modalViewController!.modalTransitionStyle = UIModalTransitionStyle.coverVertical
+        present(modalViewController!, animated: true, completion: nil)
+               
+    }
+    
+    
+    
     func drawRouteOnMap() {
         
         googleMapDrawingManager.drawRouteOnMap(firstDirectionModel: directionModel, secondDirectionModel: directionModel, isShowSecondRoute: false)
@@ -222,11 +281,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
                     routePointModels.append(routePointModel);
                     
                 }
-                
             }
-            
-            
-            
             
         }
         return routePointModels

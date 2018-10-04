@@ -21,7 +21,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
     
     @IBOutlet weak var searchKeywordInput: UITextField!
     
-       
+    
     
     @IBAction func onBackTapped(_ sender: Any) {
         self.dismiss(animated: true)
@@ -108,58 +108,88 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
             .responseJSON {
                 
                 response in
-                if let responseData = response.result.value {
-                    
-                    SpinnerView.remove()
-                    
-                    let swiftyJsonVar = JSON(responseData)
-                    
-                    var searchPlaceModel:SearchPlaceModel
-                    
-                    for subJson in swiftyJsonVar["searchPoiInfo"]["pois"]["poi"].arrayValue {
-                        searchPlaceModel = SearchPlaceModel()
+                
+                switch response.result {
+                case .success:
+                    if let responseData = response.result.value {
                         
-                        let name = subJson["name"].stringValue
-                        let telNo = subJson["telNo"].stringValue
-                        let upperAddrName = subJson["upperAddrName"].stringValue
-                        let middleAddrName = subJson["middleAddrName"].stringValue
-                        let roadName = subJson["roadName"].stringValue
-                        let firstBuildNo = subJson["firstBuildNo"].stringValue
-                        let secondBuildNo = subJson["secondBuildNo"].stringValue
-                        let bizName = subJson["lowerBizName"].stringValue
-                        let lat = subJson["noorLat"].doubleValue
-                        let lng = subJson["noorLon"].doubleValue
+                        SpinnerView.remove()
                         
-                        var address = upperAddrName + " " + middleAddrName + " " + roadName + " " + firstBuildNo
-                        if secondBuildNo != "" {
-                            address = address + "-" + secondBuildNo
+                        let swiftyJsonVar = JSON(responseData)
+                        
+                        var searchPlaceModel:SearchPlaceModel
+                        
+                        for subJson in swiftyJsonVar["searchPoiInfo"]["pois"]["poi"].arrayValue {
+                            searchPlaceModel = SearchPlaceModel()
+                            
+                            let name = subJson["name"].stringValue
+                            let telNo = subJson["telNo"].stringValue
+                            let upperAddrName = subJson["upperAddrName"].stringValue
+                            let middleAddrName = subJson["middleAddrName"].stringValue
+                            let roadName = subJson["roadName"].stringValue
+                            let firstBuildNo = subJson["firstBuildNo"].stringValue
+                            let secondBuildNo = subJson["secondBuildNo"].stringValue
+                            let bizName = subJson["lowerBizName"].stringValue
+                            let lat = subJson["noorLat"].doubleValue
+                            let lng = subJson["noorLon"].doubleValue
+                            
+                            var address = upperAddrName + " " + middleAddrName + " " + roadName + " " + firstBuildNo
+                            if secondBuildNo != "" {
+                                address = address + "-" + secondBuildNo
+                            }
+                            
+                            
+                            searchPlaceModel.setName(name: name)
+                            searchPlaceModel.setAddress(address: address)
+                            searchPlaceModel.setLat(lat: lat)
+                            searchPlaceModel.setLng(lng: lng)
+                            searchPlaceModel.setBizname(bizName: bizName)
+                            searchPlaceModel.setTelNo(telNo: telNo)
+                            
+                            self.searchPlaceModels.append(searchPlaceModel)
+                            
                         }
                         
+                        self.searchPlaceTable.reloadData()
                         
-                        searchPlaceModel.setName(name: name)
-                        searchPlaceModel.setAddress(address: address)
-                        searchPlaceModel.setLat(lat: lat)
-                        searchPlaceModel.setLng(lng: lng)
-                        searchPlaceModel.setBizname(bizName: bizName)
-                        searchPlaceModel.setTelNo(telNo: telNo)
-                        
-                        self.searchPlaceModels.append(searchPlaceModel)
+                    } else {
+                        //TODO: 오류가 발생한 경우 처리하세요
+                        SpinnerView.remove()
                         
                         
                     }
-                    
-                    self.searchPlaceTable.reloadData()
-                    
-                    //이상한 검색어로 호출하면 아래에서 오류 발생(index out of range)
-                    print(self.searchPlaceModels[0].getName() as Any)
-                } else {
-                    //TODO: 오류가 발생한 경우 처리하세요
+                    print("Validation Successful")
+                case .failure(let error):
                     SpinnerView.remove()
+                    
+                    //TODO 나중에 제대로 작동하는지 확인하세요
+                    if(error.localizedDescription.contains("forbidden")) {
+                        self.showOverApiAlert()
+                    }
+                    
+                    print(error)
                 }
+                
                 
         }
     }
     
     
+    func showOverApiAlert() {
+        
+        let modalViewController = self.storyboard?.instantiateViewController(withIdentifier: "OverApiAlertPopup")
+        modalViewController!.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        modalViewController!.modalTransitionStyle = UIModalTransitionStyle.coverVertical
+        present(modalViewController!, animated: true, completion: nil)
+        
+    }
+    
+    
+    
+    
     
 }
+
+
+
+
