@@ -209,6 +209,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         }
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

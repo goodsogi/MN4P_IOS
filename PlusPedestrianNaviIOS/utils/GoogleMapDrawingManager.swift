@@ -23,8 +23,17 @@ class GoogleMapDrawingManager {
     
     var mapView:GMSMapView!
     
+    var geofenceMarker: GMSMarker?
+    
+    var firstDistanceFromCurrentLocationToRoutePoint = 0
+    
     func setMapView(mapView: GMSMapView) {
         self.mapView = mapView
+    }
+    
+    public func setMapPadding(topPadding: CGFloat) {
+        let mapInsets = UIEdgeInsets(top: topPadding, left: 0.0, bottom: 0.0, right: 0.0)
+        mapView.padding = mapInsets
     }
     
     
@@ -43,6 +52,9 @@ class GoogleMapDrawingManager {
     }
     
     
+    public func setFirstDistanceFromCurrentLocationToRoutePoint(distance : Int) {
+        firstDistanceFromCurrentLocationToRoutePoint = distance
+    }
     
     func createCurrentLocationMarker() {
         currentLocationMarker = GMSMarker()
@@ -96,6 +108,67 @@ class GoogleMapDrawingManager {
         
         
    
+    }
+    
+    public func refreshMap(geofenceModel: RoutePointModel, currentRoutePointLocation: CLLocation, currentLocation: CLLocation) {
+        
+        //현재위치와 줌 표시
+        let currentLocationCoordinate = CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+        let currentLocationCoordinateCameraUpdate = GMSCameraUpdate.setTarget(currentLocationCoordinate)
+        mapView.animate(with: currentLocationCoordinateCameraUpdate)
+        
+        //베어링        
+        let targetBearingInt: Int = getBearing(currentRoutePointLocation : currentRoutePointLocation, currentLocation : currentLocation)
+        
+        
+        mapView.animate(toBearing: Double(targetBearingInt))
+    }
+    
+    private func getBearing(currentRoutePointLocation: CLLocation, currentLocation: CLLocation) -> Int {
+        var targetBearingInt: Int = 0
+            
+            
+            if(isCurrentLocationAwayFromRoutePoint(currentRoutePointLocation : currentRoutePointLocation, currentLocation : currentLocation)) {
+            targetBearingInt = Int(BearingManager.getBearingBetweenTwoPoints1(point1: currentRoutePointLocation, point2: currentLocation))
+            
+            } else {
+            targetBearingInt = Int(BearingManager.getBearingBetweenTwoPoints1(point1: currentLocation, point2: currentRoutePointLocation))
+        }
+        
+        return targetBearingInt
+    }
+    
+    private func isCurrentLocationAwayFromRoutePoint(currentRoutePointLocation: CLLocation, currentLocation: CLLocation) -> Bool{
+        
+        let currentDistance : Int = Int(currentRoutePointLocation.distance(from: currentLocation))
+        
+        var isAway : Bool = false
+        
+        if( currentDistance - firstDistanceFromCurrentLocationToRoutePoint > 5 ) {
+            isAway = true
+            
+        } else {
+            isAway = false
+        }
+        
+        
+        return isAway
+    }
+    
+    public func showGeofenceMarker(geofenceModel: RoutePointModel) {
+        
+        if(geofenceMarker == nil) {
+            geofenceMarker = GMSMarker()
+            
+            geofenceMarker!.title = "geofence marker"
+            geofenceMarker!.icon = self.getScaledImage(image: UIImage(named: "geofence_dot.png")!, scaledToSize: CGSize(width: 20.0, height: 20.0))
+            geofenceMarker!.map = self.mapView
+        }
+        
+        
+        
+        geofenceMarker!.position = CLLocationCoordinate2D(latitude: geofenceModel.getLat()!, longitude: geofenceModel.getLng()!)
+        
     }
     
     

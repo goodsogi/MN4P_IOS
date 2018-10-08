@@ -26,6 +26,7 @@
 		078BEDC9212E600100D497C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 078BEDC8212E600100D497C9 /* Assets.xcassets */; };
 		078BEDCC212E600100D497C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 078BEDCA212E600100D497C9 /* LaunchScreen.storyboard */; };
 		079AA9F72165FC78006CD763 /* OverApiAlertModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079AA9F62165FC78006CD763 /* OverApiAlertModalViewController.swift */; };
+		079AA9F9216B50B1006CD763 /* BearingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079AA9F8216B50B1006CD763 /* BearingManager.swift */; };
 		07AE17AB213CF33E0045A2A8 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AE17AA213CF33E0045A2A8 /* Toast.swift */; };
 		07AE17B0213D28180045A2A8 /* SearchPlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07AE17AF213D28180045A2A8 /* SearchPlaceModel.swift */; };
 		07CA0F4421548C2500E6C4C4 /* ViewElevationMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CA0F4321548C2500E6C4C4 /* ViewElevationMaker.swift */; };
@@ -59,6 +60,7 @@
 		078BEDCB212E600100D497C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		078BEDCD212E600100D497C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		079AA9F62165FC78006CD763 /* OverApiAlertModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverApiAlertModalViewController.swift; sourceTree = "<group>"; };
+		079AA9F8216B50B1006CD763 /* BearingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BearingManager.swift; sourceTree = "<group>"; };
 		07AE17AA213CF33E0045A2A8 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		07AE17AF213D28180045A2A8 /* SearchPlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceModel.swift; sourceTree = "<group>"; };
 		07CA0F4321548C2500E6C4C4 /* ViewElevationMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewElevationMaker.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				077853E32152483C0059B489 /* GoogleMapDrawingManager.swift */,
 				07697F6B21636CCA003D2566 /* LocalFileManager.swift */,
 				0779FB7621646BC400E60AC0 /* SpinnerView.swift */,
+				079AA9F8216B50B1006CD763 /* BearingManager.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				070BA288213E3E9300B00383 /* SearchPlaceTableCell.swift in Sources */,
 				07697F6C21636CCB003D2566 /* LocalFileManager.swift in Sources */,
 				07AE17AB213CF33E0045A2A8 /* Toast.swift in Sources */,
+				079AA9F9216B50B1006CD763 /* BearingManager.swift in Sources */,
 				076ACEE32147D4020042B254 /* UserDefault.swift in Sources */,
 				079AA9F72165FC78006CD763 /* OverApiAlertModalViewController.swift in Sources */,
 				078BEDC4212E5FFF00D497C9 /* MainViewController.swift in Sources */,

@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlusPedestrianNaviIOS/MainViewController.swift"
-            timestampString = "560335391.684653"
+            timestampString = "560683076.714967"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "92"
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlusPedestrianNaviIOS/MainViewController.swift"
-            timestampString = "560335391.685151"
+            timestampString = "560683076.715475"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "137"
@@ -282,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlusPedestrianNaviIOS/MainViewController.swift"
-            timestampString = "560335391.685724"
+            timestampString = "560683076.716243"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "591"
-            endingLineNumber = "591"
+            startingLineNumber = "593"
+            endingLineNumber = "593"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -298,12 +298,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlusPedestrianNaviIOS/Navigation/NavigationViewController.swift"
-            timestampString = "560335391.686064"
+            timestampString = "560683076.716601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "getRoute()"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "getDirection()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -314,12 +314,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlusPedestrianNaviIOS/Navigation/NavigationViewController.swift"
-            timestampString = "560335391.686136"
+            timestampString = "560683076.717491"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
-            landmarkName = "getRoute()"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
+            landmarkName = "getDirection()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -330,12 +330,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlusPedestrianNaviIOS/Navigation/NavigationViewController.swift"
-            timestampString = "560335391.6862"
+            timestampString = "560683076.7182209"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
-            landmarkName = "getRoute()"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
+            landmarkName = "getDirection()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -346,12 +346,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlusPedestrianNaviIOS/FindRoute/FindRouteViewController.swift"
-            timestampString = "560335391.6862741"
+            timestampString = "560683076.718702"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "467"
             endingLineNumber = "467"
-            landmarkName = "drawStartButtonBackground()"
+            landmarkName = "onTapStartButtonOnFirstRoute(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -394,11 +394,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlusPedestrianNaviIOS/MainViewController.swift"
-            timestampString = "560335391.686358"
+            timestampString = "560683076.718805"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
             landmarkName = "receiveSignInNotification(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -410,11 +410,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlusPedestrianNaviIOS/MainViewController.swift"
-            timestampString = "560335391.6866781"
+            timestampString = "560683076.7195849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "298"
-            endingLineNumber = "298"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
             landmarkName = "showProfileImage(imageUrl:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -426,11 +426,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlusPedestrianNaviIOS/Navigation/NavigationViewController.swift"
-            timestampString = "560335391.686999"
+            timestampString = "560683076.719978"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
             landmarkName = "handleGpsAvailability()"
             landmarkType = "7">
          </BreakpointContent>
@@ -442,11 +442,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlusPedestrianNaviIOS/Navigation/NavigationViewController.swift"
-            timestampString = "560335391.68707"
+            timestampString = "560683076.7205189"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
             landmarkName = "handleGpsAvailability()"
             landmarkType = "7">
          </BreakpointContent>
@@ -458,12 +458,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PlusPedestrianNaviIOS/Navigation/NavigationViewController.swift"
-            timestampString = "560335391.687134"
+            timestampString = "560683076.720919"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "handleGpsAvailability()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlusPedestrianNaviIOS/Navigation/NavigationViewController.swift"
+            timestampString = "560683076.721297"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "600"
+            endingLineNumber = "600"
+            landmarkName = "showRemainDistance()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlusPedestrianNaviIOS/Navigation/NavigationViewController.swift"
+            timestampString = "560683076.72163"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "605"
+            endingLineNumber = "605"
+            landmarkName = "showRemainDistance()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlusPedestrianNaviIOS/Navigation/NavigationViewController.swift"
+            timestampString = "560683076.721948"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "591"
+            endingLineNumber = "591"
+            landmarkName = "showTotalDistance()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "NavigationViewController.showTotalDistance():NavigationViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "String(format: &quot;%.2f&quot;, Double(123456) / Double(1000))">
+            </PersistentString>
+            <PersistentString
+               value = "Float(1234543) / Float(1000)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in SearchPlaceViewController.searchPlace(searchKeyword:):SearchPlaceViewController.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
