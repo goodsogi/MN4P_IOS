@@ -12,6 +12,8 @@ import SwiftyJSON
 import GoogleMaps
 import CoreLocation
 import Floaty
+import AVFoundation
+import GoogleMobileAds
 
 
 class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocationManagerDelegate, FloatyDelegate{
@@ -81,6 +83,9 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     
     var currentRoutePointLocation:CLLocation!
     
+    //TTS 엔진
+    var synthesizer : AVSpeechSynthesizer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -88,7 +93,28 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         initGoogleMapDrawingManager()
         determineMyCurrentLocation()
         initFloaty()
+        initTTS()
+        showAd()
     }
+    
+    private func showAd() {
+        
+        let interstitial :  GADInterstitial = GADInterstitial(adUnitID: "ca-app-pub-7576584379236747/1626231340")
+        let request = GADRequest()
+        interstitial.load(request)
+        
+        if interstitial.isReady {
+            interstitial.present(fromRootViewController: self)
+        } else {
+            print("Ad wasn't ready")
+        }
+    }
+    
+    private func initTTS() {
+        synthesizer = AVSpeechSynthesizer()
+    }
+    
+    
     
     //안드로이드의 onDestroy와 같음
     override func viewDidDisappear(_ animated: Bool) {
@@ -212,6 +238,8 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
                         
                         self.startTimer()
                         
+                        self.speakTTS(text: "경로안내를 시작합니다")
+                        
                         
                     } else {
                         //TODO: 오류가 발생한 경우 처리하세요
@@ -233,6 +261,14 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
                    
                 
         }
+    }
+    
+    private func speakTTS(text: String) {
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "ko-KR")
+        utterance.rate = 0.4
+        
+        synthesizer.speak(utterance)
     }
     
     func startTimer() {
@@ -527,9 +563,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     
     func speakDescription() {
         
-        //TODO: TTS 구현하세요
-        
-        
+        speakTTS(text: currentGeofenceModel.getDescription()!)
     }
     
     

@@ -11,6 +11,7 @@ import Alamofire
 import SwiftyJSON
 import GoogleMaps
 import CoreLocation
+import GoogleMobileAds
 
 class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollViewDelegate , CLLocationManagerDelegate{
     
@@ -100,8 +101,42 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
         drawMarkerLine()
         showStartPointName()
         showEndPointName()
+        showAd()
         
         
+    }
+    
+    private func showAd() {
+        
+        //광고가 표시안됨. simulator라서 그런가??
+        
+        // In this case, we instantiate the banner with desired ad size.
+        let bannerView : GADBannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide ,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
+    
+        
+        
+        bannerView.adUnitID = "ca-app-pub-7576584379236747/6909922581"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
     }
     
     func initGoogleMapDrawingManager() {

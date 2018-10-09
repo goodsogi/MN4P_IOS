@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import GoogleSignIn
+import GoogleMobileAds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
@@ -24,6 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Initialize sign-in
         GIDSignIn.sharedInstance().clientID = "94641086804-i9d1p8ejtcqgf8p1jqq9pjg66bcv8gq8.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
+        
+        // Initialize the Google Mobile Ads SDK.
+        // Sample AdMob app ID: ca-app-pub-3940256099942544~1458002511
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-7576584379236747~6363552704")
         
         return true
     }
