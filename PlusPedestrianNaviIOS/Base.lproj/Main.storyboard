@@ -1350,17 +1350,17 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xQa-ou-nl9" userLabel="Write App Review Menu">
-                                                <rect key="frame" x="0.0" y="224" width="280" height="57"/>
+                                                <rect key="frame" x="0.0" y="224" width="280" height="0.0"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ratings" translatesAutoresizingMaskIntoConstraints="NO" id="vJB-mQ-Win" userLabel="Write App Review Icon">
-                                                        <rect key="frame" x="22" y="13.5" width="30" height="30"/>
+                                                        <rect key="frame" x="22" y="-15" width="30" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="hsT-eZ-t5d"/>
                                                             <constraint firstAttribute="width" constant="30" id="iED-sg-iuK"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write app review" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ttC-0q-0yg" userLabel="Write App Review Label">
-                                                        <rect key="frame" x="72" y="18.5" width="128" height="20.5"/>
+                                                        <rect key="frame" x="72" y="-10" width="128" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1370,21 +1370,21 @@
                                                 <constraints>
                                                     <constraint firstItem="ttC-0q-0yg" firstAttribute="leading" secondItem="vJB-mQ-Win" secondAttribute="trailing" constant="20" id="8DU-zS-xXL"/>
                                                     <constraint firstAttribute="trailing" secondItem="ttC-0q-0yg" secondAttribute="trailing" constant="80" id="Ptd-ED-rFn"/>
-                                                    <constraint firstAttribute="height" constant="57" id="anC-xt-OOU"/>
+                                                    <constraint firstAttribute="height" id="anC-xt-OOU"/>
                                                     <constraint firstItem="ttC-0q-0yg" firstAttribute="centerY" secondItem="vJB-mQ-Win" secondAttribute="centerY" id="ek6-cx-L5z"/>
                                                     <constraint firstItem="vJB-mQ-Win" firstAttribute="leading" secondItem="xQa-ou-nl9" secondAttribute="leading" constant="22" id="rQj-ey-L8z"/>
                                                     <constraint firstItem="vJB-mQ-Win" firstAttribute="centerY" secondItem="xQa-ou-nl9" secondAttribute="centerY" id="y7K-aP-uvK"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="etU-AC-Xli" userLabel="line4">
-                                                <rect key="frame" x="0.0" y="281" width="280" height="1"/>
+                                                <rect key="frame" x="0.0" y="224" width="280" height="1"/>
                                                 <color key="backgroundColor" red="0.85098039215686272" green="0.85098039215686272" blue="0.85098039215686272" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="vQW-4R-avT"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bnH-IZ-GXw" userLabel="empty area">
-                                                <rect key="frame" x="0.0" y="282" width="280" height="667"/>
+                                                <rect key="frame" x="0.0" y="225" width="280" height="667"/>
                                                 <color key="backgroundColor" red="0.96862745098039216" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
                                         </subviews>
@@ -1462,7 +1462,7 @@
                         <outlet property="favoritesMenu" destination="Dxc-Ok-SY7" id="CaW-sb-h3b"/>
                         <outlet property="findRouteButton" destination="cti-wN-B4u" id="mq7-kk-TSm"/>
                         <outlet property="findRouteMenu" destination="lkG-77-Bwm" id="TAl-kP-hZT"/>
-                        <outlet property="mainScreen" destination="hV5-u2-T36" id="ilJ-ab-oUI"/>
+                       
                         <outlet property="mapView" destination="flQ-yi-35f" id="6y7-Sr-Lw1"/>
                         <outlet property="placeInfoBoard" destination="qXt-mU-Mmz" id="0NX-XZ-6nx"/>
                         <outlet property="placeNameView" destination="U71-nU-TgI" id="Enc-pr-gxs"/>

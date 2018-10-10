@@ -8,6 +8,7 @@
 
 import UIKit
 
+//로컬에 파일 저장/로딩 관리 
 class LocalFileManager {
     
     static var documentsUrl: URL {

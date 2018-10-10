@@ -15,7 +15,7 @@ class DirectionModel {
     private var wayPoints: [CLLocationCoordinate2D]? = nil
     private var totalDistance: Int? = nil
     private var totalTime: Int? = nil
-   
+    
     
     func setGeofenceModels(geofenceModels:[RoutePointModel]) {
         self.geofenceModels = geofenceModels
@@ -57,7 +57,5 @@ class DirectionModel {
     func getTotalTime() -> Int? {
         return self.totalTime
     }
-    
-    
     
 }

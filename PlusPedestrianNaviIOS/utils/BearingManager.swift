@@ -8,6 +8,7 @@
 
 import GoogleMaps
 
+//두 지점 사이 bearing 값 계산 
 class BearingManager {
     static private func degreesToRadians(degrees: Double) -> Double { return degrees * .pi / 180.0 }
     static private func radiansToDegrees(radians: Double) -> Double { return radians * 180.0 / .pi }

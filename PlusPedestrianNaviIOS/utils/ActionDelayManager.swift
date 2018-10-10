@@ -8,6 +8,7 @@
 
 import Foundation
 
+//delay 처리(안드로이드의 new Handler().postDelayed)
 class ActionDelayManager {
     static func run(seconds: Double, completion:@escaping ()->()) {
         let when = DispatchTime.now() + seconds

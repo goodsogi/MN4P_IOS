@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+//둥근사각형, 원 등 이미지 생성 
 class ImageMaker {
     
     static func getRoundRectangle(width: CGFloat, height: CGFloat, colorHexString: String, cornerRadius: CGFloat, alpha: CGFloat) -> UIImage {

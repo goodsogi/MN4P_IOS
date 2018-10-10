@@ -8,7 +8,7 @@
 
 import Foundation
 
-
+//UserDefault(안드로이드의 SharedPreferences) 관리 
 class UserDefault{
     class func save(key:String, value:String){
         let userDefaults = UserDefaults.standard

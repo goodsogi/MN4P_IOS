@@ -8,6 +8,7 @@
 
 import UIKit
 
+//로딩바 관리 
 @IBDesignable
 class SpinnerView : UIView {
    

@@ -9,9 +9,10 @@
 import UIKit
 import Foundation
 
+//hexcolor값(가령 #000000)으로 UIColor 객체 가져옴 
 class HexColorManager {
     
-    static func intFromHexString(hexStr: String) -> UInt32 {
+    static private func intFromHexString(hexStr: String) -> UInt32 {
         var hexInt: UInt32 = 0
         // Create scanner
         let scanner: Scanner = Scanner(string: hexStr)

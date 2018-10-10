@@ -8,7 +8,7 @@
 
 import UIKit
 
-
+//Tmap api 초과 경고팝업
 class OverApiAlertModalViewController: UIViewController {
     
     
@@ -22,14 +22,14 @@ class OverApiAlertModalViewController: UIViewController {
         drawConfirmButtonBackground()
     }
     
-    func drawOverApiAlertPopupBackground() {
+    private func drawOverApiAlertPopupBackground() {
         let width = self.view.frame.width - 32
         let img = ImageMaker.getRoundRectangle(width: width, height: 180, colorHexString: "#FFFFFF", cornerRadius: 6.0, alpha: 1)
         
         popup.backgroundColor = UIColor(patternImage: img)
     }
     
-    func drawConfirmButtonBackground() {
+    private func drawConfirmButtonBackground() {
         let img = ImageMaker.getRoundRectangle(width: 82, height: 36, colorHexString: "#0858B3", cornerRadius: 3.0, alpha: 1)
         
         confirmButton.backgroundColor = UIColor(patternImage: img)

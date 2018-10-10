@@ -11,8 +11,6 @@ import UIKit
 
 class RouteSelectBoardManager {
     
-      
-    
     func getFormattedTime(time:Int) -> String {
         
         var time: Int = time
@@ -42,15 +40,12 @@ class RouteSelectBoardManager {
         
     }
     
-   
+    
     func getFormattedDistance(distance:Int) -> String {
         
         return String(format: "%.2fkm", Double(distance) / Double(1000))
     }
     
-    
-    
-  
     
     func getRouteDetail(geofenceModels: [RoutePointModel]) -> String {
         
@@ -118,12 +113,6 @@ class RouteSelectBoardManager {
         //TODO: 천단위에 쉼표가 찍히는지 확인하세요
         return String(format: "%dkcal", locale: Locale.current,totalCalorie)
         
-        
     }
-    
-    
-    
-   
-    
     
 }

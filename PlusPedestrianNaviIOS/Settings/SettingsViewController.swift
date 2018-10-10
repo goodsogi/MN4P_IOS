@@ -22,15 +22,11 @@ class SettingsViewController: UIViewController , MFMailComposeViewControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         addTapGestureToMenus()
-        
         showAppVersion()
-        
         
         if !MFMailComposeViewController.canSendMail() {
             print("Mail services are not available")          
         }
-        
-        
     }
     
     
@@ -51,39 +47,31 @@ class SettingsViewController: UIViewController , MFMailComposeViewControllerDele
         suggestionMenu.isUserInteractionEnabled = true
         
         
-//        let openSourceInfoMenuTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.openSourceInfoMenuTapped(_:)))
-//        openSourceInfoMenuTapGesture.numberOfTapsRequired = 1
-//        openSourceInfoMenuTapGesture.numberOfTouchesRequired = 1
-//        openSourceInfoMenu.addGestureRecognizer(openSourceInfoMenuTapGesture)
-//        openSourceInfoMenu.isUserInteractionEnabled = true
+        //        let openSourceInfoMenuTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.openSourceInfoMenuTapped(_:)))
+        //        openSourceInfoMenuTapGesture.numberOfTapsRequired = 1
+        //        openSourceInfoMenuTapGesture.numberOfTouchesRequired = 1
+        //        openSourceInfoMenu.addGestureRecognizer(openSourceInfoMenuTapGesture)
+        //        openSourceInfoMenu.isUserInteractionEnabled = true
         
         
         
     }
     
-    @objc func suggestionMenuTapped(_ sender: UITapGestureRecognizer) {
-      print("suggestionMenuTapped")
-        //simulator에서는 작동하지 않고 실제 폰에서 작동한다고 함
-        let composeVC = MFMailComposeViewController()
-        composeVC.mailComposeDelegate = self
-        
-        // Configure the fields of the interface.
-//        composeVC.setToRecipients(["exampleEmail@email.com"])
-        composeVC.setSubject("보행자용 지도, 네비게이션 제안/문의사항")
-        composeVC.setMessageBody("제안이나 문의사항을 입력하세요.", isHTML: false)
-        
-        // Present the view controller modally.
-        self.present(composeVC, animated: true, completion: nil)
-
-        
-    }
     
-//    @objc func openSourceInfoMenuTapped(_ sender: UITapGestureRecognizer) {
-//        
-//        print("openSourceInfoMenuTapped")
-//        
-//    }
- 
+    
+    //    @objc func openSourceInfoMenuTapped(_ sender: UITapGestureRecognizer) {
+    //
+    //        print("openSourceInfoMenuTapped")
+    //
+    //    }
+    
+    //********************************************************************************************************
+    //
+    // Gmail
+    //
+    //********************************************************************************************************
+    
+    
     
     func mailComposeController(_ controller: MFMailComposeViewController,
                                didFinishWith result: MFMailComposeResult, error: Error?) {
@@ -92,6 +80,20 @@ class SettingsViewController: UIViewController , MFMailComposeViewControllerDele
         // Dismiss the mail compose view controller.
         controller.dismiss(animated: true, completion: nil)
     }
-
+    
+    @objc func suggestionMenuTapped(_ sender: UITapGestureRecognizer) {
+        print("suggestionMenuTapped")
+        //simulator에서는 작동하지 않고 실제 폰에서 작동한다고 함
+        let composeVC = MFMailComposeViewController()
+        composeVC.mailComposeDelegate = self
+        
+        // Configure the fields of the interface.
+        //        composeVC.setToRecipients(["exampleEmail@email.com"])
+        composeVC.setSubject("보행자용 지도, 네비게이션 제안/문의사항")
+        composeVC.setMessageBody("제안이나 문의사항을 입력하세요.", isHTML: false)
+        
+        // Present the view controller modally.
+        self.present(composeVC, animated: true, completion: nil)
+    }
     
 }

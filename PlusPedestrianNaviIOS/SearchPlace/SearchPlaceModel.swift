@@ -9,8 +9,6 @@
 import Foundation
 
 class SearchPlaceModel {
-     
-    
     
     private var lat: Double? = nil
     private var lng: Double? = nil
@@ -77,8 +75,6 @@ class SearchPlaceModel {
     func getDistance() -> Int? {
         return self.distance
     }
-    
-    
     
 }
 

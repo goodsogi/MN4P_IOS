@@ -8,6 +8,7 @@
 import UIKit
 import Foundation
 
+//toast 표시 
 class Toast {
     static func show(message: String, controller: UIViewController) {
         let toastContainer = UIView(frame: CGRect())

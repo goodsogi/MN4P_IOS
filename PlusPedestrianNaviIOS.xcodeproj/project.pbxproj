@@ -165,7 +165,6 @@
 			isa = PBXGroup;
 			children = (
 				07AE17AF213D28180045A2A8 /* SearchPlaceModel.swift */,
-				077853E12152408D0059B489 /* RouteSelectBoardManager.swift */,
 				07F2223F21392ABF00EDFBB0 /* SearchPlaceViewController.swift */,
 				070BA287213E3E9300B00383 /* SearchPlaceTableCell.swift */,
 			);
@@ -175,6 +174,7 @@
 		07CA0F4D2154A9EF00E6C4C4 /* FindRoute */ = {
 			isa = PBXGroup;
 			children = (
+				077853E12152408D0059B489 /* RouteSelectBoardManager.swift */,
 				0749B99F2146381F0082E1E6 /* DirectionModel.swift */,
 				0745C311214226A10090D395 /* FindRouteViewController.swift */,
 				0749B9A121463A800082E1E6 /* RoutePointModel.swift */,

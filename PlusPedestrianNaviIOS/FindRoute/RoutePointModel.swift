@@ -52,11 +52,8 @@ class RoutePointModel {
         return self.roadNo
     }
     
-   
     func getType() -> Int? {
         return self.type
     }
-    
-    
-    
+     
 }

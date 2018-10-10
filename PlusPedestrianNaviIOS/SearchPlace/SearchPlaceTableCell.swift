@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 class SearchPlaceTableCell: UITableViewCell {
     var placeName: String?
     var placeMarker: UIImage?
@@ -48,8 +47,6 @@ class SearchPlaceTableCell: UITableViewCell {
     
     
     
-    
-    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -63,12 +60,12 @@ class SearchPlaceTableCell: UITableViewCell {
         
         
         placeMarkerView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 19).isActive = true
-
+        
         placeMarkerView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-
+        
         placeMarkerView.heightAnchor.constraint(equalToConstant: 25).isActive = true
         placeMarkerView.widthAnchor.constraint(equalToConstant: 25).isActive = true
-
+        
         
         placeNameView.leftAnchor.constraint(equalTo: self.leftAnchor,constant: 80 ).isActive = true
         
@@ -84,21 +81,21 @@ class SearchPlaceTableCell: UITableViewCell {
         
         
         addressView.leftAnchor.constraint(equalTo: placeNameView.leftAnchor).isActive = true
-
+        
         addressView.rightAnchor.constraint(equalTo: placeNameView.rightAnchor).isActive = true
         addressView.topAnchor.constraint(equalTo: placeNameView.bottomAnchor, constant: 2).isActive = true
-
+        
         addressView.heightAnchor.constraint(equalToConstant: 20).isActive = true
         addressView.isEditable = false
         addressView.isScrollEnabled = false
         addressView.isUserInteractionEnabled = false
-
+        
         distanceView.leftAnchor.constraint(equalTo: placeMarkerView.leftAnchor).isActive = true
-
+        
         distanceView.topAnchor.constraint(equalTo: placeMarkerView.bottomAnchor, constant: 5).isActive = true
-
+        
         distanceView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-
+        
         distanceView.heightAnchor.constraint(equalToConstant: 20).isActive = true
         distanceView.isEditable = false
         distanceView.isScrollEnabled = false
@@ -125,15 +122,12 @@ class SearchPlaceTableCell: UITableViewCell {
         if let address = address {
             addressView.text = address
         }
-
+        
         if let distance = distance {
             distanceView.text = distance
         }
         
-        
-       
     }
-    
     
     
 }
