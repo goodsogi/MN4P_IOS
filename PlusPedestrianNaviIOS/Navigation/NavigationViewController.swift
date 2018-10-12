@@ -45,8 +45,8 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     var previousLocation:CLLocation!
     var currentRoutePointLocation:CLLocation!
     
-    //Tmap api
-    let TMAP_APP_KEY:String = "c605ee67-a552-478c-af19-9675d1fc8ba3"; // 티맵 앱 key
+    //Alamofire
+    var alamofireManager : AlamofireManager!
     
     //경로엔진
     let DISTANCE_ENTER_GEOFENCE: Int = 20
@@ -74,7 +74,10 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         initFloaty()
         initTTS()
         showAd()
+        initAlamofireManager()
     }
+    
+    
     
     //안드로이드의 onDestroy와 같음
     override func viewDidDisappear(_ animated: Bool) {
@@ -339,160 +342,78 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     //
     //********************************************************************************************************
     
+    private func initAlamofireManager() {
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(NavigationViewController.receiveAlamofireGetDirectionNotification(_:)),
+                                               name: NSNotification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION),
+                                               object: nil)
+        
+        alamofireManager = AlamofireManager()
+    }
+    
+    @objc func receiveAlamofireGetDirectionNotification(_ notification: NSNotification) {
+        if notification.name.rawValue == PPNConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION {
+            
+            SpinnerView.remove()
+            
+            
+            if notification.userInfo != nil {
+                guard let userInfo = notification.userInfo as? [String:Any] else { return }
+                
+                let result : String = userInfo["result"] as! String
+                
+                switch result {
+                case "success" :
+   
+                    
+                    self.directionModel = userInfo["directionModel"] as! DirectionModel
+                        
+                        
+                    self.drawRouteOnMap()
+                    
+                    self.setInitialRemainDistance()
+                    
+                    self.showTotalTime()
+                    
+                    self.showTotalDistance()
+                    
+                    self.startTimer()
+                    
+                    self.speakTTS(text: "경로안내를 시작합니다")
+                    
+                    break;
+                case "overApi" :
+                    
+                     self.showOverApiAlert()
+                    
+                     break;
+                    
+                case "fail" :
+                    //TODO: 필요시 구현하세요
+                   
+                    break;
+                default:
+                   
+                    break;
+                }
+                
+            }
+        }
+    }
+    
     private func getDirection() {
         
-        let url:String = "https://api2.sktelecom.com/tmap/routes/pedestrian?version=1&appKey=" + TMAP_APP_KEY
-        
-        //TODO: 나중에 passList(경유점), angle, searchOption 수정하세요
-        //각도는 경로에 영향을 안미치는 듯 보임. 유효값: 0 ~ 359
-        //검색 옵션 0: 추천 (기본값), 4: 추천+번화가우선, 10: 최단, 30: 최단거리+계단제외
-        
-        print("route option: " + selectedRouteOption!)
-        
-        let param = [  "startX": String(userLocation.coordinate.longitude) , "startY": String(userLocation.coordinate.latitude) , "endX": String(selectedPlaceModel?.getLng()! ?? 0) , "endY": String(selectedPlaceModel?.getLat()! ?? 0) , "angle": "0" , "searchOption": selectedRouteOption! , "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO","startName": "start", "endName": "end"]
-        
-        
         SpinnerView.show(onView: self.view)
-        //headers: ["Content-Type":"application/json", "Accept":"application/json"] 값을 지정하면 오류 발생
-        Alamofire.request(url,
-                          method: .post,
-                          parameters: param,
-                          encoding: URLEncoding.default
-            )
-            .validate(statusCode: 200..<300)
-            .responseJSON {
-                response in
-                
-                switch response.result {
-                case .success:
-                    if let responseData = response.result.value {
-                        
-                        SpinnerView.remove()
-                        
-                        self.directionModel = self.getDirectionModel(responseData: responseData);
-                        
-                        self.drawRouteOnMap()
-                        
-                        self.setInitialRemainDistance()
-                        
-                        self.showTotalTime()
-                        
-                        self.showTotalDistance()
-                        
-                        self.startTimer()
-                        
-                        self.speakTTS(text: "경로안내를 시작합니다")
-                        
-                        
-                    } else {
-                        //TODO: 오류가 발생한 경우 처리하세요
-                        SpinnerView.remove()
-                        
-                        
-                    }
-                    print("Validation Successful")
-                case .failure(let error):
-                    SpinnerView.remove()
-                    
-                    //TODO 나중에 제대로 작동하는지 확인하세요
-                    if(error.localizedDescription.contains("forbidden")) {
-                        self.showOverApiAlert()
-                    }
-                    
-                    print(error)
-                }
-                
-                
-        }
+        
+        alamofireManager.getDirection(selectedPlaceModel: selectedPlaceModel!, userLocation: userLocation, selectedRouteOption: selectedRouteOption!)
+        
+      
     }
-    
-    
-    private func getDirectionModel(responseData:Any) -> DirectionModel {
-        let swiftyJsonVar = JSON(responseData)
-        
-        let directionModel:DirectionModel = DirectionModel()
-        
-        let routePointModels:[RoutePointModel] = self.convertToRoutePointModels(json: swiftyJsonVar)
-        directionModel.setRoutePointModels(routePointModels: routePointModels)
-        directionModel.setGeofenceModels(geofenceModels: self.convertToGeofenceModel(routePointModels: routePointModels))
-        directionModel.setTotalTime(totalTime: swiftyJsonVar["features"][0]["properties"]["totalTime"].intValue)
-        directionModel.setTotalDistance(totalDistance: swiftyJsonVar["features"][0]["properties"]["totalDistance"].intValue)
-        
-        return directionModel
-    }
-    
-    private func convertToGeofenceModel(routePointModels:[RoutePointModel]) -> [RoutePointModel]{
-        var geofenceModels:[RoutePointModel] = [RoutePointModel]()
-        
-        for routePointModel in routePointModels {
-            if (routePointModel.getType() == PPNConstants.TYPE_POINT) {
-                geofenceModels.append(routePointModel)
-            }
-        }
-        
-        return geofenceModels
-        
-    }
-    
-    private func convertToRoutePointModels(json:JSON) -> [RoutePointModel]{
-        var routePointModels:[RoutePointModel] = [RoutePointModel]()
-        var routePointModel:RoutePointModel
-        
-        var isFirstIndexPassed:Bool = false
-        
-        for subJson in json["features"].arrayValue {
-            
-            if(isFirstIndexPassed && subJson["properties"]["index"].intValue == 0) {
-                break
-            }
-            
-            if(subJson["properties"]["index"].intValue == 0) {
-                isFirstIndexPassed = true;
-            }
-            
-            if (subJson["geometry"]["type"].stringValue == "Point") {
-                routePointModel = RoutePointModel()
-                
-                routePointModel.setLat(lat: subJson["geometry"]["coordinates"][1].doubleValue);
-                routePointModel.setLng(lng: subJson["geometry"]["coordinates"][0].doubleValue);
-                routePointModel.setRoadNo(roadNo: 0); //0:자전거 도로 없음
-                routePointModel.setDescription(description: self.convertToKindDescription(description: subJson["properties"]["description"].stringValue));
-                routePointModel.setType(type: PPNConstants.TYPE_POINT);
-                routePointModels.append(routePointModel);
-                
-            } else {
-                
-                for coordinates in subJson["geometry"]["coordinates"].arrayValue {
-                    routePointModel = RoutePointModel()
-                    
-                    routePointModel.setLat(lat: coordinates[1].doubleValue);
-                    routePointModel.setLng(lng: coordinates[0].doubleValue);
-                    routePointModel.setRoadNo(roadNo: subJson["properties"]["roadType"].intValue); //0:자전거 도로 없음
-                    routePointModel.setDescription(description: self.convertToKindDescription(description: subJson["properties"]["description"].stringValue));
-                    routePointModel.setType(type: PPNConstants.TYPE_LINE);
-                    routePointModels.append(routePointModel);
-                    
-                }
-            }
-            
-        }
-        return routePointModels
-    }
-    
-    private func convertToKindDescription(description:String) -> String{
-        if (description.contains("도착")) {
-            return "잠시후 목적지에 도착합니다";
-        } else {
-            return description + "하세요";
-        }
-    }
-    
+ 
     private func showOverApiAlert() {
         
-        let modalViewController = self.storyboard?.instantiateViewController(withIdentifier: "OverApiAlertPopup")
-        modalViewController!.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        modalViewController!.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-        present(modalViewController!, animated: true, completion: nil)
+        OverApiManager.showOverApiAlertPopup(parentViewControler: self)
     }
     
     //********************************************************************************************************
@@ -508,13 +429,16 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         
         userLocation = locations[0] as CLLocation
         
+        
+        
+        
         handleGpsAvailability()
         
         
         
         if(isFirstLocation) {
             isFirstLocation = false;
-            
+            showCurrentLocationOnMap()
             getDirection()
         } else {
             
@@ -554,7 +478,11 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         }
     }
     
-    
+    private func showCurrentLocationOnMap() {
+        
+        let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 14)
+        mapView.camera = camera
+    }
     
     
     private func handleGpsAvailability() {
@@ -678,8 +606,9 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         googleMapDrawingManager = GoogleMapDrawingManager()
         googleMapDrawingManager.setMapView(mapView:mapView)
         
-        let topPadding : CGFloat = mapView.frame.height - 110
-        googleMapDrawingManager.setMapPadding(topPadding: topPadding)
+        //지도에 padding을 주면 zoom이 이상하게 표시됨. 일단 뺌 
+//        let topPadding : CGFloat = mapView.frame.height - 110
+//        googleMapDrawingManager.setMapPadding(topPadding: topPadding)
     }
     
     
@@ -722,7 +651,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         
         //기본적으로 오른쪽 하단에 위치, 아래는 padding 값을 주는 것임
         //        floaty.paddingX = 40
-        //        floaty.paddingY = 120
+        floaty.paddingY = 60
         
         
         floaty.fabDelegate = self

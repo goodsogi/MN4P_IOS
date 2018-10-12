@@ -33,6 +33,8 @@
 		07CA0F462154978100E6C4C4 /* ActionDelayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CA0F452154978100E6C4C4 /* ActionDelayManager.swift */; };
 		07CA0F4A2154A5A500E6C4C4 /* ImageMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CA0F492154A5A500E6C4C4 /* ImageMaker.swift */; };
 		07CA0F502154D49700E6C4C4 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CA0F4F2154D49700E6C4C4 /* NavigationViewController.swift */; };
+		07D1C8342170676200DC38BA /* AlamofireManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1C8332170676200DC38BA /* AlamofireManager.swift */; };
+		07D1C836217083F300DC38BA /* OverApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1C835217083F200DC38BA /* OverApiManager.swift */; };
 		07F2224021392ABF00EDFBB0 /* SearchPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F2223F21392ABF00EDFBB0 /* SearchPlaceViewController.swift */; };
 		07FE883A216C7C3E000F624B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FE8839216C7C3E000F624B /* SettingsViewController.swift */; };
 		E5CA30C438E61684791DC7BF /* Pods_PlusPedestrianNaviIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E012498CEAF2062C3035DB05 /* Pods_PlusPedestrianNaviIOS.framework */; };
@@ -68,6 +70,8 @@
 		07CA0F452154978100E6C4C4 /* ActionDelayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDelayManager.swift; sourceTree = "<group>"; };
 		07CA0F492154A5A500E6C4C4 /* ImageMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMaker.swift; sourceTree = "<group>"; };
 		07CA0F4F2154D49700E6C4C4 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
+		07D1C8332170676200DC38BA /* AlamofireManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireManager.swift; sourceTree = "<group>"; };
+		07D1C835217083F200DC38BA /* OverApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverApiManager.swift; sourceTree = "<group>"; };
 		07F2223F21392ABF00EDFBB0 /* SearchPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceViewController.swift; sourceTree = "<group>"; };
 		07FE8839216C7C3E000F624B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		76D48CC66E7E6DC0607E9F6C /* Pods-PlusPedestrianNaviIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 		078BEDC0212E5FFF00D497C9 /* PlusPedestrianNaviIOS */ = {
 			isa = PBXGroup;
 			children = (
+				07D1C8322170673800DC38BA /* Alamofire */,
 				07FE8838216C7C0A000F624B /* Settings */,
 				07CA0F4E2154A9F600E6C4C4 /* Navigation */,
 				07CA0F4D2154A9EF00E6C4C4 /* FindRoute */,
@@ -189,6 +194,15 @@
 				079AA9F62165FC78006CD763 /* OverApiAlertModalViewController.swift */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		07D1C8322170673800DC38BA /* Alamofire */ = {
+			isa = PBXGroup;
+			children = (
+				07D1C8332170676200DC38BA /* AlamofireManager.swift */,
+				07D1C835217083F200DC38BA /* OverApiManager.swift */,
+			);
+			path = Alamofire;
 			sourceTree = "<group>";
 		};
 		07FE8838216C7C0A000F624B /* Settings */ = {
@@ -359,12 +373,14 @@
 				0749B9A02146381F0082E1E6 /* DirectionModel.swift in Sources */,
 				07AE17B0213D28180045A2A8 /* SearchPlaceModel.swift in Sources */,
 				076A8E652137A7A100858716 /* HexColorManager.swift in Sources */,
+				07D1C8342170676200DC38BA /* AlamofireManager.swift in Sources */,
 				0749B9A221463A800082E1E6 /* RoutePointModel.swift in Sources */,
 				0749B9A4214646E20082E1E6 /* PPNConstants.swift in Sources */,
 				0779FB7721646BC400E60AC0 /* SpinnerView.swift in Sources */,
 				070BA288213E3E9300B00383 /* SearchPlaceTableCell.swift in Sources */,
 				07697F6C21636CCB003D2566 /* LocalFileManager.swift in Sources */,
 				07AE17AB213CF33E0045A2A8 /* Toast.swift in Sources */,
+				07D1C836217083F300DC38BA /* OverApiManager.swift in Sources */,
 				079AA9F9216B50B1006CD763 /* BearingManager.swift in Sources */,
 				076ACEE32147D4020042B254 /* UserDefault.swift in Sources */,
 				079AA9F72165FC78006CD763 /* OverApiAlertModalViewController.swift in Sources */,

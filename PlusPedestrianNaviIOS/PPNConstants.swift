@@ -23,7 +23,11 @@ class PPNConstants {
     
     public static let PROFILE_IMAGE_NAME: String = "PROFILE_IMAGE_NAME";
     
-    public static let NOTIFICATION_NAME: String = "NOTIFICATION_NAME";
+    public static let NOTIFICATION_GOOGLE_SIGNIN: String = "NOTIFICATION_GOOGLE_SIGNIN";
+    
+    public static let NOTIFICATION_ALAMOFIRE_GET_DIRECTION: String = "NOTIFICATION_ALAMOFIRE_GET_DIRECTION";
+    
+    public static let NOTIFICATION_ALAMOFIRE_SEARCH_PLACE: String = "NOTIFICATION_ALAMOFIRE_SEARCH_PLACE";
     
     public static let USER_NAME: String = "USER_NAME";
  

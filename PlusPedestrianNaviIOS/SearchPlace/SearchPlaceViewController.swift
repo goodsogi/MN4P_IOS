@@ -14,12 +14,12 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
     
     var delegate: MainViewControllerDelegate? 
     
-    let TMAP_APP_KEY:String = "c605ee67-a552-478c-af19-9675d1fc8ba3"; // 티맵 앱 key
-    
     @IBOutlet weak var searchPlaceTable: UITableView!
     var searchPlaceModels = [SearchPlaceModel]()
-    
     @IBOutlet weak var searchKeywordInput: UITextField!
+    
+    //Alamofire
+    var alamofireManager : AlamofireManager!
     
     
     @IBAction func onBackTapped(_ sender: Any) {
@@ -39,7 +39,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
         searchPlaceTable.rowHeight = 60
         //estimatedRowHeight는 영향을 안 미침 
         //        searchPlaceTable.estimatedRowHeight = 60
-        
+        initAlamofireManager()
     }
     
     
@@ -60,106 +60,68 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate, UITableV
     //
     //********************************************************************************************************
     
+    private func initAlamofireManager() {
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(SearchPlaceViewController.receiveAlamofireSearchPlaceNotification(_:)),
+                                               name: NSNotification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_SEARCH_PLACE),
+                                               object: nil)
+        
+        alamofireManager = AlamofireManager()
+    }
+    
+    @objc func receiveAlamofireSearchPlaceNotification(_ notification: NSNotification) {
+        if notification.name.rawValue == PPNConstants.NOTIFICATION_ALAMOFIRE_SEARCH_PLACE {
+            
+            SpinnerView.remove()
+            
+            
+            if notification.userInfo != nil {
+                guard let userInfo = notification.userInfo as? [String:Any] else { return }
+                
+                let result : String = userInfo["result"] as! String
+                
+                switch result {
+                case "success" :
+                    
+                   self.searchPlaceModels = userInfo["searchPlaceModels"] as! [SearchPlaceModel]
+                 
+                   self.searchPlaceTable.reloadData()
+                    
+                    break;
+                case "overApi" :
+                    
+                    self.showOverApiAlert()
+                    
+                    break;
+                    
+                case "fail" :
+                    //TODO: 필요시 구현하세요
+                    
+                    break;
+                default:
+                    
+                    break;
+                }
+                
+            }
+        }
+    }
+    
     
     private func searchPlace(searchKeyword:String) {
         
         
         SpinnerView.show(onView: self.view)
         
-        let url:String = "https://api2.sktelecom.com/tmap/pois"
-        let param = ["version": "1", "appKey": TMAP_APP_KEY, "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO", "searchKeyword": searchKeyword]
-        
-        
-        Alamofire.request(url,
-                          method: .get,
-                          parameters: param,
-                          encoding: URLEncoding.default,
-                          headers: ["Content-Type":"application/json", "Accept":"application/json"]
-            )
-            .validate(statusCode: 200..<300)
-            .responseJSON {
-                
-                response in
-                
-                switch response.result {
-                case .success:
-                    if let responseData = response.result.value {
-                        
-                        SpinnerView.remove()
-                        
-                        self.extractSearchPlaceModels(responseData : responseData)
-                        
-                        self.searchPlaceTable.reloadData()
-                        
-                    } else {
-                        
-                        SpinnerView.remove()
-                        
-                        //TODO: 오류가 발생한 경우 처리하세요
-                        
-                    }
-                    print("Validation Successful")
-                case .failure(let error):
-                    SpinnerView.remove()
-                    
-                    //TODO 나중에 제대로 작동하는지 확인하세요
-                    if(error.localizedDescription.contains("forbidden")) {
-                        self.showOverApiAlert()
-                    }
-                    
-                    print(error)
-                }
-                
-                
-        }
+        alamofireManager.searchPlace(searchKeyword : searchKeyword)
+  
     }
-    
-    private func extractSearchPlaceModels(responseData : Any) {
-        
-        let swiftyJsonVar = JSON(responseData)
-        
-        var searchPlaceModel:SearchPlaceModel
-        
-        for subJson in swiftyJsonVar["searchPoiInfo"]["pois"]["poi"].arrayValue {
-            searchPlaceModel = SearchPlaceModel()
-            
-            let name = subJson["name"].stringValue
-            let telNo = subJson["telNo"].stringValue
-            let upperAddrName = subJson["upperAddrName"].stringValue
-            let middleAddrName = subJson["middleAddrName"].stringValue
-            let roadName = subJson["roadName"].stringValue
-            let firstBuildNo = subJson["firstBuildNo"].stringValue
-            let secondBuildNo = subJson["secondBuildNo"].stringValue
-            let bizName = subJson["lowerBizName"].stringValue
-            let lat = subJson["noorLat"].doubleValue
-            let lng = subJson["noorLon"].doubleValue
-            
-            var address = upperAddrName + " " + middleAddrName + " " + roadName + " " + firstBuildNo
-            if secondBuildNo != "" {
-                address = address + "-" + secondBuildNo
-            }
-            
-            
-            searchPlaceModel.setName(name: name)
-            searchPlaceModel.setAddress(address: address)
-            searchPlaceModel.setLat(lat: lat)
-            searchPlaceModel.setLng(lng: lng)
-            searchPlaceModel.setBizname(bizName: bizName)
-            searchPlaceModel.setTelNo(telNo: telNo)
-            
-            self.searchPlaceModels.append(searchPlaceModel)
-            
-        }
-        
-    }
-    
+   
     
     private func showOverApiAlert() {
         
-        let modalViewController = self.storyboard?.instantiateViewController(withIdentifier: "OverApiAlertPopup")
-        modalViewController!.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        modalViewController!.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-        present(modalViewController!, animated: true, completion: nil)
+        OverApiManager.showOverApiAlertPopup(parentViewControler: self)
         
     }
     

@@ -167,7 +167,7 @@
                                                 </constraints>
                                             </imageView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RFy-t4-D6O" userLabel="Start Point View">
-                                                <rect key="frame" x="98" y="25" width="207" height="35"/>
+                                                <rect key="frame" x="98" y="25" width="257" height="35"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="17M-In-uzT"/>
                                                 </constraints>
@@ -176,7 +176,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yRg-Ff-o6O" userLabel="End Point View">
-                                                <rect key="frame" x="98" y="72" width="207" height="35"/>
+                                                <rect key="frame" x="98" y="72" width="257" height="35"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="HU9-eD-JDl"/>
                                                 </constraints>
@@ -210,8 +210,8 @@
                                             <constraint firstItem="yRg-Ff-o6O" firstAttribute="leading" secondItem="ZQy-EW-FRi" secondAttribute="trailing" constant="8" id="h6q-G0-QPE"/>
                                             <constraint firstItem="JIb-lj-khi" firstAttribute="leading" secondItem="lwb-Zh-I22" secondAttribute="leading" id="o5G-fi-CIt"/>
                                             <constraint firstItem="RFy-t4-D6O" firstAttribute="centerY" secondItem="lwb-Zh-I22" secondAttribute="centerY" id="pPI-H4-MXL"/>
-                                            <constraint firstItem="RFy-t4-D6O" firstAttribute="trailing" secondItem="QZU-tx-V6J" secondAttribute="leading" constant="-20" id="sIA-nJ-FZ3"/>
-                                            <constraint firstItem="yRg-Ff-o6O" firstAttribute="trailing" secondItem="QZU-tx-V6J" secondAttribute="leading" constant="-20" id="sha-te-5sp"/>
+                                            <constraint firstItem="RFy-t4-D6O" firstAttribute="trailing" secondItem="3ok-Hh-ggQ" secondAttribute="trailing" constant="-20" id="sIA-nJ-FZ3"/>
+                                            <constraint firstItem="yRg-Ff-o6O" firstAttribute="trailing" secondItem="3ok-Hh-ggQ" secondAttribute="trailing" constant="-20" id="sha-te-5sp"/>
                                             <constraint firstItem="QZU-tx-V6J" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3ok-Hh-ggQ" secondAttribute="leading" constant="20" symbolic="YES" id="vBR-6S-jdV"/>
                                         </constraints>
                                     </view>
@@ -220,7 +220,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z2k-DI-9OB" userLabel="Route Select Board">
-                                        <rect key="frame" x="0.0" y="572" width="375" height="74"/>
+                                        <rect key="frame" x="0.0" y="526" width="375" height="74"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2V5-Qc-tTN" userLabel="First Route">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
@@ -430,7 +430,7 @@
                                         </constraints>
                                     </scrollView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TUa-3C-WRS" userLabel="Pager Indicator">
-                                        <rect key="frame" x="9" y="646" width="357" height="12"/>
+                                        <rect key="frame" x="9" y="600" width="357" height="12"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QTf-ca-VVq" userLabel="First Dot">
                                                 <rect key="frame" x="171" y="3.5" width="5" height="5"/>
@@ -478,7 +478,7 @@
                                     <constraint firstItem="TUa-3C-WRS" firstAttribute="leading" secondItem="JV0-9g-TEU" secondAttribute="leading" constant="9" id="R4s-eX-2Uw"/>
                                     <constraint firstItem="rka-lr-QkE" firstAttribute="top" secondItem="3ok-Hh-ggQ" secondAttribute="bottom" id="VEF-dL-LpG"/>
                                     <constraint firstItem="z2k-DI-9OB" firstAttribute="bottom" secondItem="TUa-3C-WRS" secondAttribute="top" id="WCh-Md-yP4"/>
-                                    <constraint firstItem="TUa-3C-WRS" firstAttribute="bottom" secondItem="JV0-9g-TEU" secondAttribute="bottom" constant="-9" id="WeX-tF-DHE"/>
+                                    <constraint firstItem="TUa-3C-WRS" firstAttribute="bottom" secondItem="JV0-9g-TEU" secondAttribute="bottom" constant="-55" id="WeX-tF-DHE"/>
                                     <constraint firstItem="3ok-Hh-ggQ" firstAttribute="width" secondItem="JV0-9g-TEU" secondAttribute="width" id="d9L-7u-cwT"/>
                                     <constraint firstItem="3ok-Hh-ggQ" firstAttribute="top" secondItem="JV0-9g-TEU" secondAttribute="top" constant="20" id="mBd-TX-gjM"/>
                                     <constraint firstItem="rka-lr-QkE" firstAttribute="leading" secondItem="JV0-9g-TEU" secondAttribute="leading" id="nDx-Xp-Lnr"/>
@@ -500,7 +500,6 @@
                         <outlet property="dot1OnMarkerLine" destination="K8U-2I-6FO" id="GMQ-Nm-Fhj"/>
                         <outlet property="dot2OnMarkerLine" destination="dGw-gE-els" id="N9j-Fs-acb"/>
                         <outlet property="endPointView" destination="yRg-Ff-o6O" id="DLn-W6-hW7"/>
-                        <outlet property="findRouteTopBar" destination="3ok-Hh-ggQ" id="auT-mc-nPS"/>
                         <outlet property="firstDotOnIndicator" destination="QTf-ca-VVq" id="Bak-Tj-ftn"/>
                         <outlet property="firstRouteCalorie" destination="hNx-7v-lXW" id="esd-U5-DT7"/>
                         <outlet property="firstRouteContent" destination="JCA-4c-WjI" id="Jif-TY-BFI"/>
@@ -592,7 +591,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navigation_marker" translatesAutoresizingMaskIntoConstraints="NO" id="Cbw-Id-kZu" userLabel="Navigation Marker">
-                                        <rect key="frame" x="152.5" y="453.5" width="70" height="70"/>
+                                        <rect key="frame" x="152.5" y="343.5" width="70" height="70"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="70" id="XPa-tR-ary"/>
                                             <constraint firstAttribute="width" constant="70" id="Y9D-yv-5TU"/>
@@ -720,7 +719,7 @@
                                     <constraint firstItem="dda-kj-UqW" firstAttribute="bottom" secondItem="laB-JB-xyn" secondAttribute="bottom" id="kWE-ZD-skT"/>
                                     <constraint firstItem="eIB-nV-Q26" firstAttribute="width" secondItem="laB-JB-xyn" secondAttribute="width" id="nXf-bo-mwT"/>
                                     <constraint firstItem="LoZ-hb-nxn" firstAttribute="top" secondItem="d8F-kF-8DG" secondAttribute="bottom" id="p4s-NR-Wme"/>
-                                    <constraint firstItem="Cbw-Id-kZu" firstAttribute="centerY" secondItem="eIB-nV-Q26" secondAttribute="centerY" constant="110" id="yox-CM-Teo"/>
+                                    <constraint firstItem="Cbw-Id-kZu" firstAttribute="centerY" secondItem="eIB-nV-Q26" secondAttribute="centerY" id="yox-CM-Teo"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1462,7 +1461,6 @@
                         <outlet property="favoritesMenu" destination="Dxc-Ok-SY7" id="CaW-sb-h3b"/>
                         <outlet property="findRouteButton" destination="cti-wN-B4u" id="mq7-kk-TSm"/>
                         <outlet property="findRouteMenu" destination="lkG-77-Bwm" id="TAl-kP-hZT"/>
-                       
                         <outlet property="mapView" destination="flQ-yi-35f" id="6y7-Sr-Lw1"/>
                         <outlet property="placeInfoBoard" destination="qXt-mU-Mmz" id="0NX-XZ-6nx"/>
                         <outlet property="placeNameView" destination="U71-nU-TgI" id="Enc-pr-gxs"/>

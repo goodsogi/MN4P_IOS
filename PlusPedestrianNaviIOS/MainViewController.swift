@@ -63,7 +63,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       
+             
         initMapView()
         initTopSearchBar()
         initGoogleMapDrawingManager()
@@ -253,7 +254,6 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
         handleDrawer()
         
-        
     }
     
     
@@ -393,7 +393,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         // [START_EXCLUDE]
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(MainViewController.receiveSignInNotification(_:)),
-                                               name: NSNotification.Name(rawValue: PPNConstants.NOTIFICATION_NAME),
+                                               name: NSNotification.Name(rawValue: PPNConstants.NOTIFICATION_GOOGLE_SIGNIN),
                                                object: nil)
         
         //이미 로그인한 경우 처리
@@ -478,7 +478,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     
     
     @objc func receiveSignInNotification(_ notification: NSNotification) {
-        if notification.name.rawValue == PPNConstants.NOTIFICATION_NAME {
+        if notification.name.rawValue == PPNConstants.NOTIFICATION_GOOGLE_SIGNIN {
             
             if notification.userInfo != nil {
                 guard let userInfo = notification.userInfo as? [String:String] else { return }

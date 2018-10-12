@@ -3,13 +3,21 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "GoogleMapDrawingManager.drawStartEndMarker(directionModel:):GoogleMapDrawingManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "directionModel.getRoutePointModels()![directionModel.getRoutePointModels()!.count - 1].getLat()!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "NavigationViewController.showTotalDistance():NavigationViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "String(format: &quot;%.2f&quot;, Double(123456) / Double(1000))">
+               value = "Float(1234543) / Float(1000)">
             </PersistentString>
             <PersistentString
-               value = "Float(1234543) / Float(1000)">
+               value = "String(format: &quot;%.2f&quot;, Double(123456) / Double(1000))">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
