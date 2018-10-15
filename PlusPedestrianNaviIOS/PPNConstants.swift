@@ -27,6 +27,9 @@ class PPNConstants {
     
     public static let NOTIFICATION_ALAMOFIRE_GET_DIRECTION: String = "NOTIFICATION_ALAMOFIRE_GET_DIRECTION";
     
+    public static let NOTIFICATION_ALAMOFIRE_FIND_ROUTE: String = "NOTIFICATION_ALAMOFIRE_FIND_ROUTE";
+    
+    
     public static let NOTIFICATION_ALAMOFIRE_SEARCH_PLACE: String = "NOTIFICATION_ALAMOFIRE_SEARCH_PLACE";
     
     public static let USER_NAME: String = "USER_NAME";

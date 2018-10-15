@@ -19,14 +19,17 @@ class SettingsViewController: UIViewController , MFMailComposeViewControllerDele
     
     @IBOutlet weak var appVersion: UITextField!
     
+    
+    @IBAction func onBackPressed(_ sender: Any) {
+        self.dismiss(animated: true)    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addTapGestureToMenus()
         showAppVersion()
         
-        if !MFMailComposeViewController.canSendMail() {
-            print("Mail services are not available")          
-        }
+       
     }
     
     
@@ -82,6 +85,12 @@ class SettingsViewController: UIViewController , MFMailComposeViewControllerDele
     }
     
     @objc func suggestionMenuTapped(_ sender: UITapGestureRecognizer) {
+        if !MFMailComposeViewController.canSendMail() {
+            print("Mail services are not available")
+            Toast.show(message: "이 폰에서는 제안/문의를 사용할 수 없습니다.", controller: self)
+            return
+        }
+        
         print("suggestionMenuTapped")
         //simulator에서는 작동하지 않고 실제 폰에서 작동한다고 함
         let composeVC = MFMailComposeViewController()

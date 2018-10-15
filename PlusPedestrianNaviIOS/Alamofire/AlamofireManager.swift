@@ -127,11 +127,11 @@ class AlamofireManager {
     
     //*******************************************************************************************************
     //
-    // 경로안내 데이터 가져오기 
+    // 경로안내 데이터 가져오기(경로찾기, 경로안내 2 곳에서 사용)
     //
     //********************************************************************************************************
     
-    public func getDirection(selectedPlaceModel : SearchPlaceModel , userLocation : CLLocation , selectedRouteOption : String) {
+    public func getDirection(selectedPlaceModel : SearchPlaceModel , userLocation : CLLocation , selectedRouteOption : String, notificationName : String) {
         let url:String = "https://api2.sktelecom.com/tmap/routes/pedestrian?version=1&appKey=" + TMAP_APP_KEY
         
         //TODO: 나중에 passList(경유점), angle, searchOption 수정하세요
@@ -156,7 +156,7 @@ class AlamofireManager {
                     if let responseData = response.result.value {
                         
                         NotificationCenter.default.post(
-                            name: Notification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION),
+                            name: Notification.Name(rawValue: notificationName),
                             object: nil,
                             userInfo: ["result": "success", "directionModel" : self.getDirectionModel(responseData: responseData)])
                         
@@ -164,7 +164,7 @@ class AlamofireManager {
                     } else {
                         //TODO: 오류가 발생한 경우 처리하세요
                         NotificationCenter.default.post(
-                            name: Notification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION),
+                            name: Notification.Name(rawValue: notificationName),
                             object: nil,
                             userInfo: ["result": "fail"])
                         
@@ -175,13 +175,13 @@ class AlamofireManager {
                     //TODO 나중에 제대로 작동하는지 확인하세요
                     if(error.localizedDescription.contains("forbidden")) {
                         NotificationCenter.default.post(
-                            name: Notification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION),
+                            name: Notification.Name(rawValue: notificationName),
                             object: nil,
                             userInfo: ["result": "overApi"])
                     } else {
                         
                         NotificationCenter.default.post(
-                            name: Notification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION),
+                            name: Notification.Name(rawValue: notificationName),
                             object: nil,
                             userInfo: ["result": "fail"])
                     }

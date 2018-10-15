@@ -86,6 +86,13 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         determineMyCurrentLocation()
     }
     
+    //안드로이드의 onDestroy와 같음
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        super.viewDidDisappear(false)
+        
+        locationManager.stopUpdatingLocation()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -554,8 +554,8 @@
                                                     <action selector="onBackTapped:" destination="UTV-8r-lA2" eventType="touchUpInside" id="mLy-Kd-x8t"/>
                                                 </connections>
                                             </button>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s1M-Ob-NrO" userLabel="Screen Title">
-                                                <rect key="frame" x="64" y="16.5" width="8" height="17"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="경로 안내" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s1M-Ob-NrO" userLabel="Screen Title">
+                                                <rect key="frame" x="64" y="16.5" width="56" height="17"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -832,6 +832,7 @@
                                                 <state key="normal" backgroundImage="go_back_unpressed_small"/>
                                                 <connections>
                                                     <action selector="hamburgerButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8La-RF-gS5"/>
+                                                    <action selector="onBackPressed:" destination="ZpX-ME-5qT" eventType="touchUpInside" id="l1U-7b-Z1c"/>
                                                     <action selector="onBackTapped:" destination="qux-fl-5mk" eventType="touchUpInside" id="w96-rP-Eak"/>
                                                 </connections>
                                             </button>
@@ -933,10 +934,10 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="c2f-iU-ScS" userLabel="arrow">
-                                                <rect key="frame" x="321" y="-21" width="42" height="42"/>
+                                                <rect key="frame" x="321" y="0.0" width="42" height="0.0"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="42" id="FI9-Tl-6TZ"/>
-                                                    <constraint firstAttribute="height" constant="42" id="a9L-dB-0bS"/>
+                                                    <constraint firstAttribute="height" id="a9L-dB-0bS"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
@@ -973,13 +974,6 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="Ou9-rX-8M4" userLabel="arrow">
-                                                <rect key="frame" x="321" y="7.5" width="42" height="42"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="42" id="Ru4-uq-RRa"/>
-                                                    <constraint firstAttribute="width" constant="42" id="YH2-TM-cRx"/>
-                                                </constraints>
-                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -988,8 +982,6 @@
                                             <constraint firstItem="MtY-bM-1Yv" firstAttribute="leading" secondItem="5mB-9i-wmq" secondAttribute="leading" id="TRz-6Z-zfc"/>
                                             <constraint firstItem="5mB-9i-wmq" firstAttribute="leading" secondItem="KeK-Ne-hfi" secondAttribute="leading" constant="16" id="lD2-pn-1Yw"/>
                                             <constraint firstItem="5mB-9i-wmq" firstAttribute="top" secondItem="KeK-Ne-hfi" secondAttribute="top" constant="10" id="q8Z-uy-83U"/>
-                                            <constraint firstAttribute="trailing" secondItem="Ou9-rX-8M4" secondAttribute="trailing" constant="12" id="rec-0G-Bgo"/>
-                                            <constraint firstItem="Ou9-rX-8M4" firstAttribute="centerY" secondItem="KeK-Ne-hfi" secondAttribute="centerY" id="vd1-oT-obm"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fkx-Eh-Ygl" userLabel="Line 2">
@@ -1352,14 +1344,17 @@
                                                 <rect key="frame" x="0.0" y="224" width="280" height="0.0"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ratings" translatesAutoresizingMaskIntoConstraints="NO" id="vJB-mQ-Win" userLabel="Write App Review Icon">
-                                                        <rect key="frame" x="22" y="-15" width="30" height="30"/>
+                                                        <rect key="frame" x="22" y="0.0" width="30" height="0.0"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="30" id="hsT-eZ-t5d"/>
+                                                            <constraint firstAttribute="height" id="hsT-eZ-t5d"/>
                                                             <constraint firstAttribute="width" constant="30" id="iED-sg-iuK"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write app review" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ttC-0q-0yg" userLabel="Write App Review Label">
-                                                        <rect key="frame" x="72" y="-10" width="128" height="20.5"/>
+                                                        <rect key="frame" x="72" y="0.0" width="128" height="0.0"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" id="k9s-lP-los"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>

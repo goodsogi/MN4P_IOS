@@ -3,6 +3,17 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "NavigationViewController.showTotalDistance():NavigationViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "String(format: &quot;%.2f&quot;, Double(123456) / Double(1000))">
+            </PersistentString>
+            <PersistentString
+               value = "Float(1234543) / Float(1000)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "GoogleMapDrawingManager.drawStartEndMarker(directionModel:):GoogleMapDrawingManager.swift">
          <PersistentStrings>
             <PersistentString
@@ -11,13 +22,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "NavigationViewController.showTotalDistance():NavigationViewController.swift">
+         contextName = "NavigationViewController.checkIfEnteredGeofence():NavigationViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "Float(1234543) / Float(1000)">
+               value = "currentGeofenceModel">
             </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "NavigationViewController.isEnteredGeofence():NavigationViewController.swift">
+         <PersistentStrings>
             <PersistentString
-               value = "String(format: &quot;%.2f&quot;, Double(123456) / Double(1000))">
+               value = "distacneToGeofence &lt; 600">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

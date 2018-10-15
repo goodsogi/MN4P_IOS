@@ -84,6 +84,14 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
         determineMyCurrentLocation()
     }
     
+    //안드로이드의 onDestroy와 같음
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        super.viewDidDisappear(false)
+        
+        locationManager.stopUpdatingLocation()
+    }
+    
     private func showStartPointName() {
         //TODO: 나중에 수정하세요
         startPointView.text = "내 위치"
@@ -170,14 +178,14 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(NavigationViewController.receiveAlamofireGetDirectionNotification(_:)),
-                                               name: NSNotification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION),
+                                               name: NSNotification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE),
                                                object: nil)
         
         alamofireManager = AlamofireManager()
     }
     
     @objc func receiveAlamofireGetDirectionNotification(_ notification: NSNotification) {
-        if notification.name.rawValue == PPNConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION {
+        if notification.name.rawValue == PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE {
             
             SpinnerView.remove()
             
@@ -236,7 +244,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
         
         let routeOption:String = getRouteOption()
         
-        alamofireManager.getDirection(selectedPlaceModel: selectedPlaceModel!, userLocation: userLocation, selectedRouteOption: routeOption)
+        alamofireManager.getDirection(selectedPlaceModel: selectedPlaceModel!, userLocation: userLocation, selectedRouteOption: routeOption, notificationName : PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE)
         
         
     }

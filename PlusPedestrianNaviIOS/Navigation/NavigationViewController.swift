@@ -30,6 +30,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     @IBOutlet weak var directionArrow: UIImageView!
     @IBOutlet weak var directionInfo: UILabel!
     @IBOutlet weak var descriptionView: UILabel!
+    var isGetDirection : Bool = false
     
     //Google Map
     @IBOutlet weak var mapView: GMSMapView!
@@ -44,6 +45,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     var remainDistance:Int!
     var previousLocation:CLLocation!
     var currentRoutePointLocation:CLLocation!
+    
     
     //Alamofire
     var alamofireManager : AlamofireManager!
@@ -85,6 +87,8 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         super.viewDidDisappear(false)
         //TODO: 호출되는지 확인하세요
         timer.invalidate()
+        
+        locationManager.stopUpdatingLocation()
     }
     
     private func drawDirectionBoardBackground() {
@@ -220,8 +224,8 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         
         geofenceModelIndex += 1
         
-        if(geofenceModelIndex == directionModel.getGeofenceModels()?.count) {
-            //TODO: 도착 처리하세요
+        if(geofenceModelIndex <= (directionModel.getGeofenceModels()?.count)!) {
+        
             
             showDirection()
             
@@ -382,6 +386,8 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
                     
                     self.speakTTS(text: "경로안내를 시작합니다")
                     
+                    isGetDirection = true
+                    
                     break;
                 case "overApi" :
                     
@@ -406,7 +412,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         
         SpinnerView.show(onView: self.view)
         
-        alamofireManager.getDirection(selectedPlaceModel: selectedPlaceModel!, userLocation: userLocation, selectedRouteOption: selectedRouteOption!)
+        alamofireManager.getDirection(selectedPlaceModel: selectedPlaceModel!, userLocation: userLocation, selectedRouteOption: selectedRouteOption!, notificationName : PPNConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION)
         
       
     }
@@ -442,10 +448,14 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
             getDirection()
         } else {
             
+            if(isGetDirection) {
+          
             showRemainDistance()
             checkIfEnteredGeofence()
             checkIfEnteredRoutePoint()
             refreshMap()
+                
+            }
         }
         
         previousLocation = userLocation
