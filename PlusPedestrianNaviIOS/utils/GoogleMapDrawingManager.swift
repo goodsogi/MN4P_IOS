@@ -21,6 +21,7 @@ class GoogleMapDrawingManager {
     var endMarker: GMSMarker!
     
     var currentLocationMarker:GMSMarker!
+    var selectedPlaceMarker:GMSMarker!
     
     var mapView:GMSMapView!
     
@@ -28,8 +29,14 @@ class GoogleMapDrawingManager {
     
     var firstDistanceFromCurrentLocationToRoutePoint = 0
     
+    var debugInfo : UILabel!
+    
     public func setMapView(mapView: GMSMapView) {
         self.mapView = mapView
+    }
+    
+    public func setDebugInfo(debugInfo : UILabel) {
+        self.debugInfo = debugInfo
     }
     
     private func clearMap() {
@@ -166,10 +173,15 @@ class GoogleMapDrawingManager {
         mapView.camera = camera
         
         
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: selectedPlaceModel.getLat() ?? 0, longitude: selectedPlaceModel.getLng() ?? 0)
-        marker.title = "selected place marker"
-        marker.map = self.mapView
+        if(selectedPlaceMarker == nil) {
+            selectedPlaceMarker = GMSMarker()
+            selectedPlaceMarker.position = CLLocationCoordinate2D(latitude: selectedPlaceModel.getLat() ?? 0, longitude: selectedPlaceModel.getLng() ?? 0)
+            selectedPlaceMarker.title = "selected place marker"
+            selectedPlaceMarker.map = self.mapView
+        } else {
+            selectedPlaceMarker.position = CLLocationCoordinate2D(latitude: selectedPlaceModel.getLat() ?? 0, longitude: selectedPlaceModel.getLng() ?? 0)
+            
+        }
     }
     
     //********************************************************************************************************
@@ -242,8 +254,10 @@ class GoogleMapDrawingManager {
         if(isCurrentLocationAwayFromRoutePoint(currentRoutePointLocation : currentRoutePointLocation, currentLocation : currentLocation)) {
             targetBearingInt = Int(BearingManager.getBearingBetweenTwoPoints1(point1: currentRoutePointLocation, point2: currentLocation))
             
+            debugInfo.text = String(targetBearingInt) + " " + "-"
         } else {
             targetBearingInt = Int(BearingManager.getBearingBetweenTwoPoints1(point1: currentLocation, point2: currentRoutePointLocation))
+            debugInfo.text = String(targetBearingInt) + " " + "+"
         }
         
         return targetBearingInt
@@ -254,6 +268,16 @@ class GoogleMapDrawingManager {
         let currentDistance : Int = Int(currentRoutePointLocation.distance(from: currentLocation))
         
         var isAway : Bool = false
+        
+        
+        print("currentRoutePointLocation.latitude: " + String(currentRoutePointLocation.coordinate.latitude))
+        print("currentRoutePointLocation.longitude: " + String(currentRoutePointLocation.coordinate.longitude))
+        
+        //
+        print("currentDistance:" + String(currentDistance))
+        print("firstDistanceFromCurrentLocationToRoutePoint:" + String(firstDistanceFromCurrentLocationToRoutePoint))
+        //
+        print("currentDistance - firstDistanceFromCurrentLocationToRoutePoint:" + String(currentDistance - firstDistanceFromCurrentLocationToRoutePoint))
         
         if( currentDistance - firstDistanceFromCurrentLocationToRoutePoint > 5 ) {
             isAway = true

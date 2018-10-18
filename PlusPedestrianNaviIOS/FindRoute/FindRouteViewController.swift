@@ -478,10 +478,11 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
         
         userLocation = locations[0] as CLLocation
         
-        showCurrentLocationOnMap()
+        
         
         if(isFirstLocation) {
             isFirstLocation = false;
+            showCurrentLocationOnMap()
             selectedRouteNo = PPNConstants.SECOND_ROUTE
             getRoute()
         }

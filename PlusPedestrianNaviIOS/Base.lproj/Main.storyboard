@@ -697,6 +697,12 @@
                                             <constraint firstItem="saz-NE-cai" firstAttribute="leading" secondItem="dda-kj-UqW" secondAttribute="leading" constant="15" id="q33-bm-BVY"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACu-ot-wom" userLabel="DebugInfo">
+                                        <rect key="frame" x="0.0" y="567" width="375" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -714,11 +720,14 @@
                                     <constraint firstItem="d8F-kF-8DG" firstAttribute="leading" secondItem="laB-JB-xyn" secondAttribute="leading" id="bZd-5Q-R8b"/>
                                     <constraint firstItem="Cbw-Id-kZu" firstAttribute="centerX" secondItem="eIB-nV-Q26" secondAttribute="centerX" id="cNV-h5-aub"/>
                                     <constraint firstItem="eIB-nV-Q26" firstAttribute="bottom" secondItem="laB-JB-xyn" secondAttribute="bottom" id="eNe-fr-tAd"/>
+                                    <constraint firstItem="ACu-ot-wom" firstAttribute="leading" secondItem="dda-kj-UqW" secondAttribute="leading" id="elT-NO-Wg6"/>
+                                    <constraint firstItem="ACu-ot-wom" firstAttribute="bottom" secondItem="dda-kj-UqW" secondAttribute="top" constant="-50" id="fsm-HR-mrL"/>
                                     <constraint firstItem="d8F-kF-8DG" firstAttribute="width" secondItem="laB-JB-xyn" secondAttribute="width" id="hxV-Ju-MsA"/>
                                     <constraint firstItem="eIB-nV-Q26" firstAttribute="top" secondItem="d8F-kF-8DG" secondAttribute="bottom" id="iL4-2x-SYm"/>
                                     <constraint firstItem="dda-kj-UqW" firstAttribute="bottom" secondItem="laB-JB-xyn" secondAttribute="bottom" id="kWE-ZD-skT"/>
                                     <constraint firstItem="eIB-nV-Q26" firstAttribute="width" secondItem="laB-JB-xyn" secondAttribute="width" id="nXf-bo-mwT"/>
                                     <constraint firstItem="LoZ-hb-nxn" firstAttribute="top" secondItem="d8F-kF-8DG" secondAttribute="bottom" id="p4s-NR-Wme"/>
+                                    <constraint firstItem="ACu-ot-wom" firstAttribute="width" secondItem="dda-kj-UqW" secondAttribute="width" id="xzb-mz-gX5"/>
                                     <constraint firstItem="Cbw-Id-kZu" firstAttribute="centerY" secondItem="eIB-nV-Q26" secondAttribute="centerY" id="yox-CM-Teo"/>
                                 </constraints>
                             </view>
@@ -733,6 +742,7 @@
                         <viewLayoutGuide key="safeArea" id="AS6-Lj-red"/>
                     </view>
                     <connections>
+                        <outlet property="debugInfo" destination="ACu-ot-wom" id="dX4-QF-7tn"/>
                         <outlet property="descriptionView" destination="saz-NE-cai" id="SCf-Ih-ond"/>
                         <outlet property="directionArrow" destination="yNQ-vk-iqZ" id="IhU-wy-ZKt"/>
                         <outlet property="directionBoard" destination="Sp6-SU-CWA" id="pd1-Ue-7nX"/>

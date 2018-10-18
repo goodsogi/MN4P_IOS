@@ -31,6 +31,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     @IBOutlet weak var directionInfo: UILabel!
     @IBOutlet weak var descriptionView: UILabel!
     var isGetDirection : Bool = false
+    @IBOutlet weak var debugInfo: UILabel!
     
     //Google Map
     @IBOutlet weak var mapView: GMSMapView!
@@ -78,7 +79,6 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         showAd()
         initAlamofireManager()
     }
-    
     
     
     //안드로이드의 onDestroy와 같음
@@ -169,11 +169,19 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         remainDistance = directionModel.getTotalDistance()
     }
     
-    private func checkIfEnteredRoutePoint() {
+    private func setCurrentRoutePointLocation() {
         
         currentRoutePointModel = directionModel.getRoutePointModels()![routePointModelIndex]
         
         currentRoutePointLocation = CLLocation(latitude: currentRoutePointModel.getLat()!, longitude: currentRoutePointModel.getLng()!)
+        
+    }
+    
+    private func checkIfEnteredRoutePoint() {
+        
+        setCurrentRoutePointLocation()
+        
+        
         
         if(isFirstCheck) {
             isFirstCheck = false
@@ -203,6 +211,8 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         if(routePointModelIndex == directionModel.getRoutePointModels()?.count) {
             routePointModelIndex -= 1
         }
+        
+        setCurrentRoutePointLocation()
         
         setFirstDistanceFromCurrentLocationToRoutePoint()
         
@@ -467,8 +477,8 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         
         // manager.stopUpdatingLocation()
         
-        print("navigation user latitude = \(userLocation.coordinate.latitude)")
-        print("navigation user longitude = \(userLocation.coordinate.longitude)")
+        //print("navigation user latitude = \(userLocation.coordinate.latitude)")
+        //print("navigation user longitude = \(userLocation.coordinate.longitude)")
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
@@ -499,7 +509,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         
         locationCatchedTime = getCurrentTimeInMillis()
         
-        print("locationCatchedTime: " + locationCatchedTime.description)
+        //print("locationCatchedTime: " + locationCatchedTime.description)
         
         if(isGpsUnavailable) {
             isGpsUnavailable = false
@@ -521,13 +531,13 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     
     func isLongInterval() -> Bool {
         let currentTime: Double = getCurrentTimeInMillis()
-        print("currentTime: " + currentTime.description)
+        //print("currentTime: " + currentTime.description)
         
         let interval: Double = currentTime - locationCatchedTime
-        print("locationCatchedTime: " + locationCatchedTime.description)
+        //print("locationCatchedTime: " + locationCatchedTime.description)
         
         //왜 interval이 5가 아니고 10이지??
-        print("interval: " + interval.description)
+        //print("interval: " + interval.description)
         
         return interval >= 4.5
     }
@@ -615,6 +625,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     private func initGoogleMapDrawingManager() {
         googleMapDrawingManager = GoogleMapDrawingManager()
         googleMapDrawingManager.setMapView(mapView:mapView)
+        googleMapDrawingManager.setDebugInfo(debugInfo: debugInfo)
         
         //지도에 padding을 주면 zoom이 이상하게 표시됨. 일단 뺌 
 //        let topPadding : CGFloat = mapView.frame.height - 110
