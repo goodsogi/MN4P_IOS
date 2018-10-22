@@ -97,7 +97,7 @@ class SettingsViewController: UIViewController , MFMailComposeViewControllerDele
         composeVC.mailComposeDelegate = self
         
         // Configure the fields of the interface.
-        //        composeVC.setToRecipients(["exampleEmail@email.com"])
+        composeVC.setToRecipients(["goodsogi@gmail.com"])
         composeVC.setSubject("보행자용 지도, 네비게이션 제안/문의사항")
         composeVC.setMessageBody("제안이나 문의사항을 입력하세요.", isHTML: false)
         

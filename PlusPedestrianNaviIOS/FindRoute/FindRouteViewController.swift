@@ -429,6 +429,8 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     func showFirstRouteDetail() {
         
         let routeDetail: String = routeSelectBoardManager.getRouteDetail(geofenceModels:firstDirectionModel.getGeofenceModels()!)
+        
+       
         firstRouteDetail.text = routeDetail
         
         
@@ -456,6 +458,9 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     
     func showSecondRouteDetail() {
         let routeDetail: String = routeSelectBoardManager.getRouteDetail(geofenceModels:secondDirectionModel.getGeofenceModels()!)
+        
+       
+        
         secondRouteDetail.text = routeDetail
     }
     
@@ -552,8 +557,8 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     
     private func showCurrentLocationOnMap() {
         
-        let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 14)
-        mapView.camera = camera
+        googleMapDrawingManager.showFirstCurrentLocationOnMap(userLocation: userLocation! , isNavigationViewController: false)
+     
     }
     
     //********************************************************************************************************
@@ -581,7 +586,7 @@ class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     
     private func drawRouteOnMap() {
         
-        googleMapDrawingManager.drawRouteOnMap(firstDirectionModel: firstDirectionModel, secondDirectionModel: secondDirectionModel, isShowSecondRoute: true)
+        googleMapDrawingManager.drawRouteOnMap(firstDirectionModel: firstDirectionModel, secondDirectionModel: secondDirectionModel, isFindRouteViewController: true)
     }
     
     private func initGoogleMapDrawingManager() {

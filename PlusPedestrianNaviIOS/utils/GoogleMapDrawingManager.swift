@@ -52,18 +52,21 @@ class GoogleMapDrawingManager {
         return newImage
     }
     
-    public func drawRouteOnMap(firstDirectionModel:DirectionModel,secondDirectionModel:DirectionModel, isShowSecondRoute:Bool) {
+    public func drawRouteOnMap(firstDirectionModel:DirectionModel,secondDirectionModel:DirectionModel, isFindRouteViewController:Bool) {
         
         clearMap()
         
         drawStartEndMarker(directionModel: firstDirectionModel)
         
-        if(isShowSecondRoute) {
+        if(isFindRouteViewController) {
             drawSubPolyline(directionModel:secondDirectionModel)
         }
         
         drawMainPolyline(directionModel: firstDirectionModel)
+        
+        if(isFindRouteViewController) {
         zoomMapWithPolyline()
+        }
     }
     
     private func zoomMapWithPolyline() {
@@ -158,14 +161,21 @@ class GoogleMapDrawingManager {
     }
     
     
-    public func showFirstCurrentLocationOnMap(userLocation: CLLocation) {
+    public func showFirstCurrentLocationOnMap(userLocation: CLLocation , isNavigationViewController : Bool) {
         
-        let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 14)
+        let zoomValue : Float = isNavigationViewController ? 18 : 14
+        let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: zoomValue)
         mapView.camera = camera
-        
-        currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude , longitude: userLocation.coordinate.longitude )
+       
         
     }
+    
+    public func showCurrentLocationMarker(userLocation: CLLocation)  {
+  
+currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude , longitude: userLocation.coordinate.longitude )
+        
+    }
+    
     
     public func showSelectedPlaceOnMap(selectedPlaceModel:SearchPlaceModel) {
         
@@ -220,6 +230,7 @@ class GoogleMapDrawingManager {
         
         
         mapView.animate(toBearing: Double(targetBearingInt))
+        
     }
     
     public func showFirstRoute(firstDirectionModel:DirectionModel,secondDirectionModel:DirectionModel) {
@@ -279,7 +290,7 @@ class GoogleMapDrawingManager {
         //
         print("currentDistance - firstDistanceFromCurrentLocationToRoutePoint:" + String(currentDistance - firstDistanceFromCurrentLocationToRoutePoint))
         
-        if( currentDistance - firstDistanceFromCurrentLocationToRoutePoint > 5 ) {
+        if( currentDistance - firstDistanceFromCurrentLocationToRoutePoint > 20) {
             isAway = true
             
         } else {

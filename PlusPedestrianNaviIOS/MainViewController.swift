@@ -579,12 +579,13 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
         // TODO: Info.plist 수정하세요
         
-        
+    
         userLocation = locations[0] as CLLocation
         
         if(isFirstLocation) {
             isFirstLocation = false
-            googleMapDrawingManager.showFirstCurrentLocationOnMap(userLocation: userLocation!)
+            googleMapDrawingManager.showFirstCurrentLocationOnMap(userLocation: userLocation! , isNavigationViewController: false)
+            googleMapDrawingManager.showCurrentLocationMarker(userLocation: userLocation!)
         } else {
             //        googleMapDrawingManager.showCurrentLocationOnMap(userLocation: userLocation)
         }

@@ -500,8 +500,9 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     
     private func showCurrentLocationOnMap() {
         
-        let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: 14)
-        mapView.camera = camera
+        
+        googleMapDrawingManager.showFirstCurrentLocationOnMap(userLocation: userLocation! , isNavigationViewController: true)
+        
     }
     
     
@@ -618,7 +619,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     
     private func drawRouteOnMap() {
         
-        googleMapDrawingManager.drawRouteOnMap(firstDirectionModel: directionModel, secondDirectionModel: directionModel, isShowSecondRoute: false)
+        googleMapDrawingManager.drawRouteOnMap(firstDirectionModel: directionModel, secondDirectionModel: directionModel, isFindRouteViewController : false)
         
     }
     

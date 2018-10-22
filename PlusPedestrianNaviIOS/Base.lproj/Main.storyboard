@@ -517,6 +517,7 @@
                         <outlet property="secondRouteTotalDistance" destination="2Tn-iY-X3U" id="t4n-sn-fMM"/>
                         <outlet property="secondRouteTotalTime" destination="GAW-x8-BlZ" id="h6O-tV-og1"/>
                         <outlet property="secondRouteType" destination="kCg-PW-zDu" id="g6s-gc-xDR"/>
+                     
                         <outlet property="startButtonOnMainRoute" destination="8QM-NM-i5S" id="ajf-vB-qC5"/>
                         <outlet property="startButtonOnSubRoute" destination="Auj-Ry-vHr" id="eHQ-5A-tAB"/>
                         <outlet property="startPointView" destination="RFy-t4-D6O" id="WdM-zl-4Tn"/>
@@ -1239,7 +1240,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1d1-zO-beT" userLabel="Seach Label">
-                                                        <rect key="frame" x="72" y="18.5" width="53.5" height="20.5"/>
+                                                        <rect key="frame" x="72" y="18.5" width="208" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1252,7 +1253,7 @@
                                                     <constraint firstItem="1d1-zO-beT" firstAttribute="leading" secondItem="tEg-c8-Gan" secondAttribute="trailing" constant="20" id="Ten-7v-Qnz"/>
                                                     <constraint firstItem="tEg-c8-Gan" firstAttribute="centerY" secondItem="Utf-YF-4ik" secondAttribute="centerY" id="Zzx-mt-Xj1"/>
                                                     <constraint firstItem="1d1-zO-beT" firstAttribute="centerY" secondItem="tEg-c8-Gan" secondAttribute="centerY" id="cGI-Dg-0C1"/>
-                                                    <constraint firstAttribute="trailing" secondItem="1d1-zO-beT" secondAttribute="trailing" constant="154.5" id="zzW-6Z-fQh"/>
+                                                    <constraint firstItem="1d1-zO-beT" firstAttribute="trailing" secondItem="Utf-YF-4ik" secondAttribute="trailing" id="zzW-6Z-fQh"/>
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lkG-77-Bwm" userLabel="Find Route Menu">
