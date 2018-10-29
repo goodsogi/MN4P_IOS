@@ -22,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         
         UIApplication.shared.statusBarStyle = .lightContent
         
+        //상태바가 표시되면 핫스팟 알림의 경우 아이콘 이미지가 납작하게 보이는 이슈가 있어 처음엔 상태바를 표시하지 않게 처리        
+        UIApplication.shared.isStatusBarHidden = false
+        
         //Google Map
         GMSServices.provideAPIKey("AIzaSyDz4c2U4b2Bur2B6nNygQBtZzaEfGueFYI")
         

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +21,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="asC-vk-10h">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="appicon512_2" translatesAutoresizingMaskIntoConstraints="NO" id="pdU-Wq-wn1">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="appicon512_2" translatesAutoresizingMaskIntoConstraints="NO" id="pdU-Wq-wn1">
                                         <rect key="frame" x="127" y="273" width="120" height="120"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="120" id="HK8-C2-RPW"/>
@@ -29,7 +29,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plus Apps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Sw-mO-80O">
-                                        <rect key="frame" x="127" y="551" width="126" height="33"/>
+                                        <rect key="frame" x="124.5" y="551" width="126" height="33"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
                                         <color key="textColor" red="0.65098039215686276" green="0.65098039215686276" blue="0.65098039215686276" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -38,7 +38,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="pdU-Wq-wn1" firstAttribute="centerY" secondItem="asC-vk-10h" secondAttribute="centerY" id="J0y-4H-2YL"/>
-                                    <constraint firstAttribute="centerX" secondItem="9Sw-mO-80O" secondAttribute="centerX" constant="-2.5" id="M87-4O-7M6"/>
+                                    <constraint firstAttribute="centerX" secondItem="9Sw-mO-80O" secondAttribute="centerX" id="M87-4O-7M6"/>
                                     <constraint firstItem="9Sw-mO-80O" firstAttribute="centerX" secondItem="pdU-Wq-wn1" secondAttribute="centerX" id="MEw-1W-f6F"/>
                                     <constraint firstAttribute="bottom" secondItem="9Sw-mO-80O" secondAttribute="bottom" constant="83" id="ftv-iA-RlI"/>
                                 </constraints>
