@@ -220,16 +220,26 @@ currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.c
     
     public func refreshMap(geofenceModel: RoutePointModel, currentRoutePointLocation: CLLocation, currentLocation: CLLocation) {
         
-        //현재위치와 줌 표시
-        let currentLocationCoordinate = CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
-        let currentLocationCoordinateCameraUpdate = GMSCameraUpdate.setTarget(currentLocationCoordinate)
-        mapView.animate(with: currentLocationCoordinateCameraUpdate)
+//        //현재위치와 줌 표시
+//        let currentLocationCoordinate = CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+//        let currentLocationCoordinateCameraUpdate = GMSCameraUpdate.setTarget(currentLocationCoordinate)
+//
+//        mapView.animate(with: currentLocationCoordinateCameraUpdate)
+//
+//        //베어링
+//        let targetBearingInt: Int = getBearing(currentRoutePointLocation : currentRoutePointLocation, currentLocation : currentLocation)
+//
+//
+//        mapView.animate(toBearing: Double(targetBearingInt))
         
-        //베어링
+      
+        let currentLocationCoordinate = CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+        
         let targetBearingInt: Int = getBearing(currentRoutePointLocation : currentRoutePointLocation, currentLocation : currentLocation)
         
+        let myNewCamera = GMSCameraPosition.init(target: currentLocationCoordinate, zoom: mapView.camera.zoom, bearing: Double(targetBearingInt), viewingAngle: 0)
         
-        mapView.animate(toBearing: Double(targetBearingInt))
+        mapView.camera = myNewCamera
         
     }
     

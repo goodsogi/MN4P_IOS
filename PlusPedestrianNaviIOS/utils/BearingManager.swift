@@ -27,7 +27,13 @@ class BearingManager {
         let x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dLon)
         let radiansBearing = atan2(y, x)
         
-        return radiansToDegrees(radians: radiansBearing)
+        let degree = radiansToDegrees(radians: radiansBearing)
+        
+        if (degree >= 0) {
+            return degree
+        } else {
+            return 360 + degree
+        }
     }
     
     
