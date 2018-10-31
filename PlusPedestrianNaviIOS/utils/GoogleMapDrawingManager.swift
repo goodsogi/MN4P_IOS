@@ -28,16 +28,11 @@ class GoogleMapDrawingManager {
     var geofenceMarker: GMSMarker?
     
     var firstDistanceFromCurrentLocationToRoutePoint = 0
-    
-    var debugInfo : UILabel!
-    
+        
     public func setMapView(mapView: GMSMapView) {
         self.mapView = mapView
     }
     
-    public func setDebugInfo(debugInfo : UILabel) {
-        self.debugInfo = debugInfo
-    }
     
     private func clearMap() {
         mapView.clear()
@@ -210,6 +205,7 @@ currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.c
         if(geofenceMarker == nil) {
             geofenceMarker = GMSMarker()
             geofenceMarker!.title = "geofence marker"
+            geofenceMarker!.groundAnchor = CGPoint(x: 0.5, y: 0.5)
             geofenceMarker!.icon = self.getScaledImage(image: UIImage(named: "geofence_dot.png")!, scaledToSize: CGSize(width: 20.0, height: 20.0))
             geofenceMarker!.map = self.mapView
         }
@@ -219,19 +215,8 @@ currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.c
     }
     
     public func refreshMap(geofenceModel: RoutePointModel, currentRoutePointLocation: CLLocation, currentLocation: CLLocation) {
-        
-//        //현재위치와 줌 표시
-//        let currentLocationCoordinate = CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
-//        let currentLocationCoordinateCameraUpdate = GMSCameraUpdate.setTarget(currentLocationCoordinate)
-//
-//        mapView.animate(with: currentLocationCoordinateCameraUpdate)
-//
-//        //베어링
-//        let targetBearingInt: Int = getBearing(currentRoutePointLocation : currentRoutePointLocation, currentLocation : currentLocation)
-//
-//
-//        mapView.animate(toBearing: Double(targetBearingInt))
-        
+
+        //위치와 베어링을 한번에 갱신하도록 수정
       
         let currentLocationCoordinate = CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
         
@@ -274,11 +259,10 @@ currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.c
         
         if(isCurrentLocationAwayFromRoutePoint(currentRoutePointLocation : currentRoutePointLocation, currentLocation : currentLocation)) {
             targetBearingInt = Int(BearingManager.getBearingBetweenTwoPoints1(point1: currentRoutePointLocation, point2: currentLocation))
-            
-            debugInfo.text = String(targetBearingInt) + " " + "-"
+          
         } else {
             targetBearingInt = Int(BearingManager.getBearingBetweenTwoPoints1(point1: currentLocation, point2: currentRoutePointLocation))
-            debugInfo.text = String(targetBearingInt) + " " + "+"
+           
         }
         
         return targetBearingInt
@@ -291,20 +275,12 @@ currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.c
         var isAway : Bool = false
         
         
-        print("currentRoutePointLocation.latitude: " + String(currentRoutePointLocation.coordinate.latitude))
-        print("currentRoutePointLocation.longitude: " + String(currentRoutePointLocation.coordinate.longitude))
-        
-        //
-        print("currentDistance:" + String(currentDistance))
-        print("firstDistanceFromCurrentLocationToRoutePoint:" + String(firstDistanceFromCurrentLocationToRoutePoint))
-        //
-        print("currentDistance - firstDistanceFromCurrentLocationToRoutePoint:" + String(currentDistance - firstDistanceFromCurrentLocationToRoutePoint))
-        
         if( currentDistance - firstDistanceFromCurrentLocationToRoutePoint > 20) {
             isAway = true
             
         } else {
             isAway = false
+          
         }
         
         

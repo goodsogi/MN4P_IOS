@@ -31,7 +31,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     @IBOutlet weak var directionInfo: UILabel!
     @IBOutlet weak var descriptionView: UILabel!
     var isGetDirection : Bool = false
-    @IBOutlet weak var debugInfo: UILabel!
+    
     
     //Google Map
     @IBOutlet weak var mapView: GMSMapView!
@@ -59,7 +59,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     var routePointModelIndex:Int = 0;
     var currentRoutePointModel : RoutePointModel!
     let DISTANCE_FIRST_ENTER_ROUTE_POINT : Int = 35
-    let DISTANCE_ENTER_ROUTE_POINT : Int = 12
+    let DISTANCE_ENTER_ROUTE_POINT : Int = 24
     
     //TTS 엔진
     var synthesizer : AVSpeechSynthesizer!
@@ -626,7 +626,6 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     private func initGoogleMapDrawingManager() {
         googleMapDrawingManager = GoogleMapDrawingManager()
         googleMapDrawingManager.setMapView(mapView:mapView)
-        googleMapDrawingManager.setDebugInfo(debugInfo: debugInfo)
         
         //지도에 padding을 주면 zoom이 이상하게 표시됨. 일단 뺌 
 //        let topPadding : CGFloat = mapView.frame.height - 110
@@ -667,7 +666,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         floaty.addItem(icon: UIImage(named: "refresh")) { item in
             
             //TODO: TTS 처리하세요("경로를 재시작합니다")
-            
+            self.isFirstCheck = true
             self.getDirection()
         }
         
