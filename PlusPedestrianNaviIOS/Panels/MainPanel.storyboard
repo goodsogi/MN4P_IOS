@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oaF-4N-Ul0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oaF-4N-Ul0">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -11,10 +12,6 @@
         <scene sceneID="zEo-vG-bF6">
             <objects>
                 <viewController id="oaF-4N-Ul0" customClass="MainPanel" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Arj-5z-zgp"/>
-                        <viewControllerLayoutGuide type="bottom" id="ExG-zb-mnG"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="SsM-NB-8nV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -36,16 +33,15 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="ZZu-wN-rVo" firstAttribute="leading" secondItem="SsM-NB-8nV" secondAttribute="leading" id="9bf-6c-eZx"/>
+                            <constraint firstItem="ZZu-wN-rVo" firstAttribute="leading" secondItem="QWM-K4-kUP" secondAttribute="leading" id="9bf-6c-eZx"/>
                             <constraint firstItem="ZZu-wN-rVo" firstAttribute="width" secondItem="SsM-NB-8nV" secondAttribute="width" id="El1-Hb-ZRI"/>
                             <constraint firstItem="ZZu-wN-rVo" firstAttribute="top" secondItem="hju-pF-PjT" secondAttribute="bottom" id="FRo-M2-4dN"/>
-                            <constraint firstItem="hju-pF-PjT" firstAttribute="leading" secondItem="SsM-NB-8nV" secondAttribute="leading" id="LXy-ng-QQ7"/>
+                            <constraint firstItem="hju-pF-PjT" firstAttribute="leading" secondItem="QWM-K4-kUP" secondAttribute="leading" id="LXy-ng-QQ7"/>
                             <constraint firstItem="hju-pF-PjT" firstAttribute="top" secondItem="SsM-NB-8nV" secondAttribute="top" id="esC-UX-7J0"/>
                             <constraint firstItem="hju-pF-PjT" firstAttribute="width" secondItem="SsM-NB-8nV" secondAttribute="width" id="z2V-VQ-7i4"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="QWM-K4-kUP"/>
                     </view>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="414" height="896"/>
                     <connections>
                         <outlet property="headerHeight" destination="PFm-9s-bEz" id="flU-B2-9Wv"/>
                         <outlet property="headerPanel" destination="hju-pF-PjT" id="bMf-S6-hp9"/>
