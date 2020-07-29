@@ -8,11 +8,10 @@
 
 import UIKit
 import GoogleMaps
-import GoogleSignIn
 import GoogleMobileAds
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
@@ -28,10 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         //Google Map
         GMSServices.provideAPIKey("AIzaSyDz4c2U4b2Bur2B6nNygQBtZzaEfGueFYI")
         
-        //Google Sign In
-        GIDSignIn.sharedInstance().clientID = "94641086804-i9d1p8ejtcqgf8p1jqq9pjg66bcv8gq8.apps.googleusercontent.com"
-        GIDSignIn.sharedInstance().delegate = self
-        
+       
         // Admob
         GADMobileAds.configure(withApplicationID: "ca-app-pub-7576584379236747~6363552704")
         
@@ -63,59 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    //********************************************************************************************************
-    //
-    // Google Sign In
-    //
-    //********************************************************************************************************
-    
-    
-    // [START signin_handler]
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
-              withError error: Error!) {
-        if let error = error {
-            print("\(error.localizedDescription)")
-            // [START_EXCLUDE silent]
-            NotificationCenter.default.post(
-                name: Notification.Name(rawValue: PPNConstants.NOTIFICATION_GOOGLE_SIGNIN), object: nil, userInfo: nil)
-            // [END_EXCLUDE]
-        } else {
-            // Perform any operations on signed in user here.
-            //            let userId = user.userID                  // For client-side use only!
-            //            let idToken = user.authentication.idToken // Safe to send to the server
-            
-            let fullName = user.profile.name
-            
-            //profile image url 가져오기
-            let dimension = round(34 * UIScreen.main.scale)
-            let pic: String = user.profile.imageURL(withDimension: UInt(dimension))?.absoluteString ?? ""
-            
-            //            let givenName = user.profile.givenName
-            //            let familyName = user.profile.familyName
-            //            let email = user.profile.email
-            // [START_EXCLUDE]
-            NotificationCenter.default.post(
-                name: Notification.Name(rawValue: PPNConstants.NOTIFICATION_GOOGLE_SIGNIN),
-                object: nil,
-                userInfo: ["fullName": fullName ?? "", "profileImageUrl": pic])
-            
-            // [END_EXCLUDE]
-        }
-    }
-    // [END signin_handler]
-    
-    // [START disconnect_handler]
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
-              withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-        // [START_EXCLUDE]
-        NotificationCenter.default.post(
-            name: Notification.Name(rawValue: PPNConstants.NOTIFICATION_GOOGLE_SIGNIN),
-            object: nil,
-            userInfo: ["statusText": "User has disconnected."])
-        // [END_EXCLUDE]
-    }
-    // [END disconnect_handler]
     
     
 }

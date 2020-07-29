@@ -9,16 +9,15 @@
 import UIKit
 import GoogleMaps
 import CoreLocation
-import Floaty
-import GoogleSignIn
 import Alamofire
+import Panels
 
 protocol MainViewControllerDelegate {
     func onPlaceSelected(placeModel: SearchPlaceModel)
 }
 
 
-class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManagerDelegate, MainViewControllerDelegate, FloatyDelegate, GIDSignInUIDelegate{
+class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManagerDelegate, MainViewControllerDelegate{
     
     
     @IBOutlet weak var topSearchBar: UIView!
@@ -58,8 +57,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     @IBOutlet weak var signInLabel: UILabel!
     @IBOutlet weak var profileIcon: UIImageView!
     
-    //Floaty
-    //var floaty:Floaty = Floaty()
+ 
+    
+     lazy var panelManager = Panels(target: self)
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,14 +70,19 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         initGoogleMapDrawingManager()
         addTapGestureToDrawer()
         addTapGestureToDrawerMenu()
-        initGoogleSignIn()
+        showPanelTest()
         
         //drawTicketViewBackground()
         
-        //길찾기 버튼과 겹쳐지는 이슈발생
-        //paddingY를 지정하여 시각적으로는 분리되지만 터치 이벤트는 겹쳐서 작동하여
-        //길찾기 버튼 클릭했는데 floaty가 작동하는 이슈 발생하여 일단 뺌
-        //initFloaty()
+     
+    }
+    
+    
+    func showPanelTest() {
+        let panel = UIStoryboard.instantiatePanel(identifier: "MainPanel")
+               let panelConfiguration = PanelConfiguration(size: .custom(350))
+               panelManager.show(panel: panel, config: panelConfiguration)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,7 +120,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
             
             self.googleMapDrawingManager.showSelectedPlaceOnMap(selectedPlaceModel: placeModel)
             
-            //            self.moveFloaty()
+       
             self.showSelectedPlaceOnBoard()
             self.drawFindRouteButtonBackground()
             self.addTapGestureToFindRouteButton()
@@ -388,122 +393,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     //    }
     
     
-    //********************************************************************************************************
-    //
-    // Google Sign In
-    //
-    //********************************************************************************************************
-    
-    
-    
-    func initGoogleSignIn() {
-        GIDSignIn.sharedInstance().uiDelegate = self
-        
-        // TODO(developer) Configure the sign-in button look/feel
-        // [START_EXCLUDE]
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(MainViewController.receiveSignInNotification(_:)),
-                                               name: NSNotification.Name(rawValue: PPNConstants.NOTIFICATION_GOOGLE_SIGNIN),
-                                               object: nil)
-        
-        //이미 로그인한 경우 처리
-        let isSignedIn = UserDefault.load(key: PPNConstants.IS_SIGN_IN)
-        
-        //앱을 run해도 UserDefault값이 남아 있음
-        if isSignedIn == "true" {
-            
-            let userName = UserDefault.load(key: PPNConstants.USER_NAME)
-            
-            self.signInLabel.text = userName
-            
-            
-            if let image = LocalFileManager.load(fileName: PPNConstants.PROFILE_IMAGE_NAME) {
-                self.profileIcon.image = image
-                
-                //둥근 이미지 처리
-                self.profileIcon.layer.borderWidth = 1
-                self.profileIcon.layer.masksToBounds = false
-                self.profileIcon.layer.borderColor = UIColor.black.cgColor
-                self.profileIcon.layer.cornerRadius = self.profileIcon.frame.height/2
-                self.profileIcon.clipsToBounds = true
-            }
-        } else {
-            addTapGestureToSignIn()
-            
-        }
-        
-        
-    }
-    
-    private func addTapGestureToSignIn() {
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.signIn(_:)))
-        tapGesture.numberOfTapsRequired = 1
-        tapGesture.numberOfTouchesRequired = 1
-        signInLabel.addGestureRecognizer(tapGesture)
-        signInLabel.isUserInteractionEnabled = true
-    }
-    
-    //@objc가 없으면 오류 발생
-    @objc func signIn(_ sender: UITapGestureRecognizer) {
-        
-        GIDSignIn.sharedInstance().signIn()
-        
-        
-    }
-    
-    
-    
-    private func showProfileImage(imageUrl url: String) {
-        print("profile image icon: " + url)
-        
-        // The image to dowload
-        let remoteImageURL = URL(string: url)!
-        
-        // Use Alamofire to download the image
-        Alamofire.request(remoteImageURL).responseData { (response) in
-            if response.error == nil {
-                print(response.result)
-                
-                // Show the downloaded image:
-                if let data = response.data {
-                    self.profileIcon.image = UIImage(data: data)
-                    
-                    //둥근 이미지 처리
-                    self.profileIcon.layer.borderWidth = 1
-                    self.profileIcon.layer.masksToBounds = false
-                    self.profileIcon.layer.borderColor = UIColor.black.cgColor
-                    self.profileIcon.layer.cornerRadius = self.profileIcon.frame.height/2
-                    self.profileIcon.clipsToBounds = true
-                    
-                    //이미지 파일로 저장
-                    LocalFileManager.save(image: self.profileIcon.image!, fileName: PPNConstants.PROFILE_IMAGE_NAME)
-                    
-                }
-            }
-        }
-        
-    }
-    
-    
-    
-    @objc func receiveSignInNotification(_ notification: NSNotification) {
-        if notification.name.rawValue == PPNConstants.NOTIFICATION_GOOGLE_SIGNIN {
-            
-            if notification.userInfo != nil {
-                guard let userInfo = notification.userInfo as? [String:String] else { return }
-                
-                self.signInLabel.text = userInfo["fullName"]!
-                self.showProfileImage(imageUrl: userInfo["profileImageUrl"]!)
-                
-                //UserDefault(안드로이드의 SharedPreferences)에 저장
-                UserDefault.save(key: PPNConstants.IS_SIGN_IN, value: "true")
-                UserDefault.save(key: PPNConstants.USER_NAME, value: userInfo["fullName"]!)
-            }
-        }
-    }
-    
-    
+   
     
     //********************************************************************************************************
     //
@@ -626,61 +516,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     
     
     
-    //********************************************************************************************************
-    //
-    // Floaty(Floating Actions Menu)
-    // 사용안함!
-    //
-    //********************************************************************************************************
-    
-    
-    
-    //    func initFloaty() {
-    //        floaty.buttonColor = UIColor.white
-    //        floaty.hasShadow = true
-    //
-    //
-    //        floaty.addItem(icon: UIImage(named: "current_location_big")) { item in
-    //
-    //            if let userLocation = self.userLocation {
-    //            self.googleMapDrawingManager.showFirstCurrentLocationOnMap(userLocation: userLocation)
-    //            }
-    //        }
-    //
-    //        //기본적으로 오른쪽 하단에 위치, 아래는 padding 값을 주는 것임
-    ////        floaty.paddingX = 40
-    ////        floaty.paddingY = 120
-    //
-    //
-    //        floaty.fabDelegate = self
-    //
-    //        self.view.addSubview(floaty)
-    //
-    //    }
-    
-    // MARK: - Floaty Delegate Methods
-    func floatyWillOpen(_ floaty: Floaty) {
-        print("Floaty Will Open")
-    }
-    
-    func floatyDidOpen(_ floaty: Floaty) {
-        print("Floaty Did Open")
-    }
-    
-    func floatyWillClose(_ floaty: Floaty) {
-        print("Floaty Will Close")
-    }
-    
-    func floatyDidClose(_ floaty: Floaty) {
-        print("Floaty Did Close")
-    }
-    
-    
-    //    func moveFloaty() {
-    //        floaty.paddingX = 40
-    //        floaty.paddingY = 120
-    
-    //  }
+  
     
     
 }

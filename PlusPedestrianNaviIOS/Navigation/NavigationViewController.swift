@@ -11,17 +11,15 @@ import Alamofire
 import SwiftyJSON
 import GoogleMaps
 import CoreLocation
-import Floaty
 import AVFoundation
 import GoogleMobileAds
 
-class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocationManagerDelegate, FloatyDelegate{
+class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocationManagerDelegate{
     
     var selectedPlaceModel:SearchPlaceModel?
     var selectedRouteOption:String?
     var directionModel:DirectionModel!
     @IBOutlet weak var noGpsAlertBar: UIView!
-    var floaty:Floaty = Floaty()
     @IBOutlet weak var distanceInfoView: UILabel!
     @IBOutlet weak var timeInfoView: UILabel!
     var timer: Timer!
@@ -74,7 +72,6 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         drawDirectionBoardBackground()
         initGoogleMapDrawingManager()
         determineMyCurrentLocation()
-        initFloaty()
         initTTS()
         showAd()
         initAlamofireManager()
@@ -652,51 +649,6 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         }
     }
     
-    //********************************************************************************************************
-    //
-    // Floaty
-    //
-    //********************************************************************************************************
-    
-    private func initFloaty() {
-        floaty.buttonColor = UIColor.white
-        floaty.hasShadow = true
-        
-        
-        floaty.addItem(icon: UIImage(named: "refresh")) { item in
-            
-            //TODO: TTS 처리하세요("경로를 재시작합니다")
-            self.isFirstCheck = true
-            self.getDirection()
-        }
-        
-        //기본적으로 오른쪽 하단에 위치, 아래는 padding 값을 주는 것임
-        //        floaty.paddingX = 40
-        floaty.paddingY = 60
-        
-        
-        floaty.fabDelegate = self
-        
-        self.view.addSubview(floaty)
-        
-    }
-    
-    // MARK: - Floaty Delegate Methods
-    func floatyWillOpen(_ floaty: Floaty) {
-        print("Floaty Will Open")
-    }
-    
-    func floatyDidOpen(_ floaty: Floaty) {
-        print("Floaty Did Open")
-    }
-    
-    func floatyWillClose(_ floaty: Floaty) {
-        print("Floaty Will Close")
-    }
-    
-    func floatyDidClose(_ floaty: Floaty) {
-        print("Floaty Did Close")
-    }
     
     
 }

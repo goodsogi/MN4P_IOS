@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oaF-4N-Ul0">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main Panel-->
+        <scene sceneID="zEo-vG-bF6">
+            <objects>
+                <viewController id="oaF-4N-Ul0" customClass="MainPanel" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Arj-5z-zgp"/>
+                        <viewControllerLayoutGuide type="bottom" id="ExG-zb-mnG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SsM-NB-8nV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hju-pF-PjT" userLabel="Header Panel">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="128"/>
+                                <color key="backgroundColor" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="PFm-9s-bEz"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZZu-wN-rVo">
+                                <rect key="frame" x="0.0" y="128" width="414" height="500"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="500" id="r5E-Vg-ClU"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="ZZu-wN-rVo" firstAttribute="leading" secondItem="SsM-NB-8nV" secondAttribute="leading" id="9bf-6c-eZx"/>
+                            <constraint firstItem="ZZu-wN-rVo" firstAttribute="width" secondItem="SsM-NB-8nV" secondAttribute="width" id="El1-Hb-ZRI"/>
+                            <constraint firstItem="ZZu-wN-rVo" firstAttribute="top" secondItem="hju-pF-PjT" secondAttribute="bottom" id="FRo-M2-4dN"/>
+                            <constraint firstItem="hju-pF-PjT" firstAttribute="leading" secondItem="SsM-NB-8nV" secondAttribute="leading" id="LXy-ng-QQ7"/>
+                            <constraint firstItem="hju-pF-PjT" firstAttribute="top" secondItem="SsM-NB-8nV" secondAttribute="top" id="esC-UX-7J0"/>
+                            <constraint firstItem="hju-pF-PjT" firstAttribute="width" secondItem="SsM-NB-8nV" secondAttribute="width" id="z2V-VQ-7i4"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="414" height="896"/>
+                    <connections>
+                        <outlet property="headerHeight" destination="PFm-9s-bEz" id="flU-B2-9Wv"/>
+                        <outlet property="headerPanel" destination="hju-pF-PjT" id="bMf-S6-hp9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rne-Zd-LTK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="121" y="9"/>
+        </scene>
+    </scenes>
+</document>

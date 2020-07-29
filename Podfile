@@ -1,4 +1,5 @@
-source 'https://github.com/CocoaPods/Specs.git'
+#아래 코드 사용하니 pod 설치가 안됨.
+#source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, '10.0'
 use_frameworks!
@@ -11,7 +12,6 @@ pod 'GoogleMaps'
 
 pod 'Alamofire', '~> 4.7'
 pod 'SwiftyJSON', '~> 4.0'
-pod "Floaty", "~> 4.0.0"
-pod 'GoogleSignIn'
 pod 'Google-Mobile-Ads-SDK'
+pod 'Panels'
 end
