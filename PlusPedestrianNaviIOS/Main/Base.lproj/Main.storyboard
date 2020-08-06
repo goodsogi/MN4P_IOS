@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -38,7 +36,6 @@
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="장소, 주소 검색" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MVg-0h-AaW">
                                                 <rect key="frame" x="73" y="14.5" width="230" height="21"/>
-                                                <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -171,7 +168,6 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="17M-In-uzT"/>
                                                 </constraints>
-                                                <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -180,7 +176,6 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="HU9-eD-JDl"/>
                                                 </constraints>
-                                                <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -229,37 +224,34 @@
                                                         <rect key="frame" x="9" y="9" width="357" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3cF-fL-iWe" userLabel="Route Type">
-                                                                <rect key="frame" x="20" y="5" width="8" height="17"/>
-                                                                <nil key="textColor"/>
+                                                                <rect key="frame" x="20" y="5" width="4" height="17"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ACl-D0-GLX" userLabel="Total Time">
-                                                                <rect key="frame" x="20" y="22" width="9" height="22"/>
+                                                                <rect key="frame" x="20" y="22" width="5" height="22"/>
                                                                 <color key="textColor" red="0.19607843137254902" green="0.66666666666666663" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xmm-hL-l9g" userLabel="Total Distance">
-                                                                <rect key="frame" x="37" y="27" width="8" height="17"/>
-                                                                <nil key="textColor"/>
+                                                                <rect key="frame" x="33" y="27" width="4" height="17"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sgj-nf-g0A" userLabel="Detail">
-                                                                <rect key="frame" x="20" y="44" width="8" height="17"/>
+                                                                <rect key="frame" x="20" y="44" width="4" height="17"/>
                                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="|" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tlY-SO-nK7" userLabel="Seperator">
-                                                                <rect key="frame" x="36" y="44" width="9" height="17"/>
-                                                                <nil key="textColor"/>
+                                                                <rect key="frame" x="32" y="42.5" width="5" height="18.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hNx-7v-lXW" userLabel="Calorie">
-                                                                <rect key="frame" x="53" y="44" width="8" height="17"/>
+                                                                <rect key="frame" x="45" y="44" width="4" height="17"/>
                                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -326,37 +318,34 @@
                                                         <rect key="frame" x="9" y="9" width="357" height="65"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kCg-PW-zDu" userLabel="Route Type">
-                                                                <rect key="frame" x="20" y="5" width="8" height="17"/>
-                                                                <nil key="textColor"/>
+                                                                <rect key="frame" x="20" y="5" width="4" height="17"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GAW-x8-BlZ" userLabel="Total Time">
-                                                                <rect key="frame" x="20" y="22" width="9" height="22"/>
+                                                                <rect key="frame" x="20" y="22" width="5" height="22"/>
                                                                 <color key="textColor" red="0.1960784314" green="0.66666666669999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Tn-iY-X3U" userLabel="Total Distance">
-                                                                <rect key="frame" x="37" y="27" width="8" height="17"/>
-                                                                <nil key="textColor"/>
+                                                                <rect key="frame" x="33" y="27" width="4" height="17"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Mp-jH-sbs" userLabel="Detail">
-                                                                <rect key="frame" x="20" y="44" width="8" height="17"/>
+                                                                <rect key="frame" x="20" y="44" width="4" height="17"/>
                                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="|" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fGE-S8-Hzv" userLabel="Seperator">
-                                                                <rect key="frame" x="36" y="44" width="9" height="17"/>
-                                                                <nil key="textColor"/>
+                                                                <rect key="frame" x="32" y="42.5" width="5" height="18.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="55c-AR-YfW" userLabel="Calorie">
-                                                                <rect key="frame" x="53" y="44" width="8" height="17"/>
+                                                                <rect key="frame" x="45" y="44" width="4" height="17"/>
                                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
@@ -555,8 +544,7 @@
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="경로 안내" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s1M-Ob-NrO" userLabel="Screen Title">
-                                                <rect key="frame" x="64" y="16.5" width="56" height="17"/>
-                                                <nil key="textColor"/>
+                                                <rect key="frame" x="64" y="16" width="52" height="18.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -573,7 +561,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
                                         <subviews>
                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="GPS 신호를 찾는 중..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2nX-IH-uev" userLabel="No GPS Message">
-                                                <rect key="frame" x="123.5" y="55" width="128" height="17"/>
+                                                <rect key="frame" x="125.5" y="55" width="124" height="18.5"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -756,7 +744,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hX3-4z-Xgc" userLabel="Content">
-                                <rect key="frame" x="16" y="253.5" width="343" height="180"/>
+                                <rect key="frame" x="16" y="243.5" width="343" height="180"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="오늘 서비스는 종료되었습니다. 내일 이용해주세요." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1yb-n0-8CT" userLabel="Message">
                                         <rect key="frame" x="16" y="24" width="311" height="60"/>
@@ -837,8 +825,7 @@
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="설정" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P2K-KN-C9p">
-                                                <rect key="frame" x="73" y="14.5" width="34" height="21"/>
-                                                <nil key="textColor"/>
+                                                <rect key="frame" x="73" y="14" width="30" height="22"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -856,11 +843,10 @@
                                         <rect key="frame" x="0.0" y="90" width="375" height="57"/>
                                         <subviews>
                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="고객지원" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I6r-zl-NGf" userLabel="Support Label">
-                                                <rect key="frame" x="16" y="0.0" width="53" height="57"/>
+                                                <rect key="frame" x="16" y="0.0" width="49" height="57"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="57" id="eex-eV-nnS"/>
                                                 </constraints>
-                                                <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -876,8 +862,7 @@
                                         <rect key="frame" x="0.0" y="147" width="375" height="57"/>
                                         <subviews>
                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="제안/문의" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VNo-YZ-eOP">
-                                                <rect key="frame" x="16" y="20" width="58" height="17"/>
-                                                <nil key="textColor"/>
+                                                <rect key="frame" x="16" y="19.5" width="54" height="18.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -902,11 +887,10 @@
                                         <rect key="frame" x="0.0" y="204" width="375" height="57"/>
                                         <subviews>
                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="앱정보" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="epp-84-yhN" userLabel="App Info Label">
-                                                <rect key="frame" x="16" y="0.0" width="41" height="57"/>
+                                                <rect key="frame" x="16" y="0.0" width="37" height="57"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="57" id="Opm-ey-YzT"/>
                                                 </constraints>
-                                                <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -922,13 +906,12 @@
                                         <rect key="frame" x="0.0" y="261" width="375" height="0.0"/>
                                         <subviews>
                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="오픈 소스" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e2o-ad-Y5x" userLabel="Open Source Label">
-                                                <rect key="frame" x="16" y="10" width="56" height="17"/>
-                                                <nil key="textColor"/>
+                                                <rect key="frame" x="16" y="10" width="52" height="18.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="오픈소스 라이브러리" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dDY-3L-j2O" userLabel="Open Source Library Label">
-                                                <rect key="frame" x="16" y="32" width="101" height="15"/>
+                                                <rect key="frame" x="16" y="33.5" width="97" height="16"/>
                                                 <color key="textColor" red="0.6470588235294118" green="0.6470588235294118" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -963,13 +946,12 @@
                                         <rect key="frame" x="0.0" y="262" width="375" height="57"/>
                                         <subviews>
                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="앱 버전" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5mB-9i-wmq" userLabel="App Version Label">
-                                                <rect key="frame" x="16" y="10" width="44" height="17"/>
-                                                <nil key="textColor"/>
+                                                <rect key="frame" x="16" y="10" width="40" height="18.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MtY-bM-1Yv" userLabel="App Version">
-                                                <rect key="frame" x="16" y="32" width="8" height="15"/>
+                                                <rect key="frame" x="16" y="33.5" width="4" height="15"/>
                                                 <color key="textColor" red="0.6470588235294118" green="0.6470588235294118" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -1473,6 +1455,175 @@
             </objects>
             <point key="canvasLocation" x="1056.8" y="118.29085457271366"/>
         </scene>
+        <!--Main Panel View Controller-->
+        <scene sceneID="uLK-uT-ppt">
+            <objects>
+                <viewController storyboardIdentifier="main_bottom_panel" id="WfI-et-Aqk" customClass="MainPanelViewController" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="b8f-nn-14Y">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="56I-sG-zaB" userLabel="Search Bar">
+                                <rect key="frame" x="18" y="20" width="357" height="45"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="장소, 주소 검색" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jLs-Dm-rdY" userLabel="Search Hint">
+                                        <rect key="frame" x="38" y="12.5" width="102" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.66590780019999996" green="0.6690172553" blue="0.69651401040000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_search_gray" translatesAutoresizingMaskIntoConstraints="NO" id="3XV-gF-DLg" userLabel="Search Icon">
+                                        <rect key="frame" x="4" y="8" width="29" height="29"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="29" id="0UE-wa-MC3"/>
+                                            <constraint firstAttribute="width" constant="29" id="uJH-Yv-KBh"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="3XV-gF-DLg" firstAttribute="centerY" secondItem="56I-sG-zaB" secondAttribute="centerY" id="7GP-lr-q73"/>
+                                    <constraint firstItem="jLs-Dm-rdY" firstAttribute="leading" secondItem="3XV-gF-DLg" secondAttribute="trailing" constant="5" id="ShL-il-908"/>
+                                    <constraint firstAttribute="height" constant="45" id="cZq-Sz-iAb"/>
+                                    <constraint firstItem="jLs-Dm-rdY" firstAttribute="centerY" secondItem="56I-sG-zaB" secondAttribute="centerY" id="dGD-xI-4IE"/>
+                                    <constraint firstItem="3XV-gF-DLg" firstAttribute="leading" secondItem="56I-sG-zaB" secondAttribute="leading" constant="4" id="h4Y-mJ-FSE"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="jLs-Dm-rdY" secondAttribute="trailing" constant="20" symbolic="YES" id="wdf-JD-mmj"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aKc-rB-Bzn" userLabel="Favorites Label">
+                                <rect key="frame" x="18" y="91" width="508" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Suw-Mp-NFi" userLabel="Line Under Favorites Label">
+                                <rect key="frame" x="18" y="124" width="508" height="1"/>
+                                <color key="backgroundColor" red="0.45574784280000002" green="0.47153413300000002" blue="0.4843173623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="aqp-Zh-kzY"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wYd-h4-PU3" userLabel="Home Button">
+                                <rect key="frame" x="18" y="136" width="76" height="76"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zww-5C-hiQ" userLabel="Home Icon">
+                                        <rect key="frame" x="18" y="18" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="aCp-2r-1Ma"/>
+                                            <constraint firstAttribute="width" constant="40" id="dEy-Ih-mNw"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="76" id="MIU-bH-oFY"/>
+                                    <constraint firstItem="zww-5C-hiQ" firstAttribute="centerX" secondItem="wYd-h4-PU3" secondAttribute="centerX" id="MVZ-BL-58y"/>
+                                    <constraint firstAttribute="height" constant="76" id="jfz-lr-1x5"/>
+                                    <constraint firstItem="zww-5C-hiQ" firstAttribute="centerY" secondItem="wYd-h4-PU3" secondAttribute="centerY" id="lga-ix-MNF"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Rq-Sn-okD" userLabel="Work Button">
+                                <rect key="frame" x="126" y="136" width="76" height="76"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="E2w-Li-Djm" userLabel="Work Icon">
+                                        <rect key="frame" x="18" y="18" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="C6P-BN-LqF"/>
+                                            <constraint firstAttribute="height" constant="40" id="kLA-IY-Hn3"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="E2w-Li-Djm" firstAttribute="centerX" secondItem="8Rq-Sn-okD" secondAttribute="centerX" id="3uQ-an-0PX"/>
+                                    <constraint firstAttribute="width" constant="76" id="ViP-A1-1NU"/>
+                                    <constraint firstAttribute="height" constant="76" id="Vs4-yq-aFo"/>
+                                    <constraint firstItem="E2w-Li-Djm" firstAttribute="centerY" secondItem="8Rq-Sn-okD" secondAttribute="centerY" id="u8U-ue-vs9"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6r5-BI-V8m" userLabel="My Favoriates Button">
+                                <rect key="frame" x="234" y="136" width="76" height="76"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HbK-4k-Z79" userLabel="My Favorites Icon">
+                                        <rect key="frame" x="18" y="18" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="4M0-Nd-aEf"/>
+                                            <constraint firstAttribute="width" constant="40" id="oWv-u5-FoH"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="76" id="Kls-jx-uvG"/>
+                                    <constraint firstAttribute="width" constant="76" id="Sr0-dO-IGG"/>
+                                    <constraint firstItem="HbK-4k-Z79" firstAttribute="centerY" secondItem="6r5-BI-V8m" secondAttribute="centerY" id="T8E-CL-RIg"/>
+                                    <constraint firstItem="HbK-4k-Z79" firstAttribute="centerX" secondItem="6r5-BI-V8m" secondAttribute="centerX" id="yZv-mg-Qml"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Home" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="E51-aY-9wN" userLabel="Home Label">
+                                <rect key="frame" x="31.5" y="220" width="49" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Work" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GQC-9Y-Me0" userLabel="Work Label">
+                                <rect key="frame" x="142.5" y="220" width="43" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="My favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UGz-ev-P05" userLabel="My Favorites Label">
+                                <rect key="frame" x="222.5" y="220" width="99" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Search nearby" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SRJ-mk-7Wr" userLabel="Search Nearby Label">
+                                <rect key="frame" x="18" y="268" width="76" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HkG-hs-4Zj" userLabel="Line Under Search Nearby Label">
+                                <rect key="frame" x="18" y="306" width="76" height="1"/>
+                                <color key="backgroundColor" red="0.45574784280000002" green="0.47153413300000002" blue="0.4843173623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Q7p-yJ-yyZ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Suw-Mp-NFi" firstAttribute="leading" secondItem="aKc-rB-Bzn" secondAttribute="leading" id="1M3-Pk-DN4"/>
+                            <constraint firstItem="GQC-9Y-Me0" firstAttribute="top" secondItem="8Rq-Sn-okD" secondAttribute="bottom" constant="8" id="4ll-ju-L5u"/>
+                            <constraint firstItem="HkG-hs-4Zj" firstAttribute="top" secondItem="SRJ-mk-7Wr" secondAttribute="bottom" constant="16" id="5Yh-gD-JrV"/>
+                            <constraint firstItem="SRJ-mk-7Wr" firstAttribute="leading" secondItem="aKc-rB-Bzn" secondAttribute="leading" id="7Yl-uk-afM"/>
+                            <constraint firstItem="Suw-Mp-NFi" firstAttribute="top" secondItem="aKc-rB-Bzn" secondAttribute="bottom" constant="10" id="8lg-Cx-Hk6"/>
+                            <constraint firstItem="Suw-Mp-NFi" firstAttribute="centerX" secondItem="6r5-BI-V8m" secondAttribute="centerX" id="ErS-eg-uRL"/>
+                            <constraint firstItem="aKc-rB-Bzn" firstAttribute="top" secondItem="56I-sG-zaB" secondAttribute="bottom" constant="26" id="GDh-SI-5Ri"/>
+                            <constraint firstItem="HkG-hs-4Zj" firstAttribute="centerX" secondItem="E51-aY-9wN" secondAttribute="centerX" id="H4p-yy-RvU"/>
+                            <constraint firstItem="GQC-9Y-Me0" firstAttribute="centerX" secondItem="8Rq-Sn-okD" secondAttribute="centerX" id="K3B-K5-WVo"/>
+                            <constraint firstItem="SRJ-mk-7Wr" firstAttribute="top" secondItem="E51-aY-9wN" secondAttribute="bottom" constant="26" id="KRM-aB-Dak"/>
+                            <constraint firstItem="Suw-Mp-NFi" firstAttribute="centerX" secondItem="aKc-rB-Bzn" secondAttribute="centerX" id="KlD-Ty-FOu"/>
+                            <constraint firstItem="6r5-BI-V8m" firstAttribute="leading" secondItem="8Rq-Sn-okD" secondAttribute="trailing" constant="32" id="PBz-bL-iIF"/>
+                            <constraint firstItem="6r5-BI-V8m" firstAttribute="top" secondItem="8Rq-Sn-okD" secondAttribute="top" id="VuV-Ni-J9x"/>
+                            <constraint firstItem="8Rq-Sn-okD" firstAttribute="leading" secondItem="wYd-h4-PU3" secondAttribute="trailing" constant="32" id="Xgw-lW-8HU"/>
+                            <constraint firstItem="HkG-hs-4Zj" firstAttribute="leading" secondItem="SRJ-mk-7Wr" secondAttribute="leading" id="Yop-ya-A9i"/>
+                            <constraint firstItem="aKc-rB-Bzn" firstAttribute="leading" secondItem="56I-sG-zaB" secondAttribute="leading" id="bGx-ot-Z4l"/>
+                            <constraint firstItem="E51-aY-9wN" firstAttribute="centerX" secondItem="wYd-h4-PU3" secondAttribute="centerX" id="ekF-xZ-Udr"/>
+                            <constraint firstItem="56I-sG-zaB" firstAttribute="top" secondItem="BaQ-4u-YTz" secondAttribute="top" constant="20" id="i4E-hh-vw1"/>
+                            <constraint firstItem="wYd-h4-PU3" firstAttribute="leading" secondItem="Suw-Mp-NFi" secondAttribute="leading" id="inI-ke-j6q"/>
+                            <constraint firstItem="56I-sG-zaB" firstAttribute="leading" secondItem="BaQ-4u-YTz" secondAttribute="leading" constant="18" id="kSc-VV-FHw"/>
+                            <constraint firstItem="56I-sG-zaB" firstAttribute="trailing" secondItem="BaQ-4u-YTz" secondAttribute="trailing" id="mxR-Lo-u5h"/>
+                            <constraint firstItem="wYd-h4-PU3" firstAttribute="top" secondItem="Suw-Mp-NFi" secondAttribute="bottom" constant="11" id="r6q-2Q-SQf"/>
+                            <constraint firstItem="8Rq-Sn-okD" firstAttribute="top" secondItem="wYd-h4-PU3" secondAttribute="top" id="rfj-3c-EtM"/>
+                            <constraint firstItem="UGz-ev-P05" firstAttribute="centerX" secondItem="6r5-BI-V8m" secondAttribute="centerX" id="uK0-cU-xAi"/>
+                            <constraint firstItem="HkG-hs-4Zj" firstAttribute="centerX" secondItem="SRJ-mk-7Wr" secondAttribute="centerX" id="vbL-dI-nCF"/>
+                            <constraint firstItem="E51-aY-9wN" firstAttribute="top" secondItem="wYd-h4-PU3" secondAttribute="bottom" constant="8" id="zLP-MW-6gl"/>
+                            <constraint firstItem="UGz-ev-P05" firstAttribute="top" secondItem="6r5-BI-V8m" secondAttribute="bottom" constant="8" id="zdR-Vj-2cv"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BaQ-4u-YTz"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VUi-gu-AsI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2569" y="-79"/>
+        </scene>
     </scenes>
     <resources>
         <image name="arrow_right" width="96" height="96"/>
@@ -1480,6 +1631,7 @@
         <image name="go_back_unpressed_small" width="128" height="128"/>
         <image name="icon_find_route" width="192" height="192"/>
         <image name="icon_search" width="128" height="128"/>
+        <image name="icon_search_gray" width="128" height="128"/>
         <image name="menu_black" width="96" height="96"/>
         <image name="mic_unpressed" width="96" height="96"/>
         <image name="navigation_marker" width="158" height="158"/>

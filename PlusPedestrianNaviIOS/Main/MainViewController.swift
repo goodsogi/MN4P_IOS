@@ -10,14 +10,14 @@ import UIKit
 import GoogleMaps
 import CoreLocation
 import Alamofire
-import Panels
+import FloatingPanel
 
 protocol MainViewControllerDelegate {
     func onPlaceSelected(placeModel: SearchPlaceModel)
 }
 
 
-class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManagerDelegate, MainViewControllerDelegate{
+class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManagerDelegate, MainViewControllerDelegate, FloatingPanelControllerDelegate{
     
     
     @IBOutlet weak var topSearchBar: UIView!
@@ -59,7 +59,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     
  
     
-     lazy var panelManager = Panels(target: self)
+     
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,9 +79,19 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     
     
     func showPanelTest() {
-        let panel = UIStoryboard.instantiatePanel(identifier: "MainPanel")
-               let panelConfiguration = PanelConfiguration(size: .custom(350))
-               panelManager.show(panel: panel, config: panelConfiguration)
+       let fpc = FloatingPanelController()
+        
+        fpc.delegate = self
+        
+        guard let mainPanelViewController = self.storyboard?.instantiateViewController(withIdentifier: "main_bottom_panel") as? MainPanelViewController else {
+            return
+        }
+       
+        
+        fpc.set(contentViewController: mainPanelViewController)
+       
+        
+        fpc.addPanel(toParent: self)
         
     }
     
