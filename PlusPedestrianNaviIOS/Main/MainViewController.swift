@@ -20,29 +20,12 @@ protocol MainViewControllerDelegate {
 class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManagerDelegate, MainViewControllerDelegate, FloatingPanelControllerDelegate{
     
     
-    @IBOutlet weak var topSearchBar: UIView!
-    @IBOutlet weak var topSearchBarLabel: UILabel!
-    
-    @IBOutlet weak var addressView: UILabel!
-    @IBOutlet weak var placeNameView: UILabel!
-    @IBOutlet weak var bizNameView: UILabel!
-    @IBOutlet weak var telNoView: UILabel!
-    @IBOutlet weak var placeInfoBoard: UIView!
-    @IBOutlet weak var findRouteButton: UIView!
+    @IBOutlet var settingButtonContainer: UIView!
+    @IBOutlet var findCurrentLocationButtonContainer: UIView!
     
     var selectedPlaceModel:SearchPlaceModel!
     
-    //Drawer 
-    @IBOutlet weak var writeAppReviewMenu: UIView!
-    @IBOutlet weak var settingsMenu: UIView!
-    @IBOutlet weak var favoritesMenu: UIView!
-    @IBOutlet weak var searchMenu: UIView!
-    @IBOutlet weak var findRouteMenu: UIView!
-    @IBOutlet weak var drawerView: UIStackView!
-    @IBOutlet weak var emptyView: UIView!
-    @IBOutlet weak var drawerViewTrailing: NSLayoutConstraint!
-    var hamburgerMenuIsVisible = false
-    // @IBOutlet weak var ticketView: UITextView!
+    
    
     //Google Map
     @IBOutlet weak var mapView: GMSMapView!
@@ -53,10 +36,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     var isFirstLocation:Bool = true
     var userLocation:CLLocation?
     
-    //Google Sign In
-    @IBOutlet weak var signInLabel: UILabel!
-    @IBOutlet weak var profileIcon: UIImageView!
-    
+   
  
     
      
@@ -64,17 +44,25 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     override func viewDidLoad() {
         super.viewDidLoad()
        
-             
+             makeLayout()
         initMapView()
-        initTopSearchBar()
         initGoogleMapDrawingManager()
-        addTapGestureToDrawer()
-        addTapGestureToDrawerMenu()
         showPanelTest()
         
         //drawTicketViewBackground()
         
      
+    }
+    
+    private func makeLayout() {
+        
+        let settingButtonContainerBackgroundImg = ImageMaker.getRoundRectangle(width: 60, height: 60, colorHexString: "#333536", cornerRadius: 10.0, alpha: 1.0)
+            
+                      settingButtonContainer.backgroundColor = UIColor(patternImage: settingButtonContainerBackgroundImg)
+        
+        
+        let findCurrentLocationButtonContainerBackgroundImg = ImageMaker.getCircle(width: 60, height: 60, colorHexString: "#333536", alpha: 1.0)
+                      findCurrentLocationButtonContainer.backgroundColor = UIColor(patternImage: findCurrentLocationButtonContainerBackgroundImg)
     }
     
     func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
@@ -136,33 +124,12 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
             
             self.selectedPlaceModel = placeModel
             
-            self.googleMapDrawingManager.showSelectedPlaceOnMap(selectedPlaceModel: placeModel)
-            
-       
-            self.showSelectedPlaceOnBoard()
-            self.drawFindRouteButtonBackground()
-            self.addTapGestureToFindRouteButton()
-            self.addTapGestureToTelNoView(telNo: placeModel.getTelNo() ?? "")
+            self.googleMapDrawingManager.showSelectedPlaceOnMap(selectedPlaceModel: placeModel)   
         })
     }
     
     
-    private func addTapGestureToTelNoView(telNo:String) {
-        
-        guard !(selectedPlaceModel?.getTelNo()?.isEmpty)! else {
-            print("No tel no")
-            return
-        }
-        
-        //#selector는 parameter를 못넘기는 듯
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.telNoViewTapped(_: )))
-        tapGesture.numberOfTapsRequired = 1
-        tapGesture.numberOfTouchesRequired = 1
-        telNoView.addGestureRecognizer(tapGesture)
-        telNoView.isUserInteractionEnabled = true
-        
-    }
-    
+   
     
     @objc func telNoViewTapped(_ sender: UITapGestureRecognizer) {
         
@@ -171,23 +138,15 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
     }
     
-    private func drawFindRouteButtonBackground() {
-        
-        
-        let img = ImageMaker.getRoundRectangle(width: 100, height: 40, colorHexString: "#0078FF", cornerRadius: 6.0, alpha: 1)
-        
-        
-        findRouteButton.backgroundColor = UIColor(patternImage: img)
-    }
-    
-    private func addTapGestureToFindRouteButton() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.findRouteButtonTapped(_:)))
-        tapGesture.numberOfTapsRequired = 1
-        tapGesture.numberOfTouchesRequired = 1
-        findRouteButton.addGestureRecognizer(tapGesture)
-        findRouteButton.isUserInteractionEnabled = true
-        
-    }
+ 
+//    private func addTapGestureToFindRouteButton() {
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.findRouteButtonTapped(_:)))
+//        tapGesture.numberOfTapsRequired = 1
+//        tapGesture.numberOfTouchesRequired = 1
+//        findRouteButton.addGestureRecognizer(tapGesture)
+//        findRouteButton.isUserInteractionEnabled = true
+//
+//    }
     
     @objc func findRouteButtonTapped(_ sender: UITapGestureRecognizer) {
         
@@ -195,23 +154,11 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     }
     
     
-    private func showSelectedPlaceOnBoard() {
-        
-        placeInfoBoard.isHidden = false
-        
-        ViewElevationMaker.run(view:placeInfoBoard)
-        placeNameView.text = selectedPlaceModel.getName()
-        addressView.text = selectedPlaceModel.getAddress()
-        bizNameView.text = selectedPlaceModel.getBizName()
-        telNoView.text = selectedPlaceModel.getTelNo()
-        
-    }
+ 
     
     //@objc가 없으면 오류 발생
     @objc func showFindRouteScreen(_ sender: UITapGestureRecognizer) {
-        
-        handleDrawer()
-        
+          
         //왜 작동을 멈추지 않지??
         locationManager.stopUpdatingLocation()
         
@@ -254,87 +201,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     
     
     
-    func initTopSearchBar() {
-        //안드로이드 material design의 elevation 효과
-        ViewElevationMaker.run(view: topSearchBar)
-        
-        //Double 변수 선언은 아래처럼 함. var대신 let사용 권장. let은 상수로 한번 지정하면 변경 불가
-        //        let elevation: Double = 2.0
-        //        topSearchBar.layer.shadowColor = UIColor.black.cgColor
-        //        topSearchBar.layer.shadowOffset = CGSize(width: 0, height: elevation)
-        //        topSearchBar.layer.shadowOpacity = 0.24
-        //        topSearchBar.layer.shadowRadius = CGFloat(elevation)
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.showSearchPlaceScreenWithOutCloseDrawer(_:)))
-        tapGesture.numberOfTapsRequired = 1
-        tapGesture.numberOfTouchesRequired = 1
-        topSearchBarLabel.addGestureRecognizer(tapGesture)
-        topSearchBarLabel.isUserInteractionEnabled = true
-        
-    }
     
-    //********************************************************************************************************
-    //
-    // Drawer(Side Menu)
-    //
-    //********************************************************************************************************
-    
-    
-    
-    
-    @IBAction func hamburgerButtonTapped(_ sender: Any) {
-        //if the hamburger menu is NOT visible, then move the ubeView back to where it used to be
-        
-        handleDrawer()
-        
-    }
-    
-    
-    
-    private func addTapGestureToDrawer() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.emptyViewTapped(_:)))
-        tapGesture.numberOfTapsRequired = 1
-        tapGesture.numberOfTouchesRequired = 1
-        emptyView.addGestureRecognizer(tapGesture)
-        emptyView.isUserInteractionEnabled = true
-        
-        
-    }
-    
-    
-    
-    private func addTapGestureToDrawerMenu() {
-        
-        let searchMenuTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.showSearchPlaceScreen(_:)))
-        searchMenuTapGesture.numberOfTapsRequired = 1
-        searchMenuTapGesture.numberOfTouchesRequired = 1
-        searchMenu.addGestureRecognizer(searchMenuTapGesture)
-        searchMenu.isUserInteractionEnabled = true
-        
-        //        let findRouteMenuTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.showFindRouteScreen(_:)))
-        //        findRouteMenuTapGesture.numberOfTapsRequired = 1
-        //        findRouteMenuTapGesture.numberOfTouchesRequired = 1
-        //        findRouteMenu.addGestureRecognizer(findRouteMenuTapGesture)
-        //        findRouteMenu.isUserInteractionEnabled = true
-        //
-        //        let favoritesMenuTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.showFavoritesScreen(_:)))
-        //        favoritesMenuTapGesture.numberOfTapsRequired = 1
-        //        favoritesMenuTapGesture.numberOfTouchesRequired = 1
-        //        favoritesMenu.addGestureRecognizer(favoritesMenuTapGesture)
-        //        favoritesMenu.isUserInteractionEnabled = true
-        
-        let settingsMenuTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.showSettingsScreen(_:)))
-        settingsMenuTapGesture.numberOfTapsRequired = 1
-        settingsMenuTapGesture.numberOfTouchesRequired = 1
-        settingsMenu.addGestureRecognizer(settingsMenuTapGesture)
-        settingsMenu.isUserInteractionEnabled = true
-        
-        //        let writeAppReviewTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.writeAppReview(_:)))
-        //        writeAppReviewTapGesture.numberOfTapsRequired = 1
-        //        writeAppReviewTapGesture.numberOfTouchesRequired = 1
-        //        writeAppReviewMenu.addGestureRecognizer(writeAppReviewTapGesture)
-        //        writeAppReviewMenu.isUserInteractionEnabled = true
-    }
+   
     
     @objc func showSearchPlaceScreenWithOutCloseDrawer(_ sender: UITapGestureRecognizer) {
         
@@ -342,13 +210,12 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     }
     
     @objc func emptyViewTapped(_ sender: UITapGestureRecognizer) {
-        handleDrawer()
+      
     }
     
     
     @objc func showSearchPlaceScreen(_ sender: UITapGestureRecognizer) {
-        handleDrawer()
-        
+       
         showScreen(viewControllerStoryboardId: "SearchPlace")
     }
     
@@ -359,58 +226,12 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     //    }
     
     @objc func showSettingsScreen(_ sender: UITapGestureRecognizer) {
-        handleDrawer()
+       
         showScreen(viewControllerStoryboardId: "Settings")
         
     }
     
-    //    @objc func writeAppReview(_ sender: UITapGestureRecognizer) {
-    //        // TODO: 구현하세요
-    //
-    //    }
-    
-    
-    
-    private func handleDrawer() {
-        if !hamburgerMenuIsVisible {
-            
-            drawerViewTrailing.constant = self.view.frame.size.width;
-            
-            hamburgerMenuIsVisible = true
-        } else {
-            
-            drawerViewTrailing.constant = 0
-            
-            hamburgerMenuIsVisible = false
-        }
-        
-        
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
-            //self.view를 사용해야 애니메이션이 작동함. self.drawer는 작동하지 않음
-            self.view.layoutIfNeeded()
-        }) { (animationComplete) in
-            print("The animation is complete!")
-        }
-    }
-    
-    //    func drawTicketViewBackground() {
-    //
-    //        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 50, height: 30))
-    //        let img = renderer.image { ctx in
-    //            ctx.cgContext.setFillColor(HexColorManager.colorWithHexString(hexString: "#000000", alpha: 0).cgColor)
-    //            ctx.cgContext.setStrokeColor(HexColorManager.colorWithHexString(hexString: "#0078FF", alpha: 1.0).cgColor)
-    //            ctx.cgContext.setLineWidth(10)
-    //
-    //            let rectangle = CGRect(x: 0, y: 0, width: 50, height: 30)
-    //            ctx.cgContext.addRect(rectangle)
-    //            ctx.cgContext.drawPath(using: .fillStroke)
-    //        }
-    //
-    //
-    //        ticketView.backgroundColor = UIColor(patternImage: img)
-    //    }
-    
-    
+   
    
     
     //********************************************************************************************************
@@ -547,8 +368,8 @@ class MyFloatingPanelLayout: FloatingPanelLayout {
     public func insetFor(position: FloatingPanelPosition) -> CGFloat? {
         switch position {
             case .full: return 16.0 // A top inset from safe area
-            case .half: return 216.0 // A bottom inset from the safe area
-            case .tip: return 200// A bottom inset from the safe area
+            case .half: return 500 // A bottom inset from the safe area
+            case .tip: return 320// A bottom inset from the safe area
             default: return nil // Or `case .hidden: return nil`
         }
     }
