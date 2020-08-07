@@ -77,11 +77,19 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
      
     }
     
+    func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
+        return MyFloatingPanelLayout()
+    }
+    
     
     func showPanelTest() {
        let fpc = FloatingPanelController()
         
         fpc.delegate = self
+        
+        fpc.surfaceView.backgroundColor = HexColorManager.colorWithHexString(hexString: "#333536", alpha: 1)
+        fpc.surfaceView.cornerRadius = 10.0
+        
         
         guard let mainPanelViewController = self.storyboard?.instantiateViewController(withIdentifier: "main_bottom_panel") as? MainPanelViewController else {
             return
@@ -529,5 +537,20 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
   
     
     
+}
+
+class MyFloatingPanelLayout: FloatingPanelLayout {
+    public var initialPosition: FloatingPanelPosition {
+        return .tip
+    }
+
+    public func insetFor(position: FloatingPanelPosition) -> CGFloat? {
+        switch position {
+            case .full: return 16.0 // A top inset from safe area
+            case .half: return 216.0 // A bottom inset from the safe area
+            case .tip: return 200// A bottom inset from the safe area
+            default: return nil // Or `case .hidden: return nil`
+        }
+    }
 }
 
