@@ -13,7 +13,7 @@ import GoogleMaps
 import CoreLocation
 import GoogleMobileAds
 
-class FindRouteViewController: UIViewController, GMSMapViewDelegate, UIScrollViewDelegate , CLLocationManagerDelegate{
+class RouteInfoViewController: UIViewController, GMSMapViewDelegate, UIScrollViewDelegate , CLLocationManagerDelegate{
     
     var selectedPlaceModel:SearchPlaceModel?
     

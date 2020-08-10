@@ -78,7 +78,11 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         fpc.surfaceView.backgroundColor = HexColorManager.colorWithHexString(hexString: "#333536", alpha: 1)
         fpc.surfaceView.cornerRadius = 10.0
         
-        
+        //TODO 테스트후 삭제하세요
+//        guard let mainPanelViewController = self.storyboard?.instantiateViewController(withIdentifier: "route_info_bottom_panel") as? RouteInfoPanelViewController else {
+//                   return
+//               }
+         //TODO 테스트후 주석푸세요
         guard let mainPanelViewController = self.storyboard?.instantiateViewController(withIdentifier: "main_bottom_panel") as? MainPanelViewController else {
             return
         }
@@ -178,7 +182,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
         if(viewControllerStoryboardId == "FindRoute") {
             
-            (viewController as! FindRouteViewController).selectedPlaceModel  = selectedPlaceModel
+            (viewController as! RouteInfoViewController).selectedPlaceModel  = selectedPlaceModel
         }
         
         self.present(viewController!, animated: true, completion: nil)
