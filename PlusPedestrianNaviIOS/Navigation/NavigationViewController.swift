@@ -62,6 +62,8 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     //TTS 엔진
     var synthesizer : AVSpeechSynthesizer!
     
+    @IBOutlet weak var rescanDirectionButton: UIView!
+    
     @IBAction func onBackTapped(_ sender: Any) {
         self.dismiss(animated: true)
     }
@@ -69,7 +71,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        drawDirectionBoardBackground()
+        makeLayout()
         initGoogleMapDrawingManager()
         determineMyCurrentLocation()
         initTTS()
@@ -88,10 +90,9 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         locationManager.stopUpdatingLocation()
     }
     
-    private func drawDirectionBoardBackground() {
-        let img = ImageMaker.getRoundRectangleByCorners(width: 200, height: 102, colorHexString: "#288353", byRoundingCorners: [UIRectCorner.topRight , UIRectCorner.bottomRight], cornerRadii: 6.0, alpha: 0.7)
-        
-        directionBoard.backgroundColor = UIColor(patternImage: img)
+    private func makeLayout() {
+       let rescanDirectionButtonBackgroundImg = ImageMaker.getCircle(width: 60, height: 60, colorHexString: "#333536", alpha: 1.0)
+        rescanDirectionButton.backgroundColor = UIColor(patternImage: rescanDirectionButtonBackgroundImg)
     }
     
     //********************************************************************************************************

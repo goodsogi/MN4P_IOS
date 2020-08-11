@@ -79,7 +79,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         fpc.surfaceView.cornerRadius = 10.0
         
         //TODO 테스트후 삭제하세요
-//        guard let mainPanelViewController = self.storyboard?.instantiateViewController(withIdentifier: "route_info_bottom_panel") as? RouteInfoPanelViewController else {
+//        guard let mainPanelViewController = self.storyboard?.instantiateViewController(withIdentifier: "navigation_bottom_panel") as? NavigationPanelViewController else {
 //                   return
 //               }
          //TODO 테스트후 주석푸세요

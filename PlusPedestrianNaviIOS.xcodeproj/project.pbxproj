@@ -37,6 +37,7 @@
 		07D1C836217083F300DC38BA /* OverApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1C835217083F200DC38BA /* OverApiManager.swift */; };
 		07F2224021392ABF00EDFBB0 /* SearchPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F2223F21392ABF00EDFBB0 /* SearchPlaceViewController.swift */; };
 		07FE883A216C7C3E000F624B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FE8839216C7C3E000F624B /* SettingsViewController.swift */; };
+		1F47579224E265420076DCA5 /* NavigationPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F47579124E265420076DCA5 /* NavigationPanelViewController.swift */; };
 		1F6A212F24DBAD1600C004B3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F6A212E24DBAD1600C004B3 /* Localizable.strings */; };
 		1F88E17C24DBEF070039C517 /* MainPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88E17B24DBEF070039C517 /* MainPanelViewController.swift */; };
 		1F8E05E024E0E631000953A2 /* PlaceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8E05DF24E0E631000953A2 /* PlaceInfoViewController.swift */; };
@@ -79,6 +80,7 @@
 		07D1C835217083F200DC38BA /* OverApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverApiManager.swift; sourceTree = "<group>"; };
 		07F2223F21392ABF00EDFBB0 /* SearchPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceViewController.swift; sourceTree = "<group>"; };
 		07FE8839216C7C3E000F624B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		1F47579124E265420076DCA5 /* NavigationPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPanelViewController.swift; sourceTree = "<group>"; };
 		1F6A212E24DBAD1600C004B3 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		1F88E17B24DBEF070039C517 /* MainPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPanelViewController.swift; sourceTree = "<group>"; };
 		1F8E05DF24E0E631000953A2 /* PlaceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoViewController.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 			children = (
 				07CA0F4F2154D49700E6C4C4 /* NavigationViewController.swift */,
 				079AA9F62165FC78006CD763 /* OverApiAlertModalViewController.swift */,
+				1F47579124E265420076DCA5 /* NavigationPanelViewController.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 				07D1C8342170676200DC38BA /* AlamofireManager.swift in Sources */,
 				0749B9A221463A800082E1E6 /* RoutePointModel.swift in Sources */,
 				0749B9A4214646E20082E1E6 /* PPNConstants.swift in Sources */,
+				1F47579224E265420076DCA5 /* NavigationPanelViewController.swift in Sources */,
 				0779FB7721646BC400E60AC0 /* SpinnerView.swift in Sources */,
 				1F8E05E024E0E631000953A2 /* PlaceInfoViewController.swift in Sources */,
 				1F88E17C24DBEF070039C517 /* MainPanelViewController.swift in Sources */,
