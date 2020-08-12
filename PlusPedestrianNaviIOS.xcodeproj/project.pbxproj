@@ -43,6 +43,7 @@
 		1F8E05E024E0E631000953A2 /* PlaceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8E05DF24E0E631000953A2 /* PlaceInfoViewController.swift */; };
 		1F8E05E224E0E672000953A2 /* PlaceInfoPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8E05E124E0E672000953A2 /* PlaceInfoPanelViewController.swift */; };
 		1F8E05E424E143FF000953A2 /* RouteInfoPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8E05E324E143FF000953A2 /* RouteInfoPanelViewController.swift */; };
+		1FC630A724E3BAB6008898B9 /* ChooseOnMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC630A624E3BAB6008898B9 /* ChooseOnMapViewController.swift */; };
 		E5CA30C438E61684791DC7BF /* Pods_PlusPedestrianNaviIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E012498CEAF2062C3035DB05 /* Pods_PlusPedestrianNaviIOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +87,7 @@
 		1F8E05DF24E0E631000953A2 /* PlaceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoViewController.swift; sourceTree = "<group>"; };
 		1F8E05E124E0E672000953A2 /* PlaceInfoPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoPanelViewController.swift; sourceTree = "<group>"; };
 		1F8E05E324E143FF000953A2 /* RouteInfoPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteInfoPanelViewController.swift; sourceTree = "<group>"; };
+		1FC630A624E3BAB6008898B9 /* ChooseOnMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseOnMapViewController.swift; sourceTree = "<group>"; };
 		76D48CC66E7E6DC0607E9F6C /* Pods-PlusPedestrianNaviIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		DE918DF8083130D875EAD52F /* Pods-PlusPedestrianNaviIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.release.xcconfig"; sourceTree = "<group>"; };
 		E012498CEAF2062C3035DB05 /* Pods_PlusPedestrianNaviIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlusPedestrianNaviIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +187,7 @@
 				07AE17AF213D28180045A2A8 /* SearchPlaceModel.swift */,
 				07F2223F21392ABF00EDFBB0 /* SearchPlaceViewController.swift */,
 				070BA287213E3E9300B00383 /* SearchPlaceTableCell.swift */,
+				1FC630A624E3BAB6008898B9 /* ChooseOnMapViewController.swift */,
 			);
 			path = SearchPlace;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 				07AE17AB213CF33E0045A2A8 /* Toast.swift in Sources */,
 				07D1C836217083F300DC38BA /* OverApiManager.swift in Sources */,
 				079AA9F9216B50B1006CD763 /* BearingManager.swift in Sources */,
+				1FC630A724E3BAB6008898B9 /* ChooseOnMapViewController.swift in Sources */,
 				076ACEE32147D4020042B254 /* UserDefault.swift in Sources */,
 				079AA9F72165FC78006CD763 /* OverApiAlertModalViewController.swift in Sources */,
 				078BEDC4212E5FFF00D497C9 /* MainViewController.swift in Sources */,
