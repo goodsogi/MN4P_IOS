@@ -44,6 +44,9 @@
 		1F8E05E224E0E672000953A2 /* PlaceInfoPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8E05E124E0E672000953A2 /* PlaceInfoPanelViewController.swift */; };
 		1F8E05E424E143FF000953A2 /* RouteInfoPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8E05E324E143FF000953A2 /* RouteInfoPanelViewController.swift */; };
 		1FC630A724E3BAB6008898B9 /* ChooseOnMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC630A624E3BAB6008898B9 /* ChooseOnMapViewController.swift */; };
+		1FC630A924E3C316008898B9 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC630A824E3C316008898B9 /* FavoritesViewController.swift */; };
+		1FC630AC24E3CD1C008898B9 /* SearchNearbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC630AB24E3CD1C008898B9 /* SearchNearbyViewController.swift */; };
+		1FC630AE24E3CD2D008898B9 /* SearchNearbyPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC630AD24E3CD2D008898B9 /* SearchNearbyPanelViewController.swift */; };
 		E5CA30C438E61684791DC7BF /* Pods_PlusPedestrianNaviIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E012498CEAF2062C3035DB05 /* Pods_PlusPedestrianNaviIOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +91,9 @@
 		1F8E05E124E0E672000953A2 /* PlaceInfoPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoPanelViewController.swift; sourceTree = "<group>"; };
 		1F8E05E324E143FF000953A2 /* RouteInfoPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteInfoPanelViewController.swift; sourceTree = "<group>"; };
 		1FC630A624E3BAB6008898B9 /* ChooseOnMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseOnMapViewController.swift; sourceTree = "<group>"; };
+		1FC630A824E3C316008898B9 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		1FC630AB24E3CD1C008898B9 /* SearchNearbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNearbyViewController.swift; sourceTree = "<group>"; };
+		1FC630AD24E3CD2D008898B9 /* SearchNearbyPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNearbyPanelViewController.swift; sourceTree = "<group>"; };
 		76D48CC66E7E6DC0607E9F6C /* Pods-PlusPedestrianNaviIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		DE918DF8083130D875EAD52F /* Pods-PlusPedestrianNaviIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.release.xcconfig"; sourceTree = "<group>"; };
 		E012498CEAF2062C3035DB05 /* Pods_PlusPedestrianNaviIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlusPedestrianNaviIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,6 +151,7 @@
 		078BEDC0212E5FFF00D497C9 /* PlusPedestrianNaviIOS */ = {
 			isa = PBXGroup;
 			children = (
+				1FC630AA24E3CD01008898B9 /* SearchNearby */,
 				1F8E05DE24E0E5FF000953A2 /* PlaceInfo */,
 				1F88E17F24DBF2D90039C517 /* Main */,
 				1F6A212D24DBACFF00C004B3 /* Localization */,
@@ -245,6 +252,7 @@
 				078BEDC3212E5FFF00D497C9 /* MainViewController.swift */,
 				078BEDC5212E5FFF00D497C9 /* Main.storyboard */,
 				1F88E17B24DBEF070039C517 /* MainPanelViewController.swift */,
+				1FC630A824E3C316008898B9 /* FavoritesViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -256,6 +264,15 @@
 				1F8E05E124E0E672000953A2 /* PlaceInfoPanelViewController.swift */,
 			);
 			path = PlaceInfo;
+			sourceTree = "<group>";
+		};
+		1FC630AA24E3CD01008898B9 /* SearchNearby */ = {
+			isa = PBXGroup;
+			children = (
+				1FC630AB24E3CD1C008898B9 /* SearchNearbyViewController.swift */,
+				1FC630AD24E3CD2D008898B9 /* SearchNearbyPanelViewController.swift */,
+			);
+			path = SearchNearby;
 			sourceTree = "<group>";
 		};
 		EED45B2291D016ECA191174A /* Frameworks */ = {
@@ -401,6 +418,7 @@
 			files = (
 				07F2224021392ABF00EDFBB0 /* SearchPlaceViewController.swift in Sources */,
 				0749B9A02146381F0082E1E6 /* DirectionModel.swift in Sources */,
+				1FC630AC24E3CD1C008898B9 /* SearchNearbyViewController.swift in Sources */,
 				07AE17B0213D28180045A2A8 /* SearchPlaceModel.swift in Sources */,
 				076A8E652137A7A100858716 /* HexColorManager.swift in Sources */,
 				07D1C8342170676200DC38BA /* AlamofireManager.swift in Sources */,
@@ -409,6 +427,7 @@
 				1F47579224E265420076DCA5 /* NavigationPanelViewController.swift in Sources */,
 				0779FB7721646BC400E60AC0 /* SpinnerView.swift in Sources */,
 				1F8E05E024E0E631000953A2 /* PlaceInfoViewController.swift in Sources */,
+				1FC630A924E3C316008898B9 /* FavoritesViewController.swift in Sources */,
 				1F88E17C24DBEF070039C517 /* MainPanelViewController.swift in Sources */,
 				070BA288213E3E9300B00383 /* SearchPlaceTableCell.swift in Sources */,
 				07697F6C21636CCB003D2566 /* LocalFileManager.swift in Sources */,
@@ -429,6 +448,7 @@
 				078BEDC2212E5FFF00D497C9 /* AppDelegate.swift in Sources */,
 				1F8E05E224E0E672000953A2 /* PlaceInfoPanelViewController.swift in Sources */,
 				0745C312214226A10090D395 /* RouteInfoViewController.swift in Sources */,
+				1FC630AE24E3CD2D008898B9 /* SearchNearbyPanelViewController.swift in Sources */,
 				07CA0F4421548C2500E6C4C4 /* ViewElevationMaker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -34,8 +34,9 @@
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="장소, 주소 검색" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MVg-0h-AaW">
-                                                <rect key="frame" x="74" y="17" width="228" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <rect key="frame" x="74" y="19" width="228" height="17"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ea-mu-s1y" userLabel="Delete Button">
@@ -65,7 +66,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="MVg-0h-AaW" firstAttribute="centerY" secondItem="ECC-Cu-psn" secondAttribute="centerY" id="7nj-ly-lRx"/>
+                                            <constraint firstItem="MVg-0h-AaW" firstAttribute="centerY" secondItem="yar-ar-jvi" secondAttribute="centerY" id="7nj-ly-lRx"/>
                                             <constraint firstAttribute="height" constant="55" id="9Tu-Vb-Id5"/>
                                             <constraint firstItem="MVg-0h-AaW" firstAttribute="leading" secondItem="ECC-Cu-psn" secondAttribute="trailing" constant="12" id="BW5-sZ-T73"/>
                                             <constraint firstItem="1ea-mu-s1y" firstAttribute="centerY" secondItem="yar-ar-jvi" secondAttribute="centerY" id="OMc-qO-bCm"/>
@@ -462,10 +463,10 @@
             </objects>
             <point key="canvasLocation" x="932" y="873"/>
         </scene>
-        <!--Navigation Panel View Controller-->
+        <!--Navigation Panel-->
         <scene sceneID="Vbd-pQ-mOk">
             <objects>
-                <viewController storyboardIdentifier="navigation_bottom_panel" id="QM9-5P-AUt" userLabel="Navigation Panel View Controller" customClass="NavigationPanelViewController" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="navigation_bottom_panel" id="QM9-5P-AUt" userLabel="Navigation Panel" customClass="NavigationPanelViewController" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bGP-KU-OmO" userLabel="Navigation Panel View">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2109,6 +2110,195 @@
             </objects>
             <point key="canvasLocation" x="-1298" y="142"/>
         </scene>
+        <!--Search Nearby Panel-->
+        <scene sceneID="VFN-V4-MhH">
+            <objects>
+                <viewController storyboardIdentifier="search_nearby_bottom_panel" id="1Pw-8w-A6x" userLabel="Search Nearby Panel" customClass="SearchNearbyPanelViewController" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BJK-iE-78C" userLabel="Search Nearby Panel View">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pSE-gc-3LV" userLabel="Categories Label">
+                                <rect key="frame" x="19" y="25" width="104" height="29"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Px-v5-gUk" userLabel="Close Search Nearby Fragment Button">
+                                <rect key="frame" x="319" y="19" width="37" height="37"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="jeC-nv-M1b" userLabel="Close Place Info Fragment Icon">
+                                        <rect key="frame" x="0.0" y="0.0" width="37" height="37"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="37" id="eu4-bH-da7"/>
+                                            <constraint firstAttribute="height" constant="37" id="xuT-uc-EAG"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="37" id="0Kf-rc-PW5"/>
+                                    <constraint firstItem="jeC-nv-M1b" firstAttribute="centerY" secondItem="8Px-v5-gUk" secondAttribute="centerY" id="If7-dp-ciD"/>
+                                    <constraint firstItem="jeC-nv-M1b" firstAttribute="centerX" secondItem="8Px-v5-gUk" secondAttribute="centerX" id="ROj-IV-r8b"/>
+                                    <constraint firstAttribute="height" constant="37" id="XFg-nF-ttM"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Wy-3U-6tH" userLabel="Search Result">
+                                <rect key="frame" x="19" y="54" width="69" height="22"/>
+                                <color key="textColor" red="0.63073092699050903" green="0.65087813138961792" blue="0.66336393356323242" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dqj-M0-4Nu" userLabel="Line Under Search Result">
+                                <rect key="frame" x="0.0" y="104" width="375" height="1"/>
+                                <color key="backgroundColor" red="0.45574784280000002" green="0.47153413300000002" blue="0.4843173623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="f2m-X9-lWe"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xv9-NY-q9k" userLabel="Search Nearby List">
+                                <rect key="frame" x="0.0" y="105" width="375" height="562"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Xv9-NY-q9k" firstAttribute="trailing" secondItem="MPL-sh-Abu" secondAttribute="trailing" id="Amj-iz-Uam"/>
+                            <constraint firstItem="dqj-M0-4Nu" firstAttribute="top" secondItem="0Wy-3U-6tH" secondAttribute="bottom" constant="28" id="Bea-r3-Apr"/>
+                            <constraint firstItem="pSE-gc-3LV" firstAttribute="leading" secondItem="MPL-sh-Abu" secondAttribute="leading" constant="19" id="Hll-Kb-kYE"/>
+                            <constraint firstItem="0Wy-3U-6tH" firstAttribute="leading" secondItem="pSE-gc-3LV" secondAttribute="leading" id="J8V-jp-sXw"/>
+                            <constraint firstItem="8Px-v5-gUk" firstAttribute="top" secondItem="MPL-sh-Abu" secondAttribute="top" constant="19" id="W0H-hS-EXI"/>
+                            <constraint firstItem="Xv9-NY-q9k" firstAttribute="top" secondItem="dqj-M0-4Nu" secondAttribute="bottom" id="Z2C-va-HDN"/>
+                            <constraint firstItem="dqj-M0-4Nu" firstAttribute="trailing" secondItem="MPL-sh-Abu" secondAttribute="trailing" id="cSW-Jj-Nhg"/>
+                            <constraint firstItem="pSE-gc-3LV" firstAttribute="top" secondItem="MPL-sh-Abu" secondAttribute="top" constant="25" id="cik-ZA-8xh"/>
+                            <constraint firstItem="0Wy-3U-6tH" firstAttribute="top" secondItem="pSE-gc-3LV" secondAttribute="bottom" id="ghu-Ta-5h2"/>
+                            <constraint firstItem="8Px-v5-gUk" firstAttribute="trailing" secondItem="MPL-sh-Abu" secondAttribute="trailing" constant="-19" id="hc9-iP-SQM"/>
+                            <constraint firstItem="Xv9-NY-q9k" firstAttribute="leading" secondItem="MPL-sh-Abu" secondAttribute="leading" id="q9p-dn-cvm"/>
+                            <constraint firstItem="MPL-sh-Abu" firstAttribute="bottom" secondItem="Xv9-NY-q9k" secondAttribute="bottom" id="tFh-Mu-aEd"/>
+                            <constraint firstItem="dqj-M0-4Nu" firstAttribute="leading" secondItem="MPL-sh-Abu" secondAttribute="leading" id="tTQ-u5-Huu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="MPL-sh-Abu"/>
+                    </view>
+                    <connections>
+                        <outlet property="closeButton" destination="jeC-nv-M1b" id="QD7-9t-7Ci"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Fk-CD-jm3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1674" y="-579"/>
+        </scene>
+        <!--Search Nearby-->
+        <scene sceneID="ZcL-IU-fxu">
+            <objects>
+                <viewController id="kMa-6d-RRP" userLabel="Search Nearby" customClass="SearchNearbyViewController" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yqA-a7-Pl9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mdc-Yo-hYa" userLabel="Search Nearby Screen">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5cB-01-EPZ" customClass="GMSMapView">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="5cB-01-EPZ" firstAttribute="trailing" secondItem="mdc-Yo-hYa" secondAttribute="trailing" id="8Sl-Uh-2Ad"/>
+                                    <constraint firstItem="5cB-01-EPZ" firstAttribute="leading" secondItem="mdc-Yo-hYa" secondAttribute="leading" id="hlo-3p-ABv"/>
+                                    <constraint firstItem="5cB-01-EPZ" firstAttribute="top" secondItem="mdc-Yo-hYa" secondAttribute="top" id="iks-hS-PXU"/>
+                                    <constraint firstItem="5cB-01-EPZ" firstAttribute="bottom" secondItem="mdc-Yo-hYa" secondAttribute="bottom" id="pHq-Gt-AqR"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="mdc-Yo-hYa" firstAttribute="bottom" secondItem="l4l-Pt-7bJ" secondAttribute="bottom" id="3t6-CK-SSL"/>
+                            <constraint firstItem="mdc-Yo-hYa" firstAttribute="top" secondItem="l4l-Pt-7bJ" secondAttribute="top" id="Jka-1J-0a1"/>
+                            <constraint firstItem="mdc-Yo-hYa" firstAttribute="leading" secondItem="l4l-Pt-7bJ" secondAttribute="leading" id="e0f-bb-jbj"/>
+                            <constraint firstItem="mdc-Yo-hYa" firstAttribute="trailing" secondItem="l4l-Pt-7bJ" secondAttribute="trailing" id="iBt-LN-VBW"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="l4l-Pt-7bJ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VgP-Kl-TMU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-951" y="-575"/>
+        </scene>
+        <!--Favorites-->
+        <scene sceneID="PrG-3o-6QI">
+            <objects>
+                <viewController id="EVa-ry-jCI" userLabel="Favorites" customClass="FavoritesViewController" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Es9-Ig-cvk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PA0-Bp-F6i" userLabel="Favorites Screen">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jgF-Wa-TdY" userLabel="Top Search Bar">
+                                        <rect key="frame" x="9" y="38" width="357" height="55"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Myc-Yk-HkG" userLabel="Back Button">
+                                                <rect key="frame" x="7" y="0.0" width="55" height="55"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="55" id="1OA-Ho-4Vh"/>
+                                                    <constraint firstAttribute="width" constant="55" id="3Fx-PK-vg6"/>
+                                                </constraints>
+                                                <state key="normal" backgroundImage="go_back"/>
+                                                <connections>
+                                                    <action selector="onBackTapped:" destination="qux-fl-5mk" eventType="touchUpInside" id="Zrf-BB-6u6"/>
+                                                </connections>
+                                            </button>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" placeholder="장소, 주소 검색" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SNO-WW-aaa" userLabel="Screen Title">
+                                                <rect key="frame" x="74" y="16" width="283" height="23"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="SNO-WW-aaa" firstAttribute="leading" secondItem="Myc-Yk-HkG" secondAttribute="trailing" constant="12" id="62Y-jo-qOJ"/>
+                                            <constraint firstItem="SNO-WW-aaa" firstAttribute="centerY" secondItem="jgF-Wa-TdY" secondAttribute="centerY" id="C3f-m0-JAf"/>
+                                            <constraint firstAttribute="height" constant="55" id="VtT-9g-doO"/>
+                                            <constraint firstItem="Myc-Yk-HkG" firstAttribute="centerY" secondItem="jgF-Wa-TdY" secondAttribute="centerY" id="p9N-NN-Trg"/>
+                                            <constraint firstItem="SNO-WW-aaa" firstAttribute="trailing" secondItem="jgF-Wa-TdY" secondAttribute="trailing" id="uQ1-iC-hk9"/>
+                                            <constraint firstItem="Myc-Yk-HkG" firstAttribute="leading" secondItem="jgF-Wa-TdY" secondAttribute="leading" constant="7" id="vaH-wO-DbS"/>
+                                        </constraints>
+                                    </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PEd-RG-N6M" userLabel="Favorites List">
+                                        <rect key="frame" x="9" y="93" width="357" height="653"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="PEd-RG-N6M" firstAttribute="top" secondItem="jgF-Wa-TdY" secondAttribute="bottom" id="0bQ-il-odC"/>
+                                    <constraint firstItem="jgF-Wa-TdY" firstAttribute="top" secondItem="PA0-Bp-F6i" secondAttribute="top" constant="38" id="6sL-VM-MW8"/>
+                                    <constraint firstAttribute="bottom" secondItem="PEd-RG-N6M" secondAttribute="bottom" constant="-79" id="HRg-x4-EEZ"/>
+                                    <constraint firstItem="jgF-Wa-TdY" firstAttribute="leading" secondItem="PA0-Bp-F6i" secondAttribute="leading" constant="9" id="aJs-hc-b2U"/>
+                                    <constraint firstItem="PEd-RG-N6M" firstAttribute="leading" secondItem="PA0-Bp-F6i" secondAttribute="leading" constant="9" id="dnu-y5-bnH"/>
+                                    <constraint firstItem="PEd-RG-N6M" firstAttribute="trailing" secondItem="PA0-Bp-F6i" secondAttribute="trailing" constant="-9" id="gnn-Ct-zWb"/>
+                                    <constraint firstItem="jgF-Wa-TdY" firstAttribute="trailing" secondItem="PA0-Bp-F6i" secondAttribute="trailing" constant="-9" id="j8P-Z3-YbQ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="PA0-Bp-F6i" firstAttribute="leading" secondItem="PFB-vh-r2L" secondAttribute="leading" id="FCq-kU-Rfj"/>
+                            <constraint firstItem="PA0-Bp-F6i" firstAttribute="bottom" secondItem="PFB-vh-r2L" secondAttribute="bottom" id="ViA-GD-hY6"/>
+                            <constraint firstItem="PA0-Bp-F6i" firstAttribute="top" secondItem="PFB-vh-r2L" secondAttribute="top" id="dtL-CP-qts"/>
+                            <constraint firstItem="PA0-Bp-F6i" firstAttribute="trailing" secondItem="PFB-vh-r2L" secondAttribute="trailing" id="j4K-Oc-wx3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="PFB-vh-r2L"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="70M-i6-wt0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-230" y="-573"/>
+        </scene>
         <!--Place Info-->
         <scene sceneID="RHb-Ot-KIA">
             <objects>
@@ -2232,10 +2422,10 @@
             </objects>
             <point key="canvasLocation" x="1056.8" y="118.29085457271366"/>
         </scene>
-        <!--Main Panel View Controller-->
+        <!--Main Panel-->
         <scene sceneID="uLK-uT-ppt">
             <objects>
-                <viewController storyboardIdentifier="main_bottom_panel" id="WfI-et-Aqk" customClass="MainPanelViewController" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="main_bottom_panel" id="WfI-et-Aqk" userLabel="Main Panel" customClass="MainPanelViewController" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b8f-nn-14Y">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
