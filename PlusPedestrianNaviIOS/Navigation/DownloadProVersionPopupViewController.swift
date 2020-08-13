@@ -9,7 +9,7 @@
 import UIKit
 
 //Tmap api 초과 경고팝업
-class OverApiAlertModalViewController: UIViewController {
+class DownloadProVersionPopupViewController: UIViewController {
     
     
     @IBOutlet weak var popup: UIView!
