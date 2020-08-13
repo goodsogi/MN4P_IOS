@@ -16,7 +16,7 @@
 		0749B9A4214646E20082E1E6 /* PPNConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749B9A3214646E20082E1E6 /* PPNConstants.swift */; };
 		07697F6C21636CCB003D2566 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07697F6B21636CCA003D2566 /* LocalFileManager.swift */; };
 		076A8E652137A7A100858716 /* HexColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A8E642137A7A100858716 /* HexColorManager.swift */; };
-		076ACEE32147D4020042B254 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076ACEE22147D4020042B254 /* UserDefault.swift */; };
+		076ACEE32147D4020042B254 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076ACEE22147D4020042B254 /* UserDefaultManager.swift */; };
 		077853E22152408D0059B489 /* RouteSelectBoardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077853E12152408D0059B489 /* RouteSelectBoardManager.swift */; };
 		077853E42152483C0059B489 /* GoogleMapDrawingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077853E32152483C0059B489 /* GoogleMapDrawingManager.swift */; };
 		0779FB7721646BC400E60AC0 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0779FB7621646BC400E60AC0 /* SpinnerView.swift */; };
@@ -48,6 +48,12 @@
 		1FC630AC24E3CD1C008898B9 /* SearchNearbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC630AB24E3CD1C008898B9 /* SearchNearbyViewController.swift */; };
 		1FC630AE24E3CD2D008898B9 /* SearchNearbyPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC630AD24E3CD2D008898B9 /* SearchNearbyPanelViewController.swift */; };
 		1FC630B124E3D802008898B9 /* SetPointViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC630B024E3D802008898B9 /* SetPointViewController.swift */; };
+		1FD5BC4924E512800029F7B3 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5BC4824E512800029F7B3 /* MapManager.swift */; };
+		1FD5BC4B24E517CE0029F7B3 /* UserInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5BC4A24E517CE0029F7B3 /* UserInfoManager.swift */; };
+		1FD5BC4D24E51C140029F7B3 /* AddressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5BC4C24E51C140029F7B3 /* AddressManager.swift */; };
+		1FD5BC4F24E52CED0029F7B3 /* MapClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5BC4E24E52CED0029F7B3 /* MapClient.swift */; };
+		1FD5BC5124E52D1D0029F7B3 /* NaverMapClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5BC5024E52D1D0029F7B3 /* NaverMapClient.swift */; };
+		1FD5BC5324E52D4D0029F7B3 /* GoogleMapClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5BC5224E52D4D0029F7B3 /* GoogleMapClient.swift */; };
 		E5CA30C438E61684791DC7BF /* Pods_PlusPedestrianNaviIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E012498CEAF2062C3035DB05 /* Pods_PlusPedestrianNaviIOS.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +68,7 @@
 		0749B9A3214646E20082E1E6 /* PPNConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPNConstants.swift; sourceTree = "<group>"; };
 		07697F6B21636CCA003D2566 /* LocalFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
 		076A8E642137A7A100858716 /* HexColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColorManager.swift; sourceTree = "<group>"; };
-		076ACEE22147D4020042B254 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
+		076ACEE22147D4020042B254 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 		077853E12152408D0059B489 /* RouteSelectBoardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSelectBoardManager.swift; sourceTree = "<group>"; };
 		077853E32152483C0059B489 /* GoogleMapDrawingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapDrawingManager.swift; sourceTree = "<group>"; };
 		0779FB7621646BC400E60AC0 /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
@@ -96,6 +102,12 @@
 		1FC630AB24E3CD1C008898B9 /* SearchNearbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNearbyViewController.swift; sourceTree = "<group>"; };
 		1FC630AD24E3CD2D008898B9 /* SearchNearbyPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNearbyPanelViewController.swift; sourceTree = "<group>"; };
 		1FC630B024E3D802008898B9 /* SetPointViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPointViewController.swift; sourceTree = "<group>"; };
+		1FD5BC4824E512800029F7B3 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
+		1FD5BC4A24E517CE0029F7B3 /* UserInfoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoManager.swift; sourceTree = "<group>"; };
+		1FD5BC4C24E51C140029F7B3 /* AddressManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressManager.swift; sourceTree = "<group>"; };
+		1FD5BC4E24E52CED0029F7B3 /* MapClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapClient.swift; sourceTree = "<group>"; };
+		1FD5BC5024E52D1D0029F7B3 /* NaverMapClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMapClient.swift; sourceTree = "<group>"; };
+		1FD5BC5224E52D4D0029F7B3 /* GoogleMapClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapClient.swift; sourceTree = "<group>"; };
 		76D48CC66E7E6DC0607E9F6C /* Pods-PlusPedestrianNaviIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		DE918DF8083130D875EAD52F /* Pods-PlusPedestrianNaviIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.release.xcconfig"; sourceTree = "<group>"; };
 		E012498CEAF2062C3035DB05 /* Pods_PlusPedestrianNaviIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlusPedestrianNaviIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,16 +165,17 @@
 		078BEDC0212E5FFF00D497C9 /* PlusPedestrianNaviIOS */ = {
 			isa = PBXGroup;
 			children = (
-				1FC630AF24E3D7E6008898B9 /* SetPoint */,
-				1FC630AA24E3CD01008898B9 /* SearchNearby */,
-				1F8E05DE24E0E5FF000953A2 /* PlaceInfo */,
-				1F88E17F24DBF2D90039C517 /* Main */,
-				1F6A212D24DBACFF00C004B3 /* Localization */,
-				07D1C8322170673800DC38BA /* Alamofire */,
-				07FE8838216C7C0A000F624B /* Settings */,
-				07CA0F4E2154A9F600E6C4C4 /* Navigation */,
-				07CA0F4D2154A9EF00E6C4C4 /* RouteInfo */,
-				07CA0F4C2154A9AC00E6C4C4 /* SearchPlace */,
+				1FD5BC4724E512640029F7B3 /* map */,
+				1FC630AF24E3D7E6008898B9 /* set_point */,
+				1FC630AA24E3CD01008898B9 /* search_nearby */,
+				1F8E05DE24E0E5FF000953A2 /* place_info */,
+				1F88E17F24DBF2D90039C517 /* main */,
+				1F6A212D24DBACFF00C004B3 /* localization */,
+				07D1C8322170673800DC38BA /* alamofire */,
+				07FE8838216C7C0A000F624B /* setting */,
+				07CA0F4E2154A9F600E6C4C4 /* navigation */,
+				07CA0F4D2154A9EF00E6C4C4 /* route_info */,
+				07CA0F4C2154A9AC00E6C4C4 /* search_place */,
 				07CA0F4B2154A95500E6C4C4 /* utils */,
 				07184137213F821300CC0D7A /* fonts */,
 				078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */,
@@ -177,7 +190,7 @@
 		07CA0F4B2154A95500E6C4C4 /* utils */ = {
 			isa = PBXGroup;
 			children = (
-				076ACEE22147D4020042B254 /* UserDefault.swift */,
+				076ACEE22147D4020042B254 /* UserDefaultManager.swift */,
 				07CA0F452154978100E6C4C4 /* ActionDelayManager.swift */,
 				07CA0F4321548C2500E6C4C4 /* ViewElevationMaker.swift */,
 				07AE17AA213CF33E0045A2A8 /* Toast.swift */,
@@ -187,11 +200,12 @@
 				07697F6B21636CCA003D2566 /* LocalFileManager.swift */,
 				0779FB7621646BC400E60AC0 /* SpinnerView.swift */,
 				079AA9F8216B50B1006CD763 /* BearingManager.swift */,
+				1FD5BC4C24E51C140029F7B3 /* AddressManager.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
 		};
-		07CA0F4C2154A9AC00E6C4C4 /* SearchPlace */ = {
+		07CA0F4C2154A9AC00E6C4C4 /* search_place */ = {
 			isa = PBXGroup;
 			children = (
 				07AE17AF213D28180045A2A8 /* SearchPlaceModel.swift */,
@@ -199,10 +213,10 @@
 				070BA287213E3E9300B00383 /* SearchPlaceTableCell.swift */,
 				1FC630A624E3BAB6008898B9 /* ChooseOnMapViewController.swift */,
 			);
-			path = SearchPlace;
+			path = search_place;
 			sourceTree = "<group>";
 		};
-		07CA0F4D2154A9EF00E6C4C4 /* RouteInfo */ = {
+		07CA0F4D2154A9EF00E6C4C4 /* route_info */ = {
 			isa = PBXGroup;
 			children = (
 				077853E12152408D0059B489 /* RouteSelectBoardManager.swift */,
@@ -211,79 +225,91 @@
 				0749B9A121463A800082E1E6 /* RoutePointModel.swift */,
 				1F8E05E324E143FF000953A2 /* RouteInfoPanelViewController.swift */,
 			);
-			path = RouteInfo;
+			path = route_info;
 			sourceTree = "<group>";
 		};
-		07CA0F4E2154A9F600E6C4C4 /* Navigation */ = {
+		07CA0F4E2154A9F600E6C4C4 /* navigation */ = {
 			isa = PBXGroup;
 			children = (
 				07CA0F4F2154D49700E6C4C4 /* NavigationViewController.swift */,
 				079AA9F62165FC78006CD763 /* DownloadProVersionPopupViewController.swift */,
 				1F47579124E265420076DCA5 /* NavigationPanelViewController.swift */,
 			);
-			path = Navigation;
+			path = navigation;
 			sourceTree = "<group>";
 		};
-		07D1C8322170673800DC38BA /* Alamofire */ = {
+		07D1C8322170673800DC38BA /* alamofire */ = {
 			isa = PBXGroup;
 			children = (
 				07D1C8332170676200DC38BA /* AlamofireManager.swift */,
 				07D1C835217083F200DC38BA /* OverApiManager.swift */,
 			);
-			path = Alamofire;
+			path = alamofire;
 			sourceTree = "<group>";
 		};
-		07FE8838216C7C0A000F624B /* Settings */ = {
+		07FE8838216C7C0A000F624B /* setting */ = {
 			isa = PBXGroup;
 			children = (
 				07FE8839216C7C3E000F624B /* SettingsViewController.swift */,
 			);
-			path = Settings;
+			path = setting;
 			sourceTree = "<group>";
 		};
-		1F6A212D24DBACFF00C004B3 /* Localization */ = {
+		1F6A212D24DBACFF00C004B3 /* localization */ = {
 			isa = PBXGroup;
 			children = (
 				1F6A212E24DBAD1600C004B3 /* Localizable.strings */,
 			);
-			path = Localization;
+			path = localization;
 			sourceTree = "<group>";
 		};
-		1F88E17F24DBF2D90039C517 /* Main */ = {
+		1F88E17F24DBF2D90039C517 /* main */ = {
 			isa = PBXGroup;
 			children = (
 				078BEDC3212E5FFF00D497C9 /* MainViewController.swift */,
 				078BEDC5212E5FFF00D497C9 /* Main.storyboard */,
 				1F88E17B24DBEF070039C517 /* MainPanelViewController.swift */,
 				1FC630A824E3C316008898B9 /* FavoritesViewController.swift */,
+				1FD5BC4A24E517CE0029F7B3 /* UserInfoManager.swift */,
 			);
-			path = Main;
+			path = main;
 			sourceTree = "<group>";
 		};
-		1F8E05DE24E0E5FF000953A2 /* PlaceInfo */ = {
+		1F8E05DE24E0E5FF000953A2 /* place_info */ = {
 			isa = PBXGroup;
 			children = (
 				1F8E05DF24E0E631000953A2 /* PlaceInfoViewController.swift */,
 				1F8E05E124E0E672000953A2 /* PlaceInfoPanelViewController.swift */,
 			);
-			path = PlaceInfo;
+			path = place_info;
 			sourceTree = "<group>";
 		};
-		1FC630AA24E3CD01008898B9 /* SearchNearby */ = {
+		1FC630AA24E3CD01008898B9 /* search_nearby */ = {
 			isa = PBXGroup;
 			children = (
 				1FC630AB24E3CD1C008898B9 /* SearchNearbyViewController.swift */,
 				1FC630AD24E3CD2D008898B9 /* SearchNearbyPanelViewController.swift */,
 			);
-			path = SearchNearby;
+			path = search_nearby;
 			sourceTree = "<group>";
 		};
-		1FC630AF24E3D7E6008898B9 /* SetPoint */ = {
+		1FC630AF24E3D7E6008898B9 /* set_point */ = {
 			isa = PBXGroup;
 			children = (
 				1FC630B024E3D802008898B9 /* SetPointViewController.swift */,
 			);
-			path = SetPoint;
+			path = set_point;
+			sourceTree = "<group>";
+		};
+		1FD5BC4724E512640029F7B3 /* map */ = {
+			isa = PBXGroup;
+			children = (
+				1FD5BC4824E512800029F7B3 /* MapManager.swift */,
+				1FD5BC4E24E52CED0029F7B3 /* MapClient.swift */,
+				1FD5BC5024E52D1D0029F7B3 /* NaverMapClient.swift */,
+				1FD5BC5224E52D4D0029F7B3 /* GoogleMapClient.swift */,
+			);
+			path = map;
 			sourceTree = "<group>";
 		};
 		EED45B2291D016ECA191174A /* Frameworks */ = {
@@ -431,6 +457,8 @@
 				0749B9A02146381F0082E1E6 /* DirectionModel.swift in Sources */,
 				1FC630AC24E3CD1C008898B9 /* SearchNearbyViewController.swift in Sources */,
 				07AE17B0213D28180045A2A8 /* SearchPlaceModel.swift in Sources */,
+				1FD5BC4F24E52CED0029F7B3 /* MapClient.swift in Sources */,
+				1FD5BC4924E512800029F7B3 /* MapManager.swift in Sources */,
 				076A8E652137A7A100858716 /* HexColorManager.swift in Sources */,
 				07D1C8342170676200DC38BA /* AlamofireManager.swift in Sources */,
 				0749B9A221463A800082E1E6 /* RoutePointModel.swift in Sources */,
@@ -442,22 +470,26 @@
 				1F88E17C24DBEF070039C517 /* MainPanelViewController.swift in Sources */,
 				070BA288213E3E9300B00383 /* SearchPlaceTableCell.swift in Sources */,
 				07697F6C21636CCB003D2566 /* LocalFileManager.swift in Sources */,
+				1FD5BC4B24E517CE0029F7B3 /* UserInfoManager.swift in Sources */,
 				07AE17AB213CF33E0045A2A8 /* Toast.swift in Sources */,
 				07D1C836217083F300DC38BA /* OverApiManager.swift in Sources */,
 				079AA9F9216B50B1006CD763 /* BearingManager.swift in Sources */,
 				1FC630A724E3BAB6008898B9 /* ChooseOnMapViewController.swift in Sources */,
-				076ACEE32147D4020042B254 /* UserDefault.swift in Sources */,
+				076ACEE32147D4020042B254 /* UserDefaultManager.swift in Sources */,
 				079AA9F72165FC78006CD763 /* DownloadProVersionPopupViewController.swift in Sources */,
 				078BEDC4212E5FFF00D497C9 /* MainViewController.swift in Sources */,
+				1FD5BC4D24E51C140029F7B3 /* AddressManager.swift in Sources */,
 				077853E42152483C0059B489 /* GoogleMapDrawingManager.swift in Sources */,
 				07FE883A216C7C3E000F624B /* SettingsViewController.swift in Sources */,
 				07CA0F462154978100E6C4C4 /* ActionDelayManager.swift in Sources */,
 				07CA0F502154D49700E6C4C4 /* NavigationViewController.swift in Sources */,
 				07CA0F4A2154A5A500E6C4C4 /* ImageMaker.swift in Sources */,
 				1FC630B124E3D802008898B9 /* SetPointViewController.swift in Sources */,
+				1FD5BC5124E52D1D0029F7B3 /* NaverMapClient.swift in Sources */,
 				077853E22152408D0059B489 /* RouteSelectBoardManager.swift in Sources */,
 				1F8E05E424E143FF000953A2 /* RouteInfoPanelViewController.swift in Sources */,
 				078BEDC2212E5FFF00D497C9 /* AppDelegate.swift in Sources */,
+				1FD5BC5324E52D4D0029F7B3 /* GoogleMapClient.swift in Sources */,
 				1F8E05E224E0E672000953A2 /* PlaceInfoPanelViewController.swift in Sources */,
 				0745C312214226A10090D395 /* RouteInfoViewController.swift in Sources */,
 				1FC630AE24E3CD2D008898B9 /* SearchNearbyPanelViewController.swift in Sources */,
