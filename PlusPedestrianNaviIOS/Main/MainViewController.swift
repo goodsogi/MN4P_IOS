@@ -289,7 +289,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         //        customInfoWindow?.center.y -= 140
     }
     
-    
+    func mapView(_ mapView: GMSMapView, didLongPressAt coordinate: CLLocationCoordinate2D) {
+        print(coordinate)
+    }
     
     private func initMapView() {
         let camera = GMSCameraPosition.camera(withLatitude: 37.534459, longitude: 126.983314, zoom: 14)
