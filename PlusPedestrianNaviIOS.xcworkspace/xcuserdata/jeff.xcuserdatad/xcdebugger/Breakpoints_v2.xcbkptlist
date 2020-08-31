@@ -46,8 +46,8 @@
             filePath = "PlusPedestrianNaviIOS/search_place/SearchPlaceViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
             landmarkName = "SearchPlaceViewController"
             landmarkType = "3">
             <Locations>
@@ -94,9 +94,9 @@
             filePath = "PlusPedestrianNaviIOS/search_place/SearchPlaceViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "743"
-            endingLineNumber = "743"
-            landmarkName = "createLayout()"
+            startingLineNumber = "716"
+            endingLineNumber = "716"
+            landmarkName = "initYourLocationAndChooseOnMapButton()"
             landmarkType = "7">
             <Locations>
                <Location
@@ -226,6 +226,22 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "714E3FB1-9656-43AB-B70E-C59DD037D042"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlusPedestrianNaviIOS/search_place/SearchPlaceViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "507"
+            endingLineNumber = "507"
+            landmarkName = "SearchPlaceViewController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C4662375-D682-4BCC-AF5E-3DA148BB2375"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"

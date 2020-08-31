@@ -23,7 +23,9 @@ import CoreLocation
 // 장소 검색 api
 // Search Type에 따른 레이아웃 생성
 //***************************************************************************************
-class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpeechRecognizerDelegate {
+class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpeechRecognizerDelegate,  TapPlaceTableViewDelegate, TapSearchPlaceHistoryTableViewDelegate{
+   
+    
 
     //***************************************************************************************
     //
@@ -42,6 +44,8 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
 
         initSearchKeywordInput()
 
+        initTableDelegateAndDataSource()
+        
         initPlaceTable()
 
         initSearchPlaceHistoryTable()
@@ -50,8 +54,10 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
 
         initViewControllerLifecycleObserver()
 
-        showSearchPlaceHistoryTable()
+        //showSearchPlaceHistoryTable()
+     
     }
+    
 
     override func viewWillAppear(_ animated: Bool) {
         print("viewWillAppear")
@@ -110,82 +116,67 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
     @IBOutlet weak var searchPlaceHistoryTable: UITableView!
     var placeModels = [PlaceModel]()
     weak var selectPlaceDelegate: SelectPlaceDelegate?
-    //Realm
-    private var searchPlaceHistoryDatas: Results<PlaceModelForRealm>?
-
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
-//        //===는 reference 비교
-//        if (tableView === self.placeTable) {
-//            let cell = placeTable.dequeueReusableCell(withIdentifier: "placeTableCell") as! PlaceTableCell
-//            cell.placeName = placeModels[indexPath.row].getName()
-//            cell.address = placeModels[indexPath.row].getAddress()
-//            cell.placeMarker = UIImage(named: "place_pin_gray.png")
-//            //Int?를 String으로 변환
-//            //String(... ?? 0)
-//
-//            var formattedString: String = "";
-//            let distance:Int = placeModels[indexPath.row].getDistance() ?? 0
-//            if (distance != 0) {
-//                formattedString = DistanceStringFormatter.getFormattedDistanceWithUnit(distance: distance)
-//            }
-//
-//            cell.distance = formattedString
-//            //스크롤을 해야 데이터가 전부 표시되는 이슈 발생
-//            cell.layoutSubviews()
-//
-//            //print("return cell position: " + String(indexPath.row))
-//            return cell
-//
-//        } else {
-//            let cell = searchPlaceHistoryTable.dequeueReusableCell(withIdentifier: "searchPlaceHistoryTableCell") as! SearchPlaceHistoryTableCell
-//            cell.placeName = searchPlaceHistoryDatas?[indexPath.row].name
-//            cell.address = searchPlaceHistoryDatas?[indexPath.row].address
-//            cell.clockIcon = UIImage(named: "clock.png")
-//            //스크롤을 해야 데이터가 전부 표시되는 이슈 발생
-//            cell.layoutSubviews()
-//
-//            //print("return cell position: " + String(indexPath.row))
-//            return cell
-//
-//        }
-//    }
-//
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if (tableView == self.placeTable) {
-//            return placeModels.count
-//        } else {
-//            return searchPlaceHistoryDatas?.count ?? 0
-//        }
-//    }
-//
-//
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if (tableView == self.placeTable) {
-//            if let delegate = self.selectPlaceDelegate {
-//                delegate.onPlaceSelected(placeModel: placeModels[indexPath.row], searchType: searchType ?? SearchPlaceViewController.PLACE)
-//            }
-//            self.dismiss(animated: true)
-//        } else {
-//            //TODO 구현하세요
-//        }
-//
-//    }
-
-    var placeTableManager:PlaceTableManager?
-    var searchPlaceHistoryTableManager:SearchPlaceHistoryTableManager?
-    
-    private func initPlaceTable() {
-        placeTableManager = PlaceTableManager()
-        placeTableManager?.initialize(tableView: placeTable, parentViewController: self, searchType: searchType, selectPlaceDelegate: selectPlaceDelegate)
+    var searchPlaceHistoryDatas: Results<PlaceModelForRealm>?
         
+    var searchPlaceTableViewDataSource: SearchPlaceTableViewDataSource?
+    var searchPlaceTableViewDelegate: SearchPlaceTableViewDelegate?
+    
+    
+    func onPlaceTableViewTapped(row: Int) {
+         if let delegate = self.selectPlaceDelegate {
+                    delegate.onPlaceSelected(placeModel: placeModels[row], searchType: searchType ?? SearchPlaceViewController.PLACE)
+                }
+                self.dismiss(animated: true)
+       }
+
+   func onSearchPlaceHistoryTableViewTapped(row: Int) {
+    //TODO 제대로 작동하는지 확인하세요
+           if let delegate = self.selectPlaceDelegate {
+            let placeModel = PlaceModel()
+            placeModel.setName(name: searchPlaceHistoryDatas?[row].name ?? "")
+            placeModel.setLatitude(latitude: searchPlaceHistoryDatas?[row].latitude ?? 0)
+            placeModel.setLongitude(longitude: searchPlaceHistoryDatas?[row].longitude ?? 0)
+            placeModel.setAddress(address: searchPlaceHistoryDatas?[row].address ?? "")
+            placeModel.setBizname(bizName: searchPlaceHistoryDatas?[row].bizName ?? "")
+              placeModel.setDistance(distance: searchPlaceHistoryDatas?[row].distance ?? 0)
+             placeModel.setTelNo(telNo: searchPlaceHistoryDatas?[row].telNo ?? "")
+            
+                      delegate.onPlaceSelected(placeModel: placeModels[row], searchType: searchType ?? SearchPlaceViewController.PLACE)
+                  }
+                  self.dismiss(animated: true)
+         }
+    private func initTableDelegateAndDataSource() {
+        self.searchPlaceTableViewDelegate = SearchPlaceTableViewDelegate(placeTable: placeTable, searchPlaceHistoryTable: searchPlaceHistoryTable, tapPlaceTableViewDelegate: self, tapSearchPlaceHistoryTableViewDelegate: self)
+             self.searchPlaceTableViewDataSource = SearchPlaceTableViewDataSource(placeTable: placeTable, searchPlaceHistoryTable: searchPlaceHistoryTable, placeData: [], searchPlaceHistoryData:nil)
+        
+    }
+        
+        
+        
+    private func initPlaceTable() {
+     
+        
+         self.placeTable.register(PlaceTableCell.self, forCellReuseIdentifier: "placeTableCell")
+        self.placeTable.delegate = self.searchPlaceTableViewDelegate
+        self.placeTable.dataSource = self.searchPlaceTableViewDataSource
+        self.placeTable.rowHeight = 60
+        
+        //hidden으로 지정하지 않았는데 TableView가 안보여서 isHidden을 false로 지정하니 보임
+        //Swift 버그인가?
+        self.placeTable.isHidden = false
         
     }
 
     private func initSearchPlaceHistoryTable() {
-        searchPlaceHistoryTableManager = SearchPlaceHistoryTableManager()
-               searchPlaceHistoryTableManager?.initialize(tableView:  searchPlaceHistoryTable, parentViewController: self, searchType: searchType, selectPlaceDelegate: selectPlaceDelegate)
+        //TableView의 dataSource는 2개 지정할 수 없는 듯
+        //두 번째 지정하는 것이 첫 번째 지정한 것을 무효화하는 듯 
+               
+                self.searchPlaceHistoryTable.register(SearchPlaceHistoryTableCell.self, forCellReuseIdentifier: "searchPlaceHistoryTableCell")
+               self.searchPlaceHistoryTable.delegate = self.searchPlaceTableViewDelegate
+               self.searchPlaceHistoryTable.dataSource = self.searchPlaceTableViewDataSource
+               self.searchPlaceHistoryTable.rowHeight = 60
+        
+         self.searchPlaceHistoryTable.isHidden = false
         
     }
 
@@ -196,7 +187,10 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
         if (searchPlaceHistoryDatas?.count == 0) {
             return
         }
-       searchPlaceHistoryTableManager?.refreshTable(searchPlaceHistoryDatas:searchPlaceHistoryDatas)
+      
+      
+        self.searchPlaceTableViewDataSource?.searchPlaceHistoryData = searchPlaceHistoryDatas
+        self.searchPlaceHistoryTable.reloadData()
        
     }
 
@@ -231,7 +225,8 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
 
     @IBAction func onDeleteButtonTapped(_ sender: Any) {
         searchKeywordInput.text = ""
-        placeTableManager?.clearTable()
+        placeModels.removeAll()
+        placeTable.reloadData()
        
         hideDeleteButton()
         hideSortButton()
@@ -268,7 +263,8 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
     private func sortTableByDistance() {
         print("sortTable")
         //거리순 정렬
-        placeTableManager?.sortTableByDistance()
+       self.placeModels.sort { $0.getDistance() ?? 0 < $1.getDistance() ?? 0 }
+       self.placeTable.reloadData()
        
     }
 
@@ -535,9 +531,9 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
 
                     setDistance(placeModels: self.placeModels)
                     
-                    placeTableManager?.refreshTable(placeModels: placeModels)
-
-                   
+                    searchPlaceTableViewDataSource?.placeData = self.placeModels
+                    self.placeTable.reloadData()
+                                     
 
                     break;
                 case "overApi" :

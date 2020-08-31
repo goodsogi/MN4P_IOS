@@ -10,8 +10,8 @@ import RealmSwift
 
 class PlaceModelForRealm: Object {
     //Realm애서 Double?, Int? 타입은 지정 못하는 듯 
-    @objc dynamic var lat: Double = 0.0
-    @objc dynamic var lng: Double = 0.0
+    @objc dynamic var latitude: Double = 0.0
+    @objc dynamic var longitude: Double = 0.0
     @objc dynamic var name: String? = nil
     @objc dynamic var address: String? = nil
     @objc dynamic var telNo: String? = nil
