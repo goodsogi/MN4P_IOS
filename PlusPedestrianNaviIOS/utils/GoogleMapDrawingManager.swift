@@ -172,19 +172,19 @@ currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.c
     }
     
     
-    public func showSelectedPlaceOnMap(selectedPlaceModel:SearchPlaceModel) {
+    public func showSelectedPlaceOnMap(selectedPlaceModel:PlaceModel) {
         
-        let camera = GMSCameraPosition.camera(withLatitude: selectedPlaceModel.getLat() ?? 0, longitude: selectedPlaceModel.getLng() ?? 0, zoom: 14)
+        let camera = GMSCameraPosition.camera(withLatitude: selectedPlaceModel.getLatitude() ?? 0, longitude: selectedPlaceModel.getLongitude() ?? 0, zoom: 14)
         mapView.camera = camera
         
         
         if(selectedPlaceMarker == nil) {
             selectedPlaceMarker = GMSMarker()
-            selectedPlaceMarker.position = CLLocationCoordinate2D(latitude: selectedPlaceModel.getLat() ?? 0, longitude: selectedPlaceModel.getLng() ?? 0)
+            selectedPlaceMarker.position = CLLocationCoordinate2D(latitude: selectedPlaceModel.getLatitude() ?? 0, longitude: selectedPlaceModel.getLongitude() ?? 0)
             selectedPlaceMarker.title = "selected place marker"
             selectedPlaceMarker.map = self.mapView
         } else {
-            selectedPlaceMarker.position = CLLocationCoordinate2D(latitude: selectedPlaceModel.getLat() ?? 0, longitude: selectedPlaceModel.getLng() ?? 0)
+            selectedPlaceMarker.position = CLLocationCoordinate2D(latitude: selectedPlaceModel.getLatitude() ?? 0, longitude: selectedPlaceModel.getLongitude() ?? 0)
             
         }
     }

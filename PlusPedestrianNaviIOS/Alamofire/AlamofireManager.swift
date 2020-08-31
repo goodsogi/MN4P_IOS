@@ -46,7 +46,7 @@ class AlamofireManager {
                         NotificationCenter.default.post(
                             name: Notification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_SEARCH_PLACE),
                             object: nil,
-                            userInfo: ["result": "success",  "searchPlaceModels" : self.extractSearchPlaceModels(responseData: responseData)])
+                            userInfo: ["result": "success",  "placeModels" : self.extractPlaceModels(responseData: responseData)])
                         
                     } else {
                         
@@ -81,16 +81,16 @@ class AlamofireManager {
     
     }
     
-    private func extractSearchPlaceModels(responseData : Any) -> [SearchPlaceModel]{
+    private func extractPlaceModels(responseData : Any) -> [PlaceModel]{
         
         let swiftyJsonVar = JSON(responseData)
         
-        var searchPlaceModel:SearchPlaceModel
+        var placeModel:PlaceModel
         
-        var searchPlaceModels = [SearchPlaceModel]()
+        var placeModels = [PlaceModel]()
         
         for subJson in swiftyJsonVar["searchPoiInfo"]["pois"]["poi"].arrayValue {
-            searchPlaceModel = SearchPlaceModel()
+            placeModel = PlaceModel()
             
             let name = subJson["name"].stringValue
             let telNo = subJson["telNo"].stringValue
@@ -100,8 +100,8 @@ class AlamofireManager {
             let firstBuildNo = subJson["firstBuildNo"].stringValue
             let secondBuildNo = subJson["secondBuildNo"].stringValue
             let bizName = subJson["lowerBizName"].stringValue
-            let lat = subJson["noorLat"].doubleValue
-            let lng = subJson["noorLon"].doubleValue
+            let latitude = subJson["noorLat"].doubleValue
+            let longitude = subJson["noorLon"].doubleValue
             
             var address = upperAddrName + " " + middleAddrName + " " + roadName + " " + firstBuildNo
             if secondBuildNo != "" {
@@ -109,18 +109,18 @@ class AlamofireManager {
             }
             
             
-            searchPlaceModel.setName(name: name)
-            searchPlaceModel.setAddress(address: address)
-            searchPlaceModel.setLat(lat: lat)
-            searchPlaceModel.setLng(lng: lng)
-            searchPlaceModel.setBizname(bizName: bizName)
-            searchPlaceModel.setTelNo(telNo: telNo)
+            placeModel.setName(name: name)
+            placeModel.setAddress(address: address)
+            placeModel.setLatitude(latitude: latitude)
+            placeModel.setLongitude(longitude: longitude)
+            placeModel.setBizname(bizName: bizName)
+            placeModel.setTelNo(telNo: telNo)
             
-            searchPlaceModels.append(searchPlaceModel)
+            placeModels.append(placeModel)
             
         }
         
-        return searchPlaceModels
+        return placeModels
         
     }
     
@@ -131,14 +131,14 @@ class AlamofireManager {
     //
     //********************************************************************************************************
     
-    public func getDirection(selectedPlaceModel : SearchPlaceModel , userLocation : CLLocation , selectedRouteOption : String, notificationName : String) {
+    public func getDirection(selectedPlaceModel : PlaceModel , userLocation : CLLocation , selectedRouteOption : String, notificationName : String) {
         let url:String = "https://api2.sktelecom.com/tmap/routes/pedestrian?version=1&appKey=" + TMAP_APP_KEY
         
         //TODO: 나중에 passList(경유점), angle, searchOption 수정하세요
         //각도는 경로에 영향을 안미치는 듯 보임. 유효값: 0 ~ 359
         //검색 옵션 0: 추천 (기본값), 4: 추천+번화가우선, 10: 최단, 30: 최단거리+계단제외
         
-        let param = [  "startX": String(userLocation.coordinate.longitude) , "startY": String(userLocation.coordinate.latitude) , "endX": String(selectedPlaceModel.getLng()! ) , "endY": String(selectedPlaceModel.getLat()! ) , "angle": "0" , "searchOption": selectedRouteOption , "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO","startName": "start", "endName": "end"]
+        let param = [  "startX": String(userLocation.coordinate.longitude) , "startY": String(userLocation.coordinate.latitude) , "endX": String(selectedPlaceModel.getLongitude()! ) , "endY": String(selectedPlaceModel.getLatitude()! ) , "angle": "0" , "searchOption": selectedRouteOption , "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO","startName": "start", "endName": "end"]
         
         
         //headers: ["Content-Type":"application/json", "Accept":"application/json"] 값을 지정하면 오류 발생

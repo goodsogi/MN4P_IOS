@@ -16,7 +16,7 @@ import GoogleMobileAds
 
 class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocationManagerDelegate{
     
-    var selectedPlaceModel:SearchPlaceModel?
+    var selectedPlaceModel:PlaceModel?
     var selectedRouteOption:String?
     var directionModel:DirectionModel!
     @IBOutlet weak var noGpsAlertBar: UIView!

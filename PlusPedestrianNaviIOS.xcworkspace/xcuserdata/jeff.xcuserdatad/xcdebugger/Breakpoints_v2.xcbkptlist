@@ -36,5 +36,207 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6664B808-8502-40B6-8D84-FC207FB20A26"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlusPedestrianNaviIOS/search_place/SearchPlaceViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "SearchPlaceViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "6664B808-8502-40B6-8D84-FC207FB20A26 - e0c450ed45394c2d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlusPedestrianNaviIOS.SearchPlaceViewController.(sortTable in _B9DA24E17DE6F5B80020887D0FD72099)() -&gt; ()"
+                  moduleName = "PlusPedestrianNaviIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jeff/Documents/Mn4p%20IOS/MN4P_IOS_Test/PlusPedestrianNaviIOS/search_place/SearchPlaceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "70"
+                  endingLineNumber = "70"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  uuid = "6664B808-8502-40B6-8D84-FC207FB20A26 - b69f0400366f6baa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (PlusPedestrianNaviIOS.SearchPlaceModel, PlusPedestrianNaviIOS.SearchPlaceModel) -&gt; Swift.Bool in PlusPedestrianNaviIOS.SearchPlaceViewController.(sortTable in _B9DA24E17DE6F5B80020887D0FD72099)() -&gt; ()"
+                  moduleName = "PlusPedestrianNaviIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jeff/Documents/Mn4p%20IOS/MN4P_IOS_Test/PlusPedestrianNaviIOS/search_place/SearchPlaceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "70"
+                  endingLineNumber = "70"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "34FA4671-C0AE-43BE-8CAD-83CEF9A99CF0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlusPedestrianNaviIOS/search_place/SearchPlaceViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "743"
+            endingLineNumber = "743"
+            landmarkName = "createLayout()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "34FA4671-C0AE-43BE-8CAD-83CEF9A99CF0 - 7076ed995e032588"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlusPedestrianNaviIOS.SearchPlaceViewController.(createLayout in _B9DA24E17DE6F5B80020887D0FD72099)() -&gt; ()"
+                  moduleName = "PlusPedestrianNaviIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jeff/Documents/Mn4p%20IOS/MN4P_IOS_Test/PlusPedestrianNaviIOS/search_place/SearchPlaceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "754"
+                  endingLineNumber = "754"
+                  offsetFromSymbolStart = "220">
+               </Location>
+               <Location
+                  uuid = "34FA4671-C0AE-43BE-8CAD-83CEF9A99CF0 - 7076ed995e032588"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlusPedestrianNaviIOS.SearchPlaceViewController.(createLayout in _B9DA24E17DE6F5B80020887D0FD72099)() -&gt; ()"
+                  moduleName = "PlusPedestrianNaviIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jeff/Documents/Mn4p%20IOS/MN4P_IOS_Test/PlusPedestrianNaviIOS/search_place/SearchPlaceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "754"
+                  endingLineNumber = "754"
+                  offsetFromSymbolStart = "256">
+               </Location>
+               <Location
+                  uuid = "34FA4671-C0AE-43BE-8CAD-83CEF9A99CF0 - 7076ed995e032588"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlusPedestrianNaviIOS.SearchPlaceViewController.(createLayout in _B9DA24E17DE6F5B80020887D0FD72099)() -&gt; ()"
+                  moduleName = "PlusPedestrianNaviIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jeff/Documents/Mn4p%20IOS/MN4P_IOS_Test/PlusPedestrianNaviIOS/search_place/SearchPlaceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "754"
+                  endingLineNumber = "754"
+                  offsetFromSymbolStart = "368">
+               </Location>
+               <Location
+                  uuid = "34FA4671-C0AE-43BE-8CAD-83CEF9A99CF0 - 7076ed995e032588"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlusPedestrianNaviIOS.SearchPlaceViewController.(createLayout in _B9DA24E17DE6F5B80020887D0FD72099)() -&gt; ()"
+                  moduleName = "PlusPedestrianNaviIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jeff/Documents/Mn4p%20IOS/MN4P_IOS_Test/PlusPedestrianNaviIOS/search_place/SearchPlaceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "754"
+                  endingLineNumber = "754"
+                  offsetFromSymbolStart = "472">
+               </Location>
+               <Location
+                  uuid = "34FA4671-C0AE-43BE-8CAD-83CEF9A99CF0 - 7076ed995e032588"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlusPedestrianNaviIOS.SearchPlaceViewController.(createLayout in _B9DA24E17DE6F5B80020887D0FD72099)() -&gt; ()"
+                  moduleName = "PlusPedestrianNaviIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jeff/Documents/Mn4p%20IOS/MN4P_IOS_Test/PlusPedestrianNaviIOS/search_place/SearchPlaceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "754"
+                  endingLineNumber = "754"
+                  offsetFromSymbolStart = "576">
+               </Location>
+               <Location
+                  uuid = "34FA4671-C0AE-43BE-8CAD-83CEF9A99CF0 - 7076ed995e032588"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlusPedestrianNaviIOS.SearchPlaceViewController.(createLayout in _B9DA24E17DE6F5B80020887D0FD72099)() -&gt; ()"
+                  moduleName = "PlusPedestrianNaviIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jeff/Documents/Mn4p%20IOS/MN4P_IOS_Test/PlusPedestrianNaviIOS/search_place/SearchPlaceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "754"
+                  endingLineNumber = "754"
+                  offsetFromSymbolStart = "680">
+               </Location>
+               <Location
+                  uuid = "34FA4671-C0AE-43BE-8CAD-83CEF9A99CF0 - 7076ed995e032588"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlusPedestrianNaviIOS.SearchPlaceViewController.(createLayout in _B9DA24E17DE6F5B80020887D0FD72099)() -&gt; ()"
+                  moduleName = "PlusPedestrianNaviIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jeff/Documents/Mn4p%20IOS/MN4P_IOS_Test/PlusPedestrianNaviIOS/search_place/SearchPlaceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "754"
+                  endingLineNumber = "754"
+                  offsetFromSymbolStart = "784">
+               </Location>
+               <Location
+                  uuid = "34FA4671-C0AE-43BE-8CAD-83CEF9A99CF0 - 7076ed995e032588"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PlusPedestrianNaviIOS.SearchPlaceViewController.(createLayout in _B9DA24E17DE6F5B80020887D0FD72099)() -&gt; ()"
+                  moduleName = "PlusPedestrianNaviIOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jeff/Documents/Mn4p%20IOS/MN4P_IOS_Test/PlusPedestrianNaviIOS/search_place/SearchPlaceViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "754"
+                  endingLineNumber = "754"
+                  offsetFromSymbolStart = "888">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "714E3FB1-9656-43AB-B70E-C59DD037D042"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PlusPedestrianNaviIOS/search_place/SearchPlaceViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "534"
+            endingLineNumber = "534"
+            landmarkName = "receiveAlamofireSearchPlaceNotification(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

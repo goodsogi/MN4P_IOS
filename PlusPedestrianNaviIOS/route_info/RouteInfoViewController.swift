@@ -15,7 +15,7 @@ import GoogleMobileAds
 
 class RouteInfoViewController: UIViewController, GMSMapViewDelegate, UIScrollViewDelegate , CLLocationManagerDelegate{
     
-    var selectedPlaceModel:SearchPlaceModel?
+    var selectedPlaceModel:PlaceModel?
     
     //상단 섹션
     @IBOutlet weak var dot1OnMarkerLine: UIView!

@@ -16,6 +16,10 @@ class SpinnerView : UIView {
     
     //class func과 static func이 거의 비슷함
         class func show(onView : UIView) {
+            if (self.spinner != nil) {
+                return
+            }
+            
             let spinnerView = UIView.init(frame: onView.bounds)
             spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
             let ai = UIActivityIndicatorView.init(activityIndicatorStyle: .whiteLarge)
@@ -38,6 +42,7 @@ class SpinnerView : UIView {
             
             DispatchQueue.main.async {
                 spinnerView.removeFromSuperview()
+                self.spinner = nil
             }
         }
 }

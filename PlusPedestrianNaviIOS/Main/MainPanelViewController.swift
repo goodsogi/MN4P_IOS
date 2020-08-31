@@ -43,12 +43,13 @@ class MainPanelViewController: UIViewController {
     @IBOutlet var busStopIconContainer: UIView!
     @IBOutlet var martIconContainer: UIView!
     
-    
+    weak var selectPlaceDelegate: SelectPlaceDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         makeLayout()
+        addTapListenerTest()
     }
     
     private func makeLayout() {
@@ -99,6 +100,30 @@ class MainPanelViewController: UIViewController {
         
         
     }
+    
+    private func addTapListenerTest() {
+               let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.searchBarTapped(_:)))
+               tapGesture.numberOfTapsRequired = 1
+               tapGesture.numberOfTouchesRequired = 1
+               searchBar.addGestureRecognizer(tapGesture)
+               searchBar.isUserInteractionEnabled = true
+       
+           }
+       
+       @objc func searchBarTapped(_ sender: UITapGestureRecognizer) {
+           showScreenOnOtherStoryboard(storyboardName: "SearchPlace", viewControllerStoryboardId: "search_place")
+       }
 
-
+    private func showScreenOnOtherStoryboard(storyboardName:String, viewControllerStoryboardId:String) {
+            let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: viewControllerStoryboardId)
+            
+            if(viewControllerStoryboardId == "search_place") {
+                (viewController as! SearchPlaceViewController).selectPlaceDelegate  = selectPlaceDelegate
+                (viewController as! SearchPlaceViewController).searchType  = SearchPlaceViewController.PLACE
+            }
+            
+            self.present(viewController, animated: true, completion: nil)
+        
+    }
 }

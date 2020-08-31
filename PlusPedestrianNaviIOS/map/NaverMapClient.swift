@@ -7,5 +7,9 @@
 //
 
 public class NaverMapClient : MapClient {
+    func createMap() {
+       
+    }
+    
     
 }

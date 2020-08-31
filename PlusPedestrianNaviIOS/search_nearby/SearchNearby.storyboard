@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Search Nearby Panel-->
+        <scene sceneID="HlP-9h-Hhg">
+            <objects>
+                <viewController storyboardIdentifier="search_nearby_bottom_panel" id="s56-oQ-eG4" userLabel="Search Nearby Panel" customClass="SearchNearbyPanelViewController" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RKJ-8y-AE7" userLabel="Search Nearby Panel View">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2KC-fn-cwW" userLabel="Categories Label">
+                                <rect key="frame" x="19" y="69" width="104" height="29"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7yO-A3-tsY" userLabel="Close Search Nearby Fragment Button">
+                                <rect key="frame" x="358" y="63" width="37" height="37"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="close" translatesAutoresizingMaskIntoConstraints="NO" id="L8D-Qo-Ogn" userLabel="Close Place Info Fragment Icon">
+                                        <rect key="frame" x="0.0" y="0.0" width="37" height="37"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="37" id="QHG-XF-wJy"/>
+                                            <constraint firstAttribute="width" constant="37" id="vUG-rn-bp8"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="L8D-Qo-Ogn" firstAttribute="centerY" secondItem="7yO-A3-tsY" secondAttribute="centerY" id="Dnp-vH-rCq"/>
+                                    <constraint firstAttribute="height" constant="37" id="Yhh-bA-ZOu"/>
+                                    <constraint firstAttribute="width" constant="37" id="Yuk-4K-R6o"/>
+                                    <constraint firstItem="L8D-Qo-Ogn" firstAttribute="centerX" secondItem="7yO-A3-tsY" secondAttribute="centerX" id="cwW-Mg-kuf"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="as1-A6-wtd" userLabel="Search Result">
+                                <rect key="frame" x="19" y="98" width="69" height="22"/>
+                                <color key="textColor" red="0.630730927" green="0.65087813139999995" blue="0.66336393360000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NoS-lz-dRk" userLabel="Line Under Search Result">
+                                <rect key="frame" x="0.0" y="148" width="414" height="1"/>
+                                <color key="backgroundColor" red="0.45574784280000002" green="0.47153413300000002" blue="0.4843173623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="1WN-1H-GeR"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pi8-Ki-cPX" userLabel="Search Nearby List">
+                                <rect key="frame" x="0.0" y="149" width="414" height="713"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="pi8-Ki-cPX" firstAttribute="leading" secondItem="dar-SY-cqn" secondAttribute="leading" id="1Z4-oq-YWI"/>
+                            <constraint firstItem="2KC-fn-cwW" firstAttribute="top" secondItem="dar-SY-cqn" secondAttribute="top" constant="25" id="58m-nN-hkv"/>
+                            <constraint firstItem="7yO-A3-tsY" firstAttribute="trailing" secondItem="dar-SY-cqn" secondAttribute="trailing" constant="-19" id="8eN-bx-Jcy"/>
+                            <constraint firstItem="2KC-fn-cwW" firstAttribute="leading" secondItem="dar-SY-cqn" secondAttribute="leading" constant="19" id="C7p-bp-pCI"/>
+                            <constraint firstItem="as1-A6-wtd" firstAttribute="leading" secondItem="2KC-fn-cwW" secondAttribute="leading" id="Cge-Ol-SAc"/>
+                            <constraint firstItem="7yO-A3-tsY" firstAttribute="top" secondItem="dar-SY-cqn" secondAttribute="top" constant="19" id="MCe-e9-9Vx"/>
+                            <constraint firstItem="pi8-Ki-cPX" firstAttribute="top" secondItem="NoS-lz-dRk" secondAttribute="bottom" id="OVa-1H-2Rs"/>
+                            <constraint firstItem="NoS-lz-dRk" firstAttribute="top" secondItem="as1-A6-wtd" secondAttribute="bottom" constant="28" id="U7F-Wg-A4Q"/>
+                            <constraint firstItem="NoS-lz-dRk" firstAttribute="leading" secondItem="dar-SY-cqn" secondAttribute="leading" id="YNR-04-IUc"/>
+                            <constraint firstItem="dar-SY-cqn" firstAttribute="bottom" secondItem="pi8-Ki-cPX" secondAttribute="bottom" id="aEr-br-XMr"/>
+                            <constraint firstItem="pi8-Ki-cPX" firstAttribute="trailing" secondItem="dar-SY-cqn" secondAttribute="trailing" id="m7q-xq-fTj"/>
+                            <constraint firstItem="as1-A6-wtd" firstAttribute="top" secondItem="2KC-fn-cwW" secondAttribute="bottom" id="wqi-W5-Y2Y"/>
+                            <constraint firstItem="NoS-lz-dRk" firstAttribute="trailing" secondItem="dar-SY-cqn" secondAttribute="trailing" id="yRi-qZ-SzY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dar-SY-cqn"/>
+                    </view>
+                    <connections>
+                        <outlet property="closeButton" destination="L8D-Qo-Ogn" id="P3v-rl-Iew"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1b5-nQ-h09" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1674" y="-579"/>
+        </scene>
+        <!--Search Nearby-->
+        <scene sceneID="vXy-bB-OhX">
+            <objects>
+                <viewController id="32V-cW-9ie" userLabel="Search Nearby" customClass="SearchNearbyViewController" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lEN-rv-cAi">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LfF-Ij-rjs" userLabel="Search Nearby Screen">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s5P-4s-jrR" customClass="GMSMapView">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="s5P-4s-jrR" firstAttribute="trailing" secondItem="LfF-Ij-rjs" secondAttribute="trailing" id="2D5-vB-q4G"/>
+                                    <constraint firstItem="s5P-4s-jrR" firstAttribute="top" secondItem="LfF-Ij-rjs" secondAttribute="top" id="55A-I6-XTU"/>
+                                    <constraint firstItem="s5P-4s-jrR" firstAttribute="leading" secondItem="LfF-Ij-rjs" secondAttribute="leading" id="M7f-0W-MXY"/>
+                                    <constraint firstItem="s5P-4s-jrR" firstAttribute="bottom" secondItem="LfF-Ij-rjs" secondAttribute="bottom" id="UO1-pz-Mtq"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="LfF-Ij-rjs" firstAttribute="leading" secondItem="AfB-PM-DBc" secondAttribute="leading" id="2lY-wT-jel"/>
+                            <constraint firstItem="LfF-Ij-rjs" firstAttribute="top" secondItem="AfB-PM-DBc" secondAttribute="top" id="JcP-sx-Sa3"/>
+                            <constraint firstItem="LfF-Ij-rjs" firstAttribute="bottom" secondItem="AfB-PM-DBc" secondAttribute="bottom" id="ewV-CT-WkR"/>
+                            <constraint firstItem="LfF-Ij-rjs" firstAttribute="trailing" secondItem="AfB-PM-DBc" secondAttribute="trailing" id="nwr-dc-bTs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="AfB-PM-DBc"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L2V-Ut-xe8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-951" y="-575"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="close" width="128" height="128"/>
+    </resources>
+</document>

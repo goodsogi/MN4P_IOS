@@ -12,9 +12,9 @@ import CoreLocation
 
 public class AddressManager {
     
-    public static func getSimpleAddressForCurrentLocation(coordinate: CLLocation) -> String {
+    public static func getSimpleAddressForCurrentLocation(location: CLLocation?) -> String {
         let geoCoder = CLGeocoder()
-        geoCoder.reverseGeocodeLocation(coordinate) { (placemarks, error) -> Void in
+        geoCoder.reverseGeocodeLocation(location!) { (placemarks, error) -> Void in
             if error != nil {
                 NSLog("\(error)")
                 return
@@ -25,10 +25,10 @@ public class AddressManager {
                     return
             }
             let address = addrList.joined(separator: " ")
-            print(address)
+            print(address)           
         }
         
-        return address
+        return ""
         
     }
     

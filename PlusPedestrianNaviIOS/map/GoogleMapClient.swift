@@ -7,5 +7,9 @@
 //
 
 public class GoogleClient : MapClient {
+    func createMap() {
+      
+    }
+    
     
 }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Favorites-->
+        <scene sceneID="On1-cH-INq">
+            <objects>
+                <viewController id="ndB-ku-qoT" userLabel="Favorites" customClass="FavoritesViewController" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rsd-oN-aef">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OPk-Nr-pU0" userLabel="Favorites Screen">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <subviews>
+                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jiq-37-aYc" userLabel="Top Search Bar">
+                                        <rect key="frame" x="9" y="38" width="396" height="55"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ifq-N1-7vW" userLabel="Back Button">
+                                                <rect key="frame" x="7" y="0.0" width="55" height="55"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="55" id="7wY-tN-rfd"/>
+                                                    <constraint firstAttribute="width" constant="55" id="Qgw-7P-GbT"/>
+                                                </constraints>
+                                                <state key="normal" backgroundImage="go_back"/>
+                                            </button>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" placeholder="장소, 주소 검색" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GPh-i5-i4j" userLabel="Screen Title">
+                                                <rect key="frame" x="74" y="16" width="322" height="23"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="GPh-i5-i4j" firstAttribute="centerY" secondItem="Jiq-37-aYc" secondAttribute="centerY" id="DEg-WK-aSv"/>
+                                            <constraint firstItem="GPh-i5-i4j" firstAttribute="trailing" secondItem="Jiq-37-aYc" secondAttribute="trailing" id="LZv-c8-ID2"/>
+                                            <constraint firstAttribute="height" constant="55" id="Yx1-Iz-6tG"/>
+                                            <constraint firstItem="Ifq-N1-7vW" firstAttribute="leading" secondItem="Jiq-37-aYc" secondAttribute="leading" constant="7" id="fLA-D5-vqy"/>
+                                            <constraint firstItem="GPh-i5-i4j" firstAttribute="leading" secondItem="Ifq-N1-7vW" secondAttribute="trailing" constant="12" id="sid-lG-rZc"/>
+                                            <constraint firstItem="Ifq-N1-7vW" firstAttribute="centerY" secondItem="Jiq-37-aYc" secondAttribute="centerY" id="ucH-QE-M6n"/>
+                                        </constraints>
+                                    </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oah-Yq-zqS" userLabel="Favorites List">
+                                        <rect key="frame" x="9" y="93" width="396" height="804"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Jiq-37-aYc" firstAttribute="leading" secondItem="OPk-Nr-pU0" secondAttribute="leading" constant="9" id="86R-AM-cXg"/>
+                                    <constraint firstItem="oah-Yq-zqS" firstAttribute="trailing" secondItem="OPk-Nr-pU0" secondAttribute="trailing" constant="-9" id="Bbx-JL-axe"/>
+                                    <constraint firstAttribute="bottom" secondItem="oah-Yq-zqS" secondAttribute="bottom" constant="-79" id="Ekx-Ie-zoz"/>
+                                    <constraint firstItem="oah-Yq-zqS" firstAttribute="leading" secondItem="OPk-Nr-pU0" secondAttribute="leading" constant="9" id="R9h-ST-CRV"/>
+                                    <constraint firstItem="oah-Yq-zqS" firstAttribute="top" secondItem="Jiq-37-aYc" secondAttribute="bottom" id="e6P-s2-aaU"/>
+                                    <constraint firstItem="Jiq-37-aYc" firstAttribute="top" secondItem="OPk-Nr-pU0" secondAttribute="top" constant="38" id="gZA-Fb-ZBK"/>
+                                    <constraint firstItem="Jiq-37-aYc" firstAttribute="trailing" secondItem="OPk-Nr-pU0" secondAttribute="trailing" constant="-9" id="yxa-zj-uQH"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="OPk-Nr-pU0" firstAttribute="top" secondItem="csP-r4-JG2" secondAttribute="top" id="Nrd-wL-Unl"/>
+                            <constraint firstItem="OPk-Nr-pU0" firstAttribute="bottom" secondItem="csP-r4-JG2" secondAttribute="bottom" id="OXc-cu-WsY"/>
+                            <constraint firstItem="OPk-Nr-pU0" firstAttribute="leading" secondItem="csP-r4-JG2" secondAttribute="leading" id="b0k-Av-RnP"/>
+                            <constraint firstItem="OPk-Nr-pU0" firstAttribute="trailing" secondItem="csP-r4-JG2" secondAttribute="trailing" id="hio-d1-rGS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="csP-r4-JG2"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y4s-FN-CJJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-230" y="-573"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="go_back" width="128" height="128"/>
+    </resources>
+</document>

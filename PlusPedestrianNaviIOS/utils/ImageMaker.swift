@@ -12,6 +12,27 @@ import UIKit
 //둥근사각형, 원 등 이미지 생성 
 class ImageMaker {
     
+    static func getRoundRectangleWithoutFill(width: CGFloat, height: CGFloat, lineWidth: CGFloat, colorHexString: String, cornerRadius: CGFloat) -> UIImage {
+        
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height))
+        let img = renderer.image {
+            
+            ctx in
+            let clipPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: width, height: height), cornerRadius: cornerRadius)
+            
+            let borderColor = HexColorManager.colorWithHexString(hexString: colorHexString, alpha: 1.0)            
+            borderColor.setStroke()
+            clipPath.lineWidth = lineWidth
+            clipPath.stroke()
+            
+        }
+        
+        
+        return img
+        
+        
+    }
+    
     static func getRoundRectangle(width: CGFloat, height: CGFloat, colorHexString: String, cornerRadius: CGFloat, alpha: CGFloat) -> UIImage {
         
         let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height))

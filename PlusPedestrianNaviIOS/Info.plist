@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>The app uses speech recognition for searching place</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>The app uses speech recognition for searching place with voice</string>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-7576584379236747~6363552704</string>
 	<key>CFBundleDevelopmentRegion</key>
@@ -55,8 +59,8 @@
 	<string>Do you allow this app to know your current location?</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>NotoSansKR-Medium-Hestia</string>
-		<string>NotoSansKR-Regular-Hestia</string>
+		<string>NotoSansKR-Medium-Hestia.otf</string>
+		<string>NotoSansKR-Regular-Hestia.otf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

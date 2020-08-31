@@ -12,29 +12,25 @@ import CoreLocation
 import Alamofire
 import FloatingPanel
 
-protocol MainViewControllerDelegate {
-    func onPlaceSelected(placeModel: SearchPlaceModel)
-}
-
-
-class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManagerDelegate, MainViewControllerDelegate, FloatingPanelControllerDelegate{
+class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDelegate, FloatingPanelControllerDelegate, LocationListenerDelegate {
+   
+    
     
     
     @IBOutlet var settingButtonContainer: UIView!
     @IBOutlet var findCurrentLocationButtonContainer: UIView!
     
-    var selectedPlaceModel:SearchPlaceModel!
-    
-    
+    var selectedPlaceModel:PlaceModel!
+      
    
     //Google Map
     @IBOutlet weak var mapView: GMSMapView!
     var googleMapDrawingManager:GoogleMapDrawingManager!
     
     //Location
-    var locationManager:CLLocationManager!
-    var isFirstLocation:Bool = true
-    var userLocation:CLLocation?
+    var locationManager:LocationManager?
+    //var isFirstLocation:Bool = true
+    //var userLocation:CLLocation?
     
    
  
@@ -42,18 +38,32 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
      
         
     override func viewDidLoad() {
-        super.viewDidLoad()
-       
-             makeLayout()
+        super.viewDidLoad() 
+        initLocationManager()
+        makeLayout()
+        addTapListenerTest()
         initMapView()
         initGoogleMapDrawingManager()
         showPanelTest()
+        initInternetConnectionChecker()
         
         //drawTicketViewBackground()
         
      
     }
     
+    private func initLocationManager() {
+       LocationManager.sharedInstance.initialize()
+       LocationManager.sharedInstance.startUpdatingLocation()
+        LocationManager.sharedInstance.setLocationListener(locationListener: self)
+    }
+    
+    
+    
+    private func initInternetConnectionChecker() {
+        InternetConnectionChecker.sharedInstance.run()
+    }
+        
     private func makeLayout() {
         
         let settingButtonContainerBackgroundImg = ImageMaker.getRoundRectangle(width: 60, height: 60, colorHexString: "#333536", cornerRadius: 10.0, alpha: 1.0)
@@ -63,6 +73,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
         let findCurrentLocationButtonContainerBackgroundImg = ImageMaker.getCircle(width: 60, height: 60, colorHexString: "#333536", alpha: 1.0)
                       findCurrentLocationButtonContainer.backgroundColor = UIColor(patternImage: findCurrentLocationButtonContainerBackgroundImg)
+        
+        
+        
     }
     
     func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
@@ -87,6 +100,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
             return
         }
 
+        mainPanelViewController.selectPlaceDelegate = self
         
         fpc.set(contentViewController: mainPanelViewController)
        
@@ -95,18 +109,27 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        determineMyCurrentLocation()
+        private func addTapListenerTest() {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.settingButtonTapped(_:)))
+            tapGesture.numberOfTapsRequired = 1
+            tapGesture.numberOfTouchesRequired = 1
+            settingButtonContainer.addGestureRecognizer(tapGesture)
+            settingButtonContainer.isUserInteractionEnabled = true
+    
+        }
+    
+    @objc func settingButtonTapped(_ sender: UITapGestureRecognizer) {
+        showScreenOnOtherStoryboard(storyboardName: "Setting", viewControllerStoryboardId: "setting")
     }
+    
+   
     
     //안드로이드의 onDestroy와 같음
     override func viewDidDisappear(_ animated: Bool) {
         
         super.viewDidDisappear(false)
         
-        locationManager.stopUpdatingLocation()
+        //locationManager.stopUpdatingLocation()
     }
     
     
@@ -116,8 +139,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
         // Dispose of any resources that can be recreated.
     }
     
-    func onPlaceSelected(placeModel: SearchPlaceModel) {
-        
+    func onPlaceSelected(placeModel: PlaceModel, searchType: Int) {
+        //TODO searchType 구현하세요 
         
         //Toast는 안뜨는 듯
         //        Toast.show(message: placeModel.getName() ?? "", controller: self)
@@ -153,41 +176,36 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
 //    }
     
     @objc func findRouteButtonTapped(_ sender: UITapGestureRecognizer) {
-        
         showScreen(viewControllerStoryboardId: "FindRoute")
     }
-    
-    
- 
-    
+     
     //@objc가 없으면 오류 발생
     @objc func showFindRouteScreen(_ sender: UITapGestureRecognizer) {
           
         //왜 작동을 멈추지 않지??
-        locationManager.stopUpdatingLocation()
+        //locationManager.stopUpdatingLocation()
         
         showScreen(viewControllerStoryboardId: "FindRoute")
-        
-        
-        
     }
-    
+        
     private func showScreen(viewControllerStoryboardId:String) {
         let viewController  = self.storyboard?.instantiateViewController(withIdentifier: viewControllerStoryboardId)
+      
         
-        if(viewControllerStoryboardId == "SearchPlace") {
-            
-            (viewController as! SearchPlaceViewController).delegate  = self
-        }
-        
-        if(viewControllerStoryboardId == "FindRoute") {
-            
-            (viewController as! RouteInfoViewController).selectedPlaceModel  = selectedPlaceModel
-        }
+//        if(viewControllerStoryboardId == "FindRoute") {
+//
+//            (viewController as! RouteInfoViewController).selectedPlaceModel  = selectedPlaceModel
+//        }
         
         self.present(viewController!, animated: true, completion: nil)
     }
     
+    private func showScreenOnOtherStoryboard(storyboardName:String, viewControllerStoryboardId:String) {
+        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+        let mainTopBarViewController = storyboard.instantiateViewController(withIdentifier: viewControllerStoryboardId)
+             
+        self.present(mainTopBarViewController, animated: true, completion: nil)
+    }
     
     
     
@@ -217,12 +235,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
       
     }
     
-    
-    @objc func showSearchPlaceScreen(_ sender: UITapGestureRecognizer) {
-       
-        showScreen(viewControllerStoryboardId: "SearchPlace")
-    }
-    
+     
     //    @objc func showFavoritesScreen(_ sender: UITapGestureRecognizer) {
     //        handleDrawer()
     //        showScreen(viewControllerStoryboardId: "Favorites")
@@ -308,49 +321,15 @@ class MainViewController: UIViewController, GMSMapViewDelegate , CLLocationManag
     // Location
     //
     //********************************************************************************************************
-    
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func onLocationCatched(location: CLLocation) {
+//          googleMapDrawingManager.showCurrentLocationOnMap(userLocation: location)
+       }
+       
+       func onFirstLocationCatched(location: CLLocation) {
+          googleMapDrawingManager.showFirstCurrentLocationOnMap(userLocation: location , isNavigationViewController: false)
+        googleMapDrawingManager.showCurrentLocationMarker(userLocation: location)
         
-        // TODO: Info.plist 수정하세요
-        
-    
-        userLocation = locations[0] as CLLocation
-        
-        if(isFirstLocation) {
-            isFirstLocation = false
-            googleMapDrawingManager.showFirstCurrentLocationOnMap(userLocation: userLocation! , isNavigationViewController: false)
-            googleMapDrawingManager.showCurrentLocationMarker(userLocation: userLocation!)
-        } else {
-            //        googleMapDrawingManager.showCurrentLocationOnMap(userLocation: userLocation)
-        }
-        
-        // Call stopUpdatingLocation() to stop listening for location updates,
-        // other wise this function will be called every time when user location changes.
-        
-        // manager.stopUpdatingLocation()
-        
-        print("main user latitude = \(userLocation?.coordinate.latitude)")
-        print("main user longitude = \(userLocation?.coordinate.longitude)")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
-    {
-        print("Error \(error)")
-    }
-    
-    
-    private func determineMyCurrentLocation() {
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.startUpdatingLocation()
-            //locationManager.startUpdatingHeading()
-        }
-    }
+       }
     
     
     private func initGoogleMapDrawingManager() {

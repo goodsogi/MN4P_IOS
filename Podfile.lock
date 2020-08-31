@@ -37,6 +37,12 @@ PODS:
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
   - PromisesObjC (1.2.8)
+  - ReachabilitySwift (5.0.0)
+  - Realm (5.3.5):
+    - Realm/Headers (= 5.3.5)
+  - Realm/Headers (5.3.5)
+  - RealmSwift (5.3.5):
+    - Realm (= 5.3.5)
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
@@ -44,6 +50,8 @@ DEPENDENCIES:
   - FloatingPanel
   - Google-Mobile-Ads-SDK
   - GoogleMaps
+  - ReachabilitySwift
+  - RealmSwift
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
@@ -56,6 +64,9 @@ SPEC REPOS:
     - GoogleUtilities
     - nanopb
     - PromisesObjC
+    - ReachabilitySwift
+    - Realm
+    - RealmSwift
     - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -67,8 +78,11 @@ SPEC CHECKSUMS:
   GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  Realm: 2b52fcc86fc0ed3d75a56ac0eb1e73c4f1a60e16
+  RealmSwift: a6ea2ea561039fc3833c08dec81371a9a3bb5ca6
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: b5fc43474fa137d9db0acb7c69fc60e30831fdce
+PODFILE CHECKSUM: 11bc5a6980a7a012485a9b69cfa53134f35f5823
 
 COCOAPODS: 1.9.1

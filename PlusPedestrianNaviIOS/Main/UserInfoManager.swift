@@ -24,14 +24,15 @@ public class UserInfoManager {
     }
  
     public static func setUserLocation(userLocation:CLLocation?) {
-        let countryName = AddressManager.getCountry(userLocation: userLocation)
+        //TODO: 주석풀고 구현하세요
+        //let countryName = AddressManager.getCountry(userLocation: userLocation)
         
-        if (countryName == nil || countryName == "") {
-            return
-        }
+        //if (countryName == nil || countryName == "") {
+         //   return
+        //}
         
-        let userLocationInt = (countryName.contains("대한민국") || countryName.contains("South Korea")) ? KOREA: OVERSEA 
-        UserDefaultManager.saveUserLocation(userLocation: userLocationInt)
+        //let userLocationInt = (countryName.contains("대한민국") || countryName.contains("South Korea")) ? KOREA: OVERSEA
+       // UserDefaultManager.saveUserLocation(userLocation: userLocationInt)
        }
     
 }
