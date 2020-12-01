@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f2698f9ed3c41b363e8455178d74db596fd155c8df225276a51c0ef2c24e6a93
-size 753
+/*
+ * Copyright 2016 Google LLC. All rights reserved.
+ *
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
+ * file except in compliance with the License. You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
+ * ANY KIND, either express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
+#import <UIKit/UIKit.h>
+
+#import <GoogleMaps/GoogleMaps.h>
+
+@interface PolygonsViewController : UIViewController<GMSMapViewDelegate>
+
+@end

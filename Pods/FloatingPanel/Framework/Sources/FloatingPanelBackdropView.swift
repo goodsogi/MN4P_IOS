@@ -1,3 +1,11 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:cd1c2a46a18f7eff561205609247221edb3cdebc0237131a3d994255f88c16df
-size 315
+//
+//  Created by Shin Yamamoto on 2018/09/26.
+//  Copyright © 2018 Shin Yamamoto. All rights reserved.
+//
+
+import UIKit
+
+/// A view that presents a backdrop interface behind a floating panel.
+public class FloatingPanelBackdropView: UIView {
+    public var dismissalTapGestureRecognizer: UITapGestureRecognizer!
+}

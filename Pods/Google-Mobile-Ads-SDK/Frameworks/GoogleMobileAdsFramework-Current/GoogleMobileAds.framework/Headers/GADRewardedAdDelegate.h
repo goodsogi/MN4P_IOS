@@ -1,3 +1,35 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c949bbe860c98f7f71f803d619644dc17f3378882820092fe0c0faa5ca814500
-size 986
+//
+//  GADRewardedDelegate.h
+//  Google Mobile Ads SDK
+//
+//  Copyright 2018 Google LLC. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <GoogleMobileAds/GADAdMetadata.h>
+#import <GoogleMobileAds/GADAdReward.h>
+
+@class GADRewardedAd;
+
+/// Delegate for receiving state change messages from a GADRewardedAd.
+@protocol GADRewardedAdDelegate <NSObject>
+
+@required
+
+/// Tells the delegate that the user earned a reward.
+- (void)rewardedAd:(nonnull GADRewardedAd *)rewardedAd
+    userDidEarnReward:(nonnull GADAdReward *)reward;
+
+@optional
+
+/// Tells the delegate that the rewarded ad failed to present.
+- (void)rewardedAd:(nonnull GADRewardedAd *)rewardedAd
+    didFailToPresentWithError:(nonnull NSError *)error;
+
+/// Tells the delegate that the rewarded ad was presented.
+- (void)rewardedAdDidPresent:(nonnull GADRewardedAd *)rewardedAd;
+
+/// Tells the delegate that the rewarded ad was dismissed.
+- (void)rewardedAdDidDismiss:(nonnull GADRewardedAd *)rewardedAd;
+
+@end

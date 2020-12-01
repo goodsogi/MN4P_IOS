@@ -1,3 +1,6 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d1b21c02e165f749c0d24f1c03cdd047116afda391ed2747baea2ec595374d1a
-size 142
+framework module Pods_PlusPedestrianNaviIOS {
+  umbrella header "Pods-PlusPedestrianNaviIOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

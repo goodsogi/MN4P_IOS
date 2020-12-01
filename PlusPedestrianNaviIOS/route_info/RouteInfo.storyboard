@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -34,7 +35,7 @@
                                                 </constraints>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="M85-h8-BuX" firstAttribute="centerX" secondItem="451-eH-718" secondAttribute="centerX" id="aoD-Su-Zfo"/>
                                             <constraint firstItem="M85-h8-BuX" firstAttribute="centerY" secondItem="451-eH-718" secondAttribute="centerY" id="cqc-CS-j4L"/>
@@ -53,7 +54,7 @@
                                                 </constraints>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="CnP-b7-rJQ"/>
                                             <constraint firstAttribute="height" constant="60" id="Ilf-GB-YYZ"/>
@@ -75,6 +76,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="2kf-Pk-67Q"/>
                         <constraints>
                             <constraint firstItem="PvL-ea-GFd" firstAttribute="top" secondItem="XQO-89-bl0" secondAttribute="top" id="18j-Bw-gS4"/>
                             <constraint firstItem="PvL-ea-GFd" firstAttribute="leading" secondItem="XQO-89-bl0" secondAttribute="leading" id="ICI-wR-iH5"/>
@@ -82,7 +84,6 @@
                             <constraint firstItem="PvL-ea-GFd" firstAttribute="leading" secondItem="2kf-Pk-67Q" secondAttribute="leading" id="oqg-OS-Def"/>
                             <constraint firstItem="PvL-ea-GFd" firstAttribute="height" secondItem="XQO-89-bl0" secondAttribute="height" id="zls-HG-qBT"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="2kf-Pk-67Q"/>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="NcP-OZ-HEz" id="6XM-km-ucN"/>
@@ -151,19 +152,19 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Ic-HN-0Kr" userLabel="Total Time">
-                                <rect key="frame" x="17" y="203" width="87" height="27"/>
+                                <rect key="frame" x="17" y="203" width="86" height="27"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="•" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nqp-OP-o96" userLabel="Bullet Point 1">
-                                <rect key="frame" x="104" y="207.5" width="7" height="18.5"/>
+                                <rect key="frame" x="103" y="207.5" width="7" height="18.5"/>
                                 <color key="textColor" red="0.83520287280000005" green="0.83534681799999999" blue="0.83519369359999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DWJ-7L-u1l" userLabel="Total Distance">
-                                <rect key="frame" x="116" y="207.5" width="73" height="22"/>
+                                <rect key="frame" x="115" y="207.5" width="73" height="22"/>
                                 <color key="textColor" red="0.66640001540000005" green="0.670122683" blue="0.69909846779999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -186,7 +187,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sh-LK-9pK" userLabel="Go Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sh-LK-9pK" userLabel="Go Button">
                                 <rect key="frame" x="315" y="191" width="81" height="81"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="81" id="Y8W-9M-fBM"/>
@@ -198,6 +199,7 @@
                                 </state>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="iSt-0R-T6v"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="DWJ-7L-u1l" firstAttribute="leading" secondItem="nqp-OP-o96" secondAttribute="trailing" constant="5" id="0cW-9I-I2k"/>
@@ -228,7 +230,6 @@
                             <constraint firstItem="Ptd-II-SYR" firstAttribute="top" secondItem="iSt-0R-T6v" secondAttribute="top" constant="20" id="soC-h7-uHa"/>
                             <constraint firstItem="2FL-rX-pbN" firstAttribute="trailing" secondItem="iSt-0R-T6v" secondAttribute="trailing" id="zZg-Hx-tTk"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="iSt-0R-T6v"/>
                     </view>
                     <connections>
                         <outlet property="goButton" destination="5sh-LK-9pK" id="phP-Sv-Pdb"/>
@@ -243,5 +244,8 @@
         <image name="bus" width="197" height="197"/>
         <image name="close" width="128" height="128"/>
         <image name="research_direction" width="197" height="197"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:393974196f1210952139501b5b897a003c7ac8c2c7436cce8b8922211571a0fb
-size 386
+//
+//  GADMuteThisAdReason.h
+//  Google Mobile Ads SDK
+//
+//  Copyright 2018 Google LLC. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+/// Reason for muting the ad.
+@interface GADMuteThisAdReason : NSObject
+
+/// Text that describes the reason for muting this ad. For example "Ad Covered Content".
+@property(nonatomic, readonly, nonnull) NSString *reasonDescription;
+
+@end

@@ -12,10 +12,23 @@ import CoreLocation
 import Alamofire
 import FloatingPanel
 
-class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDelegate, FloatingPanelControllerDelegate, LocationListenerDelegate {
+protocol SelectPanelDelegate {
+   func showRouteInfoPanel()
+}
+
+class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDelegate, FloatingPanelControllerDelegate, LocationListenerDelegate, SelectPanelDelegate {
+    
+    
+    func showRouteInfoPanel() {
+       hidePlaceInfoPanel()
+       showRouteInfoScreen()
+    }
+    
    
+    @IBOutlet weak var routeInfoPanel: UIView!
     
-    
+    var mainPanelFpc: FloatingPanelController!
+    var placeInfoPanelFpc: FloatingPanelController!
     
     @IBOutlet var settingButtonContainer: UIView!
     @IBOutlet var findCurrentLocationButtonContainer: UIView!
@@ -33,10 +46,14 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     //var userLocation:CLLocation?
     
    
- 
+    var panelType: Int = 0
+    let MAIN: Int = 0
+    let PLACE_INFO: Int = 1
     
-     
-        
+    // 경로정보화면
+    @IBOutlet var goButton: UIView!
+    @IBOutlet var closeButton: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad() 
         initLocationManager()
@@ -44,7 +61,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         addTapListenerTest()
         initMapView()
         initGoogleMapDrawingManager()
-        showPanelTest()
+        showMainPanel()
         initInternetConnectionChecker()
         
         //drawTicketViewBackground()
@@ -79,33 +96,93 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
-        return MyFloatingPanelLayout()
+        if (panelType == MAIN) {
+            print("plusapps MainPanelLayout")
+        return MainPanelLayout()
+        } else if (panelType == PLACE_INFO) {
+            print("plusapps PlaceInfoPanelLayout")
+            return PlaceInfoPanelLayout()
+        }
+        print("plusapps MainPanelLayout2")
+        return MainPanelLayout()
+    }
+    
+    private func hidePlaceInfoPanel() {
+        // Inform the panel controller that it will be removed from the hierarchy.
+        placeInfoPanelFpc.willMove(toParentViewController: nil)
+            
+        // Hide the floating panel.
+        placeInfoPanelFpc.hide(animated: true) {
+            // Remove the floating panel view from your controller's view.
+            self.placeInfoPanelFpc.view.removeFromSuperview()
+            // Remove the floating panel controller from the controller hierarchy.
+            self.placeInfoPanelFpc.removeFromParentViewController()
+        }
     }
     
     
-    func showPanelTest() {
-       let fpc = FloatingPanelController()
+    private func hideMainPanel() {
+        // Inform the panel controller that it will be removed from the hierarchy.
+        mainPanelFpc.willMove(toParentViewController: nil)
+            
+        // Hide the floating panel.
+        mainPanelFpc.hide(animated: true) {
+            // Remove the floating panel view from your controller's view.
+            self.mainPanelFpc.view.removeFromSuperview()
+            // Remove the floating panel controller from the controller hierarchy.
+            self.mainPanelFpc.removeFromParentViewController()
+        }
+    }
+    
+    private func showPlaceInfoPanel() {
+        print("plusapps showPlaceInfoPanel")
+        panelType = PLACE_INFO
         
-        fpc.delegate = self
+       placeInfoPanelFpc = FloatingPanelController()
         
-        fpc.surfaceView.backgroundColor = HexColorManager.colorWithHexString(hexString: "#333536", alpha: 1)
-        fpc.surfaceView.cornerRadius = 10.0
+        placeInfoPanelFpc.delegate = self
         
-        //TODO 테스트후 삭제하세요
-//        guard let mainPanelViewController = self.storyboard?.instantiateViewController(withIdentifier: "search_nearby_bottom_panel") as? SearchNearbyPanelViewController else {
-//                   return
-//               }
-         //TODO 테스트후 주석푸세요
-        guard let mainPanelViewController = self.storyboard?.instantiateViewController(withIdentifier: "main_bottom_panel") as? MainPanelViewController else {
+        placeInfoPanelFpc.surfaceView.backgroundColor = HexColorManager.colorWithHexString(hexString: "#333536", alpha: 1)
+        placeInfoPanelFpc.surfaceView.cornerRadius = 10.0
+        
+        guard let placeInfoPanelViewController = self.storyboard?.instantiateViewController(withIdentifier: "place_info_panel") as? PlaceInfoPanelViewController else {
+            return
+        }
+        
+        placeInfoPanelViewController.selectPanelDelegate = self
+ 
+        placeInfoPanelFpc.set(contentViewController: placeInfoPanelViewController)
+       
+        
+        placeInfoPanelFpc.addPanel(toParent: self)
+       
+        
+    }
+    
+    private func showMainPanel() {
+        print("plusapps showMainPanel")
+       panelType = MAIN
+        
+       mainPanelFpc = FloatingPanelController()
+        
+        mainPanelFpc.delegate = self
+        
+        mainPanelFpc.surfaceView.backgroundColor = HexColorManager.colorWithHexString(hexString: "#333536", alpha: 1)
+        mainPanelFpc.surfaceView.cornerRadius = 10.0
+        
+       
+        guard let mainPanelViewController = self.storyboard?.instantiateViewController(withIdentifier: "main_panel") as? MainPanelViewController else {
             return
         }
 
         mainPanelViewController.selectPlaceDelegate = self
         
-        fpc.set(contentViewController: mainPanelViewController)
+        mainPanelFpc.set(contentViewController: mainPanelViewController)
        
         
-        fpc.addPanel(toParent: self)
+        mainPanelFpc.addPanel(toParent: self)
+       
+        
         
     }
     
@@ -146,12 +223,41 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         //        Toast.show(message: placeModel.getName() ?? "", controller: self)
         
         
+        showPlaceInfoScreen(placeModel: placeModel)
+        
+    }
+    
+    private func showPlaceInfoScreen(placeModel: PlaceModel) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            self.settingButtonContainer.isHidden = true
             
-            
+            self.findCurrentLocationButtonContainer.isHidden = true
+                       
+            self.hideMainPanel()
+           
+            self.showPlaceInfoPanel()
+                      
             self.selectedPlaceModel = placeModel
             
-            self.googleMapDrawingManager.showSelectedPlaceOnMap(selectedPlaceModel: placeModel)   
+            self.googleMapDrawingManager.showSelectedPlaceOnMap(selectedPlaceModel: placeModel)
+        })
+    }
+    
+    private func showRouteInfoScreen() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            self.routeInfoPanel.isHidden = false
+            let screenWidth = UIScreen.main.bounds.width
+            let routeInfoPanelBackgroundImg = ImageMaker.getRoundRectangleByCorners(width: screenWidth, height: 266, colorHexString: "#333536",byRoundingCorners:[UIRectCorner.topLeft, UIRectCorner.topRight], cornerRadii: 10, alpha: 1.0)
+                
+            self.routeInfoPanel.backgroundColor = UIColor(patternImage: routeInfoPanelBackgroundImg)
+            
+            
+            let goButtonBackgroundImg = ImageMaker.getRoundRectangle(width:81, height: 81, colorHexString: "#228B22", cornerRadius: 10.0, alpha: 1.0)
+            
+            self.goButton.backgroundColor = UIColor(patternImage: goButtonBackgroundImg)
+            
+            let closeButtonBackgroundImg = ImageMaker.getCircle(width: 37, height: 37, colorHexString: "#444447", alpha: 1.0)
+            self.closeButton.backgroundColor = UIColor(patternImage: closeButtonBackgroundImg)
         })
     }
     
@@ -345,7 +451,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
 }
 
-class MyFloatingPanelLayout: FloatingPanelLayout {
+class MainPanelLayout: FloatingPanelLayout {
     public var initialPosition: FloatingPanelPosition {
         return .tip
     }
@@ -355,6 +461,21 @@ class MyFloatingPanelLayout: FloatingPanelLayout {
             case .full: return 16.0 // A top inset from safe area
             case .half: return 500 // A bottom inset from the safe area
             case .tip: return 320// A bottom inset from the safe area
+            default: return nil // Or `case .hidden: return nil`
+        }
+    }
+}
+
+class PlaceInfoPanelLayout: FloatingPanelLayout {
+    public var initialPosition: FloatingPanelPosition {
+        return .tip
+    }
+
+    public func insetFor(position: FloatingPanelPosition) -> CGFloat? {
+        switch position {
+            case .full: return 16.0 // A top inset from safe area
+            case .half: return 500 // A bottom inset from the safe area
+            case .tip: return 100// A bottom inset from the safe area
             default: return nil // Or `case .hidden: return nil`
         }
     }

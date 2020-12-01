@@ -1,3 +1,30 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:988d21579da5dbd6d820f4d2643bfb8667474057fb40863ef294b86d0bfdc72b
-size 1206
+//
+//  GADRTBAdapter.h
+//  Google Mobile Ads SDK
+//
+//  Copyright 2018 Google LLC. All rights reserved.
+//
+
+#import <GoogleMobileAds/Mediation/GADMediationAdapter.h>
+#import <GoogleMobileAds/RTBMediation/GADRTBRequestParameters.h>
+#import <UIKit/UIKit.h>
+
+/// Completion handler for signal generation. Returns either signals or an error object.
+typedef void (^GADRTBSignalCompletionHandler)(NSString *_Nullable signals,
+                                              NSError *_Nullable error);
+
+/// Adapter that provides signals to the Google Mobile Ads SDK to be included in an auction.
+@protocol GADRTBAdapter <GADMediationAdapter>
+
+/// Returns an initialized RTB adapter.
+- (nonnull instancetype)init;
+
+/// Asks the receiver for encrypted signals. Signals are provided to the 3PAS at request time. The
+/// receiver must call completionHandler with signals or an error.
+///
+/// This method is called on a non-main thread. The receiver should avoid using the main thread to
+/// prevent signal collection timeouts.
+- (void)collectSignalsForRequestParameters:(nonnull GADRTBRequestParameters *)params
+                         completionHandler:(nonnull GADRTBSignalCompletionHandler)completionHandler;
+
+@end

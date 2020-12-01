@@ -43,7 +43,6 @@
 		1F308A8824EF7ECA001ED799 /* NotoSansKR-Medium-Hestia.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F308A8724EF7ECA001ED799 /* NotoSansKR-Medium-Hestia.otf */; };
 		1F308A8A24EF7ED9001ED799 /* NotoSansKR-Regular-Hestia.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F308A8924EF7ED9001ED799 /* NotoSansKR-Regular-Hestia.otf */; };
 		1F308ACF24EF9AA5001ED799 /* DistanceStringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F308ACE24EF9AA5001ED799 /* DistanceStringFormatter.swift */; };
-		1F31636624E6818200E1C7EA /* PlaceInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F31636524E6818200E1C7EA /* PlaceInfo.storyboard */; };
 		1F31636824E682A300E1C7EA /* SetPoint.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F31636724E682A300E1C7EA /* SetPoint.storyboard */; };
 		1F31636A24E682E000E1C7EA /* SearchNearby.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F31636924E682E000E1C7EA /* SearchNearby.storyboard */; };
 		1F31636C24E6831D00E1C7EA /* Navigation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F31636B24E6831D00E1C7EA /* Navigation.storyboard */; };
@@ -122,7 +121,6 @@
 		1F308A8724EF7ECA001ED799 /* NotoSansKR-Medium-Hestia.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium-Hestia.otf"; sourceTree = "<group>"; };
 		1F308A8924EF7ED9001ED799 /* NotoSansKR-Regular-Hestia.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular-Hestia.otf"; sourceTree = "<group>"; };
 		1F308ACE24EF9AA5001ED799 /* DistanceStringFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceStringFormatter.swift; sourceTree = "<group>"; };
-		1F31636524E6818200E1C7EA /* PlaceInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlaceInfo.storyboard; sourceTree = "<group>"; };
 		1F31636724E682A300E1C7EA /* SetPoint.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SetPoint.storyboard; sourceTree = "<group>"; };
 		1F31636924E682E000E1C7EA /* SearchNearby.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchNearby.storyboard; sourceTree = "<group>"; };
 		1F31636B24E6831D00E1C7EA /* Navigation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Navigation.storyboard; sourceTree = "<group>"; };
@@ -367,7 +365,6 @@
 			children = (
 				1F8E05DF24E0E631000953A2 /* PlaceInfoViewController.swift */,
 				1F8E05E124E0E672000953A2 /* PlaceInfoPanelViewController.swift */,
-				1F31636524E6818200E1C7EA /* PlaceInfo.storyboard */,
 			);
 			path = place_info;
 			sourceTree = "<group>";
@@ -491,7 +488,6 @@
 				1F6A212F24DBAD1600C004B3 /* Localizable.strings in Resources */,
 				1F31636E24E6834900E1C7EA /* RouteInfo.storyboard in Resources */,
 				1F31636A24E682E000E1C7EA /* SearchNearby.storyboard in Resources */,
-				1F31636624E6818200E1C7EA /* PlaceInfo.storyboard in Resources */,
 				1F308A8A24EF7ED9001ED799 /* NotoSansKR-Regular-Hestia.otf in Resources */,
 				1F308A8824EF7ECA001ED799 /* NotoSansKR-Medium-Hestia.otf in Resources */,
 				1F31637224E683F000E1C7EA /* Setting.storyboard in Resources */,

@@ -1,3 +1,24 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:04e13781dc44f80f6b579afacd88f6593a440313da455cd36684a59c99805dc8
-size 839
+//
+//  GADNativeAdViewAdOptions.h
+//  Google Mobile Ads SDK
+//
+//  Copyright 2016 Google LLC. All rights reserved.
+//
+
+#import <GoogleMobileAds/GADAdLoader.h>
+
+/// Position of the AdChoices icon in the containing ad.
+typedef NS_ENUM(NSInteger, GADAdChoicesPosition) {
+  GADAdChoicesPositionTopRightCorner,     ///< Top right corner.
+  GADAdChoicesPositionTopLeftCorner,      ///< Top left corner.
+  GADAdChoicesPositionBottomRightCorner,  ///< Bottom right corner.
+  GADAdChoicesPositionBottomLeftCorner    ///< Bottom Left Corner.
+};
+
+/// Ad loader options for configuring the view of native ads.
+@interface GADNativeAdViewAdOptions : GADAdLoaderOptions
+
+/// Indicates preferred location of AdChoices icon. Default is GADAdChoicesPositionTopRightCorner.
+@property(nonatomic, assign) GADAdChoicesPosition preferredAdChoicesPosition;
+
+@end

@@ -9,6 +9,8 @@
 import UIKit
 
 class PlaceInfoPanelViewController: UIViewController {
+    
+    var selectPanelDelegate:SelectPanelDelegate?
 
     @IBOutlet var closeButton: UIView!
      @IBOutlet var addToFavoritesButton: UIView!
@@ -53,6 +55,13 @@ class PlaceInfoPanelViewController: UIViewController {
         
         //TODO  AddToFavorite icon 구현하세요
     }
+    
+   
+    @IBAction func onFindRouteButtonClicked(_ sender: Any) {
+        selectPanelDelegate?.showRouteInfoPanel()
+    }
+    
+    
     /*
     // MARK: - Navigation
 

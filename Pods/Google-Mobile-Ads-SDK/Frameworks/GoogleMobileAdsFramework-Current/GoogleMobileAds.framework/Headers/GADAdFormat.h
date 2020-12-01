@@ -1,3 +1,17 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:93bb89ee0e939efd0a52455ddafcca7a1662e6d528dcc4f56e7d85cb20e6cee5
-size 479
+//
+//  GADAdFormat.h
+//  Google Mobile Ads SDK
+//
+//  Copyright 2018 Google LLC. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+/// Requested ad format.
+typedef NS_ENUM(NSInteger, GADAdFormat) {
+  GADAdFormatBanner,                ///< Banner.
+  GADAdFormatInterstitial,          ///< Interstitial.
+  GADAdFormatRewarded,              ///< Rewarded.
+  GADAdFormatNative,                ///< Native.
+  GADAdFormatRewardedInterstitial,  ///< Rewarded interstitial.
+};

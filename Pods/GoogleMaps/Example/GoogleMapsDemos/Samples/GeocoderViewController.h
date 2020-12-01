@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:09a26dadf58df20688fda55b5e1756e17d45d7385e9062cc63f5317e0dfa30ed
-size 754
+/*
+ * Copyright 2016 Google LLC. All rights reserved.
+ *
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
+ * file except in compliance with the License. You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
+ * ANY KIND, either express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
+#import <UIKit/UIKit.h>
+
+#import <GoogleMaps/GoogleMaps.h>
+
+@interface GeocoderViewController : UIViewController <GMSMapViewDelegate>
+
+@end

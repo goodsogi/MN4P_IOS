@@ -1,3 +1,2 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0f7f7f0bfb50c9cf0a01f1783538df0404f0ae2bb53c79a22ae927444f3fee0a
-size 189
+${PODS_ROOT}/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS-resources.sh
+${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle

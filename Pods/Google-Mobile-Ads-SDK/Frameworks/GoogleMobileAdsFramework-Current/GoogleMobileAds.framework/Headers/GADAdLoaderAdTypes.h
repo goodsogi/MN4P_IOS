@@ -1,3 +1,24 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6ef11d16cdf56c97b77bb5c5ca62f84eb1ba6783dfb802e547fd74f486c362da
-size 1074
+//
+//  GADAdLoaderAdTypes.h
+//  Google Mobile Ads SDK
+//
+//  Copyright 2015 Google LLC. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <GoogleMobileAds/GoogleMobileAdsDefines.h>
+
+typedef NSString *GADAdLoaderAdType NS_STRING_ENUM;
+
+/// Use with GADAdLoader to request native custom template ads. To receive ads, the ad loader's
+/// delegate must conform to the GADNativeCustomTemplateAdLoaderDelegate protocol. See
+/// GADNativeCustomTemplateAd.h.
+GAD_EXTERN GADAdLoaderAdType _Nonnull const kGADAdLoaderAdTypeNativeCustomTemplate;
+
+/// Use with GADAdLoader to request Google Ad Manager banner ads. To receive ads, the ad loader's
+/// delegate must conform to the DFPBannerAdLoaderDelegate protocol. See DFPBannerView.h.
+GAD_EXTERN GADAdLoaderAdType _Nonnull const kGADAdLoaderAdTypeDFPBanner;
+
+/// Use with GADAdLoader to request native ads. To receive ads, the ad loader's delegate must
+/// conform to the GADUnifiedNativeAdLoaderDelegate protocol. See GADUnifiedNativeAd.h.
+GAD_EXTERN GADAdLoaderAdType _Nonnull const kGADAdLoaderAdTypeUnifiedNative;

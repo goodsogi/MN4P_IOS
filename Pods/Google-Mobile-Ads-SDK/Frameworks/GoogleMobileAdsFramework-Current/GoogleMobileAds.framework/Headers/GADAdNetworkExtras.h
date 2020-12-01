@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d53b713e51f64df940fc7753b705d7307cc79f7a131bda6e8d2edd27efc37fe4
-size 443
+//
+//  GADAdNetworkExtras.h
+//  Google Mobile Ads SDK
+//
+//  Copyright 2012 Google LLC. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+/// An object implementing this protocol contains information set by the publisher on the client
+/// device for a particular ad network.
+///
+/// Ad networks should create an 'extras' object implementing this protocol for their publishers to
+/// use.
+@protocol GADAdNetworkExtras <NSObject>
+@end

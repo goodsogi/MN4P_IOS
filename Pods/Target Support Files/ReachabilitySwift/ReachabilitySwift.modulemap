@@ -1,3 +1,6 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a7fd70d43d0b43bbd6a040df2b883e681865087c7f7ad6c95812838f2aab7def
-size 119
+framework module Reachability {
+  umbrella header "ReachabilitySwift-umbrella.h"
+
+  export *
+  module * { export * }
+}

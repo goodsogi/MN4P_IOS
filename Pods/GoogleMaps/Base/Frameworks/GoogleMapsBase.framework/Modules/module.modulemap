@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:27533dfc0e8b0aa2ba63b238bfc5280e7535a9114cf057938e1783d1a64965e9
-size 359
+framework module GoogleMapsBase {
+  umbrella header "GoogleMapsBase.h"
+  export *
+  module * { export * }
+  link "z"
+  link framework "CoreFoundation"
+  link framework "CoreLocation"
+  link framework "CoreTelephony"
+  link framework "CoreText"
+  link framework "Foundation"
+  link framework "QuartzCore"
+  link framework "Security"
+  link framework "UIKit"
+}
