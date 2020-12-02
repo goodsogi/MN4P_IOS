@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qn2-7H-gB4" userLabel="Arrival Time">
-                                <rect key="frame" x="20" y="73" width="50" height="27"/>
+                                <rect key="frame" x="20" y="73" width="50" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="L4F-ZD-GN5"/>
                                 </constraints>
@@ -26,13 +27,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="arrival" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a48-Sb-iOS" userLabel="Arrival Time Label">
-                                <rect key="frame" x="17" y="100" width="53" height="24"/>
+                                <rect key="frame" x="17" y="101" width="53" height="24"/>
                                 <color key="textColor" red="0.48968815799999998" green="0.50583010910000004" blue="0.51415866610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c9g-ya-FOq" userLabel="Remaining Time">
-                                <rect key="frame" x="114" y="73" width="30" height="27"/>
+                                <rect key="frame" x="114" y="73" width="30" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="Ht2-gd-Dgg"/>
                                 </constraints>
@@ -41,13 +42,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="min" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KvR-IP-i2N" userLabel="Remaining Time Label">
-                                <rect key="frame" x="112" y="100" width="32" height="24"/>
+                                <rect key="frame" x="112" y="101" width="32" height="24"/>
                                 <color key="textColor" red="0.48968815799999998" green="0.50583010910000004" blue="0.51415866610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N7C-cW-idg" userLabel="Remaining Distance">
-                                <rect key="frame" x="188" y="73" width="30" height="27"/>
+                                <rect key="frame" x="188" y="73" width="30" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="9bW-bs-MD0"/>
                                 </constraints>
@@ -56,12 +57,12 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="min" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hV8-0t-N99" userLabel="Remaining Distance Label">
-                                <rect key="frame" x="186" y="100" width="32" height="24"/>
+                                <rect key="frame" x="186" y="101" width="32" height="24"/>
                                 <color key="textColor" red="0.48968815799999998" green="0.50583010910000004" blue="0.51415866610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Igp-rY-hTp" userLabel="Finish Navigation Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Igp-rY-hTp" userLabel="Finish Navigation Button">
                                 <rect key="frame" x="306" y="64" width="90" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="iX9-LY-IJJ"/>
@@ -90,7 +91,7 @@
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="102" id="VcM-br-gN2"/>
                                     <constraint firstItem="XKp-Fx-HOq" firstAttribute="centerY" secondItem="nj8-ob-ZDK" secondAttribute="centerY" id="bjz-iN-BCF"/>
@@ -109,7 +110,7 @@
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="ahD-Sf-h2t" firstAttribute="centerY" secondItem="dad-hU-v9l" secondAttribute="centerY" id="8Pn-Ex-Ljq"/>
                                     <constraint firstAttribute="height" constant="102" id="QbV-Bw-eFc"/>
@@ -118,6 +119,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="BbA-Bc-6ZE"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="dad-hU-v9l" firstAttribute="leading" secondItem="nj8-ob-ZDK" secondAttribute="trailing" constant="50" id="0V6-cm-R9G"/>
@@ -142,7 +144,6 @@
                             <constraint firstItem="Qn2-7H-gB4" firstAttribute="top" secondItem="BbA-Bc-6ZE" secondAttribute="top" constant="29" id="sRF-3K-2S4"/>
                             <constraint firstItem="a48-Sb-iOS" firstAttribute="top" secondItem="Qn2-7H-gB4" secondAttribute="bottom" id="x1h-E2-7QL"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="BbA-Bc-6ZE"/>
                     </view>
                     <connections>
                         <outlet property="arrivalTimeTextWidthConstraint" destination="L4F-ZD-GN5" id="nK1-qK-71z"/>
@@ -186,8 +187,8 @@
                                             </imageView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vHf-Bc-fhB" userLabel="Direction Text">
                                                 <rect key="frame" x="102" y="5" width="297" height="105"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="textColor" systemColor="labelColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
@@ -217,7 +218,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="DGq-BA-3i7"/>
                                             <constraint firstAttribute="height" constant="60" id="VFw-Xp-bsZ"/>
@@ -244,6 +245,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="4FA-l4-gdy"/>
                         <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="BlI-Y2-9Vm" firstAttribute="leading" secondItem="nOe-LX-Ude" secondAttribute="leading" id="XyN-kA-Tvj"/>
@@ -251,7 +253,6 @@
                             <constraint firstItem="BlI-Y2-9Vm" firstAttribute="top" secondItem="nOe-LX-Ude" secondAttribute="top" id="kUn-Fv-00r"/>
                             <constraint firstItem="BlI-Y2-9Vm" firstAttribute="width" secondItem="nOe-LX-Ude" secondAttribute="width" id="okj-iK-fvv"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="4FA-l4-gdy"/>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="zed-be-C6Y" id="Cns-yb-Gmp"/>
@@ -267,5 +268,11 @@
         <image name="overview" width="128" height="110"/>
         <image name="research_direction" width="197" height="197"/>
         <image name="street_view" width="128" height="128"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

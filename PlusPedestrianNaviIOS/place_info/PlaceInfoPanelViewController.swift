@@ -10,7 +10,7 @@ import UIKit
 
 class PlaceInfoPanelViewController: UIViewController {
     
-    var selectPanelDelegate:SelectPanelDelegate?
+    var selectScreenDelegate:SelectScreenDelegate?
 
     @IBOutlet var closeButton: UIView!
      @IBOutlet var addToFavoritesButton: UIView!
@@ -58,7 +58,7 @@ class PlaceInfoPanelViewController: UIViewController {
     
    
     @IBAction func onFindRouteButtonClicked(_ sender: Any) {
-        selectPanelDelegate?.showRouteInfoPanel()
+        selectScreenDelegate?.showRouteInfoScreen()
     }
     
     

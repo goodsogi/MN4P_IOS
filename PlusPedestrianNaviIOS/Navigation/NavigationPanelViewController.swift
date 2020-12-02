@@ -10,9 +10,11 @@ import UIKit
 
 class NavigationPanelViewController: UIViewController {
 
-     @IBOutlet var showOverviewButton: UIView!
-     @IBOutlet var showStreetViewButton: UIView!
-     @IBOutlet var finishNavigationButton: UIView!
+    var selectScreenDelegate:SelectScreenDelegate?
+    
+    @IBOutlet var showOverviewButton: UIView!
+    @IBOutlet var showStreetViewButton: UIView!
+    @IBOutlet var finishNavigationButton: UIView!
     
     
     @IBOutlet weak var arrivalTimeTextWidthConstraint: NSLayoutConstraint!
