@@ -124,7 +124,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
     
     func onPlaceTableViewTapped(row: Int) {
         if let delegate = self.selectPlaceDelegate {
-            delegate.onPlaceSelected(placeModel: placeModels[row], searchType: searchType ?? SearchPlaceViewController.PLACE)
+            delegate.onPlaceSelected(placeModel: placeModels[row], searchType: Mn4pSharedDataStore.searchType ?? SearchPlaceViewController.PLACE)
         }
         self.dismiss(animated: true)
     }
@@ -141,7 +141,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
             placeModel.setDistance(distance: searchPlaceHistoryDatas?[row].distance ?? 0)
             placeModel.setTelNo(telNo: searchPlaceHistoryDatas?[row].telNo ?? "")
             
-            delegate.onPlaceSelected(placeModel: placeModels[row], searchType: searchType ?? SearchPlaceViewController.PLACE)
+            delegate.onPlaceSelected(placeModel: placeModels[row], searchType: Mn4pSharedDataStore.searchType ?? SearchPlaceViewController.PLACE)
         }
         self.dismiss(animated: true)
     }
@@ -651,7 +651,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
     //
     //********************************************************************************************************
     
-    var searchType:Int?
+    
     var placeName:String?
     //Swift에서 static은 final이기 때문에 final이라고 선언하면 안되는 듯
     public static let PLACE: Int = 0;
@@ -723,7 +723,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
     @objc func yourLocationButtonTapped(_ sender: UITapGestureRecognizer) {
         if let delegate = self.selectPlaceDelegate {
             let placeModel = getPlaceModelWithCurrentLocation()
-            delegate.onPlaceSelected(placeModel: placeModel!, searchType: searchType ?? SearchPlaceViewController.PLACE)
+            delegate.onPlaceSelected(placeModel: placeModel!, searchType: Mn4pSharedDataStore.searchType ?? SearchPlaceViewController.PLACE)
         }
         self.dismiss(animated: true)
     }
@@ -738,7 +738,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
     private func createLayout() {
         print("createLayout")
         
-        switch (searchType) {
+        switch (Mn4pSharedDataStore.searchType) {
         //static 변수를 그냥 사용하면 오류 발생
         //SearchPlaceViewController.PLACE 이렇게 ViewController를 명시해야 함
         case SearchPlaceViewController.PLACE:

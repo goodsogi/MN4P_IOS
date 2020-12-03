@@ -151,5 +151,30 @@ class UserDefaultManager {
         placeModel.setDistance(distance: distance);
                return placeModel;
     }
+    
+    public static func getWorkModel() -> PlaceModel {
+        let name: String =  getString(key: KEY_WORK_NAME,defaultValue: "")
+        let bizName: String =  getString(key: KEY_WORK_BIZNAME, defaultValue: "")
+        let latitudeString: String =  getString(key: KEY_WORK_LATITUDE,defaultValue: "0")
+        let latitude: Double = NumberFormatter().number(from: latitudeString)!.doubleValue
+        let longitudeString: String =  getString(key: KEY_WORK_LONGITUDE,defaultValue: "0")
+        let longitude: Double = NumberFormatter().number(from: longitudeString)!.doubleValue
+        
+        let address: String =  getString(key: KEY_WORK_ADDRESS,defaultValue: "")
+        let telNo: String =  getString(key: KEY_WORK_PHONE,defaultValue: "")
+        let distanceString: String =  getString(key: KEY_WORK_DISTANCE,defaultValue: "0")
+        let distance: Int = NumberFormatter().number(from: distanceString)!.intValue
+        
+        
+        let placeModel: PlaceModel = PlaceModel();
+        placeModel.setName(name: name);
+               placeModel.setBizname(bizName:bizName);
+        placeModel.setLatitude(latitude: latitude);
+        placeModel.setLongitude(longitude: longitude);
+        placeModel.setAddress(address: address);
+        placeModel.setTelNo(telNo: telNo);
+        placeModel.setDistance(distance: distance);
+               return placeModel;
+    }
 }
 

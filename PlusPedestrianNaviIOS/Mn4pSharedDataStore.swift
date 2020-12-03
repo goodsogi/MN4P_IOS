@@ -8,6 +8,6 @@
 import CoreLocation
 
 public class Mn4pSharedDataStore {
-    public static var placeModel: PlaceModel?
-
+    static var placeModel: PlaceModel?
+    static var searchType: Int?
 }

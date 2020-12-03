@@ -178,11 +178,25 @@ class MainPanelViewController: UIViewController {
     }
     
     @objc func onWorkButtonTapped(_ sender: UITapGestureRecognizer) {
+        let isWorkSet: Bool = UserDefaultManager.isWorkSet()
         
+        if (isWorkSet) {
+            let placeModel: PlaceModel = UserDefaultManager.getWorkModel()
+            Mn4pSharedDataStore.placeModel = placeModel
+            selectScreenDelegate?.showRouteInfoScreen()
+        } else {
+            UserDefaultManager.saveIsFromSettingFragment(value: false)
+            Mn4pSharedDataStore.searchType = SearchPlaceViewController.WORK
+            showScreenOnOtherStoryboard(storyboardName: "SearchPlace", viewControllerStoryboardId: "search_place")
+        }
     }
     
     @objc func onMyFavoritesButtonTapped(_ sender: UITapGestureRecognizer) {
+        let hasFavorites: Bool = RealmManager.sharedInstance.hasFavorites()
         
+        if (hasFavorites) {
+            showScreenOnOtherStoryboard(storyboardName: "Favorites", viewControllerStoryboardId: "favorites")
+        }
     }
     
     private func showScreenOnOtherStoryboard(storyboardName:String, viewControllerStoryboardId:String) {
@@ -191,8 +205,7 @@ class MainPanelViewController: UIViewController {
         
         if(viewControllerStoryboardId == "search_place") {
             (viewController as! SearchPlaceViewController).selectPlaceDelegate  = selectPlaceDelegate
-            (viewController as! SearchPlaceViewController).searchType  = SearchPlaceViewController.PLACE
-        }
+             }
         
         self.present(viewController, animated: true, completion: nil)
         
