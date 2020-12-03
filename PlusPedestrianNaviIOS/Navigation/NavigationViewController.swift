@@ -499,7 +499,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     private func showCurrentLocationOnMap() {
         
         
-        googleMapDrawingManager.showFirstCurrentLocationOnMap(userLocation: userLocation! , isNavigationViewController: true)
+        googleMapDrawingManager.moveMapToPosition(userLocation: userLocation! , isNavigationViewController: true)
         
     }
     

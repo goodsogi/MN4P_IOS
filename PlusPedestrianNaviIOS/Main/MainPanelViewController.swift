@@ -9,7 +9,7 @@
 import UIKit
 
 class MainPanelViewController: UIViewController {
-
+    var selectScreenDelegate:SelectScreenDelegate?
     @IBOutlet var mainPanelView: UIView!
     
     @IBOutlet weak var searchBar: UIView!
@@ -19,9 +19,13 @@ class MainPanelViewController: UIViewController {
     
     @IBOutlet weak var workButton: UIView!
     
+    @IBOutlet weak var homeIcon: UIImageView!
+    
+    @IBOutlet weak var workIcon: UIImageView!
     
     @IBOutlet weak var myFavoritesButton: UIView!
     
+    @IBOutlet weak var myFavoriteIcon: UIImageView!
     
     @IBOutlet var restaurantButton: UIView!
     @IBOutlet var cafeButton: UIView!
@@ -46,10 +50,10 @@ class MainPanelViewController: UIViewController {
     weak var selectPlaceDelegate: SelectPlaceDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         makeLayout()
-        addTapListenerTest()
+        addTapListenerToButtons()
     }
     
     private func makeLayout() {
@@ -62,18 +66,43 @@ class MainPanelViewController: UIViewController {
         let homeButtonBackgroundImg = ImageMaker.getCircle(width: 76, height: 76, colorHexString: "#4e5051", alpha: 1.0)
         homeButton.backgroundColor = UIColor(patternImage: homeButtonBackgroundImg)
         
+        let isHomeSet: Bool = UserDefaultManager.isHomeSet()
+        
+        if (isHomeSet) {
+            homeIcon.image = UIImage(named:"home_set")
+        } else {
+            homeIcon.image = UIImage(named:"home_not_set")
+        }             
+        
         
         let workButtonBackgroundImg = ImageMaker.getCircle(width: 76, height: 76, colorHexString: "#4e5051", alpha: 1.0)
         workButton.backgroundColor = UIColor(patternImage: workButtonBackgroundImg)
         
+        let isWorkSet: Bool = UserDefaultManager.isWorkSet()
+        
+        if (isWorkSet) {
+            workIcon.image = UIImage(named:"work_set")
+        } else {
+            workIcon.image = UIImage(named:"work_not_set")
+        }
         
         let myFavoritesButtonBackgroundImg = ImageMaker.getCircle(width: 76, height: 76, colorHexString: "#4e5051", alpha: 1.0)
         myFavoritesButton.backgroundColor = UIColor(patternImage: myFavoritesButtonBackgroundImg)
         
-        let restaurantIconContainerBackgroundImg = ImageMaker.getCircle(width: 48, height: 48, colorHexString: "#4285f4", alpha: 1.0)
-               restaurantIconContainer.backgroundColor = UIColor(patternImage: restaurantIconContainerBackgroundImg)
+        let hasFavorites: Bool = RealmManager.sharedInstance.hasFavorites()
         
-     
+        if (hasFavorites) {
+            myFavoriteIcon.image = UIImage(named:"favorites")
+        } else {
+            myFavoriteIcon.image = UIImage(named:"no_favorites")
+        }
+        
+        
+        
+        let restaurantIconContainerBackgroundImg = ImageMaker.getCircle(width: 48, height: 48, colorHexString: "#4285f4", alpha: 1.0)
+        restaurantIconContainer.backgroundColor = UIColor(patternImage: restaurantIconContainerBackgroundImg)
+        
+        
         let cafeIconContainerBackgroundImg = ImageMaker.getCircle(width: 48, height: 48, colorHexString: "#ea4335", alpha: 1.0)
         cafeIconContainer.backgroundColor = UIColor(patternImage: cafeIconContainerBackgroundImg)
         
@@ -101,29 +130,71 @@ class MainPanelViewController: UIViewController {
         
     }
     
-    private func addTapListenerTest() {
-               let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.searchBarTapped(_:)))
-               tapGesture.numberOfTapsRequired = 1
-               tapGesture.numberOfTouchesRequired = 1
-               searchBar.addGestureRecognizer(tapGesture)
-               searchBar.isUserInteractionEnabled = true
-       
-           }
-       
-       @objc func searchBarTapped(_ sender: UITapGestureRecognizer) {
-           showScreenOnOtherStoryboard(storyboardName: "SearchPlace", viewControllerStoryboardId: "search_place")
-       }
-
+    private func addTapListenerToButtons() {
+        let searchBarTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onSearchBarTapped(_:)))
+        searchBarTapGesture.numberOfTapsRequired = 1
+        searchBarTapGesture.numberOfTouchesRequired = 1
+        searchBar.addGestureRecognizer(searchBarTapGesture)
+        searchBar.isUserInteractionEnabled = true
+        
+        
+        let homeButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onHomeButtonTapped(_:)))
+        homeButtonTapGesture.numberOfTapsRequired = 1
+        homeButtonTapGesture.numberOfTouchesRequired = 1
+        homeButton.addGestureRecognizer(homeButtonTapGesture)
+        homeButton.isUserInteractionEnabled = true
+        
+        
+        let workButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onWorkButtonTapped(_:)))
+        workButtonTapGesture.numberOfTapsRequired = 1
+        workButtonTapGesture.numberOfTouchesRequired = 1
+        workButton.addGestureRecognizer(workButtonTapGesture)
+        workButton.isUserInteractionEnabled = true
+        
+        
+        let myFavoritesButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onMyFavoritesButtonTapped(_:)))
+        myFavoritesButtonTapGesture.numberOfTapsRequired = 1
+        myFavoritesButtonTapGesture.numberOfTouchesRequired = 1
+        myFavoritesButton.addGestureRecognizer(myFavoritesButtonTapGesture)
+        myFavoritesButton.isUserInteractionEnabled = true
+    }
+    @objc func onSearchBarTapped(_ sender: UITapGestureRecognizer) {
+        Mn4pSharedDataStore.searchType = SearchPlaceViewController.PLACE
+        showScreenOnOtherStoryboard(storyboardName: "SearchPlace", viewControllerStoryboardId: "search_place")
+    }
+    
+    @objc func onHomeButtonTapped(_ sender: UITapGestureRecognizer) {
+        let isHomeSet: Bool = UserDefaultManager.isHomeSet()
+        
+        if (isHomeSet) {
+            let placeModel: PlaceModel = UserDefaultManager.getHomeModel()
+            Mn4pSharedDataStore.placeModel = placeModel
+            selectScreenDelegate?.showRouteInfoScreen()
+        } else {
+            UserDefaultManager.saveIsFromSettingFragment(value: false)
+            Mn4pSharedDataStore.searchType = SearchPlaceViewController.HOME
+            showScreenOnOtherStoryboard(storyboardName: "SearchPlace", viewControllerStoryboardId: "search_place")
+        }
+    }
+    
+    @objc func onWorkButtonTapped(_ sender: UITapGestureRecognizer) {
+        
+    }
+    
+    @objc func onMyFavoritesButtonTapped(_ sender: UITapGestureRecognizer) {
+        
+    }
+    
     private func showScreenOnOtherStoryboard(storyboardName:String, viewControllerStoryboardId:String) {
-            let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
-            let viewController = storyboard.instantiateViewController(withIdentifier: viewControllerStoryboardId)
-            
-            if(viewControllerStoryboardId == "search_place") {
-                (viewController as! SearchPlaceViewController).selectPlaceDelegate  = selectPlaceDelegate
-                (viewController as! SearchPlaceViewController).searchType  = SearchPlaceViewController.PLACE
-            }
-            
-            self.present(viewController, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+        let viewController = storyboard.instantiateViewController(withIdentifier: viewControllerStoryboardId)
+        
+        if(viewControllerStoryboardId == "search_place") {
+            (viewController as! SearchPlaceViewController).selectPlaceDelegate  = selectPlaceDelegate
+            (viewController as! SearchPlaceViewController).searchType  = SearchPlaceViewController.PLACE
+        }
+        
+        self.present(viewController, animated: true, completion: nil)
         
     }
 }

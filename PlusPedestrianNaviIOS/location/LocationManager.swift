@@ -50,7 +50,13 @@ class LocationManager: NSObject,CLLocationManagerDelegate {
     }
     
     public func getCurrentLocation() -> CLLocation? {
-        return location        
+        //TODO 테스트후 삭제하세요
+        //fake location
+        let location:CLLocation? = CLLocation(latitude: 37.58238158377066, longitude: 127.09463025298389)        
+        return location
+       
+        //TODO 테스트후 주석푸세요
+        //return location
     }
     
     public func stopUpdatingLocation() {

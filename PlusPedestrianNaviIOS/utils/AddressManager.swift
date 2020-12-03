@@ -12,25 +12,71 @@ import CoreLocation
 
 public class AddressManager {
     
-    public static func getSimpleAddressForCurrentLocation(location: CLLocation?) -> String {
-        let geoCoder = CLGeocoder()
-        geoCoder.reverseGeocodeLocation(location!) { (placemarks, error) -> Void in
-            if error != nil {
-                NSLog("\(error)")
+//    public static func getSimpleAddressForCurrentLocation(location: CLLocation?, completion: ([CLPlacemark]?, Error?)) -> String {
+//        let geoCoder = CLGeocoder()
+//        var userAddress: String = ""
+//        geoCoder.reverseGeocodeLocation(location!) { (placemarks, error) -> Void in
+//            if error != nil {
+//                NSLog("\(String(describing: error))")
+//                return
+//            }
+//            //TODO: 수정하세요
+//            guard let placemark = placemarks?.first,
+//                let addrList = placemark.addressDictionary?["FormattedAddressLines"] as? [String] else {
+//                    return
+//            }
+//            let subLocalityString: String? = placemark.addressDictionary?["SubLocality"] as? String
+//            let streetString: String? = placemark.addressDictionary?["Street"] as? String
+//            let addressString: String = (subLocalityString ?? "") + " " + (streetString ?? "")
+//            print("plusapps address: " + addressString)
+//            userAddress = addressString
+//        }
+//        
+//        return userAddress
+//        
+//    }    
+  
+
+    
+    public static func getSimpleAddressForCurrentLocation(location: CLLocation, completion: @escaping (String?, Error?) -> Void)  {
+        CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
+            guard let placemarks = placemarks, error == nil else {
+                completion(nil, error)
                 return
             }
-            //TODO: 수정하세요
-            guard let placemark = placemarks?.first,
+            
+            guard let placemark = placemarks.first,
                 let addrList = placemark.addressDictionary?["FormattedAddressLines"] as? [String] else {
+                   completion(nil, nil)
                     return
             }
-            let address = addrList.joined(separator: " ")
-            print(address)           
+            let subLocalityString: String? = placemark.addressDictionary?["SubLocality"] as? String
+            let streetString: String? = placemark.addressDictionary?["Street"] as? String
+            let addressString: String = (subLocalityString ?? "") + " " + (streetString ?? "")
+            print("plusapps address: " + addressString)
+            completion(addressString, nil)
+            
         }
-        
-        return ""
-        
     }
     
-    
+    static func getFullAddressForCurrentLocation(location: CLLocation, completion: @escaping (String?, Error?) -> PlaceModel?) {
+     
+        CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) -> Void in
+            guard let placemarks = placemarks, error == nil else {
+                completion(nil, error)
+                return
+            }
+            
+            guard let placemark = placemarks.first,
+                let addrList = placemark.addressDictionary?["FormattedAddressLines"] as? [String] else {
+                   completion(nil, nil)
+                    return
+            }
+          
+            let addressString = addrList.joined(separator: " ")
+                 completion(addressString, nil)
+        }
+        
+        
+    }
 }

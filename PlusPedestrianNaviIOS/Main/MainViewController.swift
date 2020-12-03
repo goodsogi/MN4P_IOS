@@ -11,19 +11,10 @@ import GoogleMaps
 import CoreLocation
 import Alamofire
 import FloatingPanel
-
-//    private func addTapGestureToFindRouteButton() {
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.findRouteButtonTapped(_:)))
-//        tapGesture.numberOfTapsRequired = 1
-//        tapGesture.numberOfTouchesRequired = 1
-//        findRouteButton.addGestureRecognizer(tapGesture)
-//        findRouteButton.isUserInteractionEnabled = true
-//
-//    }
-
+import AVFoundation
 
 protocol SelectScreenDelegate {
-   func showRouteInfoScreen()
+    func showRouteInfoScreen()
 }
 
 class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDelegate, FloatingPanelControllerDelegate, LocationListenerDelegate, SelectScreenDelegate {
@@ -35,11 +26,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     @IBOutlet weak var mapView: GMSMapView!
     var googleMapDrawingManager:GoogleMapDrawingManager!
     
-    //Location
-    var locationManager:LocationManager?
-    //var isFirstLocation:Bool = true
-    //var userLocation:CLLocation?
-   
+    //TTS 엔진
+    var synthesizer : AVSpeechSynthesizer!
+    
     var panelType: Int = 0
     var previousScreenType: Int = 0
     
@@ -64,18 +53,22 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         previousScreenType = NONE
+        
+        initTTS()
+        
         initLocationManager()
-        makeLayout()
-        addTapListenerTest()
+        
         initMapView()
+        
         initGoogleMapDrawingManager()
-        showMainScreen()
+        
         initInternetConnectionChecker()
         
-        //drawTicketViewBackground()
+        showMainScreen()
         
-     
+        
     }
     
     //안드로이드의 onDestroy와 같음
@@ -83,14 +76,13 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
         super.viewDidDisappear(false)
         
-        //locationManager.stopUpdatingLocation()
     }
     
     
     
     private func initLocationManager() {
-       LocationManager.sharedInstance.initialize()
-       LocationManager.sharedInstance.startUpdatingLocation()
+        LocationManager.sharedInstance.initialize()
+        LocationManager.sharedInstance.startUpdatingLocation()
         LocationManager.sharedInstance.setLocationListener(locationListener: self)
     }
     
@@ -103,7 +95,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     private func initInternetConnectionChecker() {
         InternetConnectionChecker.sharedInstance.run()
     }
-        
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -123,12 +115,12 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     private func showScreen(viewControllerStoryboardId:String) {
         let viewController  = self.storyboard?.instantiateViewController(withIdentifier: viewControllerStoryboardId)
-      
         
-//        if(viewControllerStoryboardId == "FindRoute") {
-//
-//            (viewController as! RouteInfoViewController).selectedPlaceModel  = selectedPlaceModel
-//        }
+        
+        //        if(viewControllerStoryboardId == "FindRoute") {
+        //
+        //            (viewController as! RouteInfoViewController).selectedPlaceModel  = selectedPlaceModel
+        //        }
         
         self.present(viewController!, animated: true, completion: nil)
     }
@@ -136,7 +128,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     private func showScreenOnOtherStoryboard(storyboardName:String, viewControllerStoryboardId:String) {
         let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
         let mainTopBarViewController = storyboard.instantiateViewController(withIdentifier: viewControllerStoryboardId)
-             
+        
         self.present(mainTopBarViewController, animated: true, completion: nil)
     }
     
@@ -160,73 +152,116 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
      메인 화면
      */
     var mainPanelFpc: FloatingPanelController!
-    @IBOutlet var settingButtonContainer: UIView!
-    @IBOutlet var findCurrentLocationButtonContainer: UIView!
-   
-    private func makeLayout() {
+    @IBOutlet var settingButton: UIView!
+    @IBOutlet var findCurrentLocationButton: UIView!
+    
+    private func makeMainScreenLayout() {
         
         let settingButtonContainerBackgroundImg = ImageMaker.getRoundRectangle(width: 60, height: 60, colorHexString: "#333536", cornerRadius: 10.0, alpha: 1.0)
-            
-                      settingButtonContainer.backgroundColor = UIColor(patternImage: settingButtonContainerBackgroundImg)
+        
+        settingButton.backgroundColor = UIColor(patternImage: settingButtonContainerBackgroundImg)
         
         
         let findCurrentLocationButtonContainerBackgroundImg = ImageMaker.getCircle(width: 60, height: 60, colorHexString: "#333536", alpha: 1.0)
-                      findCurrentLocationButtonContainer.backgroundColor = UIColor(patternImage: findCurrentLocationButtonContainerBackgroundImg)
+        findCurrentLocationButton.backgroundColor = UIColor(patternImage: findCurrentLocationButtonContainerBackgroundImg)
         
         
         
     }
     
-   
+    
     
     private func showMainScreen() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             self.hideViewsOnPreviousScreen()
-            self.showMainPanel()
+            self.showViewsOnMainScreen()
+            self.googleMapDrawingManager.setMapPadding(bottomPadding: 240)
             self.previousScreenType = self.MAIN
         })
         
     }
     
+    private func showViewsOnMainScreen() {
+        makeMainScreenLayout()
+        addTapListenerMain()
+        showMainPanel()
+    }
+    
     private func showMainPanel() {
         print("plusapps showMainPanel")
-       panelType = MAIN
+        panelType = MAIN
         
-       mainPanelFpc = FloatingPanelController()
+        mainPanelFpc = FloatingPanelController()
         
         mainPanelFpc.delegate = self
         
         mainPanelFpc.surfaceView.backgroundColor = HexColorManager.colorWithHexString(hexString: "#333536", alpha: 1)
         mainPanelFpc.surfaceView.cornerRadius = 10.0
         
-       
+        
         guard let mainPanelViewController = self.storyboard?.instantiateViewController(withIdentifier: "main_panel") as? MainPanelViewController else {
             return
         }
-
+        
         mainPanelViewController.selectPlaceDelegate = self
         
         mainPanelFpc.set(contentViewController: mainPanelViewController)
-       
         
         mainPanelFpc.addPanel(toParent: self)
-       
+    }
+    
+    private func addTapListenerMain() {
+        let settingButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.settingButtonTapped(_:)))
+        settingButtonTapGesture.numberOfTapsRequired = 1
+        settingButtonTapGesture.numberOfTouchesRequired = 1
+        settingButton.addGestureRecognizer(settingButtonTapGesture)
+        settingButton.isUserInteractionEnabled = true
         
+        let findCurrentLocationButtontapGesture = UITapGestureRecognizer(target: self, action: #selector(self.findCurrentLocationButtonTapped(_:)))
+        findCurrentLocationButtontapGesture.numberOfTapsRequired = 1
+        findCurrentLocationButtontapGesture.numberOfTouchesRequired = 1
+        findCurrentLocationButton.addGestureRecognizer(findCurrentLocationButtontapGesture)
+        findCurrentLocationButton.isUserInteractionEnabled = true
         
     }
     
-    private func addTapListenerTest() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.settingButtonTapped(_:)))
-        tapGesture.numberOfTapsRequired = 1
-        tapGesture.numberOfTouchesRequired = 1
-        settingButtonContainer.addGestureRecognizer(tapGesture)
-        settingButtonContainer.isUserInteractionEnabled = true
-
+    @objc func findCurrentLocationButtonTapped(_ sender: UITapGestureRecognizer) {
+        //TODO  location permission 체크해야 하나?
+        print("plusapps findCurrentLocationButtonTapped")
+        let userLocation: CLLocation? = LocationManager.sharedInstance.getCurrentLocation()
+        if let location = userLocation {
+            showCurrentLocation(userLocation: location)
+            
+            speakCurrentLocation(userLocation: location)
+            
+        }   
+        
     }
-
-@objc func settingButtonTapped(_ sender: UITapGestureRecognizer) {
-    showScreenOnOtherStoryboard(storyboardName: "Setting", viewControllerStoryboardId: "setting")
-}
+    
+    private func showCurrentLocation(userLocation: CLLocation) {
+        
+        googleMapDrawingManager.moveMapToPosition(userLocation: userLocation , isNavigationViewController: false)
+        googleMapDrawingManager.showCurrentLocationMarker(userLocation: userLocation)
+        
+    }
+    
+    private func speakCurrentLocation(userLocation: CLLocation) {
+        
+        AddressManager.getSimpleAddressForCurrentLocation(location: userLocation, completion: {(addressString, error ) in
+                                                            
+                                                            if let error = error {
+                                                                print(error)
+                                                                return
+                                                            }
+                                                            
+                                                            if let addressString = addressString {
+                                                                self.speakTTS(text: addressString)}})        
+     
+    }
+    
+    @objc func settingButtonTapped(_ sender: UITapGestureRecognizer) {
+        showScreenOnOtherStoryboard(storyboardName: "Setting", viewControllerStoryboardId: "setting")
+    }
     
     //    @objc func showFavoritesScreen(_ sender: UITapGestureRecognizer) {
     //        handleDrawer()
@@ -235,17 +270,17 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     //    }
     
     @objc func showSettingsScreen(_ sender: UITapGestureRecognizer) {
-       
+        
         showScreen(viewControllerStoryboardId: "Settings")
         
     }
     
     private func hideViewsOnMainScreen() {
-        settingButtonContainer.isHidden = true
-        findCurrentLocationButtonContainer.isHidden = true
+        settingButton.isHidden = true
+        findCurrentLocationButton.isHidden = true
         hidePanel(fpc: mainPanelFpc)
     }
-
+    
     /*
      장소정보 화면
      */
@@ -257,9 +292,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             
             self.hideViewsOnMainScreen()
-           
+            
             self.showPlaceInfoPanel()
-                      
+            
             self.selectedPlaceModel = placeModel
             
             self.googleMapDrawingManager.showSelectedPlaceOnMap(selectedPlaceModel: placeModel)
@@ -273,7 +308,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         print("plusapps showPlaceInfoPanel")
         panelType = PLACE_INFO
         
-       placeInfoPanelFpc = FloatingPanelController()
+        placeInfoPanelFpc = FloatingPanelController()
         
         placeInfoPanelFpc.delegate = self
         
@@ -285,21 +320,21 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         }
         
         placeInfoPanelViewController.selectScreenDelegate = self
- 
+        
         placeInfoPanelFpc.set(contentViewController: placeInfoPanelViewController)
-       
+        
         
         placeInfoPanelFpc.addPanel(toParent: self)
-       
+        
         
     }
     
-//    @objc func telNoViewTapped(_ sender: UITapGestureRecognizer) {
-//
-//        guard let telUrl = URL(string: "tel://" + selectedPlaceModel.getTelNo()!) else { return }
-//        UIApplication.shared.open(telUrl)
-//
-//    }
+    //    @objc func telNoViewTapped(_ sender: UITapGestureRecognizer) {
+    //
+    //        guard let telUrl = URL(string: "tel://" + selectedPlaceModel.getTelNo()!) else { return }
+    //        UIApplication.shared.open(telUrl)
+    //
+    //    }
     
     private func hideViewsOnPlaceInfoScreen() {
         hidePanel(fpc: placeInfoPanelFpc)
@@ -325,7 +360,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             self.hideViewsOnPlaceInfoScreen()
             self.showViewsOnRouteInfoScreen()
-           
+            
             
             self.previousScreenType = self.ROUTE_INFO
         })
@@ -341,7 +376,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     private func showViewsOnRouteInfoScreen() {
         let screenWidth = UIScreen.main.bounds.width
         let routeInfoPanelBackgroundImg = ImageMaker.getRoundRectangleByCorners(width: screenWidth, height: 266, colorHexString: "#333536",byRoundingCorners:[UIRectCorner.topLeft, UIRectCorner.topRight], cornerRadii: 10, alpha: 1.0)
-            
+        
         self.routeInfoPanel.backgroundColor = UIColor(patternImage: routeInfoPanelBackgroundImg)
         
         
@@ -401,14 +436,14 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         }
         
         navigationPanelViewController.selectScreenDelegate = self
- 
+        
         navigationPanelFpc.set(contentViewController: navigationPanelViewController)
-       
+        
         
         navigationPanelFpc.addPanel(toParent: self)
     }
     
-   
+    
     
     private func hideViewsOnNavigationScreen() {
         directionBoard.isHidden = true
@@ -428,32 +463,14 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         showNavigationPanel()
     }
     
-    
-    
-    
- 
-
-    
-  
-        
-    
-    
-    
-    
-    
-    
-   
-     
-   
-    
     /*
      Panel
      */
-   
+    
     func floatingPanel(_ vc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout? {
         if (panelType == MAIN) {
             print("plusapps MainPanelLayout")
-        return MainPanelLayout()
+            return MainPanelLayout()
         } else if (panelType == PLACE_INFO) {
             print("plusapps PlaceInfoPanelLayout")
             return PlaceInfoPanelLayout()
@@ -468,7 +485,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     private func hidePanel(fpc: FloatingPanelController!) {
         // Inform the panel controller that it will be removed from the hierarchy.
         fpc.willMove(toParentViewController: nil)
-            
+        
         // Hide the floating panel.
         fpc.hide(animated: true) {
             // Remove the floating panel view from your controller's view.
@@ -477,14 +494,14 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             fpc.removeFromParentViewController()
         }
     }
-   
-   
+    
+    
     /*
      Google Map
      */
- 
     
-       
+    
+    
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
@@ -545,25 +562,68 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     /*
      Location
      */
- 
+    
     
     
     func onLocationCatched(location: CLLocation) {
-//          googleMapDrawingManager.showCurrentLocationOnMap(userLocation: location)
-       }
-       
-       func onFirstLocationCatched(location: CLLocation) {
-          googleMapDrawingManager.showFirstCurrentLocationOnMap(userLocation: location , isNavigationViewController: false)
+        
+        //          googleMapDrawingManager.showCurrentLocationOnMap(userLocation: location)
+    }
+    
+    func onFirstLocationCatched(location: CLLocation) {
+        
+        googleMapDrawingManager.moveMapToPosition(userLocation: location , isNavigationViewController: false)
         googleMapDrawingManager.showCurrentLocationMarker(userLocation: location)
         
-       }
-    
-      
+    }
     
     
     
-  
+    /*
+     TTS
+     */
     
+    private func initTTS() {
+        synthesizer = AVSpeechSynthesizer()
+    }
+    private func gainAudioFocus() {
+        
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            //음악 재생용
+            //setCategory와 setMode를 정확히 사용해야함
+            //setCategory와 setMode를 다른 것으로 지정하면 갱신되는 듯
+            try audioSession.setCategory(AVAudioSessionCategoryPlayback)
+            try audioSession.setMode(AVAudioSessionModeDefault)
+            try audioSession.setActive(true)
+        } catch {
+            print("audioSession properties weren't set because of an error.")
+        }
+    }
+    
+    private func loseAudioFocusWithNotify() {
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            //with: .notifyOthersOnDeactivation 파라미터는 setActive를 false로 지정할 때 사용해야 제대로 작동
+            try audioSession.setActive(false, with: .notifyOthersOnDeactivation)
+        } catch {
+            print("audioSession properties weren't set because of an error.")
+        }
+    }
+    private func speakTTS(text: String) {
+        gainAudioFocus()
+        
+        print("plusapps text: " + text)
+        
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.voice = AVSpeechSynthesisVoice(language: "ko-KR")
+        utterance.rate = 0.4
+        
+        synthesizer.speak(utterance)
+        
+        //음악이 재생되고 있는 경우 gainAudioFocus()를 호출한 다음 음성출력하고 loseAudioFocusWithNotify()를 호출해야 음성출력이 끝나면 음악이 다시 재생됨 
+        loseAudioFocusWithNotify()
+    }
     
 }
 
@@ -575,13 +635,13 @@ class MainPanelLayout: FloatingPanelLayout {
     public var initialPosition: FloatingPanelPosition {
         return .tip
     }
-
+    
     public func insetFor(position: FloatingPanelPosition) -> CGFloat? {
         switch position {
-            case .full: return 16.0 // A top inset from safe area
-            case .half: return 500 // A bottom inset from the safe area
-            case .tip: return 320// A bottom inset from the safe area
-            default: return nil // Or `case .hidden: return nil`
+        case .full: return 16.0 // A top inset from safe area
+        case .half: return 500 // A bottom inset from the safe area
+        case .tip: return 320// A bottom inset from the safe area
+        default: return nil // Or `case .hidden: return nil`
         }
     }
 }
@@ -590,13 +650,13 @@ class PlaceInfoPanelLayout: FloatingPanelLayout {
     public var initialPosition: FloatingPanelPosition {
         return .tip
     }
-
+    
     public func insetFor(position: FloatingPanelPosition) -> CGFloat? {
         switch position {
-            case .full: return 16.0 // A top inset from safe area
-            case .half: return 500 // A bottom inset from the safe area
-            case .tip: return 100// A bottom inset from the safe area
-            default: return nil // Or `case .hidden: return nil`
+        case .full: return 16.0 // A top inset from safe area
+        case .half: return 500 // A bottom inset from the safe area
+        case .tip: return 100// A bottom inset from the safe area
+        default: return nil // Or `case .hidden: return nil`
         }
     }
 }
@@ -605,13 +665,13 @@ class NavigationPanelLayout: FloatingPanelLayout {
     public var initialPosition: FloatingPanelPosition {
         return .tip
     }
-
+    
     public func insetFor(position: FloatingPanelPosition) -> CGFloat? {
         switch position {
-            case .full: return 16.0 // A top inset from safe area
-            case .half: return 500 // A bottom inset from the safe area
-            case .tip: return 300// A bottom inset from the safe area
-            default: return nil // Or `case .hidden: return nil`
+        case .full: return 16.0 // A top inset from safe area
+        case .half: return 500 // A bottom inset from the safe area
+        case .tip: return 300// A bottom inset from the safe area
+        default: return nil // Or `case .hidden: return nil`
         }
     }
 }

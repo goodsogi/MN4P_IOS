@@ -328,13 +328,13 @@
                         <outlet property="clearWaypointsButton" destination="3x3-9r-XyK" id="PQh-nB-09b"/>
                         <outlet property="closeButton" destination="vaW-D9-Iz5" id="O8r-Gm-O0k"/>
                         <outlet property="directionBoard" destination="5ph-q1-hHG" id="STw-F0-c63"/>
-                        <outlet property="findCurrentLocationButtonContainer" destination="FL8-zE-MLS" id="loh-bn-aa7"/>
+                        <outlet property="findCurrentLocationButton" destination="FL8-zE-MLS" id="loh-bn-aa7"/>
                         <outlet property="goButton" destination="4yr-LK-IZG" id="oPE-EA-CgD"/>
                         <outlet property="mapView" destination="flQ-yi-35f" id="6y7-Sr-Lw1"/>
                         <outlet property="publicTransportButton" destination="CHh-ok-ECT" id="ePP-9Z-zBY"/>
                         <outlet property="rescanDirectionButton" destination="LK0-ql-cxN" id="WaA-Dt-vE1"/>
                         <outlet property="routeInfoPanel" destination="iP5-7Y-vVs" id="bAu-kN-va7"/>
-                        <outlet property="settingButtonContainer" destination="uTj-Ee-LQy" id="9Rd-i4-WHn"/>
+                        <outlet property="settingButton" destination="uTj-Ee-LQy" id="9Rd-i4-WHn"/>
                         <outlet property="stepDetector" destination="rzA-iS-Bqx" id="Byg-Il-oWA"/>
                     </connections>
                 </viewController>
@@ -946,11 +946,13 @@
                         <outlet property="convenienceStoreButton" destination="URY-oY-1iL" id="Xpi-Sg-yy8"/>
                         <outlet property="convenienceStoreIconContainer" destination="rfj-5C-pTd" id="YoT-Vw-phD"/>
                         <outlet property="homeButton" destination="wYd-h4-PU3" id="yvg-oQ-HZu"/>
+                        <outlet property="homeIcon" destination="zww-5C-hiQ" id="hJy-wb-BcC"/>
                         <outlet property="hotelButton" destination="Pwd-YV-gxu" id="fbn-gt-s3s"/>
                         <outlet property="hotelIconContainer" destination="VA5-FT-ZxD" id="wbd-XF-JQ7"/>
                         <outlet property="mainPanelView" destination="b8f-nn-14Y" id="xUP-Tx-iKq"/>
                         <outlet property="martButton" destination="1qJ-Uv-PVn" id="ZXW-sb-G0A"/>
                         <outlet property="martIconContainer" destination="Xm4-ES-EVT" id="owN-gi-teV"/>
+                        <outlet property="myFavoriteIcon" destination="HbK-4k-Z79" id="R3z-Jy-YW8"/>
                         <outlet property="myFavoritesButton" destination="6r5-BI-V8m" id="3aa-Tn-elq"/>
                         <outlet property="pharmacyButton" destination="GVs-Hv-AGH" id="fRw-fk-gGY"/>
                         <outlet property="pharmacyIconContainer" destination="kcA-z9-R2M" id="tWK-wS-86o"/>
@@ -960,6 +962,7 @@
                         <outlet property="subwayButton" destination="PBR-gP-PNL" id="ZzL-3G-XwU"/>
                         <outlet property="subwayIconContainer" destination="ouU-Nj-jyD" id="l6a-6j-bPw"/>
                         <outlet property="workButton" destination="8Rq-Sn-okD" id="S8R-Co-vxr"/>
+                        <outlet property="workIcon" destination="E2w-Li-Djm" id="HmY-vM-LqV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VUi-gu-AsI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

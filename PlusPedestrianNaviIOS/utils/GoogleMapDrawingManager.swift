@@ -156,7 +156,7 @@ class GoogleMapDrawingManager {
     }
     
     
-    public func showFirstCurrentLocationOnMap(userLocation: CLLocation , isNavigationViewController : Bool) {
+    public func moveMapToPosition(userLocation: CLLocation , isNavigationViewController : Bool) {
         
         let zoomValue : Float = isNavigationViewController ? 18 : 14
         let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: zoomValue)
@@ -195,8 +195,8 @@ currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.c
     //
     //********************************************************************************************************
     
-    public func setMapPadding(topPadding: CGFloat) {
-        let mapInsets = UIEdgeInsets(top: topPadding, left: 0.0, bottom: 0.0, right: 0.0)
+    public func setMapPadding(bottomPadding: CGFloat) {
+        let mapInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: bottomPadding, right: 0.0)
         mapView.padding = mapInsets
     }
     

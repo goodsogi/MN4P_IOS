@@ -20,4 +20,8 @@ let realm = try! Realm()
        return results
     }
     
+    public func hasFavorites() -> Bool{
+       let results = try! Realm().objects(PlaceModelForRealm.self)
+        return results.count != 0
+    }
 }

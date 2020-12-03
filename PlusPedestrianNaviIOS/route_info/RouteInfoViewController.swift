@@ -557,7 +557,7 @@ class RouteInfoViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     
     private func showCurrentLocationOnMap() {
         
-        googleMapDrawingManager.showFirstCurrentLocationOnMap(userLocation: userLocation! , isNavigationViewController: false)
+        googleMapDrawingManager.moveMapToPosition(userLocation: userLocation! , isNavigationViewController: false)
      
     }
     
