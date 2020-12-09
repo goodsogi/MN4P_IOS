@@ -14,13 +14,13 @@ class SearchPlaceTableViewDataSource: NSObject, UITableViewDataSource {
     //Cannot invoke initializer for type 'Results' with no arguments
     //오류 발생
     //아래처럼 선언해야 함
-    var searchPlaceHistoryData:Results<PlaceModelForRealm>? = nil
+    var searchPlaceHistoryData:Results<PlaceVO>? = nil
     var placeData = [PlaceModel]()
     weak var placeTable: UITableView?
        weak var searchPlaceHistoryTable: UITableView?
      
     
-    init(placeTable:UITableView, searchPlaceHistoryTable:UITableView, placeData: [PlaceModel], searchPlaceHistoryData: Results<PlaceModelForRealm>?) {
+    init(placeTable:UITableView, searchPlaceHistoryTable:UITableView, placeData: [PlaceModel], searchPlaceHistoryData: Results<PlaceVO>?) {
         print("tableview data: ", searchPlaceHistoryData)
         self.placeTable = placeTable
               self.searchPlaceHistoryTable = searchPlaceHistoryTable

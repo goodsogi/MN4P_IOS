@@ -11,7 +11,7 @@ import UIKit
 class PlaceInfoPanelViewController: UIViewController {
     
     var selectScreenDelegate:SelectScreenDelegate?
-
+    var selectedPlaceModel:PlaceModel?
     @IBOutlet var closeButton: UIView!
      @IBOutlet var addToFavoritesButton: UIView!
      @IBOutlet var callButton: UIView!
@@ -25,11 +25,21 @@ class PlaceInfoPanelViewController: UIViewController {
     @IBOutlet weak var shareButtonWidthConstaint: NSLayoutConstraint!
     
     
+    @IBOutlet weak var placeName: UITextField!
+    
+    @IBOutlet weak var placeDetail: UITextField!
+    
+    @IBOutlet weak var address: UITextField!
+    
+    @IBOutlet weak var phone: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-         makeLayout()
+        makeLayout()
+        fillOutContent()
     }
     
     private func makeLayout() {
@@ -56,6 +66,49 @@ class PlaceInfoPanelViewController: UIViewController {
         //TODO  AddToFavorite icon 구현하세요
     }
     
+    private func fillOutContent() {
+        placeName.text = selectedPlaceModel?.getName()
+     
+        let placeDetailString : String = getPlaceDetailString()
+        placeDetail.text = placeDetailString
+        address.text = selectedPlaceModel?.getAddress()
+        phone.text = selectedPlaceModel?.getTelNo()
+        
+        
+    }
+    
+    private func getPlaceDetailString() -> String{
+        let bizName: String = selectedPlaceModel?.getBizName() ?? ""
+        var distanceString: String = DistanceStringFormatter.getFormattedDistanceWithUnit(distance: selectedPlaceModel?.getDistance() ?? 0)
+        
+        if (distanceString == "0m") {
+            distanceString = ""
+        }
+        
+        var placeDetailString : String = bizName
+        
+        if (bizName == "" || distanceString == "") {
+            
+        } else {
+            placeDetailString.append(" • ")
+        }
+        placeDetailString.append(distanceString)
+        return placeDetailString
+        
+    }
+    
+    private func addTapListenerToButtons() {
+        let closeButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onCloseButtonTapped(_:)))
+        closeButtonTapGesture.numberOfTapsRequired = 1
+        closeButtonTapGesture.numberOfTouchesRequired = 1
+        closeButton.addGestureRecognizer(closeButtonTapGesture)
+        closeButton.isUserInteractionEnabled = true
+    }
+    
+    @IBAction func onCloseButtonTapped(_ sender: Any) {
+        print("plusapps onCloseButtonTapped")
+        selectScreenDelegate?.showMainScreen()
+    }
    
     @IBAction func onFindRouteButtonClicked(_ sender: Any) {
         selectScreenDelegate?.showRouteInfoScreen()

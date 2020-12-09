@@ -1189,10 +1189,14 @@
                     <connections>
                         <outlet property="addToFavoriteButtonWidthConstaint" destination="nCH-4D-oFO" id="REA-bQ-Qam"/>
                         <outlet property="addToFavoritesButton" destination="1DS-dr-KPP" id="V1q-km-rFo"/>
+                        <outlet property="address" destination="igg-hm-wa5" id="q7F-mh-Peb"/>
                         <outlet property="callButton" destination="Uu3-Tf-MSw" id="gWJ-dH-8jw"/>
                         <outlet property="callButtonWidthConstraint" destination="QG3-y3-bI2" id="yhh-Ha-D7m"/>
                         <outlet property="closeButton" destination="U8Q-HF-ulV" id="qCx-uW-Eue"/>
                         <outlet property="findRouteButton" destination="REu-or-OjV" id="tih-Fk-66k"/>
+                        <outlet property="phone" destination="VVD-i8-w1S" id="uwD-m3-5GT"/>
+                        <outlet property="placeDetail" destination="TpV-to-JN1" id="Fvp-9a-5sO"/>
+                        <outlet property="placeName" destination="jNw-8u-Sum" id="zoH-1t-Gat"/>
                         <outlet property="shareButton" destination="YXT-Fh-ZeO" id="Ylu-ci-gVA"/>
                         <outlet property="shareButtonWidthConstaint" destination="LiI-Ep-7NL" id="hw8-lC-ADl"/>
                     </connections>

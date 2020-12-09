@@ -14,6 +14,7 @@ import FloatingPanel
 import AVFoundation
 
 protocol SelectScreenDelegate {
+    func showMainScreen()
     func showRouteInfoScreen()
 }
 
@@ -133,9 +134,13 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     private func hideViewsOnPreviousScreen() {
+        
+        print("plusapps hideViewsOnPreviousScreen 1")
         if (previousScreenType == NONE) {
             return
         }
+        
+        print("plusapps hideViewsOnPreviousScreen 2")
         
         if (previousScreenType == MAIN) {
             hideViewsOnMainScreen()
@@ -171,7 +176,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     
     
-    private func showMainScreen() {
+    internal func showMainScreen() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             self.hideViewsOnPreviousScreen()
             self.showViewsOnMainScreen()
@@ -293,7 +298,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             
             self.hideViewsOnMainScreen()
             
-            self.showPlaceInfoPanel()
+            self.showPlaceInfoPanel(placeModel: placeModel)
             
             self.selectedPlaceModel = placeModel
             
@@ -304,7 +309,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     
-    private func showPlaceInfoPanel() {
+    private func showPlaceInfoPanel(placeModel: PlaceModel) {
         print("plusapps showPlaceInfoPanel")
         panelType = PLACE_INFO
         
@@ -320,6 +325,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         }
         
         placeInfoPanelViewController.selectScreenDelegate = self
+        placeInfoPanelViewController.selectedPlaceModel = placeModel
         
         placeInfoPanelFpc.set(contentViewController: placeInfoPanelViewController)
         
@@ -655,7 +661,7 @@ class PlaceInfoPanelLayout: FloatingPanelLayout {
         switch position {
         case .full: return 16.0 // A top inset from safe area
         case .half: return 500 // A bottom inset from the safe area
-        case .tip: return 100// A bottom inset from the safe area
+        case .tip: return 250// A bottom inset from the safe area
         default: return nil // Or `case .hidden: return nil`
         }
     }

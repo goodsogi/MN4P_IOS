@@ -10,6 +10,7 @@ import CoreLocation
 //CLLocationManagerDelegate를 사용하려면 NSObject를 상속받아야 하는 듯
 class LocationManager: NSObject,CLLocationManagerDelegate {
     //swift에서 singleton 사용하는 방법
+   
     static let sharedInstance = LocationManager()
     var locationManager:CLLocationManager!
     var isFirstLocation:Bool = true
@@ -73,4 +74,6 @@ class LocationManager: NSObject,CLLocationManagerDelegate {
         self.locationListener = locationListener
         
     }
+    
+  
 }

@@ -116,7 +116,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
     @IBOutlet weak var searchPlaceHistoryTable: UITableView!
     var placeModels = [PlaceModel]()
     weak var selectPlaceDelegate: SelectPlaceDelegate?
-    var searchPlaceHistoryDatas: Results<PlaceModelForRealm>?
+    var searchPlaceHistoryDatas: Results<PlaceVO>?
     
     var searchPlaceTableViewDataSource: SearchPlaceTableViewDataSource?
     var searchPlaceTableViewDelegate: SearchPlaceTableViewDelegate?
