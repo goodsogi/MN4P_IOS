@@ -977,13 +977,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jNw-8u-Sum" userLabel="Place Name">
+                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jNw-8u-Sum" userLabel="Place Name">
                                 <rect key="frame" x="19" y="20" width="290" height="33"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TpV-to-JN1" userLabel="Place Detail">
+                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TpV-to-JN1" userLabel="Place Detail">
                                 <rect key="frame" x="19" y="53" width="313" height="24.5"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -1024,13 +1024,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9iv-4M-4Pn" userLabel="Address Phone Section">
                                 <rect key="frame" x="0.0" y="192.5" width="375" height="144"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SLQ-n5-nxz" userLabel="Address Label">
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SLQ-n5-nxz" userLabel="Address Label">
                                         <rect key="frame" x="19" y="19" width="337" height="19.5"/>
                                         <color key="textColor" red="0.48968815799999998" green="0.50583010910000004" blue="0.51415866610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="igg-hm-wa5">
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="igg-hm-wa5">
                                         <rect key="frame" x="19" y="43.5" width="337" height="18.5"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1043,13 +1043,13 @@
                                             <constraint firstAttribute="height" constant="1" id="Ri6-mJ-wAB"/>
                                         </constraints>
                                     </view>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9rG-Ux-wgV" userLabel="Phone Label">
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9rG-Ux-wgV" userLabel="Phone Label">
                                         <rect key="frame" x="19" y="101" width="337" height="19.5"/>
                                         <color key="textColor" red="0.48968815799999998" green="0.50583010910000004" blue="0.51415866610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VVD-i8-w1S" userLabel="Phone">
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VVD-i8-w1S" userLabel="Phone">
                                         <rect key="frame" x="19" y="125.5" width="337" height="18.5"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1086,7 +1086,7 @@
                                             <constraint firstAttribute="height" constant="24" id="DJA-mr-zde"/>
                                         </constraints>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xK3-jF-UaI" userLabel="Add To Favorites Text">
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xK3-jF-UaI" userLabel="Add To Favorites Text">
                                         <rect key="frame" x="0.0" y="42.5" width="100" height="18.5"/>
                                         <color key="textColor" red="0.0" green="0.47100365160000002" blue="0.99917787309999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1114,7 +1114,7 @@
                                             <constraint firstAttribute="width" constant="24" id="EgT-Sl-bfh"/>
                                         </constraints>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Call" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zuG-Qe-Krw" userLabel="Call Phone Text">
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Call" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zuG-Qe-Krw" userLabel="Call Phone Text">
                                         <rect key="frame" x="0.0" y="42.5" width="100" height="18.5"/>
                                         <color key="textColor" red="0.0" green="0.47100365160000002" blue="0.99917787309999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1142,7 +1142,7 @@
                                             <constraint firstAttribute="width" constant="24" id="OGw-kF-9qV"/>
                                         </constraints>
                                     </imageView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Share" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nwc-Bo-Unv" userLabel="Share Text">
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Share" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nwc-Bo-Unv" userLabel="Share Text">
                                         <rect key="frame" x="0.0" y="42.5" width="100" height="18.5"/>
                                         <color key="textColor" red="0.0" green="0.47100365160000002" blue="0.99917787309999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1189,10 +1189,11 @@
                     <connections>
                         <outlet property="addToFavoriteButtonWidthConstaint" destination="nCH-4D-oFO" id="REA-bQ-Qam"/>
                         <outlet property="addToFavoritesButton" destination="1DS-dr-KPP" id="V1q-km-rFo"/>
+                        <outlet property="addToFavoritesIcon" destination="wPO-bn-wmU" id="V9P-Pb-wZl"/>
                         <outlet property="address" destination="igg-hm-wa5" id="q7F-mh-Peb"/>
                         <outlet property="callButton" destination="Uu3-Tf-MSw" id="gWJ-dH-8jw"/>
                         <outlet property="callButtonWidthConstraint" destination="QG3-y3-bI2" id="yhh-Ha-D7m"/>
-                        <outlet property="closeButton" destination="U8Q-HF-ulV" id="qCx-uW-Eue"/>
+                        <outlet property="closeButton" destination="lhl-OL-kxi" id="bU9-fZ-FZU"/>
                         <outlet property="findRouteButton" destination="REu-or-OjV" id="tih-Fk-66k"/>
                         <outlet property="phone" destination="VVD-i8-w1S" id="uwD-m3-5GT"/>
                         <outlet property="placeDetail" destination="TpV-to-JN1" id="Fvp-9a-5sO"/>

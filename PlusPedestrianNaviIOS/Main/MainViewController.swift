@@ -18,7 +18,16 @@ protocol SelectScreenDelegate {
     func showRouteInfoScreen()
 }
 
-class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDelegate, FloatingPanelControllerDelegate, LocationListenerDelegate, SelectScreenDelegate {
+protocol ToastDelegate {
+    func showToast(message: String)
+}
+
+class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDelegate, FloatingPanelControllerDelegate, LocationListenerDelegate, SelectScreenDelegate, ToastDelegate {
+    
+    func showToast(message: String) {
+        Toast.show(message: message, controller: self)
+    }
+    
     
     /*
      공통
@@ -233,6 +242,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     @objc func findCurrentLocationButtonTapped(_ sender: UITapGestureRecognizer) {
         //TODO  location permission 체크해야 하나?
         print("plusapps findCurrentLocationButtonTapped")
+      
         let userLocation: CLLocation? = LocationManager.sharedInstance.getCurrentLocation()
         if let location = userLocation {
             showCurrentLocation(userLocation: location)
@@ -323,7 +333,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         guard let placeInfoPanelViewController = self.storyboard?.instantiateViewController(withIdentifier: "place_info_panel") as? PlaceInfoPanelViewController else {
             return
         }
-        
+        placeInfoPanelViewController.toastDelegate = self
         placeInfoPanelViewController.selectScreenDelegate = self
         placeInfoPanelViewController.selectedPlaceModel = placeModel
         
@@ -333,6 +343,11 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         placeInfoPanelFpc.addPanel(toParent: self)
         
         
+    }
+    
+    @IBAction func onCloseButtonTapped(_ sender: Any) {
+        print("plusapps onCloseButtonTapped")
+        showMainScreen()
     }
     
     //    @objc func telNoViewTapped(_ sender: UITapGestureRecognizer) {

@@ -78,6 +78,7 @@
 		1FF1E5E824F6360F00F196CA /* SearchPlaceHistoryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E5E724F6360F00F196CA /* SearchPlaceHistoryTableCell.swift */; };
 		1FF1E5EA24F63FE900F196CA /* PlaceVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E5E924F63FE900F196CA /* PlaceVO.swift */; };
 		1FF1E5ED24F6422000F196CA /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E5EC24F6422000F196CA /* RealmManager.swift */; };
+		B338C53F25820A5E0003A7C6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B338C53E25820A5E0003A7C6 /* GoogleService-Info.plist */; };
 		B3AFEC812580A5B1004D8529 /* FavoriteVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AFEC802580A5B1004D8529 /* FavoriteVO.swift */; };
 		E5CA30C438E61684791DC7BF /* Pods_PlusPedestrianNaviIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E012498CEAF2062C3035DB05 /* Pods_PlusPedestrianNaviIOS.framework */; };
 /* End PBXBuildFile section */
@@ -158,6 +159,7 @@
 		1FF1E5E924F63FE900F196CA /* PlaceVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceVO.swift; sourceTree = "<group>"; };
 		1FF1E5EC24F6422000F196CA /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		76D48CC66E7E6DC0607E9F6C /* Pods-PlusPedestrianNaviIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.debug.xcconfig"; sourceTree = "<group>"; };
+		B338C53E25820A5E0003A7C6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B3AFEC802580A5B1004D8529 /* FavoriteVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVO.swift; sourceTree = "<group>"; };
 		DE918DF8083130D875EAD52F /* Pods-PlusPedestrianNaviIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.release.xcconfig"; sourceTree = "<group>"; };
 		E012498CEAF2062C3035DB05 /* Pods_PlusPedestrianNaviIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PlusPedestrianNaviIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -215,6 +217,7 @@
 		078BEDC0212E5FFF00D497C9 /* PlusPedestrianNaviIOS */ = {
 			isa = PBXGroup;
 			children = (
+				B338C53E25820A5E0003A7C6 /* GoogleService-Info.plist */,
 				1F2BCA6224F8EB3C00DD010F /* location */,
 				1FF1E5EB24F6420100F196CA /* realm */,
 				1F31637324E684B300E1C7EA /* favorites */,
@@ -483,6 +486,7 @@
 			files = (
 				1F31637024E683B400E1C7EA /* SearchPlace.storyboard in Resources */,
 				1F31636824E682A300E1C7EA /* SetPoint.storyboard in Resources */,
+				B338C53F25820A5E0003A7C6 /* GoogleService-Info.plist in Resources */,
 				078BEDCC212E600100D497C9 /* LaunchScreen.storyboard in Resources */,
 				1F31636C24E6831D00E1C7EA /* Navigation.storyboard in Resources */,
 				1F31637524E684C500E1C7EA /* Favorites.storyboard in Resources */,

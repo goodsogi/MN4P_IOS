@@ -22,14 +22,31 @@ let realm = try! Realm()
     
     /**
      즐겨찾기
-     */
-    public func isPlaceAddedToFavorites() -> Bool{
-       let results = try! Realm().objects(FavoriteVO.self)
+     */  
+    
+    public func isPlaceAddedToFavorites(placeModel: PlaceModel) -> Bool{
+       
+        let latitude = placeModel.getLatitude() ?? 0
+        let longitude = placeModel.getLongitude() ?? 0
+        
+        let results = try! Realm().objects(FavoriteVO.self).filter("latitude = %@ AND longitude = %@", latitude, longitude)
+        print("plusapps isPlaceAddedToFavorites  results.count \( results.count)")
+        
         return results.count != 0
     }
     
-    public func savePlaceToFavorites(placeModel: PlaceModel) {
+    public func addPlaceToFavorites(placeModel: PlaceModel) {
               
+        if (isPlaceAddedToFavorites(placeModel: placeModel)) {
+            deletePlaceOnFavorites(placeModel:placeModel);
+        }
+
+        savePlaceToFavorites(placeModel:placeModel);
+       
+    }
+    
+    public func savePlaceToFavorites(placeModel: PlaceModel) {
+        print("plusapps savePlaceToFavorites")
         let favoriteVO = FavoriteVO()
         
         favoriteVO.name = placeModel.getName()
@@ -50,18 +67,17 @@ let realm = try! Realm()
     
     
     public func deletePlaceOnFavorites(placeModel: PlaceModel) {
-        let favoriteVO = FavoriteVO()
-        
-        favoriteVO.name = placeModel.getName()
-        favoriteVO.bizName = placeModel.getBizName()
-        favoriteVO.latitude = placeModel.getLatitude() ?? 0
-        favoriteVO.longitude = placeModel.getLongitude() ?? 0
-        favoriteVO.address = placeModel.getAddress()
-        favoriteVO.telNo = placeModel.getTelNo()
+        print("plusapps deletePlaceOnFavorites")
+        let latitude = placeModel.getLatitude() ?? 0
+        let longitude = placeModel.getLongitude() ?? 0
         
         do {
             try realm.write {
-                realm.delete(favoriteVO)
+                //아래처럼 삭제해야 함
+                realm.delete( realm.objects(FavoriteVO.self).filter("latitude = %@ AND longitude = %@", latitude, longitude))
+                //아래처럼 삭제하면 복사한 객체를 삭제하는 것이라 오류 발생한다고 함
+                //"Can only delete an object from the Realm it belongs to"
+                //realm.delete(favoriteVO)
             }
         } catch {
             print("Error Delete \(error)")
@@ -95,8 +111,8 @@ let realm = try! Realm()
     }
     
     
-    public func deleteFavorites() {
-        let realm = try! Realm()
+    public func deleteAllFavorites() {
+      
         try! realm.write {
             realm.delete(realm.objects(FavoriteVO.self))
         }
@@ -199,15 +215,15 @@ let realm = try! Realm()
     }
     
     
-    public func deleteSearchPlaceHistory() {
-        let realm = try! Realm()
+    public func deleteAllSearchPlaceHistory() {
+     
         try! realm.write {
             realm.delete(realm.objects(PlaceVO.self))
         }
     }
     
     public func deleteAll() {
-        let realm = try! Realm()
+    
         try! realm.write {
             realm.deleteAll()
         }

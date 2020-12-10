@@ -16,4 +16,6 @@ pod 'Google-Mobile-Ads-SDK'
 pod 'FloatingPanel'
 pod 'RealmSwift'
 pod 'ReachabilitySwift'
+pod 'GoogleAnalytics'
+pod 'Firebase/DynamicLinks'
 end

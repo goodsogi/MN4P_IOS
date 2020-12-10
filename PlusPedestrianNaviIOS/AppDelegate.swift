@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import GoogleMobileAds
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        // Use Firebase library to configure APIs
+        FirebaseApp.configure()
+                
         UIApplication.shared.statusBarStyle = .lightContent
         
         //상태바가 표시되면 핫스팟 알림의 경우 아이콘 이미지가 납작하게 보이는 이슈가 있어 처음엔 상태바를 표시하지 않게 처리        
