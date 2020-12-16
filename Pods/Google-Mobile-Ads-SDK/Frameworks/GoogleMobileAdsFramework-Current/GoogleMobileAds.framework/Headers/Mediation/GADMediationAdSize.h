@@ -1,15 +1,3 @@
-//
-//  GADMediationAdSize.h
-//  Google Mobile Ads SDK
-//
-//  Copyright 2019 Google. All rights reserved.
-//
-
-#import <GoogleMobileAds/GADAdSize.h>
-
-/// Returns the closest valid ad size from possibleAdSizes as compared to |original|. The selected
-/// size must be smaller than or equal in size to the original. The selected size must also be
-/// within a configurable fraction of the width and height of the original. If no valid size exists,
-/// returns kGADAdSizeInvalid.
-GAD_EXTERN GADAdSize GADClosestValidSizeForAdSizes(GADAdSize original,
-                                                   NSArray<NSValue *> *_Nonnull possibleAdSizes);
+version https://git-lfs.github.com/spec/v1
+oid sha256:b745642d91f85f8857c0b9c01e8cf152b47d886b41f4f7859ca5b4fc5ae62b7b
+size 643

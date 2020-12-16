@@ -1,16 +1,3 @@
-//
-//  GADInstreamAdView.h
-//  Google Mobile Ads SDK
-//
-//  Copyright 2019 Google LLC. All rights reserved.
-//
-
-#import <GoogleMobileAds/GADInstreamAd.h>
-
-/// A view that displays instream video ads.
-@interface GADInstreamAdView : UIView
-
-/// The instream ad. The ad will begin playing when the GADInstreamAdView is visible.
-@property(nonatomic, nullable) GADInstreamAd *ad;
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:62d2754f97e49478fb20ab117e593980537fd68830b5fc6e61361c7397ce9f6a
+size 381

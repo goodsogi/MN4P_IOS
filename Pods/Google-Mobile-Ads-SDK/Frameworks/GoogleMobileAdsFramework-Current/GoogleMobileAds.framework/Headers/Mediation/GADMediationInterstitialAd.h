@@ -1,23 +1,3 @@
-//
-//  GADMediationInterstitialAd.h
-//  Google Mobile Ads SDK
-//
-//  Copyright 2018 Google LLC. All rights reserved.
-//
-
-#import <GoogleMobileAds/Mediation/GADMediationAd.h>
-#import <GoogleMobileAds/Mediation/GADMediationAdConfiguration.h>
-#import <GoogleMobileAds/Mediation/GADMediationAdEventDelegate.h>
-#import <UIKit/UIKit.h>
-
-/// Rendered interstitial ad.
-@protocol GADMediationInterstitialAd <GADMediationAd>
-
-/// Presents the receiver from the view controller.
-- (void)presentFromViewController:(nonnull UIViewController *)viewController;
-
-@end
-
-/// Interstitial ad configuration.
-@interface GADMediationInterstitialAdConfiguration : GADMediationAdConfiguration
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:b432eb94359cd59efd40b9950fe7e9b9d8ab9b38f02c856acbd051da843d0547
+size 674

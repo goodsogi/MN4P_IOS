@@ -1,6 +1,3 @@
-source 'https://github.com/CocoaPods/Specs.git'
-
-target 'GoogleMapsDemos' do
-    platform :ios, '9.0'
-    pod 'GoogleMaps', '= 3.9.0'
-end
+version https://git-lfs.github.com/spec/v1
+oid sha256:131f9ccf97418e073a5057dd50bf131409e2d669e01120823a4eb83ccea3874f
+size 138

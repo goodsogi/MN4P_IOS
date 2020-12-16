@@ -1,21 +1,3 @@
-//
-//  GADVersionNumber.h
-//  Google Mobile Ads SDK
-//
-//  Copyright 2018 Google LLC. All rights reserved.
-//
-
-#import <Foundation/Foundation.h>
-
-/// Version number information.
-typedef struct GADVersionNumber GADVersionNumber;
-
-/// Version number information.
-struct GADVersionNumber {
-  /// Major version.
-  NSInteger majorVersion;
-  /// Minor version.
-  NSInteger minorVersion;
-  /// Patch version.
-  NSInteger patchVersion;
-};
+version https://git-lfs.github.com/spec/v1
+oid sha256:912ef93c2b773cec346ac75c944ac9e39c5cb61f47224ca6a4dbb11266d6e5c9
+size 431

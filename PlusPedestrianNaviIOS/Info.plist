@@ -2,12 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>The app uses speech recognition for searching place</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>The app uses speech recognition for searching place with voice</string>
-	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-7576584379236747~6363552704</string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneConfigurationName</key>
+					<string>Default Configuration</string>
+					<key>UISceneDelegateClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+					<key>UISceneStoryboardFile</key>
+					<string>Main</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -37,6 +50,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>2</string>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-7576584379236747~6363552704</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -57,6 +72,10 @@
 	<string>Will you allow this app to always know your location?</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Do you allow this app to know your current location?</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>The app uses speech recognition for searching place with voice</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>The app uses speech recognition for searching place</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSansKR-Medium-Hestia.otf</string>

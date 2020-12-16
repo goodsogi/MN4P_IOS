@@ -8,16 +8,16 @@
 
 import UIKit
 import Firebase
-//import Firebase/DynamicLinks
+import MessageUI
 
 class PlaceInfoPanelViewController: UIViewController {
     var toastDelegate:ToastDelegate?
     var selectScreenDelegate:SelectScreenDelegate?
     var selectedPlaceModel:PlaceModel?  
     @IBOutlet var closeButton: UIView!
-     @IBOutlet var addToFavoritesButton: UIView!
-     @IBOutlet var callButton: UIView!
-     @IBOutlet var shareButton: UIView!
+    @IBOutlet var addToFavoritesButton: UIView!
+    @IBOutlet var callButton: UIView!
+    @IBOutlet var shareButton: UIView!
     @IBOutlet var findRouteButton: UIView!
     
     @IBOutlet weak var addToFavoritesIcon: UIImageView!
@@ -40,7 +40,7 @@ class PlaceInfoPanelViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         makeLayout()
         fillOutContent()
@@ -48,25 +48,25 @@ class PlaceInfoPanelViewController: UIViewController {
     }
     
     private func makeLayout() {
-           let closeButtonBackgroundImg = ImageMaker.getCircle(width: 37, height: 37, colorHexString: "#444447", alpha: 1.0)
-           closeButton.backgroundColor = UIColor(patternImage: closeButtonBackgroundImg)
+        let closeButtonBackgroundImg = ImageMaker.getCircle(width: 37, height: 37, colorHexString: "#444447", alpha: 1.0)
+        closeButton.backgroundColor = UIColor(patternImage: closeButtonBackgroundImg)
         
         let screenWidth = UIScreen.main.bounds.width
         
-                 let findRouteButtonBackgroundImg = ImageMaker.getRoundRectangle(width: screenWidth - 38, height: 66, colorHexString: "#0078ff", cornerRadius: 10.0, alpha: 1.0)
-                 findRouteButton.backgroundColor = UIColor(patternImage: findRouteButtonBackgroundImg)
+        let findRouteButtonBackgroundImg = ImageMaker.getRoundRectangle(width: screenWidth - 38, height: 66, colorHexString: "#0078ff", cornerRadius: 10.0, alpha: 1.0)
+        findRouteButton.backgroundColor = UIColor(patternImage: findRouteButtonBackgroundImg)
         
         //TODO 수정하세요
         let buttonWidth = (screenWidth - (19*4))/3
-                   let buttonBackgroundImg = ImageMaker.getRoundRectangle(width: buttonWidth, height: 66, colorHexString: "#4b4d4f", cornerRadius: 10.0, alpha: 1.0) 
+        let buttonBackgroundImg = ImageMaker.getRoundRectangle(width: buttonWidth, height: 66, colorHexString: "#4b4d4f", cornerRadius: 10.0, alpha: 1.0)
         
         addToFavoriteButtonWidthConstaint?.constant = buttonWidth
         callButtonWidthConstraint?.constant = buttonWidth
         shareButtonWidthConstaint?.constant = buttonWidth
         
-         addToFavoritesButton.backgroundColor = UIColor(patternImage: buttonBackgroundImg)
-         callButton.backgroundColor = UIColor(patternImage: buttonBackgroundImg)
-         shareButton.backgroundColor = UIColor(patternImage: buttonBackgroundImg)
+        addToFavoritesButton.backgroundColor = UIColor(patternImage: buttonBackgroundImg)
+        callButton.backgroundColor = UIColor(patternImage: buttonBackgroundImg)
+        shareButton.backgroundColor = UIColor(patternImage: buttonBackgroundImg)
         
         let isAddedToFavorites: Bool = RealmManager.sharedInstance.isPlaceAddedToFavorites(placeModel: selectedPlaceModel!)
         
@@ -76,7 +76,7 @@ class PlaceInfoPanelViewController: UIViewController {
     
     private func fillOutContent() {
         placeName.text = selectedPlaceModel?.getName()
-     
+        
         let placeDetailString : String = getPlaceDetailString()
         placeDetail.text = placeDetailString
         address.text = selectedPlaceModel?.getAddress()
@@ -170,64 +170,92 @@ class PlaceInfoPanelViewController: UIViewController {
     }
     
     @IBAction func onShareButtonTapped(_ sender: Any) {
-        print("plusapps onCloseButtonTapped")
+        var urlString : String = "https://plusapps.com/?"
+        urlString.append("latitude=" + String(format: "%f", selectedPlaceModel?.getLatitude() ?? 0))
+        urlString.append("&longitude=" + String(format: "%f", selectedPlaceModel?.getLongitude() ?? 0))
+        urlString.append("&name=" + (selectedPlaceModel?.getName() ?? ""))
+        urlString.append("&address=" + (selectedPlaceModel?.getAddress() ?? ""))
+        urlString.append("&bizName=" + (selectedPlaceModel?.getBizName() ?? ""))
+        urlString.append("&telNo=" + (selectedPlaceModel?.getTelNo() ?? ""))
+
+        //한글인 경우 URL(string: linkUrl)에서 강종됨
         
-            let link = URL(string: "https://plusapps.com/?category=food&productId=10") // 모바일이 아니라 PC에서 클릭시 콜백 url 
-            let referralLink = DynamicLinkComponents(link: link!, domainURIPrefix: "https://pluspedestriannaviios.page.link")
-                
-            // iOS 설정
-            referralLink?.iOSParameters = DynamicLinkIOSParameters(bundleID: "com.plusapps.PlusPedestrianNaviIOS")
-            referralLink?.iOSParameters?.minimumAppVersion = "1.0.0"
-            referralLink?.iOSParameters?.appStoreID = "1111111111"
-            //referralLink?.iOSParameters?.customScheme = "커스텀 스키마가 설정되어 있을 경우 추가"
-                
-            // Android 설정
-           referralLink?.androidParameters = DynamicLinkAndroidParameters(packageName: "com.plusapps.pluspedestriannavi")
-           referralLink?.androidParameters?.minimumVersion = 811
-                
-            // 단축 URL 생성
-            referralLink?.shorten { (shortURL, warnings, error) in
-                if let error = error {
-                    print(error.localizedDescription)
-                    return
-                }
-                    
-                print(shortURL)
-                //self.sendSMS(dynamicLink: shortURL)
+       
+        let encodedLinkUrlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+
+        print(encodedLinkUrlString)
+        let link = URL(string: encodedLinkUrlString) // 모바일이 아니라 PC에서 클릭시 콜백 url
+        let referralLink = DynamicLinkComponents(link: link!, domainURIPrefix: "https://pluspedestriannaviios.page.link")
+        
+        // iOS 설정
+        referralLink?.iOSParameters = DynamicLinkIOSParameters(bundleID: "com.plusapps.PlusPedestrianNaviIOS")
+        referralLink?.iOSParameters?.minimumAppVersion = "1.0.1"
+        referralLink?.iOSParameters?.appStoreID = "1440705745"
+        //referralLink?.iOSParameters?.customScheme = "plusapps" //필요없는 듯
+        
+        // Android 설정
+        referralLink?.androidParameters = DynamicLinkAndroidParameters(packageName: "com.plusapps.pluspedestriannavi")
+        referralLink?.androidParameters?.minimumVersion = 811
+        
+        // 단축 URL 생성
+        referralLink?.shorten { (shortURL, warnings, error) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
             }
+            
+            print(shortURL)
+            
+            //SMS 전송
+            //                        guard MFMessageComposeViewController.canSendText() else {
+            //                            print("SMS services are not available")
+            //                            return
+            //                        }
+            //
+            //                        let composeViewController = MFMessageComposeViewController()
+            //                        //composeViewController.messageComposeDelegate = self
+            //                        composeViewController.recipients = ["01033555940"]
+            //                        composeViewController.body = shortURL?.absoluteString ?? ""
+            //
+            //                self.present(composeViewController, animated: true, completion: nil)
+            
+            
+            
+            //공유 팝업 띄움
+            var objectsToShare = [String]()
+            if let placeName = self.selectedPlaceModel?.getName() {
+                let appName: String = Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String
+                objectsToShare.append("[" + appName + "]")
+                objectsToShare.append(placeName)
+                objectsToShare.append(self.selectedPlaceModel?.getAddress() ?? "")
+                objectsToShare.append(shortURL?.absoluteString ?? "")
+            }
+            
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            activityVC.popoverPresentationController?.sourceView = self.view
+            
+            // 공유하기 기능 중 제외할 기능이 있을 때 사용
+            //        activityVC.excludedActivityTypes = [UIActivityType.airDrop, UIActivityType.addToReadingList]
+            self.present(activityVC, animated: true, completion: nil)
+        }
         
         
-        //공유 팝업 띄움
-//        var objectsToShare = [String]()
-//        if let text = selectedPlaceModel?.getName() {
-//                   objectsToShare.append(text)
-//            objectsToShare.append(selectedPlaceModel?.getAddress() ?? "")
-//            objectsToShare.append(selectedPlaceModel?.getBizName() ?? "")
-//
-//                   print("[INFO] textField's Text : ", text)
-//               }
-//
-//               let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-//               activityVC.popoverPresentationController?.sourceView = self.view
-//
-//               // 공유하기 기능 중 제외할 기능이 있을 때 사용
-//       //        activityVC.excludedActivityTypes = [UIActivityType.airDrop, UIActivityType.addToReadingList]
-//               self.present(activityVC, animated: true, completion: nil)
+        
     }
-   
+    
     @IBAction func onFindRouteButtonClicked(_ sender: Any) {
         selectScreenDelegate?.showRouteInfoScreen()
     }
     
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

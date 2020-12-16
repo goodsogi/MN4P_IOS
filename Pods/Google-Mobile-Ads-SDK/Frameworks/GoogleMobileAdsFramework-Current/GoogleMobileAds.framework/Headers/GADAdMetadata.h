@@ -1,11 +1,3 @@
-//
-//  GADAdMetadata.h
-//  Google Mobile Ads SDK
-//
-//  Copyright 2017 Google LLC. All rights reserved.
-//
-
-#import <Foundation/Foundation.h>
-
-/// Ad metadata key type.
-typedef NSString *GADAdMetadataKey NS_STRING_ENUM;
+version https://git-lfs.github.com/spec/v1
+oid sha256:3e274098a0367664aeaa74acedb5492671df943596efdb16f676f3df1dcd08b8
+size 220

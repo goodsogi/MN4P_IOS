@@ -1,19 +1,3 @@
-//
-//  GADNativeAdMediaAdLoaderOptions.h
-//  Google Mobile Ads SDK
-//
-//  Copyright 2019 Google LLC. All rights reserved.
-//
-
-#import <GoogleMobileAds/GADAdLoader.h>
-#import <GoogleMobileAds/GADMediaAspectRatio.h>
-
-/// Ad loader options for native ad media settings.
-@interface GADNativeAdMediaAdLoaderOptions : GADAdLoaderOptions
-
-/// Image and video aspect ratios. Defaults to GADMediaAspectRatioUnknown. Portrait, landscape, and
-/// square aspect ratios are returned when this property is GADMediaAspectRatioUnknown or
-/// GADMediaAspectRatioAny.
-@property(nonatomic, assign) GADMediaAspectRatio mediaAspectRatio;
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:7dab68a70e60d0de794f96b30a38c679b6d64396f0ccfd464bfa2247ee23ca27
+size 623

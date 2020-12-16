@@ -57,7 +57,7 @@ class PlaceTableCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+        self.backgroundColor = HexColorManager.colorWithHexString(hexString: "#ffffff", alpha: 1)
         self.addSubview(placeMarkerView)
         self.addSubview(placeNameView)
         self.addSubview(distanceView)

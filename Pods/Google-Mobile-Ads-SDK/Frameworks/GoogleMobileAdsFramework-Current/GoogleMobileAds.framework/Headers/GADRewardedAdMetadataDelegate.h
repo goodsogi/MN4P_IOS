@@ -1,22 +1,3 @@
-//
-//  GADRewardedAdMetadataDelegate.h
-//  Google Mobile Ads SDK
-//
-//  Copyright 2018 Google LLC. All rights reserved.
-//
-
-#import <Foundation/Foundation.h>
-#import <GoogleMobileAds/GADAdMetadata.h>
-
-@class GADRewardedAd;
-
-/// Delegate for receiving metadata change messages from a GADRewardedAd.
-@protocol GADRewardedAdMetadataDelegate <NSObject>
-
-@optional
-
-/// Tells the delegate that the rewarded ad's metadata changed. Called when an ad loads, and when a
-/// loaded ad's metadata changes.
-- (void)rewardedAdMetadataDidChange:(nonnull GADRewardedAd *)rewardedAd;
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:3c677e04f350655300bc8194e23bf3922111386f371c73004559a6c82ef37da9
+size 574

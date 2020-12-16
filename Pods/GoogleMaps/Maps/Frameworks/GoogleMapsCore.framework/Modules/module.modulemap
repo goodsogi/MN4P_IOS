@@ -1,20 +1,3 @@
-framework module GoogleMapsCore {
-  export *
-  module * { export * }
-  link "z"
-  link framework "CoreData"
-  link framework "CoreFoundation"
-  link framework "CoreGraphics"
-  link framework "CoreImage"
-  link framework "CoreLocation"
-  link framework "CoreTelephony"
-  link framework "CoreText"
-  link framework "Foundation"
-  link framework "GLKit"
-  link framework "ImageIO"
-  link framework "OpenGLES"
-  link framework "QuartzCore"
-  link framework "Security"
-  link framework "SystemConfiguration"
-  link framework "UIKit"
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:cc0b31ba23397da97a4e6ea8480a57dbe085b643ecd16fb977b3ba12e77e9f4c
+size 530

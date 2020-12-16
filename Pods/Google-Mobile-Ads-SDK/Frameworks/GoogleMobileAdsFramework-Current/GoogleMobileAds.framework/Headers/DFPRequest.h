@@ -1,26 +1,3 @@
-//
-//  DFPRequest.h
-//  Google Mobile Ads SDK
-//
-//  Copyright 2014 Google LLC. All rights reserved.
-//
-
-#import <Foundation/Foundation.h>
-#import <GoogleMobileAds/GADRequest.h>
-
-/// Add this constant to the testDevices property's array to receive test ads on the simulator.
-GAD_EXTERN const id _Nonnull kDFPSimulatorID;
-
-/// Specifies optional parameters for ad requests.
-@interface DFPRequest : GADRequest
-
-/// Publisher provided user ID.
-@property(nonatomic, copy, nullable) NSString *publisherProvidedID;
-
-/// Array of strings used to exclude specified categories in ad results.
-@property(nonatomic, copy, nullable) NSArray *categoryExclusions;
-
-/// Key-value pairs used for custom targeting.
-@property(nonatomic, copy, nullable) NSDictionary *customTargeting;
-
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:16e1017c04e5b55080fde551eddff97ea554b3f780779f80b956de9ea1124ab5
+size 771

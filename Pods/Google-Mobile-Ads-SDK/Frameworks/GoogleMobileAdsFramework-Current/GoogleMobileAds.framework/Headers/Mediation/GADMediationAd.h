@@ -1,13 +1,3 @@
-//
-//  GADMediationAd.h
-//  Google Mobile Ads SDK
-//
-//  Copyright 2018 Google LLC. All rights reserved.
-//
-
-#import <Foundation/Foundation.h>
-
-/// Rendered ad. Objects conforming to this protocol are created by the adapter and returned to
-/// the Google Mobile Ads SDK via the adapter's render method completion handler.
-@protocol GADMediationAd <NSObject>
-@end
+version https://git-lfs.github.com/spec/v1
+oid sha256:0d6779b737bc6b50dab173cebcd1b5dd9c5656ad4a66feafc3584d33f2397825
+size 363
