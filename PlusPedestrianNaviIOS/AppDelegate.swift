@@ -15,7 +15,6 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    let customURLScheme = "plusapps"
     
     func application(_ application: UIApplication,
     configurationForConnecting connectingSceneSession: UISceneSession,
@@ -25,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        FirebaseOptions.defaultOptions()?.deepLinkURLScheme = self.customURLScheme
         // Use Firebase library to configure APIs
         FirebaseApp.configure()
                 
@@ -68,5 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+   
+
    
 }

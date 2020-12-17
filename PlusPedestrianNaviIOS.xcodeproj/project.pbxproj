@@ -258,7 +258,6 @@
 				07AE17AA213CF33E0045A2A8 /* Toast.swift */,
 				076A8E642137A7A100858716 /* HexColorManager.swift */,
 				07CA0F492154A5A500E6C4C4 /* ImageMaker.swift */,
-				077853E32152483C0059B489 /* GoogleMapDrawingManager.swift */,
 				07697F6B21636CCA003D2566 /* LocalFileManager.swift */,
 				0779FB7621646BC400E60AC0 /* SpinnerView.swift */,
 				079AA9F8216B50B1006CD763 /* BearingManager.swift */,
@@ -405,6 +404,7 @@
 				1FD5BC4E24E52CED0029F7B3 /* MapClient.swift */,
 				1FD5BC5024E52D1D0029F7B3 /* NaverMapClient.swift */,
 				1FD5BC5224E52D4D0029F7B3 /* GoogleMapClient.swift */,
+				077853E32152483C0059B489 /* GoogleMapDrawingManager.swift */,
 			);
 			path = map;
 			sourceTree = "<group>";

@@ -34,7 +34,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
      */
     //Google Map
     @IBOutlet weak var mapView: GMSMapView!
-    var googleMapDrawingManager:GoogleMapDrawingManager!
+    var googleMapDrawingManager: GoogleMapDrawingManager!
     
     //TTS 엔진
     var synthesizer : AVSpeechSynthesizer!
@@ -78,8 +78,17 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
         showMainScreen()
         
+        addNotificationObserver()
         
     }
+    
+    deinit {
+        
+        removeNotificationObserver()
+          
+       }
+
+      
     
     //안드로이드의 onDestroy와 같음
     override func viewDidDisappear(_ animated: Bool) {
@@ -88,7 +97,22 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
     }
     
+    private func removeNotificationObserver() {
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "clickFirebaseDynamicLink"), object: nil)
+    }
     
+    private func addNotificationObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotificationReceived(notification:)), name: Notification.Name(rawValue: "clickFirebaseDynamicLink"), object: nil)
+         
+    }
+    
+    @objc func onNotificationReceived(notification: Notification) {
+        if let placeModel = notification.object as? PlaceModel {
+            if ( previousScreenType != PLACE_INFO) {
+            showPlaceInfoScreen(placeModel: placeModel)
+            }
+        }
+    }
     
     private func initLocationManager() {
         LocationManager.sharedInstance.initialize()
@@ -99,7 +123,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     private func initGoogleMapDrawingManager() {
         googleMapDrawingManager = GoogleMapDrawingManager()
         googleMapDrawingManager.setMapView(mapView:mapView)
-        googleMapDrawingManager.createCurrentLocationMarker()
+       
     }
     
     private func initInternetConnectionChecker() {
@@ -175,11 +199,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
         settingButton.backgroundColor = UIColor(patternImage: settingButtonContainerBackgroundImg)
         
-        
         let findCurrentLocationButtonContainerBackgroundImg = ImageMaker.getCircle(width: 60, height: 60, colorHexString: "#333536", alpha: 1.0)
         findCurrentLocationButton.backgroundColor = UIColor(patternImage: findCurrentLocationButtonContainerBackgroundImg)
-        
-        
         
     }
     
@@ -189,9 +210,19 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             self.hideViewsOnPreviousScreen()
             self.showViewsOnMainScreen()
-            self.googleMapDrawingManager.setMapPadding(bottomPadding: 240)
+            self.showMainMap()
             self.previousScreenType = self.MAIN
         })
+        
+    }
+    
+    private func showMainMap() {
+        let userLocation: CLLocation? = LocationManager.sharedInstance.getCurrentLocation()
+        if let location = userLocation {
+            showCurrentLocation(userLocation: location)
+            
+        }
+        googleMapDrawingManager.setMapPadding(bottomPadding: 240)
         
     }
     
@@ -225,23 +256,22 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     private func addTapListenerMain() {
-        let settingButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.settingButtonTapped(_:)))
+        let settingButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onSettingButtonTapped(_:)))
         settingButtonTapGesture.numberOfTapsRequired = 1
         settingButtonTapGesture.numberOfTouchesRequired = 1
         settingButton.addGestureRecognizer(settingButtonTapGesture)
         settingButton.isUserInteractionEnabled = true
         
-        let findCurrentLocationButtontapGesture = UITapGestureRecognizer(target: self, action: #selector(self.findCurrentLocationButtonTapped(_:)))
-        findCurrentLocationButtontapGesture.numberOfTapsRequired = 1
-        findCurrentLocationButtontapGesture.numberOfTouchesRequired = 1
-        findCurrentLocationButton.addGestureRecognizer(findCurrentLocationButtontapGesture)
+        let findCurrentLocationButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onFindCurrentLocationButtonTapped(_:)))
+        findCurrentLocationButtonTapGesture.numberOfTapsRequired = 1
+        findCurrentLocationButtonTapGesture.numberOfTouchesRequired = 1
+        findCurrentLocationButton.addGestureRecognizer(findCurrentLocationButtonTapGesture)
         findCurrentLocationButton.isUserInteractionEnabled = true
         
     }
     
-    @objc func findCurrentLocationButtonTapped(_ sender: UITapGestureRecognizer) {
+    @objc func onFindCurrentLocationButtonTapped(_ sender: UITapGestureRecognizer) {
         //TODO  location permission 체크해야 하나?
-        print("plusapps findCurrentLocationButtonTapped")
       
         let userLocation: CLLocation? = LocationManager.sharedInstance.getCurrentLocation()
         if let location = userLocation {
@@ -274,7 +304,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
      
     }
     
-    @objc func settingButtonTapped(_ sender: UITapGestureRecognizer) {
+    @objc func onSettingButtonTapped(_ sender: UITapGestureRecognizer) {
         showScreenOnOtherStoryboard(storyboardName: "Setting", viewControllerStoryboardId: "setting")
     }
     
@@ -303,7 +333,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     var selectedPlaceModel:PlaceModel!
     
     
-    private func showPlaceInfoScreen(placeModel: PlaceModel) {
+    func showPlaceInfoScreen(placeModel: PlaceModel) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             
             self.hideViewsOnMainScreen()
@@ -312,12 +342,17 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             
             self.selectedPlaceModel = placeModel
             
-            self.googleMapDrawingManager.showSelectedPlaceOnMap(selectedPlaceModel: placeModel)
+            self.showPlaceInfoMap(placeModel: placeModel)
             
             self.previousScreenType = self.PLACE_INFO
         })
     }
     
+    
+    private func showPlaceInfoMap(placeModel: PlaceModel) {
+        googleMapDrawingManager.showPlaceMarker(selectedPlaceModel: placeModel)
+        
+    }
     
     private func showPlaceInfoPanel(placeModel: PlaceModel) {
         print("plusapps showPlaceInfoPanel")
@@ -345,10 +380,10 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
     }
     
-    @IBAction func onCloseButtonTapped(_ sender: Any) {
-        print("plusapps onCloseButtonTapped")
-        showMainScreen()
-    }
+//    @IBAction func onCloseButtonTapped(_ sender: Any) {
+//        print("plusapps onCloseButtonTapped")
+//        showMainScreen()
+//    }
     
     //    @objc func telNoViewTapped(_ sender: UITapGestureRecognizer) {
     //
@@ -358,6 +393,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     //    }
     
     private func hideViewsOnPlaceInfoScreen() {
+        googleMapDrawingManager.clearPlaceInfoOverlays()
         hidePanel(fpc: placeInfoPanelFpc)
     }
     
@@ -371,20 +407,56 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     @IBOutlet weak var clearWaypointsButton: UIView!
     
     @IBOutlet weak var publicTransportButton: UIView!
+  
+    @IBOutlet weak var startPointName: UITextField!
+    
+    @IBOutlet weak var destinationName: UITextField!
+    
+    @IBOutlet weak var routeOption: UITextField!
+    
+    @IBOutlet weak var totalDistance: UITextField!
+   
+    @IBOutlet weak var totalTime: UITextField!
+    
+    @IBOutlet weak var routeDetail: UITextField!
+    
+    @IBOutlet weak var calorie: UITextField!
+    
     
     @IBAction func onGoButtonClicked(_ sender: Any) {
         showNavigationScreen()
     }
     
+    private func showViewsOnRouteInfoScreen() {
+        makeRouteInfoScreenLayout()
+        addTapListenerRouteInfo()
+    }
     
     internal func showRouteInfoScreen() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+            self.setStartPoint()
             self.hideViewsOnPlaceInfoScreen()
             self.showViewsOnRouteInfoScreen()
-            
-            
+            self.addTapListenerRouteInfo()
             self.previousScreenType = self.ROUTE_INFO
         })
+    }
+    
+    private func setStartPoint() {
+        
+        if let location = LocationManager.sharedInstance.getCurrentLocation(), Mn4pSharedDataStore.startPointModel == nil {
+            let placeModel: PlaceModel = PlaceModel()
+            placeModel.setLatitude(latitude: location.coordinate.latitude)
+            
+            placeModel.setLongitude(longitude: location.coordinate.longitude)
+            
+            let name = (UserInfoManager.isLanguageKorean()) ? "나의 위치": "Your location"
+            placeModel.setName(name: name)
+            placeModel.setAccuracy(accuracy: location.horizontalAccuracy)
+            
+            Mn4pSharedDataStore.startPointModel = placeModel
+        }
+        
     }
     
     private func hideViewsOnRouteInfoScreen() {
@@ -394,26 +466,95 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         routeInfoPanel.isHidden = true
     }
     
-    private func showViewsOnRouteInfoScreen() {
+    private func makeRouteInfoScreenLayout() {
         let screenWidth = UIScreen.main.bounds.width
         let routeInfoPanelBackgroundImg = ImageMaker.getRoundRectangleByCorners(width: screenWidth, height: 266, colorHexString: "#333536",byRoundingCorners:[UIRectCorner.topLeft, UIRectCorner.topRight], cornerRadii: 10, alpha: 1.0)
         
-        self.routeInfoPanel.backgroundColor = UIColor(patternImage: routeInfoPanelBackgroundImg)
+        routeInfoPanel.backgroundColor = UIColor(patternImage: routeInfoPanelBackgroundImg)
         
+        routeInfoPanel.isHidden = false
         
         let goButtonBackgroundImg = ImageMaker.getRoundRectangle(width:81, height: 81, colorHexString: "#228B22", cornerRadius: 10.0, alpha: 1.0)
         
-        self.goButton.backgroundColor = UIColor(patternImage: goButtonBackgroundImg)
+        goButton.backgroundColor = UIColor(patternImage: goButtonBackgroundImg)
         
         let closeButtonBackgroundImg = ImageMaker.getCircle(width: 37, height: 37, colorHexString: "#444447", alpha: 1.0)
-        self.closeButton.backgroundColor = UIColor(patternImage: closeButtonBackgroundImg)
+         closeButton.backgroundColor = UIColor(patternImage: closeButtonBackgroundImg)
         
         clearWaypointsButton.isHidden = false
         publicTransportButton.isHidden = false
         //TODO: clearWaypointsButton, publicTransportButton 버튼 리스터 구현하세요
         
-        routeInfoPanel.isHidden = false
+        let settingButtonContainerBackgroundImg = ImageMaker.getRoundRectangle(width: 60, height: 60, colorHexString: "#333536", cornerRadius: 10.0, alpha: 1.0)
         
+        settingButton.backgroundColor = UIColor(patternImage: settingButtonContainerBackgroundImg)
+        
+        let clearWaypointsButtonBackgroundImg = ImageMaker.getCircle(width: 60, height: 60, colorHexString: "#333536", alpha: 1.0)
+        clearWaypointsButton.backgroundColor = UIColor(patternImage: clearWaypointsButtonBackgroundImg)
+        
+        let publicTransportButtonBackgroundImg = ImageMaker.getCircle(width: 60, height: 60, colorHexString: "#333536", alpha: 1.0)
+        publicTransportButton.backgroundColor = UIColor(patternImage: publicTransportButtonBackgroundImg)
+        
+         
+        
+        
+        destinationName.text = selectedPlaceModel.getName() ?? "" + "까지"
+        startPointName.text = Mn4pSharedDataStore.startPointModel?.getName() ?? ""
+        
+        //TODO 계속 구현하세요 
+        
+        
+        
+        
+        
+    }
+    
+    private func addTapListenerRouteInfo() {
+        let clearWaypointsButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onClearWaypointsButtonTapped(_:)))
+        clearWaypointsButtonTapGesture.numberOfTapsRequired = 1
+        clearWaypointsButtonTapGesture.numberOfTouchesRequired = 1
+        clearWaypointsButton.addGestureRecognizer(clearWaypointsButtonTapGesture)
+        clearWaypointsButton.isUserInteractionEnabled = true
+        
+        let publicTransportButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onPublicTransportButtonTapped(_:)))
+        publicTransportButtonTapGesture.numberOfTapsRequired = 1
+        publicTransportButtonTapGesture.numberOfTouchesRequired = 1
+        publicTransportButton.addGestureRecognizer(publicTransportButtonTapGesture)
+        publicTransportButton.isUserInteractionEnabled = true
+        
+        
+        let closeButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onCloseButtonTapped(_:)))
+        closeButtonTapGesture.numberOfTapsRequired = 1
+        closeButtonTapGesture.numberOfTouchesRequired = 1
+        closeButton.addGestureRecognizer(closeButtonTapGesture)
+        closeButton.isUserInteractionEnabled = true
+        
+        let goButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onGoButtonTapped(_:)))
+        goButtonTapGesture.numberOfTapsRequired = 1
+        goButtonTapGesture.numberOfTouchesRequired = 1
+        goButton.addGestureRecognizer(goButtonTapGesture)
+        goButton.isUserInteractionEnabled = true
+    }
+    
+    @objc func onGoButtonTapped(_ sender: UITapGestureRecognizer) {
+        showNavigationScreen()
+    }
+    
+    @objc func onClearWaypointsButtonTapped(_ sender: UITapGestureRecognizer) {
+        //TODO  구현하세요
+      
+        
+    }
+    
+    @objc func onPublicTransportButtonTapped(_ sender: UITapGestureRecognizer) {
+        //TODO  구현하세요
+      
+        
+    }
+    
+    //closeButton은 경로정보화면의 객체만 있음
+    @objc func onCloseButtonTapped(_ sender: UITapGestureRecognizer) {
+        showMainScreen()
     }
     
     /*
@@ -593,8 +734,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     func onFirstLocationCatched(location: CLLocation) {
         
-        googleMapDrawingManager.moveMapToPosition(userLocation: location , isNavigationViewController: false)
-        googleMapDrawingManager.showCurrentLocationMarker(userLocation: location)
+        showCurrentLocation(userLocation: location)
         
     }
     

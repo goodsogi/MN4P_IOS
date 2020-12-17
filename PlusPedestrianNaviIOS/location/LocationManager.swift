@@ -34,7 +34,8 @@ class LocationManager: NSObject,CLLocationManagerDelegate {
         
         //문자열안에 \()를 사용하여 int, float등을 사용할 수 있는 듯
         print("location latitude:  \(location!.coordinate.latitude), longitude: \(location!.coordinate.longitude)")
-        
+       
+        print(location!.horizontalAccuracy)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
@@ -53,11 +54,11 @@ class LocationManager: NSObject,CLLocationManagerDelegate {
     public func getCurrentLocation() -> CLLocation? {
         //TODO 테스트후 삭제하세요
         //fake location
-        let location:CLLocation? = CLLocation(latitude: 37.58238158377066, longitude: 127.09463025298389)        
-        return location
+//        let location:CLLocation? = CLLocation(latitude: 37.58238158377066, longitude: 127.09463025298389)
+//        return location
        
         //TODO 테스트후 주석푸세요
-        //return location
+        return location
     }
     
     public func stopUpdatingLocation() {

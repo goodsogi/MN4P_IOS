@@ -14,7 +14,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-     
+        //앱이 종료된 경우(폰에서 해당 앱을 swipe up) 동적 링크를 클릭시 콜백 함수가 호출되지 않는 이슈 수정
+        for userActivity in connectionOptions.userActivities {
+            if let incomingURL = userActivity.webpageURL{
+                print("Incoming URL is \(incomingURL)")
+                let linkHandled = DynamicLinks.dynamicLinks().handleUniversalLink(incomingURL) { (dynamicLink, error) in
+                    guard error == nil else{
+                        print("Found an error \(error!.localizedDescription)")
+                        return
+                    }
+                    if dynamicLink == dynamicLink{
+                        self.handelIncomingDynamicLink(_dynamicLink: dynamicLink!)
+                    }
+                }
+                print(linkHandled)
+                break
+            }
+                }
+        
+       
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
@@ -58,11 +76,40 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false), let queryItems = components.queryItems else {
             return
         }
+        
+        let placeModel : PlaceModel = PlaceModel()
+       
+        
         for queryItem in queryItems {
             print("Parameter:- \(queryItem.name) has a value:-  \(queryItem.value ?? "") ")
+            if (queryItem.name == "name") {
+                placeModel.setName(name: queryItem.value?.replacingOccurrences(of: "+", with: " ") ?? "")
+            }
+            if (queryItem.name == "latitude") {
+                placeModel.setLatitude(latitude: Double(queryItem.value ?? "00") ?? 0)
+            }
+            if (queryItem.name == "longitude") {
+                placeModel.setLongitude(longitude: Double(queryItem.value ?? "00") ?? 0)
+            }
+            if (queryItem.name == "address") {
+                placeModel.setAddress(address: queryItem.value?.replacingOccurrences(of: "+", with: " ") ?? "")
+            }
+            if (queryItem.name == "bizName") {
+                placeModel.setBizname(bizName: queryItem.value?.replacingOccurrences(of: "+", with: " ") ?? "")
+            }
+            if (queryItem.name == "telNo") {
+                placeModel.setTelNo(telNo: queryItem.value?.replacingOccurrences(of: "+", with: " ") ?? "")
+            }
         }
+        
+        
         _dynamicLink.matchType
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "clickFirebaseDynamicLink"), object: placeModel)
+        
     }
+    
+    
     
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
         if let incomingURL = userActivity.webpageURL{
@@ -78,6 +125,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
             print(linkHandled)
         }
+        
+        
+        
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {

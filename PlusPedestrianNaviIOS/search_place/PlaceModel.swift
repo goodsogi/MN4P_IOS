@@ -17,6 +17,15 @@ class PlaceModel {
     private var telNo: String? = nil
     private var bizName: String? = nil
     private var distance: Int? = nil
+    private var accuracy: Double? = nil
+    
+    func setAccuracy(accuracy:Double) {
+        self.accuracy = accuracy
+    }
+    
+    func getAccuracy() -> Double? {
+        return self.accuracy
+    }
     
     func setLatitude(latitude:Double) {
         self.latitude = latitude
