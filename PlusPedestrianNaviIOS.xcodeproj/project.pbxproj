@@ -79,6 +79,11 @@
 		1FF1E5EA24F63FE900F196CA /* PlaceVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E5E924F63FE900F196CA /* PlaceVO.swift */; };
 		1FF1E5ED24F6422000F196CA /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E5EC24F6422000F196CA /* RealmManager.swift */; };
 		B3307DB82589AAB00004AB04 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3307DB72589AAB00004AB04 /* GoogleService-Info.plist */; };
+		B382CA31258C3DE9005A7331 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382CA30258C3DE9005A7331 /* LanguageManager.swift */; };
+		B382CA49258C4A6E005A7331 /* RouteOptionPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382CA48258C4A6E005A7331 /* RouteOptionPopupViewController.swift */; };
+		B382CAA5258C95A9005A7331 /* DirectionVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382CAA4258C95A9005A7331 /* DirectionVO.swift */; };
+		B382CAA8258C99F9005A7331 /* GeofenceModelToStringConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382CAA7258C99F9005A7331 /* GeofenceModelToStringConverter.swift */; };
+		B382CAAC258C9C90005A7331 /* RoutePointModelToStringConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382CAAB258C9C90005A7331 /* RoutePointModelToStringConverter.swift */; };
 		B3900E1D2589CD3800ACFCF4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3900E1C2589CD3800ACFCF4 /* SceneDelegate.swift */; };
 		B3AFEC812580A5B1004D8529 /* FavoriteVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AFEC802580A5B1004D8529 /* FavoriteVO.swift */; };
 		E5CA30C438E61684791DC7BF /* Pods_PlusPedestrianNaviIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E012498CEAF2062C3035DB05 /* Pods_PlusPedestrianNaviIOS.framework */; };
@@ -161,6 +166,11 @@
 		1FF1E5EC24F6422000F196CA /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		76D48CC66E7E6DC0607E9F6C /* Pods-PlusPedestrianNaviIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B3307DB72589AAB00004AB04 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B382CA30258C3DE9005A7331 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
+		B382CA48258C4A6E005A7331 /* RouteOptionPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteOptionPopupViewController.swift; sourceTree = "<group>"; };
+		B382CAA4258C95A9005A7331 /* DirectionVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionVO.swift; sourceTree = "<group>"; };
+		B382CAA7258C99F9005A7331 /* GeofenceModelToStringConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceModelToStringConverter.swift; sourceTree = "<group>"; };
+		B382CAAB258C9C90005A7331 /* RoutePointModelToStringConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePointModelToStringConverter.swift; sourceTree = "<group>"; };
 		B3900E1C2589CD3800ACFCF4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B39F552E25831942009E1E18 /* PlusPedestrianNaviIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlusPedestrianNaviIOS.entitlements; sourceTree = "<group>"; };
 		B3AFEC802580A5B1004D8529 /* FavoriteVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVO.swift; sourceTree = "<group>"; };
@@ -239,6 +249,7 @@
 				07CA0F4B2154A95500E6C4C4 /* utils */,
 				07184137213F821300CC0D7A /* fonts */,
 				078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */,
+				1F89B0D724F7574A005FE594 /* AlertPopup.storyboard */,
 				078BEDC8212E600100D497C9 /* Assets.xcassets */,
 				078BEDCA212E600100D497C9 /* LaunchScreen.storyboard */,
 				078BEDCD212E600100D497C9 /* Info.plist */,
@@ -265,6 +276,7 @@
 				1F308ACE24EF9AA5001ED799 /* DistanceStringFormatter.swift */,
 				1F89B0D524F75104005FE594 /* InternetConnectionChecker.swift */,
 				1F49CC3E24F78E8E00999F46 /* AlertManager.swift */,
+				B382CA30258C3DE9005A7331 /* LanguageManager.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -279,7 +291,6 @@
 				1F31636F24E683B400E1C7EA /* SearchPlace.storyboard */,
 				1F308A8524EF6EB8001ED799 /* DistanceCaculator.swift */,
 				1FF1E5E724F6360F00F196CA /* SearchPlaceHistoryTableCell.swift */,
-				1F89B0D724F7574A005FE594 /* AlertPopup.storyboard */,
 				1F89B0D924F75985005FE594 /* OfflineAlertPopupViewController.swift */,
 				1F544C3524FCCA64000406B1 /* TapPlaceViewDelegate.swift */,
 				1F544C3F24FCDDC2000406B1 /* TapSearchPlaceHistoryTableViewDelegate.swift */,
@@ -298,6 +309,7 @@
 				0749B9A121463A800082E1E6 /* RoutePointModel.swift */,
 				1F8E05E324E143FF000953A2 /* RouteInfoPanelViewController.swift */,
 				1F31636D24E6834900E1C7EA /* RouteInfo.storyboard */,
+				B382CA48258C4A6E005A7331 /* RouteOptionPopupViewController.swift */,
 			);
 			path = route_info;
 			sourceTree = "<group>";
@@ -415,6 +427,9 @@
 				1FF1E5EC24F6422000F196CA /* RealmManager.swift */,
 				1FF1E5E924F63FE900F196CA /* PlaceVO.swift */,
 				B3AFEC802580A5B1004D8529 /* FavoriteVO.swift */,
+				B382CAA4258C95A9005A7331 /* DirectionVO.swift */,
+				B382CAA7258C99F9005A7331 /* GeofenceModelToStringConverter.swift */,
+				B382CAAB258C9C90005A7331 /* RoutePointModelToStringConverter.swift */,
 			);
 			path = realm;
 			sourceTree = "<group>";
@@ -578,6 +593,7 @@
 				1FD5BC4F24E52CED0029F7B3 /* MapClient.swift in Sources */,
 				1FF1E5EA24F63FE900F196CA /* PlaceVO.swift in Sources */,
 				1F308A8624EF6EB8001ED799 /* DistanceCaculator.swift in Sources */,
+				B382CA49258C4A6E005A7331 /* RouteOptionPopupViewController.swift in Sources */,
 				1FD5BC4924E512800029F7B3 /* MapManager.swift in Sources */,
 				076A8E652137A7A100858716 /* HexColorManager.swift in Sources */,
 				07D1C8342170676200DC38BA /* AlamofireManager.swift in Sources */,
@@ -588,6 +604,7 @@
 				B3900E1D2589CD3800ACFCF4 /* SceneDelegate.swift in Sources */,
 				0779FB7721646BC400E60AC0 /* SpinnerView.swift in Sources */,
 				1F8E05E024E0E631000953A2 /* PlaceInfoViewController.swift in Sources */,
+				B382CAA5258C95A9005A7331 /* DirectionVO.swift in Sources */,
 				1FC630A924E3C316008898B9 /* FavoritesViewController.swift in Sources */,
 				1F88E17C24DBEF070039C517 /* MainPanelViewController.swift in Sources */,
 				070BA288213E3E9300B00383 /* PlaceTableCell.swift in Sources */,
@@ -608,6 +625,7 @@
 				1F544C4424FCEEE2000406B1 /* SearchPlaceTableViewDataSource.swift in Sources */,
 				07CA0F462154978100E6C4C4 /* ActionDelayManager.swift in Sources */,
 				07CA0F502154D49700E6C4C4 /* NavigationViewController.swift in Sources */,
+				B382CA31258C3DE9005A7331 /* LanguageManager.swift in Sources */,
 				1F89B0DA24F75985005FE594 /* OfflineAlertPopupViewController.swift in Sources */,
 				07CA0F4A2154A5A500E6C4C4 /* ImageMaker.swift in Sources */,
 				1F2BCA6624F8EF3E00DD010F /* LocationListenerDelegate.swift in Sources */,
@@ -617,6 +635,7 @@
 				1F8E05E424E143FF000953A2 /* RouteInfoPanelViewController.swift in Sources */,
 				1F544C3624FCCA64000406B1 /* TapPlaceViewDelegate.swift in Sources */,
 				078BEDC2212E5FFF00D497C9 /* AppDelegate.swift in Sources */,
+				B382CAA8258C99F9005A7331 /* GeofenceModelToStringConverter.swift in Sources */,
 				1F89B0D624F75104005FE594 /* InternetConnectionChecker.swift in Sources */,
 				1F2BCA6124F8A75100DD010F /* SelectPlaceDelegate.swift in Sources */,
 				1F49CC3F24F78E8E00999F46 /* AlertManager.swift in Sources */,
@@ -626,6 +645,7 @@
 				1F308A8424EF6DC5001ED799 /* Mn4pSharedDataStore.swift in Sources */,
 				1FC630AE24E3CD2D008898B9 /* SearchNearbyPanelViewController.swift in Sources */,
 				1FF1E5E824F6360F00F196CA /* SearchPlaceHistoryTableCell.swift in Sources */,
+				B382CAAC258C9C90005A7331 /* RoutePointModelToStringConverter.swift in Sources */,
 				07CA0F4421548C2500E6C4C4 /* ViewElevationMaker.swift in Sources */,
 				1F544C4224FCED1E000406B1 /* SearchPlaceTableViewDelegate.swift in Sources */,
 			);

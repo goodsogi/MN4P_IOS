@@ -131,14 +131,26 @@ class AlamofireManager {
     //
     //********************************************************************************************************
     
-    public func getDirection(selectedPlaceModel : PlaceModel , userLocation : CLLocation , selectedRouteOption : String, notificationName : String) {
+    public func getDirection(startPointModel : PlaceModel , destinationModel : PlaceModel , selectedRouteOption : String, wayPoints: [CLLocationCoordinate2D], notificationName : String) {
         let url:String = "https://api2.sktelecom.com/tmap/routes/pedestrian?version=1&appKey=" + TMAP_APP_KEY
+        
+        
         
         //TODO: 나중에 passList(경유점), angle, searchOption 수정하세요
         //각도는 경로에 영향을 안미치는 듯 보임. 유효값: 0 ~ 359
         //검색 옵션 0: 추천 (기본값), 4: 추천+번화가우선, 10: 최단, 30: 최단거리+계단제외
-        
-        let param = [  "startX": String(userLocation.coordinate.longitude) , "startY": String(userLocation.coordinate.latitude) , "endX": String(selectedPlaceModel.getLongitude()! ) , "endY": String(selectedPlaceModel.getLatitude()! ) , "angle": "0" , "searchOption": selectedRouteOption , "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO","startName": "start", "endName": "end"]
+    
+
+        var param: [String: Any] = [:]
+ 
+        if (wayPoints.count > 0) {
+            let wayPointsString : String = convertWaypointsToString(wayPoints : wayPoints)
+           
+            
+            param = [  "startX": String(format: "%f", startPointModel.getLongitude() ?? 0), "startY": String(format: "%f", startPointModel.getLatitude() ?? 0) , "endX": String(format: "%f", destinationModel.getLongitude() ?? 0) , "endY": String(format: "%f", destinationModel.getLatitude() ?? 0) , "angle": "0" , "searchOption": selectedRouteOption , "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO","startName": "start", "endName": "end", "passList": wayPointsString]
+        } else {
+            param = [  "startX": String(format: "%f", startPointModel.getLongitude() ?? 0), "startY": String(format: "%f", startPointModel.getLatitude() ?? 0) , "endX": String(format: "%f", destinationModel.getLongitude() ?? 0) , "endY": String(format: "%f", destinationModel.getLatitude() ?? 0) , "angle": "0" , "searchOption": selectedRouteOption , "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO","startName": "start", "endName": "end"]
+        }
         
         
         //headers: ["Content-Type":"application/json", "Accept":"application/json"] 값을 지정하면 오류 발생
@@ -194,6 +206,91 @@ class AlamofireManager {
     
     
     }
+    
+    
+    private func convertWaypointsToString(wayPoints : [CLLocationCoordinate2D]) -> String {
+          
+       
+        var wayPointsString : String = ""
+        var index : Int = 0
+        for wayPoint in wayPoints {
+            wayPointsString.append(String(format: "%f", wayPoint.longitude))
+            wayPointsString.append(",")
+            wayPointsString.append(String(format: "%f", wayPoint.latitude))
+            if (index != wayPoints.count) {
+                wayPointsString.append("_")
+            }
+            index += 1
+        }
+       
+
+          return wayPointsString
+      }
+    
+    
+//    public func getDirection(selectedPlaceModel : PlaceModel , userLocation : CLLocation , selectedRouteOption : String, notificationName : String) {
+//        let url:String = "https://api2.sktelecom.com/tmap/routes/pedestrian?version=1&appKey=" + TMAP_APP_KEY
+//
+//        //TODO: 나중에 passList(경유점), angle, searchOption 수정하세요
+//        //각도는 경로에 영향을 안미치는 듯 보임. 유효값: 0 ~ 359
+//        //검색 옵션 0: 추천 (기본값), 4: 추천+번화가우선, 10: 최단, 30: 최단거리+계단제외
+//
+//        let param = [  "startX": String(userLocation.coordinate.longitude) , "startY": String(userLocation.coordinate.latitude) , "endX": String(selectedPlaceModel.getLongitude()! ) , "endY": String(selectedPlaceModel.getLatitude()! ) , "angle": "0" , "searchOption": selectedRouteOption , "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO","startName": "start", "endName": "end"]
+//
+//
+//        //headers: ["Content-Type":"application/json", "Accept":"application/json"] 값을 지정하면 오류 발생
+//        Alamofire.request(url,
+//                          method: .post,
+//                          parameters: param,
+//                          encoding: URLEncoding.default
+//            )
+//            .validate(statusCode: 200..<300)
+//            .responseJSON {
+//                response in
+//
+//                switch response.result {
+//                case .success:
+//                    if let responseData = response.result.value {
+//
+//                        NotificationCenter.default.post(
+//                            name: Notification.Name(rawValue: notificationName),
+//                            object: nil,
+//                            userInfo: ["result": "success", "directionModel" : self.getDirectionModel(responseData: responseData)])
+//
+//
+//                    } else {
+//                        //TODO: 오류를 좀더 구체적으로 처리하세요
+//                        NotificationCenter.default.post(
+//                            name: Notification.Name(rawValue: notificationName),
+//                            object: nil,
+//                            userInfo: ["result": "fail"])
+//
+//                    }
+//                    print("Validation Successful")
+//                case .failure(let error):
+//                    //TODO: 오류를 좀더 구체적으로 처리하세요
+//                    //TODO 나중에 제대로 작동하는지 확인하세요
+//                    if(error.localizedDescription.contains("forbidden")) {
+//                        NotificationCenter.default.post(
+//                            name: Notification.Name(rawValue: notificationName),
+//                            object: nil,
+//                            userInfo: ["result": "overApi"])
+//                    } else {
+//
+//                        NotificationCenter.default.post(
+//                            name: Notification.Name(rawValue: notificationName),
+//                            object: nil,
+//                            userInfo: ["result": "fail"])
+//                    }
+//
+//                    print(error)
+//                }
+//
+//
+//        }
+//
+//
+//    }
     
     private func getDirectionModel(responseData:Any) -> DirectionModel {
         let swiftyJsonVar = JSON(responseData)
@@ -268,6 +365,7 @@ class AlamofireManager {
     }
     
     private func convertToKindDescription(description:String) -> String{
+        //TODO 영어 처리하세요 
         if (description.contains("도착")) {
             return "잠시후 목적지에 도착합니다";
         } else {

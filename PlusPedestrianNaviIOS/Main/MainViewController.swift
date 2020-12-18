@@ -18,11 +18,15 @@ protocol SelectScreenDelegate {
     func showRouteInfoScreen()
 }
 
+protocol RouteOptionPopupDelegate {
+    func onRouteOptionSelected()
+}
+
 protocol ToastDelegate {
     func showToast(message: String)
 }
 
-class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDelegate, FloatingPanelControllerDelegate, LocationListenerDelegate, SelectScreenDelegate, ToastDelegate {
+class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDelegate, FloatingPanelControllerDelegate, LocationListenerDelegate, SelectScreenDelegate, ToastDelegate, RouteOptionPopupDelegate {
     
     func showToast(message: String) {
         Toast.show(message: message, controller: self)
@@ -47,6 +51,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     let PLACE_INFO: Int = 1
     let NAVIGATION: Int = 2
     let ROUTE_INFO: Int = 3
+    
+    //Alamofire
+    var alamofireManager : AlamofireManager!
     
     
     
@@ -80,6 +87,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
         addNotificationObserver()
         
+        initAlamofireManager()
+        
     }
     
     deinit {
@@ -87,7 +96,10 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         removeNotificationObserver()
           
        }
-
+    private func initAlamofireManager() {
+        
+        alamofireManager = AlamofireManager()
+    }
       
     
     //안드로이드의 onDestroy와 같음
@@ -99,10 +111,17 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     private func removeNotificationObserver() {
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "clickFirebaseDynamicLink"), object: nil)
+        
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE), object: nil)
     }
     
     private func addNotificationObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(onNotificationReceived(notification:)), name: Notification.Name(rawValue: "clickFirebaseDynamicLink"), object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onAlamofireGetDirectionNotificationReceived(_:)),
+                                               name: NSNotification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE),
+                                               object: nil)
          
     }
     
@@ -137,13 +156,60 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     
     func onPlaceSelected(placeModel: PlaceModel, searchType: Int) {
-        //TODO searchType 구현하세요
+     
         
-        //Toast는 안뜨는 듯
-        //        Toast.show(message: placeModel.getName() ?? "", controller: self)
+        switch (searchType) {
+                    case SearchPlaceViewController.PIN_LOCATION:
+                        Mn4pSharedDataStore.placeType = SearchPlaceViewController.PIN_LOCATION
+                        Mn4pSharedDataStore.placeModel = placeModel
+                        showPlaceInfoScreen(placeModel: placeModel)
+                        break
+                    case SearchPlaceViewController.PLACE:
+                        Mn4pSharedDataStore.placeType = SearchPlaceViewController.PLACE
+                        Mn4pSharedDataStore.placeModel = placeModel
+                        showPlaceInfoScreen(placeModel: placeModel)
+                        break
+                    case SearchPlaceViewController.START_POINT:
+                        Mn4pSharedDataStore.startPointModel = placeModel
+                        showPlaceInfoScreen(placeModel: placeModel)
+                        break;
+                    case SearchPlaceViewController.DESTINATION:
+                        Mn4pSharedDataStore.destinationModel = placeModel
+                        //TODO 나중에 구현하세요
+                        // showSetPointFragment();
+                        break
+                    case SearchPlaceViewController.HOME:
+                        placeModel.setName(name: LanguageManager.getString(key: "home"))
+                        UserDefaultManager.saveHomeModel(placeModel: placeModel)
+                        Toast.show(message: LanguageManager.getString(key: "home_is_set"), controller: self)
+                        showMainScreen()
+                        break
+                    case SearchPlaceViewController.WORK:
+                        placeModel.setName(name: LanguageManager.getString(key: "work"))
+                        UserDefaultManager.saveWorkModel(placeModel: placeModel)
+                        Toast.show(message: LanguageManager.getString(key: "work_is_set"), controller: self)
+                        showMainScreen()
+                        break
+                    case SearchPlaceViewController.HOME_FROM_SETTING:
+                        Toast.show(message: LanguageManager.getString(key: "home_is_set"), controller: self)
+                        placeModel.setName(name: LanguageManager.getString(key: "home"))
+                        UserDefaultManager.saveHomeModel(placeModel: placeModel)
+                        showScreen(viewControllerStoryboardId: "Settings")
+                        break
+                    case SearchPlaceViewController.WORK_FROM_SETTING:
+                        placeModel.setName(name: LanguageManager.getString(key: "work"))
+                        UserDefaultManager.saveWorkModel(placeModel: placeModel)
+                        Toast.show(message: LanguageManager.getString(key: "work_is_set"), controller: self)
+                        showScreen(viewControllerStoryboardId: "Settings")
+                        break
+                    default:
+                        break
+                
+            }
+
+     
         
         
-        showPlaceInfoScreen(placeModel: placeModel)
         
     }
     
@@ -422,9 +488,15 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     @IBOutlet weak var calorie: UITextField!
     
+    var wayPoints : [CLLocationCoordinate2D]?
+    
     
     @IBAction func onGoButtonClicked(_ sender: Any) {
         showNavigationScreen()
+    }
+    
+    func onRouteOptionSelected() {
+        routeOption.text = getRouteOption()
     }
     
     private func showViewsOnRouteInfoScreen() {
@@ -437,9 +509,95 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             self.setStartPoint()
             self.hideViewsOnPlaceInfoScreen()
             self.showViewsOnRouteInfoScreen()
+            self.callGetDirectionApi()
             self.addTapListenerRouteInfo()
             self.previousScreenType = self.ROUTE_INFO
         })
+    }
+    
+    private func onErrorOccurred() {
+        showMainScreen()
+    }
+    
+    private func showProgressBar() {
+        SpinnerView.show(onView: self.view)
+    }
+    
+    private func callGetDirectionApi() {
+        
+        if (Mn4pSharedDataStore.startPointModel == nil || Mn4pSharedDataStore.destinationModel == nil) {
+            Toast.show(message: LanguageManager.getString(key: "error_ocurred_set_destination_again"), controller: self)
+            onErrorOccurred()
+            return
+                }
+        
+        showProgressBar()
+        
+        let routeOption: String = getRouteOption()
+        
+        alamofireManager.getDirection(startPointModel: Mn4pSharedDataStore.startPointModel, destinationModel: Mn4pSharedDataStore.descriptionModel, selectedRouteOption: routeOption, wayPoints: wayPoints, notificationName : PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE)
+        
+    }
+    
+    
+    private func saveDirectionToDB() {
+        RealmManager.sharedInstance.addDirectionToDirectionHistory()
+    }
+        
+    
+    @objc func onAlamofireGetDirectionNotificationReceived(_ notification: NSNotification) {
+        if notification.name.rawValue == PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE {
+            
+            SpinnerView.remove()
+            
+            
+            if notification.userInfo != nil {
+                guard let userInfo = notification.userInfo as? [String:Any] else { return }
+                
+                let result : String = userInfo["result"] as! String
+                
+                switch result {
+                case "success" :
+                    
+                    Mn4pSharedDataStore.directionModel =  userInfo["directionModel"] as! DirectionModel
+                    saveDirectionToDB()
+                    
+                    //TODO 계속 구현하세요 
+                    self.drawRouteOnMap()
+                    
+                 
+                    
+                    break;
+                case "overApi" :
+                    
+                    self.showOverApiAlert()
+                    
+                    break;
+                    
+                case "fail" :
+                    //TODO: 필요시 구현하세요
+                    
+                    break;
+                default:
+                    
+                    break;
+                }
+                
+            }
+        }
+    }
+    
+    private func drawRouteOnMap() {
+        
+//        googleMapDrawingManager.drawRouteOnMap(firstDirectionModel: directionModel, secondDirectionModel: directionModel, isFindRouteViewController : false)
+        
+    }
+    
+  
+    func showOverApiAlert() {
+        
+       OverApiManager.showOverApiAlertPopup(parentViewControler: self)
+        
     }
     
     private func setStartPoint() {
@@ -503,11 +661,47 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
         //TODO 계속 구현하세요 
         
-        
+        routeOption.text = getRouteOption()
         
         
         
     }
+    
+    private func getRouteOption() -> String {
+        
+        let routeOption : String = UserDefaultManager.getRouteOption()
+        return getRouteOptionName(routeOption: routeOption)
+    }
+    
+    private func getRouteOptionName(routeOption: String) -> String? {
+        switch routeOption {
+        case "0":
+            return LanguageManager.getString(key: "recommended")
+        case "4":
+            return LanguageManager.getString(key: "main_street")
+        case "10":
+            return LanguageManager.getString(key: "min_distance")
+        case "30":
+            return LanguageManager.getString(key: "no_stairs")
+        default:
+            return LanguageManager.getString(key: "recommended")
+        }
+        
+    }
+    
+    private func showRouteOptionPopup() {
+        
+        let storyboard = UIStoryboard(name: "AlertPopup", bundle: nil)
+        let modalViewController = storyboard.instantiateViewController(withIdentifier: "RouteOptionPopup")
+         
+        modalViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        modalViewController.modalTransitionStyle = UIModalTransitionStyle.coverVertical
+        
+        (modalViewController as! RouteOptionPopupViewController).routeOptionPopupDelegate  = self
+         
+        self.present(modalViewController, animated: true, completion: nil)
+    }
+    
     
     private func addTapListenerRouteInfo() {
         let clearWaypointsButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onClearWaypointsButtonTapped(_:)))
@@ -534,6 +728,16 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         goButtonTapGesture.numberOfTouchesRequired = 1
         goButton.addGestureRecognizer(goButtonTapGesture)
         goButton.isUserInteractionEnabled = true
+        
+        let routeOptionTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onRouteOptionTapped(_:)))
+        routeOptionTapGesture.numberOfTapsRequired = 1
+        routeOptionTapGesture.numberOfTouchesRequired = 1
+        routeOption.addGestureRecognizer(routeOptionTapGesture)
+        routeOption.isUserInteractionEnabled = true
+    }
+    
+    @objc func onRouteOptionTapped(_ sender: UITapGestureRecognizer) {
+        showRouteOptionPopup()
     }
     
     @objc func onGoButtonTapped(_ sender: UITapGestureRecognizer) {
@@ -575,6 +779,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             self.hideViewsOnRouteInfoScreen()
             
             self.showViewsOnNavigationScreen()
+            
+            self.callGetDirectionApi()
             
             self.previousScreenType = self.NAVIGATION
         })
@@ -624,6 +830,10 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
         showNavigationPanel()
     }
+    
+    
+   
+  
     
     /*
      Panel

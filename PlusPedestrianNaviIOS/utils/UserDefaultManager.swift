@@ -10,28 +10,10 @@ import Foundation
 
 //UserDefault(안드로이드의 SharedPreferences) 관리 
 class UserDefaultManager {
-    
-    private static let KEY_CURRENT_MAP: String = "KEY_CURRENT_MAP"
-    private static let KEY_USER_LOCATION: String = "KEY_USER_LOCATION"
-    private static let KEY_IS_HOME_SET: String = "KEY_IS_HOME_SET"
-    private static let KEY_IS_WORK_SET: String = "KEY_IS_WORK_SET"
-    public static let KEY_HOME_NAME: String = "KEY_HOME_NAME"
-    public static let KEY_HOME_ADDRESS: String = "KEY_HOME_ADDRESS"
-       public static let KEY_HOME_BIZNAME: String = "KEY_HOME_BIZNAME"
-       public static let KEY_HOME_LATITUDE: String = "KEY_HOME_LATITUDE"
-       public static let KEY_HOME_LONGITUDE: String = "KEY_HOME_LONGITUDE"
-       public static let KEY_HOME_PHONE: String = "KEY_HOME_PHONE"
-       public static let KEY_HOME_DISTANCE: String = "KEY_HOME_DISTANCE"
-       public static let KEY_WORK_NAME: String = "KEY_WORK_NAME"
-    public static let KEY_WORK_ADDRESS: String = "KEY_WORK_ADDRESS"
-       public static let KEY_WORK_BIZNAME: String = "KEY_WORK_BIZNAME"
-       public static let KEY_WORK_LATITUDE: String = "KEY_WORK_LATITUDE"
-       public static let KEY_WORK_LONGITUDE: String = "KEY_WORK_LONGITUDE"
-       public static let KEY_WORK_PHONE: String = "KEY_WORK_PHONE"
-       public static let KEY_WORK_DISTANCE: String = "KEY_WORK_DISTANCE"
-       public static let KEY_IS_FROM_SETTING_FRAGMENT: String = "KEY_IS_FROM_SETTING_FRAGMENT"
-       public static let KEY_IS_FROM_SET_POINT_FRAGMENT: String = "KEY_IS_FROM_SET_POINT_FRAGMENT"
-    
+    /*
+     공통 메소드
+     */
+   
     
     private static func saveString(key:String, value:String){
         let userDefaults = UserDefaults.standard
@@ -98,6 +80,41 @@ class UserDefaultManager {
         userDefaults.removeObject(forKey: key)
     }
     
+    /*
+     개별 메소드
+     */
+    
+    
+    private static let KEY_CURRENT_MAP: String = "KEY_CURRENT_MAP"
+    private static let KEY_USER_LOCATION: String = "KEY_USER_LOCATION"
+    private static let KEY_IS_HOME_SET: String = "KEY_IS_HOME_SET"
+    private static let KEY_IS_WORK_SET: String = "KEY_IS_WORK_SET"
+    public static let KEY_HOME_NAME: String = "KEY_HOME_NAME"
+    public static let KEY_HOME_ADDRESS: String = "KEY_HOME_ADDRESS"
+       public static let KEY_HOME_BIZNAME: String = "KEY_HOME_BIZNAME"
+       public static let KEY_HOME_LATITUDE: String = "KEY_HOME_LATITUDE"
+       public static let KEY_HOME_LONGITUDE: String = "KEY_HOME_LONGITUDE"
+       public static let KEY_HOME_TELNO: String = "KEY_HOME_TELNO"
+       public static let KEY_HOME_DISTANCE: String = "KEY_HOME_DISTANCE"
+       public static let KEY_WORK_NAME: String = "KEY_WORK_NAME"
+    public static let KEY_WORK_ADDRESS: String = "KEY_WORK_ADDRESS"
+       public static let KEY_WORK_BIZNAME: String = "KEY_WORK_BIZNAME"
+       public static let KEY_WORK_LATITUDE: String = "KEY_WORK_LATITUDE"
+       public static let KEY_WORK_LONGITUDE: String = "KEY_WORK_LONGITUDE"
+       public static let KEY_WORK_TELNO: String = "KEY_WORK_TELNO"
+       public static let KEY_WORK_DISTANCE: String = "KEY_WORK_DISTANCE"
+       public static let KEY_IS_FROM_SETTING_FRAGMENT: String = "KEY_IS_FROM_SETTING_FRAGMENT"
+       public static let KEY_IS_FROM_SET_POINT_FRAGMENT: String = "KEY_IS_FROM_SET_POINT_FRAGMENT"
+    public static let KEY_ROUTE_OPTION: String = "KEY_ROUTE_OPTION"
+    
+    
+    public static func getRouteOption() -> String {
+        return getString(key: KEY_ROUTE_OPTION, defaultValue: "0")
+    }
+    public static func saveRouteOption(routeOption: String) {
+           saveString(key: KEY_ROUTE_OPTION, value: routeOption)
+       }
+      
     
     public static func getCurrentMapOption() -> Int {
         return getInt(key: KEY_CURRENT_MAP)
@@ -136,7 +153,7 @@ class UserDefaultManager {
         let longitude: Double = NumberFormatter().number(from: longitudeString)!.doubleValue
         
         let address: String =  getString(key: KEY_HOME_ADDRESS,defaultValue: "")
-        let telNo: String =  getString(key: KEY_HOME_PHONE,defaultValue: "")
+        let telNo: String =  getString(key: KEY_HOME_TELNO,defaultValue: "")
         let distanceString: String =  getString(key: KEY_HOME_DISTANCE,defaultValue: "0")
         let distance: Int = NumberFormatter().number(from: distanceString)!.intValue
         
@@ -161,7 +178,7 @@ class UserDefaultManager {
         let longitude: Double = NumberFormatter().number(from: longitudeString)!.doubleValue
         
         let address: String =  getString(key: KEY_WORK_ADDRESS,defaultValue: "")
-        let telNo: String =  getString(key: KEY_WORK_PHONE,defaultValue: "")
+        let telNo: String =  getString(key: KEY_WORK_TELNO,defaultValue: "")
         let distanceString: String =  getString(key: KEY_WORK_DISTANCE,defaultValue: "0")
         let distance: Int = NumberFormatter().number(from: distanceString)!.intValue
         
@@ -176,5 +193,29 @@ class UserDefaultManager {
         placeModel.setDistance(distance: distance);
                return placeModel;
     }
+    
+    
+    public static func saveHomeModel(placeModel : PlaceModel) {
+        saveString(key: KEY_HOME_NAME, value: placeModel.getName() ?? ""  )
+        saveString(key: KEY_HOME_BIZNAME, value: placeModel.getBizName() ?? "")
+        saveString(key: KEY_HOME_LATITUDE, value: String(format: "%f", placeModel.getLatitude() ?? 0))
+        saveString(key: KEY_HOME_LONGITUDE, value: String(format: "%f", placeModel.getLongitude() ?? 0))
+        saveString(key: KEY_HOME_TELNO, value: placeModel.getTelNo() ?? "")
+        saveString(key: KEY_HOME_DISTANCE, value: String(format: "%f", placeModel.getDistance() ?? ""))
+        saveBool(key: KEY_IS_HOME_SET, value: true)
+      
+       }
+
+       public static func saveWorkModel(placeModel : PlaceModel) {
+        saveString(key: KEY_WORK_NAME, value: placeModel.getName() ?? ""  )
+        saveString(key: KEY_WORK_BIZNAME, value: placeModel.getBizName() ?? "")
+        saveString(key: KEY_WORK_LATITUDE, value: String(format: "%f", placeModel.getLatitude() ?? 0))
+        saveString(key: KEY_WORK_LONGITUDE, value: String(format: "%f", placeModel.getLongitude() ?? 0))
+        saveString(key: KEY_WORK_TELNO, value: placeModel.getTelNo() ?? "")
+        saveString(key: KEY_WORK_DISTANCE, value: String(format: "%f", placeModel.getDistance() ?? ""))
+        saveBool(key: KEY_IS_WORK_SET, value: true)
+      
+       }
+
 }
 

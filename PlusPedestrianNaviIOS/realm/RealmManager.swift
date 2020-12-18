@@ -233,8 +233,77 @@ let realm = try! Realm()
      경로 히스토리
      */
     
-    //TODO 구현하세요!
+    public func addDirectionToDirectionHistory() {
+              
+        if (isDirectionAddedToDirectionHistory() {
+            deleteDirecectionOnDirectionHistory()
+        }
+
+        saveDirectionToDB()
+       
+    }
+    
+    public func deleteDirecectionOnDirectionHistory() {
+        
+        let startPointLatitude = Mn4pSharedDataStore.startPointModel!.getLatitude() ?? 0
+        let startPointLongitude = Mn4pSharedDataStore.startPointModel!.getLongitude() ?? 0
+        let destinationLatitude = Mn4pSharedDataStore.destinationModel!.getLatitude() ?? 0
+        let destinationLongitude = Mn4pSharedDataStore.destinationModel!.getLongitude() ?? 0
+        
+   
+        
+        do {
+            try realm.write {
+                realm.delete(realm.objects(DirectionVO.self).filter("startPointLatitude = %@ AND startPointLongitude = %@ AND destinationLatitude = %@ AND destinationLongitude = %@", startPointLatitude, startPointLongitude, destinationLatitude, destinationLongitude))
+            }
+        } catch {
+            print("Error Delete \(error)")
+        }
+        
+    }
+    public func isDirectionAddedToDirectionHistory() -> Bool{
+       
+        let startPointLatitude = Mn4pSharedDataStore.startPointModel!.getLatitude() ?? 0
+        let startPointLongitude = Mn4pSharedDataStore.startPointModel!.getLongitude() ?? 0
+        let destinationLatitude = Mn4pSharedDataStore.destinationModel!.getLatitude() ?? 0
+        let destinationLongitude = Mn4pSharedDataStore.destinationModel!.getLongitude() ?? 0
+        
+        let results = try! Realm().objects(DirectionVO.self).filter("startPointLatitude = %@ AND startPointLongitude = %@ AND destinationLatitude = %@ AND destinationLongitude = %@", startPointLatitude, startPointLongitude, destinationLatitude, destinationLongitude)
+        return results.count != 0
+    }
     
     
+    
+    public func saveDirectionToDB(directionModel: DirectionModel) {
+        let directionVO = DirectionVO()
+        
+     
+        //TODO 장소 이름이 "Your location"인 경우 처리하세요
+        
+        directionVO.startPointName = Mn4pSharedDataStore.startPointModel!.getName() ?? ""
+        directionVO.startPointBizName = Mn4pSharedDataStore.startPointModel!.getBizName() ?? ""
+        directionVO.startPointLatitude =  Mn4pSharedDataStore.startPointModel!.getLatitude() ?? 0
+        directionVO.startPointLongitude = Mn4pSharedDataStore.startPointModel!.getLongitude() ?? 0
+        directionVO.startPointAddress = Mn4pSharedDataStore.startPointModel!.getAddress() ?? ""
+        directionVO.startPointTelNo = Mn4pSharedDataStore.startPointModel!.getTelNo() ?? ""
+        directionVO.destinationName = Mn4pSharedDataStore.destinationModel!.getName() ?? ""
+        directionVO.destinationBizName = Mn4pSharedDataStore.destinationModel!.getBizName() ?? ""
+        directionVO.destinationLatitude =  Mn4pSharedDataStore.destinationModel!.getLatitude() ?? 0
+        directionVO.destinationLongitude = Mn4pSharedDataStore.destinationModel!.getLongitude() ?? 0
+        directionVO.destinationAddress = Mn4pSharedDataStore.destinationModel!.getAddress() ?? ""
+        directionVO.destinationTelNo = Mn4pSharedDataStore.destinationModel!.getTelNo() ?? ""
+        
+        
+        directionVO.geofenceString = GeofenceModelToStringConverter.convert(geofenceModels: Mn4pSharedDataStore.directionModel.getGeofenceList())
+        directionVO.routePointString = RoutePointModelToStringConverter.convert(pointModels: Mn4pSharedDataStore.directionModel?.getRoutePointModels())       
+        
+        do {
+            try realm.write {
+                realm.add(directionVO)
+            }
+        } catch {
+            print("Error Add \(error)")
+        }
+    }
         
 }
