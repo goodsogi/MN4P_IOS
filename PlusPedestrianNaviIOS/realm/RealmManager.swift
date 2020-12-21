@@ -235,7 +235,7 @@ let realm = try! Realm()
     
     public func addDirectionToDirectionHistory() {
               
-        if (isDirectionAddedToDirectionHistory() {
+        if (isDirectionAddedToDirectionHistory()) {
             deleteDirecectionOnDirectionHistory()
         }
 
@@ -274,7 +274,7 @@ let realm = try! Realm()
     
     
     
-    public func saveDirectionToDB(directionModel: DirectionModel) {
+    public func saveDirectionToDB() {
         let directionVO = DirectionVO()
         
      
@@ -294,8 +294,8 @@ let realm = try! Realm()
         directionVO.destinationTelNo = Mn4pSharedDataStore.destinationModel!.getTelNo() ?? ""
         
         
-        directionVO.geofenceString = GeofenceModelToStringConverter.convert(geofenceModels: Mn4pSharedDataStore.directionModel.getGeofenceList())
-        directionVO.routePointString = RoutePointModelToStringConverter.convert(pointModels: Mn4pSharedDataStore.directionModel?.getRoutePointModels())       
+        directionVO.geofenceString = GeofenceModelToStringConverter.convert(geofenceModels: (Mn4pSharedDataStore.directionModel?.getGeofenceModels()!)!)
+        directionVO.routePointString = RoutePointModelToStringConverter.convert(pointModels: (Mn4pSharedDataStore.directionModel?.getRoutePointModels())!)       
         
         do {
             try realm.write {

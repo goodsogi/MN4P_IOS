@@ -244,7 +244,7 @@ class RouteInfoViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
         
         let routeOption:String = getRouteOption()
         
-        alamofireManager.getDirection(selectedPlaceModel: selectedPlaceModel!, userLocation: userLocation, selectedRouteOption: routeOption, notificationName : PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE)
+//        alamofireManager.getDirection(selectedPlaceModel: selectedPlaceModel!, userLocation: userLocation, selectedRouteOption: routeOption, notificationName : PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE)
         
         
     }
@@ -428,10 +428,10 @@ class RouteInfoViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     
     func showFirstRouteDetail() {
         
-        let routeDetail: String = routeSelectBoardManager.getRouteDetail(geofenceModels:firstDirectionModel.getGeofenceModels()!)
+        //let routeDetail: String = routeSelectBoardManager.getRouteDetail(geofenceModels:firstDirectionModel.getGeofenceModels()!)
         
        
-        firstRouteDetail.text = routeDetail
+      //  firstRouteDetail.text = routeDetail
         
         
     }
@@ -457,11 +457,11 @@ class RouteInfoViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     }
     
     func showSecondRouteDetail() {
-        let routeDetail: String = routeSelectBoardManager.getRouteDetail(geofenceModels:secondDirectionModel.getGeofenceModels()!)
+       // let routeDetail: String = routeSelectBoardManager.getRouteDetail(geofenceModels:secondDirectionModel.getGeofenceModels()!)
         
        
         
-        secondRouteDetail.text = routeDetail
+      //  secondRouteDetail.text = routeDetail
     }
     
     func showSecondRouteCalorie() {
@@ -586,7 +586,7 @@ class RouteInfoViewController: UIViewController, GMSMapViewDelegate, UIScrollVie
     
     private func drawRouteOnMap() {
         
-        googleMapDrawingManager.drawRouteOnMap(firstDirectionModel: firstDirectionModel, secondDirectionModel: secondDirectionModel, isFindRouteViewController: true)
+       // googleMapDrawingManager.drawRouteOnMap(firstDirectionModel: firstDirectionModel, secondDirectionModel: secondDirectionModel, isFindRouteViewController: true)
     }
     
     private func initGoogleMapDrawingManager() {

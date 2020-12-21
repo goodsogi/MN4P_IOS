@@ -131,7 +131,7 @@ class AlamofireManager {
     //
     //********************************************************************************************************
     
-    public func getDirection(startPointModel : PlaceModel , destinationModel : PlaceModel , selectedRouteOption : String, wayPoints: [CLLocationCoordinate2D], notificationName : String) {
+    public func getDirection(startPointModel : PlaceModel , destinationModel : PlaceModel , selectedRouteOption : String, wayPoints: [CLLocationCoordinate2D]?, notificationName : String) {
         let url:String = "https://api2.sktelecom.com/tmap/routes/pedestrian?version=1&appKey=" + TMAP_APP_KEY
         
         
@@ -143,14 +143,23 @@ class AlamofireManager {
 
         var param: [String: Any] = [:]
  
-        if (wayPoints.count > 0) {
-            let wayPointsString : String = convertWaypointsToString(wayPoints : wayPoints)
+        if let wayPoints2 = wayPoints, wayPoints2.count > 0 {
+            let wayPointsString : String = convertWaypointsToString(wayPoints : wayPoints2)
            
             
             param = [  "startX": String(format: "%f", startPointModel.getLongitude() ?? 0), "startY": String(format: "%f", startPointModel.getLatitude() ?? 0) , "endX": String(format: "%f", destinationModel.getLongitude() ?? 0) , "endY": String(format: "%f", destinationModel.getLatitude() ?? 0) , "angle": "0" , "searchOption": selectedRouteOption , "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO","startName": "start", "endName": "end", "passList": wayPointsString]
         } else {
             param = [  "startX": String(format: "%f", startPointModel.getLongitude() ?? 0), "startY": String(format: "%f", startPointModel.getLatitude() ?? 0) , "endX": String(format: "%f", destinationModel.getLongitude() ?? 0) , "endY": String(format: "%f", destinationModel.getLatitude() ?? 0) , "angle": "0" , "searchOption": selectedRouteOption , "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO","startName": "start", "endName": "end"]
         }
+        
+        
+       print("startX: " + String(format: "%f", startPointModel.getLongitude() ?? 0))
+        print("startY: " + String(format: "%f", startPointModel.getLatitude() ?? 0))
+        print("endX: " + String(format: "%f", destinationModel.getLongitude() ?? 0))
+        print("endY: " + String(format: "%f", destinationModel.getLatitude() ?? 0))
+        print("angle: " + "0")
+        print("searchOption: " + selectedRouteOption)
+    
         
         
         //headers: ["Content-Type":"application/json", "Accept":"application/json"] 값을 지정하면 오류 발생
@@ -306,12 +315,17 @@ class AlamofireManager {
         return directionModel
     }
     
-    private func convertToGeofenceModel(routePointModels:[RoutePointModel]) -> [RoutePointModel]{
-        var geofenceModels:[RoutePointModel] = [RoutePointModel]()
+    private func convertToGeofenceModel(routePointModels:[RoutePointModel]) -> [GeofenceModel]{
+        var geofenceModels:[GeofenceModel] = [GeofenceModel]()
         
+        var geofenceModel: GeofenceModel
         for routePointModel in routePointModels {
             if (routePointModel.getType() == PPNConstants.TYPE_POINT) {
-                geofenceModels.append(routePointModel)
+                geofenceModel = GeofenceModel()
+                geofenceModel.setLat(lat: routePointModel.getLat() ?? 0)
+                geofenceModel.setLng(lng: routePointModel.getLng() ?? 0)
+                geofenceModel.setDescription(description: routePointModel.getDescription() ?? "")
+                geofenceModels.append(geofenceModel)
             }
         }
         

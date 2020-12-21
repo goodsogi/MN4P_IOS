@@ -79,6 +79,7 @@
 		1FF1E5EA24F63FE900F196CA /* PlaceVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E5E924F63FE900F196CA /* PlaceVO.swift */; };
 		1FF1E5ED24F6422000F196CA /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E5EC24F6422000F196CA /* RealmManager.swift */; };
 		B3307DB82589AAB00004AB04 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3307DB72589AAB00004AB04 /* GoogleService-Info.plist */; };
+		B33404EA2590380000F66394 /* GeofenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33404E92590380000F66394 /* GeofenceModel.swift */; };
 		B382CA31258C3DE9005A7331 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382CA30258C3DE9005A7331 /* LanguageManager.swift */; };
 		B382CA49258C4A6E005A7331 /* RouteOptionPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382CA48258C4A6E005A7331 /* RouteOptionPopupViewController.swift */; };
 		B382CAA5258C95A9005A7331 /* DirectionVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382CAA4258C95A9005A7331 /* DirectionVO.swift */; };
@@ -166,6 +167,7 @@
 		1FF1E5EC24F6422000F196CA /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		76D48CC66E7E6DC0607E9F6C /* Pods-PlusPedestrianNaviIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B3307DB72589AAB00004AB04 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B33404E92590380000F66394 /* GeofenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceModel.swift; sourceTree = "<group>"; };
 		B382CA30258C3DE9005A7331 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		B382CA48258C4A6E005A7331 /* RouteOptionPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteOptionPopupViewController.swift; sourceTree = "<group>"; };
 		B382CAA4258C95A9005A7331 /* DirectionVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionVO.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 				1F8E05E324E143FF000953A2 /* RouteInfoPanelViewController.swift */,
 				1F31636D24E6834900E1C7EA /* RouteInfo.storyboard */,
 				B382CA48258C4A6E005A7331 /* RouteOptionPopupViewController.swift */,
+				B33404E92590380000F66394 /* GeofenceModel.swift */,
 			);
 			path = route_info;
 			sourceTree = "<group>";
@@ -594,6 +597,7 @@
 				1FF1E5EA24F63FE900F196CA /* PlaceVO.swift in Sources */,
 				1F308A8624EF6EB8001ED799 /* DistanceCaculator.swift in Sources */,
 				B382CA49258C4A6E005A7331 /* RouteOptionPopupViewController.swift in Sources */,
+				B33404EA2590380000F66394 /* GeofenceModel.swift in Sources */,
 				1FD5BC4924E512800029F7B3 /* MapManager.swift in Sources */,
 				076A8E652137A7A100858716 /* HexColorManager.swift in Sources */,
 				07D1C8342170676200DC38BA /* AlamofireManager.swift in Sources */,

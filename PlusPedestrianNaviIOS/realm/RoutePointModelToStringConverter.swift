@@ -20,9 +20,9 @@ class RoutePointModelToStringConverter {
             result?.append(SUB_SPLITTER)
             result?.append( String(format: "%f", pointModel.getLng() ?? 0))
             result?.append(SUB_SPLITTER)
-            result?.append( geofenceModel.getDescription() ?? "")
+            result?.append( pointModel.getDescription() ?? "")
             
-            if (index < geofenceModels.count) {
+            if (index < pointModels.count) {
                 result?.append(SPLITTER)
             }
             index += 1

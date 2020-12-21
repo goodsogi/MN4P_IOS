@@ -10,14 +10,14 @@ import Foundation
 import GoogleMaps
 
 class DirectionModel {
-    private var geofenceModels: [RoutePointModel]? = nil
+    private var geofenceModels: [GeofenceModel]? = nil
     private var routePointModels: [RoutePointModel]? = nil
     private var wayPoints: [CLLocationCoordinate2D]? = nil
     private var totalDistance: Int? = nil
     private var totalTime: Int? = nil
     
     
-    func setGeofenceModels(geofenceModels:[RoutePointModel]) {
+    func setGeofenceModels(geofenceModels:[GeofenceModel]) {
         self.geofenceModels = geofenceModels
     }
     
@@ -38,7 +38,7 @@ class DirectionModel {
     }
     
     
-    func getGeofenceModels() -> [RoutePointModel]? {
+    func getGeofenceModels() -> [GeofenceModel]? {
         return self.geofenceModels
     }
     

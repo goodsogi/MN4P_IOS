@@ -507,6 +507,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     internal func showRouteInfoScreen() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             self.setStartPoint()
+            self.setDestinationMdel()
             self.hideViewsOnPlaceInfoScreen()
             self.showViewsOnRouteInfoScreen()
             self.callGetDirectionApi()
@@ -515,7 +516,12 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         })
     }
     
+    private func setDestinationMdel() {
+        Mn4pSharedDataStore.destinationModel = Mn4pSharedDataStore.placeModel
+    }
+    
     private func onErrorOccurred() {
+        print("plusapps onErrorOccurred")
         showMainScreen()
     }
     
@@ -524,18 +530,22 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     private func callGetDirectionApi() {
+
+        
+       
         
         if (Mn4pSharedDataStore.startPointModel == nil || Mn4pSharedDataStore.destinationModel == nil) {
+            //토스트가 다른 위치에서는 뜨는데 여기서는 왜 안뜨지?
             Toast.show(message: LanguageManager.getString(key: "error_ocurred_set_destination_again"), controller: self)
             onErrorOccurred()
             return
                 }
-        
+
         showProgressBar()
-        
-        let routeOption: String = getRouteOption()
-        
-        alamofireManager.getDirection(startPointModel: Mn4pSharedDataStore.startPointModel, destinationModel: Mn4pSharedDataStore.descriptionModel, selectedRouteOption: routeOption, wayPoints: wayPoints, notificationName : PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE)
+
+        let routeOption : String = UserDefaultManager.getRouteOption()
+
+        alamofireManager.getDirection(startPointModel: Mn4pSharedDataStore.startPointModel!, destinationModel: Mn4pSharedDataStore.destinationModel!, selectedRouteOption: routeOption, wayPoints: wayPoints, notificationName : PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE)
         
     }
     
@@ -546,6 +556,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
     
     @objc func onAlamofireGetDirectionNotificationReceived(_ notification: NSNotification) {
+        
+        print("plusapps onAlamofireGetDirectionNotificationReceived")
         if notification.name.rawValue == PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE {
             
             SpinnerView.remove()
@@ -563,7 +575,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
                     saveDirectionToDB()
                     
                     //TODO 계속 구현하세요 
-                    self.drawRouteOnMap()
+                    self.showRouteOnMap(directionModel: Mn4pSharedDataStore.directionModel!)
                     
                  
                     
@@ -587,9 +599,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         }
     }
     
-    private func drawRouteOnMap() {
+    private func showRouteOnMap(directionModel: DirectionModel) {
         
-//        googleMapDrawingManager.drawRouteOnMap(firstDirectionModel: directionModel, secondDirectionModel: directionModel, isFindRouteViewController : false)
+        googleMapDrawingManager.showRouteOverlays(directionModel: directionModel)
         
     }
     
@@ -656,7 +668,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
          
         
         
-        destinationName.text = selectedPlaceModel.getName() ?? "" + "까지"
+        destinationName.text = selectedPlaceModel.getName()! + "까지"
         startPointName.text = Mn4pSharedDataStore.startPointModel?.getName() ?? ""
         
         //TODO 계속 구현하세요 
@@ -673,7 +685,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         return getRouteOptionName(routeOption: routeOption)
     }
     
-    private func getRouteOptionName(routeOption: String) -> String? {
+    private func getRouteOptionName(routeOption: String) -> String  {
         switch routeOption {
         case "0":
             return LanguageManager.getString(key: "recommended")

@@ -52,7 +52,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     //경로엔진
     let DISTANCE_ENTER_GEOFENCE: Int = 20
     var geofenceModelIndex:Int = 0;
-    var currentGeofenceModel : RoutePointModel!
+    var currentGeofenceModel : GeofenceModel!
     var isFirstCheck : Bool = true
     var routePointModelIndex:Int = 0;
     var currentRoutePointModel : RoutePointModel!
@@ -249,7 +249,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     
     private func  showGeofenceMarker() {
         
-        googleMapDrawingManager.showGeofenceMarker(geofenceModel: currentGeofenceModel)
+      //  googleMapDrawingManager.showGeofenceMarker(geofenceModel: currentGeofenceModel)
     }
     
     private func showDescription() {
@@ -420,7 +420,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
         
         SpinnerView.show(onView: self.view)
         
-        alamofireManager.getDirection(selectedPlaceModel: selectedPlaceModel!, userLocation: userLocation, selectedRouteOption: selectedRouteOption!, notificationName : PPNConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION)
+//        alamofireManager.getDirection(selectedPlaceModel: selectedPlaceModel!, userLocation: userLocation, selectedRouteOption: selectedRouteOption!, notificationName : PPNConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION)
         
       
     }
@@ -617,7 +617,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     
     private func drawRouteOnMap() {
         
-        googleMapDrawingManager.drawRouteOnMap(firstDirectionModel: directionModel, secondDirectionModel: directionModel, isFindRouteViewController : false)
+        //googleMapDrawingManager.drawRouteOnMap(firstDirectionModel: directionModel, secondDirectionModel: directionModel, //isFindRouteViewController : false)
         
     }
     

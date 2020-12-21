@@ -38,6 +38,109 @@ class GoogleMapDrawingManager {
         mapView.clear()
     }
     
+   
+    /*
+     메인 화면
+     */
+    public func createCurrentLocationMarker(userLocation: CLLocation) {
+        currentLocationMarker = GMSMarker()
+        
+        currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.latitude)
+        currentLocationMarker.title = "current location marker"
+        currentLocationMarker.icon = self.getScaledImage(image: UIImage(named: "current_location_marker.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
+        currentLocationMarker.map = self.mapView
+    }
+    
+    
+    
+    private func moveMapToLocation(userLocation: CLLocation) {
+        
+        let zoomValue : Float = 14
+        let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: zoomValue)
+        mapView.camera = camera
+    }
+    
+    
+    func moveMapToPosition(userLocation: CLLocation , isNavigationViewController : Bool) {
+        
+        let zoomValue : Float = isNavigationViewController ? 18 : 14
+        let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: zoomValue)
+        mapView.camera = camera
+    }
+    
+    private func refreshCurrentLocationMarker(userLocation: CLLocation) {
+        currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude , longitude: userLocation.coordinate.longitude )
+    }
+    
+    func showCurrentLocationMarker(userLocation: CLLocation)  {
+        
+        if (currentLocationMarker == nil) {
+            createCurrentLocationMarker(userLocation: userLocation)
+            moveMapToLocation(userLocation: userLocation)
+        } else {
+            refreshCurrentLocationMarker(userLocation: userLocation);
+        }
+        
+    }
+    
+    
+    
+    /*
+     장소정보 화면
+     */
+    func showPlaceMarker(selectedPlaceModel:PlaceModel) {
+        
+        if(selectedPlaceMarker == nil) {
+            createPlaceMarker(placeModel : selectedPlaceModel)
+        } else {
+            refreshPlaceMarker(placeModel : selectedPlaceModel);
+        }
+        
+        animateMapToLocation(placeModel : selectedPlaceModel);
+        
+       
+              
+    }
+    
+    private func animateMapToLocation(placeModel:PlaceModel) {
+       
+        let cameraPosition = GMSCameraPosition.camera(withLatitude: placeModel.getLatitude() ?? 0, longitude: placeModel.getLongitude() ?? 0, zoom: 14)
+        mapView.animate(to: cameraPosition)
+    }
+
+
+    
+    private func refreshPlaceMarker(placeModel:PlaceModel) {
+        selectedPlaceMarker.position = CLLocationCoordinate2D(latitude: placeModel.getLatitude() ?? 0, longitude: placeModel.getLongitude() ?? 0)
+    }
+    
+    public func createPlaceMarker(placeModel:PlaceModel) {
+        selectedPlaceMarker = GMSMarker()
+        selectedPlaceMarker.position = CLLocationCoordinate2D(latitude: placeModel.getLatitude() ?? 0, longitude: placeModel.getLongitude() ?? 0)
+        selectedPlaceMarker.title = "selected place marker"
+        selectedPlaceMarker.map = self.mapView
+    }
+    
+    func clearPlaceInfoOverlays() {
+        selectedPlaceMarker.map = nil
+        selectedPlaceMarker = nil
+    }
+    
+    /*
+     경로정보 화면
+     */
+    
+    public func showRouteOverlays(directionModel: DirectionModel) {
+        
+        clearMap()
+        
+        drawStartEndMarker(directionModel: directionModel)
+        
+        drawMainPolyline(directionModel: directionModel)
+        
+        zoomMapWithPolyline()
+        
+    }
     
     private func getScaledImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
         UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
@@ -47,25 +150,10 @@ class GoogleMapDrawingManager {
         return newImage
     }
     
-    public func drawRouteOnMap(firstDirectionModel:DirectionModel,secondDirectionModel:DirectionModel, isFindRouteViewController:Bool) {
-        
-        clearMap()
-        
-        drawStartEndMarker(directionModel: firstDirectionModel)
-        
-        if(isFindRouteViewController) {
-            drawSubPolyline(directionModel:secondDirectionModel)
-        }
-        
-        drawMainPolyline(directionModel: firstDirectionModel)
-        
-        if(isFindRouteViewController) {
-        zoomMapWithPolyline()
-        }
-    }
+   
     
     private func zoomMapWithPolyline() {
-        //경로가 모두 표시되게 zoom 조정        
+        //경로가 모두 표시되게 zoom 조정
         
         ActionDelayManager.run(seconds: 1) { () -> () in // change 2 to desired number of seconds
             //fit map to markers
@@ -138,118 +226,20 @@ class GoogleMapDrawingManager {
         endMarker.icon = self.getScaledImage(image: UIImage(named: "destination_pin.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
         endMarker.map = self.mapView
     }
-    
-    //********************************************************************************************************
-    //
-    // MainViewController(메인화면)
-    //
-    //********************************************************************************************************
-    
-    
-    public func createCurrentLocationMarker(userLocation: CLLocation) {
-        currentLocationMarker = GMSMarker()
-        
-        currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.latitude)
-        currentLocationMarker.title = "current location marker"
-        currentLocationMarker.icon = self.getScaledImage(image: UIImage(named: "current_location_marker.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
-        currentLocationMarker.map = self.mapView
-    }
-    
-    
-    
-    private func moveMapToLocation(userLocation: CLLocation) {
-        
-        let zoomValue : Float = 14
-        let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: zoomValue)
-        mapView.camera = camera
-    }
-    
-    
-    func moveMapToPosition(userLocation: CLLocation , isNavigationViewController : Bool) {
-        
-        let zoomValue : Float = isNavigationViewController ? 18 : 14
-        let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: zoomValue)
-        mapView.camera = camera
-    }
-    
-    private func refreshCurrentLocationMarker(userLocation: CLLocation) {
-        currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude , longitude: userLocation.coordinate.longitude )
-    }
-    
-    func showCurrentLocationMarker(userLocation: CLLocation)  {
-        
-        if (currentLocationMarker == nil) {
-            createCurrentLocationMarker(userLocation: userLocation)
-            moveMapToLocation(userLocation: userLocation)
-        } else {
-            refreshCurrentLocationMarker(userLocation: userLocation);
-        }
-        
-    }
-    
-    
-    
-    
    
     
-    //********************************************************************************************************
-    //
-    // PlaceInfoViewController(장소정보화면)
-    //
-    //********************************************************************************************************
-    
-    func showPlaceMarker(selectedPlaceModel:PlaceModel) {
-        
-        if(selectedPlaceMarker == nil) {
-            createPlaceMarker(placeModel : selectedPlaceModel)
-        } else {
-            refreshPlaceMarker(placeModel : selectedPlaceModel);
-        }
-        
-        animateMapToLocation(placeModel : selectedPlaceModel);
-        
-       
-              
-    }
-    
-    private func animateMapToLocation(placeModel:PlaceModel) {
-       
-        let cameraPosition = GMSCameraPosition.camera(withLatitude: placeModel.getLatitude() ?? 0, longitude: placeModel.getLongitude() ?? 0, zoom: 14)
-        mapView.animate(to: cameraPosition)
-    }
-
-
-    
-    private func refreshPlaceMarker(placeModel:PlaceModel) {
-        selectedPlaceMarker.position = CLLocationCoordinate2D(latitude: placeModel.getLatitude() ?? 0, longitude: placeModel.getLongitude() ?? 0)
-    }
-    
-    public func createPlaceMarker(placeModel:PlaceModel) {
-        selectedPlaceMarker = GMSMarker()
-        selectedPlaceMarker.position = CLLocationCoordinate2D(latitude: placeModel.getLatitude() ?? 0, longitude: placeModel.getLongitude() ?? 0)
-        selectedPlaceMarker.title = "selected place marker"
-        selectedPlaceMarker.map = self.mapView
-    }
-    
-    func clearPlaceInfoOverlays() {
-        selectedPlaceMarker.map = nil
-        selectedPlaceMarker = nil
-    }
+    /*
+     경로안내 화면
+     */
     
     
-    
-    //********************************************************************************************************
-    //
-    // NavigationViewController(경로안내화면)
-    //
-    //********************************************************************************************************
     
     public func setMapPadding(bottomPadding: CGFloat) {
         let mapInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: bottomPadding, right: 0.0)
         mapView.padding = mapInsets
     }
     
-    public func showGeofenceMarker(geofenceModel: RoutePointModel) {
+    public func showGeofenceMarker(geofenceModel: GeofenceModel) {
         
         if(geofenceMarker == nil) {
             geofenceMarker = GMSMarker()
