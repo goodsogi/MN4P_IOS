@@ -41,6 +41,12 @@ public static func getString(key:String) -> String {
             return "직장이 설정되었습니다."
         case "error_ocurred_set_destination_again":
             return "오류가 발생했습니다. 목적지를 다시 설정해주세요."
+        case "hour":
+            return "시간"
+        case "min":
+            return "분"
+        case "sec":
+            return "초"
         default:
             return ""
         }
@@ -67,6 +73,12 @@ public static func getString(key:String) -> String {
             return "Work place is set."
         case "error_ocurred_set_destination_again":
             return "Error occurred. Set destination again."
+        case "hour":
+            return "hour"
+        case "min":
+            return "min"
+        case "sec":
+            return "sec"
         default:
             return ""
         }

@@ -57,6 +57,7 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>googlechromes</string>
+		<string>kakaomap</string>
 		<string>comgooglemaps</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>

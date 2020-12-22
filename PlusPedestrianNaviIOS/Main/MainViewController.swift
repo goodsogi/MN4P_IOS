@@ -44,7 +44,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     var synthesizer : AVSpeechSynthesizer!
     
     var panelType: Int = 0
-    var previousScreenType: Int = 0
+    var screenType: Int = 0
     
     let NONE: Int = -1
     let MAIN: Int = 0
@@ -71,7 +71,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        previousScreenType = NONE
+        screenType = NONE
         
         initTTS()
         
@@ -127,7 +127,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     @objc func onNotificationReceived(notification: Notification) {
         if let placeModel = notification.object as? PlaceModel {
-            if ( previousScreenType != PLACE_INFO) {
+            if ( screenType != PLACE_INFO) {
             showPlaceInfoScreen(placeModel: placeModel)
             }
         }
@@ -235,19 +235,19 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     private func hideViewsOnPreviousScreen() {
         
         print("plusapps hideViewsOnPreviousScreen 1")
-        if (previousScreenType == NONE) {
+        if (screenType == NONE) {
             return
         }
         
         print("plusapps hideViewsOnPreviousScreen 2")
         
-        if (previousScreenType == MAIN) {
+        if (screenType == MAIN) {
             hideViewsOnMainScreen()
-        } else if (previousScreenType == PLACE_INFO) {
+        } else if (screenType == PLACE_INFO) {
             hideViewsOnPlaceInfoScreen()
-        } else if (previousScreenType == ROUTE_INFO) {
+        } else if (screenType == ROUTE_INFO) {
             hideViewsOnRouteInfoScreen()
-        } else if (previousScreenType == NAVIGATION) {
+        } else if (screenType == NAVIGATION) {
             hideViewsOnNavigationScreen()
         }
     }
@@ -277,7 +277,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             self.hideViewsOnPreviousScreen()
             self.showViewsOnMainScreen()
             self.showMainMap()
-            self.previousScreenType = self.MAIN
+            self.screenType = self.MAIN
         })
         
     }
@@ -410,7 +410,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             
             self.showPlaceInfoMap(placeModel: placeModel)
             
-            self.previousScreenType = self.PLACE_INFO
+            self.screenType = self.PLACE_INFO
         })
     }
     
@@ -488,7 +488,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     @IBOutlet weak var calorie: UITextField!
     
-    var wayPoints : [CLLocationCoordinate2D]?
+    var wayPoints : [CLLocationCoordinate2D] = []
     
     
     @IBAction func onGoButtonClicked(_ sender: Any) {
@@ -510,10 +510,28 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             self.setDestinationMdel()
             self.hideViewsOnPlaceInfoScreen()
             self.showViewsOnRouteInfoScreen()
+            self.hideClearWaypointsButton()
+            self.hidePublicTransportButton()
             self.callGetDirectionApi()
             self.addTapListenerRouteInfo()
-            self.previousScreenType = self.ROUTE_INFO
+            self.screenType = self.ROUTE_INFO
         })
+    }
+    
+    private func hidePublicTransportButton() {
+        publicTransportButton.isHidden = true
+    }
+    
+    private func showPublicTransportButton() {
+        publicTransportButton.isHidden = false
+    }
+    
+    private func hideClearWaypointsButton() {
+        clearWaypointsButton.isHidden = true
+    }
+    
+    private func showClearWaypointsButton() {
+        clearWaypointsButton.isHidden = false
     }
     
     private func setDestinationMdel() {
@@ -530,8 +548,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     private func callGetDirectionApi() {
-
-        
+      
        
         
         if (Mn4pSharedDataStore.startPointModel == nil || Mn4pSharedDataStore.destinationModel == nil) {
@@ -553,6 +570,16 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     private func saveDirectionToDB() {
         RealmManager.sharedInstance.addDirectionToDirectionHistory()
     }
+    
+    private func handleShowPublicTransportButton() {
+        let totalDistance: Int = Mn4pSharedDataStore.directionModel!.getTotalDistance() ?? 0
+        
+        if (totalDistance < 1000) {
+            hidePublicTransportButton()
+        } else {
+            showPublicTransportButton()
+        }
+    }
         
     
     @objc func onAlamofireGetDirectionNotificationReceived(_ notification: NSNotification) {
@@ -573,16 +600,15 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
                     
                     Mn4pSharedDataStore.directionModel =  userInfo["directionModel"] as! DirectionModel
                     saveDirectionToDB()
-                    
                     //TODO 계속 구현하세요 
-                    self.showRouteOnMap(directionModel: Mn4pSharedDataStore.directionModel!)
-                    
-                 
+                    showRouteOnMap()
+                    handleShowPublicTransportButton()
+                    fillOutInfo()
                     
                     break;
                 case "overApi" :
                     
-                    self.showOverApiAlert()
+                    showOverApiAlert()
                     
                     break;
                     
@@ -599,9 +625,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         }
     }
     
-    private func showRouteOnMap(directionModel: DirectionModel) {
+    private func showRouteOnMap() {
         
-        googleMapDrawingManager.showRouteOverlays(directionModel: directionModel)
+        googleMapDrawingManager.showRouteOverlays(directionModel: Mn4pSharedDataStore.directionModel!)
         
     }
     
@@ -636,6 +662,171 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         routeInfoPanel.isHidden = true
     }
     
+    private func fillOutInfo() {
+        showDestinationName()
+               showStartPointName()
+               showRouteOption()
+               showTotalDistance()
+               showTotalTime()
+               showRouteDetail()
+               showCalorie()
+    }
+    
+    private func showDestinationName() {
+        destinationName.text = selectedPlaceModel.getName()! + "까지"
+    }
+    
+    private func showStartPointName() {
+        startPointName.text = Mn4pSharedDataStore.startPointModel?.getName() ?? ""
+        
+    }
+    
+    private func showRouteOption() {
+        routeOption.text = getRouteOption()
+    }
+    
+    private func showTotalDistance() {
+        var distanceString: String = DistanceStringFormatter.getFormattedDistanceWithUnit(distance: Mn4pSharedDataStore.directionModel!.getTotalDistance() ?? 0)
+                if (distanceString == "0m") {
+                    distanceString = ""
+                }
+        
+        totalDistance.text = distanceString
+    }
+    
+    private func showTotalTime() {
+        let totalTimeString: String = getTotalTime()
+        totalTime.text = totalTimeString
+    }
+    
+    private func getTotalTime() -> String {
+        return getFormattedTime(time: Mn4pSharedDataStore.directionModel!.getTotalTime() ?? 0)
+    }
+    
+    private func getFormattedTime(time: Int) -> String {
+        var resultTime: Int = 0
+        if (time < 0) {
+            resultTime = 0
+        } else {
+            resultTime = time
+        }
+
+        let min: Int = resultTime % 3600 / 60
+        let hour: Int = resultTime / 3600
+        
+        var resultString: String = ""
+        
+               if (hour > 0) {
+                resultString.append(String(format: "%f", hour))
+                resultString.append(LanguageManager.getString(key: "hour") + " ")
+                }
+
+                if (min > 0) {
+                     resultString.append(String(format: "%f", min))
+                    resultString.append(LanguageManager.getString(key: "min") + " ")
+                }
+
+                if (hour == 0 && min == 0) {
+                     resultString.append(String(format: "%f", resultTime))
+                    resultString.append(LanguageManager.getString(key: "sec") + " ")
+                }
+
+                return resultString
+    }
+    
+    private func showRouteDetail() {
+        let routeDetailString: String = getRouteDetail()
+        routeDetail.text = routeDetailString
+    }
+    
+    private func getRouteDetail() -> String {
+        //TODO 외국의 경로안내할 경우 지하도와 횡단보도 갯수가 틀릴 수 있으니 수정하세요
+        if (UserInfoManager.isLanguageKorean()) {
+                   return getKoreanRouteDetail()
+               } else {
+                   return getEnglishRouteDetail()
+               }
+    }
+    
+    private func getKoreanRouteDetail() -> String {
+        let undergroundCount: Int = getUndergroundCount()
+        let crosswalkCount: Int = getCrosswalkCount()
+
+        var resultString: String = ""
+
+               if (undergroundCount > 0) {
+                resultString.append("지하도 ")
+                resultString.append(String(format: "%f", undergroundCount))
+                resultString.append("회")
+               }
+
+               if (undergroundCount > 0 && crosswalkCount > 0) {
+                resultString.append("+")
+               }
+
+               if (crosswalkCount > 0) {
+                resultString.append("횡단보도 ")
+                resultString.append(String(format: "%f", crosswalkCount))
+                resultString.append("회")
+             
+               }
+
+               return resultString
+    }
+    
+    private func getUndergroundCount() -> Int {
+      
+        var undergroundCount: Int = 0
+        for geofenceModel in Mn4pSharedDataStore.directionModel!.getGeofenceModels()! {
+            if let description = geofenceModel.getDescription(), description.contains("지하") {
+                undergroundCount = undergroundCount + 1
+            }
+        }
+                       return undergroundCount;
+    }
+    
+    private func getCrosswalkCount() -> Int {
+        
+        var crosswalkCount: Int = 0
+        for geofenceModel in Mn4pSharedDataStore.directionModel!.getGeofenceModels()! {
+            if let description = geofenceModel.getDescription(), description.contains("횡단") {
+                crosswalkCount = crosswalkCount + 1
+            }
+        }
+                       return crosswalkCount
+     
+    }
+    
+    private func getEnglishRouteDetail() -> String {
+        let undergroundCount: Int = getUndergroundCount()
+        let crosswalkCount: Int = getCrosswalkCount()
+
+        var resultString: String = ""
+
+               if (undergroundCount > 0) {
+                resultString.append("Underpass ")
+                resultString.append(String(format: "%f", undergroundCount))
+               }
+
+               if (undergroundCount > 0 && crosswalkCount > 0) {
+                resultString.append("+")
+               }
+
+               if (crosswalkCount > 0) {
+                resultString.append("Crosswalk ")
+                resultString.append(String(format: "%f", crosswalkCount))
+             
+               }
+
+               return resultString
+    }
+    
+    private func showCalorie() {
+        //TODO 구현하세요
+        
+        
+    }
+    
     private func makeRouteInfoScreenLayout() {
         let screenWidth = UIScreen.main.bounds.width
         let routeInfoPanelBackgroundImg = ImageMaker.getRoundRectangleByCorners(width: screenWidth, height: 266, colorHexString: "#333536",byRoundingCorners:[UIRectCorner.topLeft, UIRectCorner.topRight], cornerRadii: 10, alpha: 1.0)
@@ -664,17 +855,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
         let publicTransportButtonBackgroundImg = ImageMaker.getCircle(width: 60, height: 60, colorHexString: "#333536", alpha: 1.0)
         publicTransportButton.backgroundColor = UIColor(patternImage: publicTransportButtonBackgroundImg)
-        
-         
-        
-        
-        destinationName.text = selectedPlaceModel.getName()! + "까지"
-        startPointName.text = Mn4pSharedDataStore.startPointModel?.getName() ?? ""
-        
-        //TODO 계속 구현하세요 
-        
-        routeOption.text = getRouteOption()
-        
+              
         
         
     }
@@ -746,6 +927,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         routeOptionTapGesture.numberOfTouchesRequired = 1
         routeOption.addGestureRecognizer(routeOptionTapGesture)
         routeOption.isUserInteractionEnabled = true
+        
+        //TODO 나의 위치를 클릭시 경로변경 화면 구현하세요
+        
     }
     
     @objc func onRouteOptionTapped(_ sender: UITapGestureRecognizer) {
@@ -757,15 +941,54 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     @objc func onClearWaypointsButtonTapped(_ sender: UITapGestureRecognizer) {
-        //TODO  구현하세요
-      
+        hideClearWaypointsButton()
+        wayPoints.removeAll()
+        callGetDirectionApi()
         
     }
     
     @objc func onPublicTransportButtonTapped(_ sender: UITapGestureRecognizer) {
-        //TODO  구현하세요
-      
         
+        var url:String = ""
+        
+        if (UserInfoManager.isUserInKorea()) {
+              
+            //카카오맵이 설치되어 있는 경우에만 열림
+            //카카오맵 웹페이지를 열려고 하니 웹페이지를 열지만 경로를 표시하지는 않음
+            url.append("kakaomap://route?sp=")
+            url.append(String(format: "%f", Mn4pSharedDataStore.startPointModel!.getLatitude() ?? 0))
+            url.append(",")
+            url.append(String(format: "%f", Mn4pSharedDataStore.startPointModel!.getLongitude() ?? 0))
+            url.append("&ep=")
+            url.append(String(format: "%f", Mn4pSharedDataStore.destinationModel!.getLatitude() ?? 0))
+            url.append(",")
+            url.append(String(format: "%f", Mn4pSharedDataStore.destinationModel!.getLongitude() ?? 0))
+            url.append("&by=PUBLICTRANSIT")
+            
+            print("plusapps url: " + url)
+            //canOpenUrl이 항상 false 리턴
+            //카카오맵의 url scheme(kakaomap)을 info.plist파일의 LSApplicatinQueriesSchemes에 추가하면 canOpenUrl이 정상적인 값 리턴
+            if (UIApplication.shared.canOpenURL(URL(string:url)!) != true) {
+                if let url = URL(string: "itms-apps://apple.com/app/id304608425") {
+                    UIApplication.shared.open(url)
+                }
+                return
+            }
+
+        } else {
+            //구글맵은 앱이 설치되었으면 앱으로 설치 안되었으면 웹으로 이동
+            url.append("http://www.google.com/maps/dir/?api=1&f=d&origin=")
+            url.append(String(format: "%f", Mn4pSharedDataStore.startPointModel!.getLatitude() ?? 0))
+            url.append(",")
+            url.append(String(format: "%f", Mn4pSharedDataStore.startPointModel!.getLongitude() ?? 0))
+            url.append("&destination=")
+            url.append(String(format: "%f", Mn4pSharedDataStore.destinationModel!.getLatitude() ?? 0))
+            url.append(",")
+            url.append(String(format: "%f", Mn4pSharedDataStore.destinationModel!.getLongitude() ?? 0))
+            url.append("&travelmode=transit")
+         }
+        
+        UIApplication.shared.open(URL(string:url)!, options: [:], completionHandler: nil)
     }
     
     //closeButton은 경로정보화면의 객체만 있음
@@ -794,7 +1017,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             
             self.callGetDirectionApi()
             
-            self.previousScreenType = self.NAVIGATION
+            self.screenType = self.NAVIGATION
         })
         
     }
@@ -919,11 +1142,22 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        print("plusapps mapView didTapAt")
+        if (screenType == ROUTE_INFO) {
+            let wayPoint : CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude)
+         
+            wayPoints.append(wayPoint)
+            showClearWaypointsButton()
+            callGetDirectionApi()
+        }
+        
         //TODO: 나중에 참조하세요
         //        customInfoWindow?.removeFromSuperview()
     }
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        
+        
         //TODO: 나중에 참조하세요
         //        let position = tappedMarker?.position
         //        customInfoWindow?.center = mapView.projection.point(for: position!)
@@ -937,7 +1171,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     private func initMapView() {
         let camera = GMSCameraPosition.camera(withLatitude: 37.534459, longitude: 126.983314, zoom: 14)
         mapView.camera = camera
-        
+        mapView.delegate = self
         //이 메소드가 viewDidLoad보다 먼저 호출됨
         
         

@@ -131,7 +131,7 @@ class AlamofireManager {
     //
     //********************************************************************************************************
     
-    public func getDirection(startPointModel : PlaceModel , destinationModel : PlaceModel , selectedRouteOption : String, wayPoints: [CLLocationCoordinate2D]?, notificationName : String) {
+    public func getDirection(startPointModel : PlaceModel , destinationModel : PlaceModel , selectedRouteOption : String, wayPoints: [CLLocationCoordinate2D], notificationName : String) {
         let url:String = "https://api2.sktelecom.com/tmap/routes/pedestrian?version=1&appKey=" + TMAP_APP_KEY
         
         
@@ -143,8 +143,8 @@ class AlamofireManager {
 
         var param: [String: Any] = [:]
  
-        if let wayPoints2 = wayPoints, wayPoints2.count > 0 {
-            let wayPointsString : String = convertWaypointsToString(wayPoints : wayPoints2)
+        if wayPoints.count > 0 {
+            let wayPointsString : String = convertWaypointsToString(wayPoints : wayPoints)
            
             
             param = [  "startX": String(format: "%f", startPointModel.getLongitude() ?? 0), "startY": String(format: "%f", startPointModel.getLatitude() ?? 0) , "endX": String(format: "%f", destinationModel.getLongitude() ?? 0) , "endY": String(format: "%f", destinationModel.getLatitude() ?? 0) , "angle": "0" , "searchOption": selectedRouteOption , "reqCoordType": "WGS84GEO","resCoordType": "WGS84GEO","startName": "start", "endName": "end", "passList": wayPointsString]
