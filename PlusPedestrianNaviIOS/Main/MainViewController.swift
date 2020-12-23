@@ -26,6 +26,37 @@ protocol ToastDelegate {
     func showToast(message: String)
 }
 
+protocol GeofenceListenerDelegate {
+    func onEntered(previousGeofence: GeofenceModel, currentGeofence: GeofenceModel)
+    func onApproachedByFiftyMeters(description: String, distanceToGeofenceEnter: Int)
+    func onApproached(distanceToGeofenceEnter: Int)
+    func onOutOfGeofence()
+    func onOutOfGeofenceAgain()
+    func onExit(previousGeofence: GeofenceModel, currentGeofence: GeofenceModel)
+   }
+
+protocol SegmentedRoutePointListenerDelegate {
+    func onGetNearestSegmentedRoutePoint(nearestSegmentedRoutePoint: CLLocationCoordinate2D)
+}
+
+protocol ArriveDestinationListenerDelegate {
+    func onArrivedToDestination()
+}
+
+extension Formatter {
+    static let withSeparator: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ","
+        return formatter
+    }()
+}
+
+extension Numeric {
+    var formattedWithSeparator: String { Formatter.withSeparator.string(for: self) ?? "" }
+}
+
+
 class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDelegate, FloatingPanelControllerDelegate, LocationListenerDelegate, SelectScreenDelegate, ToastDelegate, RouteOptionPopupDelegate {
     
     func showToast(message: String) {
@@ -496,7 +527,22 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     func onRouteOptionSelected() {
-        routeOption.text = getRouteOption()
+        findRoute()
+    }
+    
+    private func findRoute() {
+        if (InternetConnectionChecker.sharedInstance.isOffline()) {            InternetConnectionChecker.sharedInstance.showOfflineAlertPopup(parentViewControler: self)
+            return
+        }
+        
+       //TODO 접근성 구현하세요
+        //현재 오류 발생
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//            UIAccessibility.post(notification: .announcement, argument: "접근성 웹페이지")
+//        }
+        
+        callGetDirectionApi()
+        
     }
     
     private func showViewsOnRouteInfoScreen() {
@@ -646,6 +692,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             
             placeModel.setLongitude(longitude: location.coordinate.longitude)
             
+            print("plusapps isLanguageKorean: " + String(UserInfoManager.isLanguageKorean()))
+            
             let name = (UserInfoManager.isLanguageKorean()) ? "나의 위치": "Your location"
             placeModel.setName(name: name)
             placeModel.setAccuracy(accuracy: location.horizontalAccuracy)
@@ -696,6 +744,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     private func showTotalTime() {
         let totalTimeString: String = getTotalTime()
+        //bullet point까지 공백생기는 이유는 폰트 사이즈가 커서 그런 듯. 어떻게 할 수 없는 듯 
         totalTime.text = totalTimeString
     }
     
@@ -710,28 +759,32 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         } else {
             resultTime = time
         }
-
+        
+       
         let min: Int = resultTime % 3600 / 60
         let hour: Int = resultTime / 3600
         
         var resultString: String = ""
         
                if (hour > 0) {
-                resultString.append(String(format: "%f", hour))
+                //Int를 String으로 변환할 때 String(format:"%f", value)를 사용하면 안됨
+                resultString.append(String(hour))
+                
                 resultString.append(LanguageManager.getString(key: "hour") + " ")
                 }
 
                 if (min > 0) {
-                     resultString.append(String(format: "%f", min))
+                     resultString.append(String(min))
                     resultString.append(LanguageManager.getString(key: "min") + " ")
                 }
 
                 if (hour == 0 && min == 0) {
-                     resultString.append(String(format: "%f", resultTime))
+                     resultString.append(String(resultTime))
                     resultString.append(LanguageManager.getString(key: "sec") + " ")
                 }
-
-                return resultString
+        
+         
+               return resultString
     }
     
     private func showRouteDetail() {
@@ -756,7 +809,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
 
                if (undergroundCount > 0) {
                 resultString.append("지하도 ")
-                resultString.append(String(format: "%f", undergroundCount))
+                resultString.append(String(undergroundCount))
                 resultString.append("회")
                }
 
@@ -766,7 +819,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
 
                if (crosswalkCount > 0) {
                 resultString.append("횡단보도 ")
-                resultString.append(String(format: "%f", crosswalkCount))
+                resultString.append(String(crosswalkCount))
                 resultString.append("회")
              
                }
@@ -805,7 +858,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
 
                if (undergroundCount > 0) {
                 resultString.append("Underpass ")
-                resultString.append(String(format: "%f", undergroundCount))
+                resultString.append(String(undergroundCount))
                }
 
                if (undergroundCount > 0 && crosswalkCount > 0) {
@@ -814,7 +867,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
 
                if (crosswalkCount > 0) {
                 resultString.append("Crosswalk ")
-                resultString.append(String(format: "%f", crosswalkCount))
+                resultString.append(String(crosswalkCount))
              
                }
 
@@ -822,9 +875,30 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     private func showCalorie() {
-        //TODO 구현하세요
+        
+        let calorieString: String = getCalorie() + LanguageManager.getString(key: "kcal")
+        calorie.text = calorieString
         
         
+    }
+    
+    private func getCalorie() -> String {
+        let hour: Int = Mn4pSharedDataStore.directionModel!.getTotalTime()! / 3600
+        let min: Int =  (Mn4pSharedDataStore.directionModel!.getTotalTime()! % 3600) / 60
+        
+        let totalMin = hour * 60 + min
+        
+        let result1: Double = 3.5 * 70 * Double(totalMin)
+        let result2: Double = ((3.3 * result1) / 1000) * 5
+
+        
+        var totalCalorie: Int = Int(result2)
+        
+        if (totalCalorie == 0) {
+            totalCalorie = 1
+        }
+        
+        return totalCalorie.formattedWithSeparator
     }
     
     private func makeRouteInfoScreenLayout() {
@@ -928,8 +1002,20 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         routeOption.addGestureRecognizer(routeOptionTapGesture)
         routeOption.isUserInteractionEnabled = true
         
-        //TODO 나의 위치를 클릭시 경로변경 화면 구현하세요
+        let startPointNameTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onStartPointNameTapped(_:)))
+        startPointNameTapGesture.numberOfTapsRequired = 1
+        startPointNameTapGesture.numberOfTouchesRequired = 1
+        startPointName.addGestureRecognizer(startPointNameTapGesture)
+        startPointName.isUserInteractionEnabled = true
+    }
+    
+    private func showSetPointScreen() {
+        showScreenOnOtherStoryboard(storyboardName: "SetPoint", viewControllerStoryboardId: "set_point")
+    }
         
+        
+    @objc func onStartPointNameTapped(_ sender: UITapGestureRecognizer) {
+        showSetPointScreen()
     }
     
     @objc func onRouteOptionTapped(_ sender: UITapGestureRecognizer) {
@@ -1014,9 +1100,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             self.hideViewsOnRouteInfoScreen()
             
             self.showViewsOnNavigationScreen()
-            
-            self.callGetDirectionApi()
-            
+                      
             self.screenType = self.NAVIGATION
         })
         
@@ -1056,19 +1140,58 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     private func showViewsOnNavigationScreen() {
-        directionBoard.isHidden = false
-        rescanDirectionButton.isHidden = false
         
-        stepDetector.isHidden = false
-        
+        makeNavigationScreenLayout()
+        addTapListenerNavigation()
+        initNavigationMap()
+        initNavigationEngine()
         //TODO: rescanDirectionButton 버튼 리스터 구현하세요
         
         showNavigationPanel()
     }
     
+    private func initNavigationEngine() {
+        
+    }
     
-   
+    
+    private func initNavigationMap() {
+        
+        googleMapDrawingManager.showNavigationOverlays(directionModel: Mn4pSharedDataStore.directionModel!)
+        googleMapDrawingManager.setMapPadding(bottomPadding: 0)
+    }
+    
+    private func makeNavigationScreenLayout() {
+        directionBoard.isHidden = false
+        rescanDirectionButton.isHidden = false
+        
+        stepDetector.isHidden = false
+        
+        let rescanDirectionButtonBackgroundImg = ImageMaker.getCircle(width: 60, height: 60, colorHexString: "#333536", alpha: 1.0)
+        rescanDirectionButton.backgroundColor = UIColor(patternImage: rescanDirectionButtonBackgroundImg)
+       
+        //TODO step detector 배경이미지 처리하세요
+    }
+    
+    
+    private func addTapListenerNavigation() {
+        
+        let rescanDirectionButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onRescanDirectionButtonTapped(_:)))
+        rescanDirectionButtonTapGesture.numberOfTapsRequired = 1
+        rescanDirectionButtonTapGesture.numberOfTouchesRequired = 1
+        rescanDirectionButton.addGestureRecognizer(rescanDirectionButtonTapGesture)
+        rescanDirectionButton.isUserInteractionEnabled = true
+    }
   
+    @objc func onRescanDirectionButtonTapped(_ sender: UITapGestureRecognizer) {
+        rescanDirection()
+    }
+    
+    private func rescanDirection() {
+        //TODO 구현하세요
+        
+    }
+    
     
     /*
      Panel
@@ -1287,7 +1410,7 @@ class NavigationPanelLayout: FloatingPanelLayout {
         switch position {
         case .full: return 16.0 // A top inset from safe area
         case .half: return 500 // A bottom inset from the safe area
-        case .tip: return 300// A bottom inset from the safe area
+        case .tip: return 180// A bottom inset from the safe area
         default: return nil // Or `case .hidden: return nil`
         }
     }

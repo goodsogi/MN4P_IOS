@@ -80,6 +80,9 @@
 		1FF1E5ED24F6422000F196CA /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E5EC24F6422000F196CA /* RealmManager.swift */; };
 		B3307DB82589AAB00004AB04 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3307DB72589AAB00004AB04 /* GoogleService-Info.plist */; };
 		B33404EA2590380000F66394 /* GeofenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33404E92590380000F66394 /* GeofenceModel.swift */; };
+		B33B2E72259322C500E06F1D /* NavigationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33B2E71259322C500E06F1D /* NavigationEngine.swift */; };
+		B33B2E8A2593350700E06F1D /* SegmentedRoutePointListMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33B2E892593350700E06F1D /* SegmentedRoutePointListMaker.swift */; };
+		B33B2E8D2593373900E06F1D /* MapDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33B2E8C2593373900E06F1D /* MapDataConverter.swift */; };
 		B382CA31258C3DE9005A7331 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382CA30258C3DE9005A7331 /* LanguageManager.swift */; };
 		B382CA49258C4A6E005A7331 /* RouteOptionPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382CA48258C4A6E005A7331 /* RouteOptionPopupViewController.swift */; };
 		B382CAA5258C95A9005A7331 /* DirectionVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382CAA4258C95A9005A7331 /* DirectionVO.swift */; };
@@ -168,6 +171,9 @@
 		76D48CC66E7E6DC0607E9F6C /* Pods-PlusPedestrianNaviIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B3307DB72589AAB00004AB04 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B33404E92590380000F66394 /* GeofenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceModel.swift; sourceTree = "<group>"; };
+		B33B2E71259322C500E06F1D /* NavigationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationEngine.swift; sourceTree = "<group>"; };
+		B33B2E892593350700E06F1D /* SegmentedRoutePointListMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedRoutePointListMaker.swift; sourceTree = "<group>"; };
+		B33B2E8C2593373900E06F1D /* MapDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDataConverter.swift; sourceTree = "<group>"; };
 		B382CA30258C3DE9005A7331 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		B382CA48258C4A6E005A7331 /* RouteOptionPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteOptionPopupViewController.swift; sourceTree = "<group>"; };
 		B382CAA4258C95A9005A7331 /* DirectionVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionVO.swift; sourceTree = "<group>"; };
@@ -324,6 +330,9 @@
 				079AA9F62165FC78006CD763 /* DownloadProVersionPopupViewController.swift */,
 				1F47579124E265420076DCA5 /* NavigationPanelViewController.swift */,
 				1F31636B24E6831D00E1C7EA /* Navigation.storyboard */,
+				B33B2E71259322C500E06F1D /* NavigationEngine.swift */,
+				B33B2E892593350700E06F1D /* SegmentedRoutePointListMaker.swift */,
+				B33B2E8C2593373900E06F1D /* MapDataConverter.swift */,
 			);
 			path = navigation;
 			sourceTree = "<group>";
@@ -590,6 +599,7 @@
 				07F2224021392ABF00EDFBB0 /* SearchPlaceViewController.swift in Sources */,
 				0749B9A02146381F0082E1E6 /* DirectionModel.swift in Sources */,
 				1FC630AC24E3CD1C008898B9 /* SearchNearbyViewController.swift in Sources */,
+				B33B2E8A2593350700E06F1D /* SegmentedRoutePointListMaker.swift in Sources */,
 				07AE17B0213D28180045A2A8 /* PlaceModel.swift in Sources */,
 				B3AFEC812580A5B1004D8529 /* FavoriteVO.swift in Sources */,
 				1FF1E5ED24F6422000F196CA /* RealmManager.swift in Sources */,
@@ -608,6 +618,7 @@
 				B3900E1D2589CD3800ACFCF4 /* SceneDelegate.swift in Sources */,
 				0779FB7721646BC400E60AC0 /* SpinnerView.swift in Sources */,
 				1F8E05E024E0E631000953A2 /* PlaceInfoViewController.swift in Sources */,
+				B33B2E72259322C500E06F1D /* NavigationEngine.swift in Sources */,
 				B382CAA5258C95A9005A7331 /* DirectionVO.swift in Sources */,
 				1FC630A924E3C316008898B9 /* FavoritesViewController.swift in Sources */,
 				1F88E17C24DBEF070039C517 /* MainPanelViewController.swift in Sources */,
@@ -646,6 +657,7 @@
 				1FD5BC5324E52D4D0029F7B3 /* GoogleMapClient.swift in Sources */,
 				1F8E05E224E0E672000953A2 /* PlaceInfoPanelViewController.swift in Sources */,
 				0745C312214226A10090D395 /* RouteInfoViewController.swift in Sources */,
+				B33B2E8D2593373900E06F1D /* MapDataConverter.swift in Sources */,
 				1F308A8424EF6DC5001ED799 /* Mn4pSharedDataStore.swift in Sources */,
 				1FC630AE24E3CD2D008898B9 /* SearchNearbyPanelViewController.swift in Sources */,
 				1FF1E5E824F6360F00F196CA /* SearchPlaceHistoryTableCell.swift in Sources */,

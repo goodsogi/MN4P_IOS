@@ -136,7 +136,7 @@ class GoogleMapDrawingManager {
         
         drawStartEndMarker(directionModel: directionModel)
         
-        drawMainPolyline(directionModel: directionModel)
+        drawPolyline(directionModel: directionModel)
         
         zoomMapWithPolyline()
         
@@ -165,7 +165,7 @@ class GoogleMapDrawingManager {
         }
     }
     
-    private func drawMainPolyline(directionModel:DirectionModel) {
+    private func drawPolyline(directionModel:DirectionModel) {
         //두번째 옵션의 경로 polyline 그림
         let path = getPath(directionModel: directionModel)
         
@@ -232,7 +232,28 @@ class GoogleMapDrawingManager {
      경로안내 화면
      */
     
+    public func showNavigationOverlays(directionModel: DirectionModel) {
+        
+        clearMap()
+        
+        drawEndMarker(directionModel: directionModel)
+        
+        drawPolyline(directionModel: directionModel)
+        
+        zoomMapWithPolyline()
+        
+    }
     
+    
+    private func drawEndMarker(directionModel:DirectionModel) {
+        
+        endMarker = GMSMarker()
+        
+        endMarker.position = CLLocationCoordinate2D(latitude: directionModel.getRoutePointModels()![directionModel.getRoutePointModels()!.count - 1].getLat()!, longitude: directionModel.getRoutePointModels()![directionModel.getRoutePointModels()!.count - 1].getLng()!)
+        endMarker.title = "end marker"
+        endMarker.icon = self.getScaledImage(image: UIImage(named: "destination_pin.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
+        endMarker.map = self.mapView
+    }
     
     public func setMapPadding(bottomPadding: CGFloat) {
         let mapInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: bottomPadding, right: 0.0)
@@ -270,13 +291,13 @@ class GoogleMapDrawingManager {
     public func showFirstRoute(firstDirectionModel:DirectionModel,secondDirectionModel:DirectionModel) {
         removeAllPolylines()
         drawSubPolyline(directionModel: secondDirectionModel)
-        drawMainPolyline(directionModel: firstDirectionModel)
+        drawPolyline(directionModel: firstDirectionModel)
     }
     
     public func showSecondRoute(firstDirectionModel:DirectionModel,secondDirectionModel:DirectionModel) {
         removeAllPolylines()
         drawSubPolyline(directionModel: firstDirectionModel)
-        drawMainPolyline(directionModel: secondDirectionModel)
+        drawPolyline(directionModel: secondDirectionModel)
         
     }
     

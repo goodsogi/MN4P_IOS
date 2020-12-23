@@ -28,7 +28,7 @@
                                         <rect key="frame" x="0.0" y="401" width="375" height="266"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4yr-LK-IZG" userLabel="Go Button">
-                                                <rect key="frame" x="276" y="148" width="81" height="81"/>
+                                                <rect key="frame" x="276" y="149.5" width="81" height="81"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="81" id="GCm-Nr-eSU"/>
                                                     <constraint firstAttribute="height" constant="81" id="chl-aH-U91"/>
@@ -38,52 +38,52 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="USq-Lx-Lqt" userLabel="Calorie">
-                                                <rect key="frame" x="88" y="187" width="59" height="18.5"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="USq-Lx-Lqt" userLabel="Calorie">
+                                                <rect key="frame" x="38" y="190.5" width="4" height="18.5"/>
                                                 <color key="textColor" red="0.66640001540000005" green="0.670122683" blue="0.69909846779999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="•" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mWz-lC-7TC" userLabel="Bullet Point 2">
-                                                <rect key="frame" x="81" y="187" width="7" height="18.5"/>
+                                                <rect key="frame" x="26" y="190.5" width="7" height="18.5"/>
                                                 <color key="textColor" red="0.83520287280000005" green="0.83534681799999999" blue="0.83519369359999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VLm-YK-nzO" userLabel="Route Detail">
-                                                <rect key="frame" x="17" y="187" width="59" height="18.5"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VLm-YK-nzO" userLabel="Route Detail">
+                                                <rect key="frame" x="17" y="190.5" width="4" height="18.5"/>
                                                 <color key="textColor" red="0.66640001540000005" green="0.670122683" blue="0.69909846779999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="•" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c1s-VA-gsW" userLabel="Bullet Point 1">
-                                                <rect key="frame" x="103" y="164.5" width="7" height="18.5"/>
+                                                <rect key="frame" x="23" y="167.5" width="7" height="18.5"/>
                                                 <color key="textColor" red="0.83520287280000005" green="0.83534681799999999" blue="0.83519369359999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RCk-ZW-0qe" userLabel="Total Time">
-                                                <rect key="frame" x="17" y="160" width="86" height="27"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RCk-ZW-0qe" userLabel="Total Time">
+                                                <rect key="frame" x="17" y="162.5" width="6" height="28"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5bj-4H-AKw" userLabel="Route Option">
-                                                <rect key="frame" x="17" y="136" width="73" height="22"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5bj-4H-AKw" userLabel="Route Option">
+                                                <rect key="frame" x="17" y="137.5" width="5" height="23"/>
                                                 <color key="textColor" red="0.0" green="0.4710060358" blue="0.9991804957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sg5-OJ-Atd" userLabel="Seperator1">
-                                                <rect key="frame" x="0.0" y="101" width="375" height="1"/>
+                                                <rect key="frame" x="0.0" y="102.5" width="375" height="1"/>
                                                 <color key="backgroundColor" red="0.45574784280000002" green="0.47153413300000002" blue="0.4843173623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="mWp-qT-gvd"/>
                                                 </constraints>
                                             </view>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tPh-wu-Z04" userLabel="Start Point Name">
-                                                <rect key="frame" x="69" y="53" width="79" height="24"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tPh-wu-Z04" userLabel="Start Point Name">
+                                                <rect key="frame" x="69" y="53" width="5" height="25.5"/>
+                                                <color key="textColor" red="0.25447925929999998" green="0.51828217509999996" blue="0.95430618519999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
@@ -93,7 +93,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XQ5-cI-7yr" userLabel="Destination Name">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XQ5-cI-7yr" userLabel="Destination Name">
                                                 <rect key="frame" x="19" y="20" width="290" height="33"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
@@ -118,8 +118,8 @@
                                                     <constraint firstAttribute="width" constant="37" id="tKh-4J-iL7"/>
                                                 </constraints>
                                             </view>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Favorites" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Ns-au-ulE" userLabel="Total Distance">
-                                                <rect key="frame" x="115" y="164.5" width="73" height="22"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Ns-au-ulE" userLabel="Total Distance">
+                                                <rect key="frame" x="35" y="167.5" width="5" height="23"/>
                                                 <color key="textColor" red="0.66640001540000005" green="0.670122683" blue="0.69909846779999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -131,7 +131,7 @@
                                             <constraint firstItem="c1s-VA-gsW" firstAttribute="leading" secondItem="RCk-ZW-0qe" secondAttribute="trailing" id="32u-He-yxh"/>
                                             <constraint firstItem="VLm-YK-nzO" firstAttribute="leading" secondItem="RCk-ZW-0qe" secondAttribute="leading" id="351-Fk-crq"/>
                                             <constraint firstItem="vaW-D9-Iz5" firstAttribute="top" secondItem="iP5-7Y-vVs" secondAttribute="top" constant="19" id="3ad-IK-29f"/>
-                                            <constraint firstItem="USq-Lx-Lqt" firstAttribute="leading" secondItem="mWz-lC-7TC" secondAttribute="trailing" id="3fZ-lv-Ssr"/>
+                                            <constraint firstItem="USq-Lx-Lqt" firstAttribute="leading" secondItem="mWz-lC-7TC" secondAttribute="trailing" constant="5" id="3fZ-lv-Ssr"/>
                                             <constraint firstItem="vaW-D9-Iz5" firstAttribute="trailing" secondItem="iP5-7Y-vVs" secondAttribute="trailing" constant="-19" id="6ds-vP-4Wz"/>
                                             <constraint firstItem="tPh-wu-Z04" firstAttribute="leading" secondItem="Ts0-d6-sKy" secondAttribute="trailing" constant="5" id="8ki-r8-ley"/>
                                             <constraint firstItem="XQ5-cI-7yr" firstAttribute="trailing" secondItem="vaW-D9-Iz5" secondAttribute="leading" constant="-10" id="AJe-P0-ZUE"/>

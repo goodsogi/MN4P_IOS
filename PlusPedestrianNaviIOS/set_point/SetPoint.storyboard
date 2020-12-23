@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Set Point-->
         <scene sceneID="kof-ys-8HV">
             <objects>
-                <viewController id="pdr-jY-zi6" userLabel="Set Point" customClass="SetPointViewController" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="set_point" id="pdr-jY-zi6" userLabel="Set Point" customClass="SetPointViewController" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xkd-sH-PID" userLabel="Set Point Screen">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -23,13 +24,13 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Change Route" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KBp-4x-ZIS" userLabel="Screen Title">
-                                <rect key="frame" x="140" y="54" width="134" height="24"/>
+                                <rect key="frame" x="140.5" y="54" width="133" height="24"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Route" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="blZ-2m-qoH" userLabel="Find Route Button">
-                                <rect key="frame" x="343" y="54" width="51" height="24"/>
+                                <rect key="frame" x="342" y="54" width="52" height="24"/>
                                 <color key="textColor" red="0.0" green="0.47100365160000002" blue="0.99917787309999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -98,7 +99,7 @@
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="S0o-Wd-SZo" firstAttribute="centerX" secondItem="y2R-1b-5JF" secondAttribute="centerX" id="5ok-Fl-xqL"/>
                                     <constraint firstItem="S0o-Wd-SZo" firstAttribute="centerY" secondItem="y2R-1b-5JF" secondAttribute="centerY" id="HGN-fX-Hxh"/>
@@ -131,7 +132,8 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="HnQ-dD-SCG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="XSy-ew-ma2" firstAttribute="leading" secondItem="HE5-4X-KW0" secondAttribute="leading" id="1BA-Ip-Szi"/>
                             <constraint firstItem="nGe-h7-YXZ" firstAttribute="leading" secondItem="HnQ-dD-SCG" secondAttribute="leading" constant="20" id="255-nZ-rTC"/>
@@ -172,7 +174,6 @@
                             <constraint firstItem="GJk-fR-dDk" firstAttribute="leading" secondItem="Xkd-sH-PID" secondAttribute="leading" id="uGm-Ns-XdR"/>
                             <constraint firstItem="hup-Vl-Xb9" firstAttribute="bottom" secondItem="Xkd-sH-PID" secondAttribute="bottom" id="vFL-ur-xkS"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="HnQ-dD-SCG"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdP-dc-ByD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -184,5 +185,8 @@
         <image name="place_pin_red" width="128" height="128"/>
         <image name="swap_black" width="96" height="96"/>
         <image name="your_location_blue" width="128" height="128"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

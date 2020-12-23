@@ -33,9 +33,9 @@ class LocationManager: NSObject,CLLocationManagerDelegate {
         }
         
         //문자열안에 \()를 사용하여 int, float등을 사용할 수 있는 듯
-        print("location latitude:  \(location!.coordinate.latitude), longitude: \(location!.coordinate.longitude)")
+        //print("location latitude:  \(location!.coordinate.latitude), longitude: \(location!.coordinate.longitude)")
        
-        print(location!.horizontalAccuracy)
+       
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)

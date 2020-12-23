@@ -47,6 +47,8 @@ public static func getString(key:String) -> String {
             return "분"
         case "sec":
             return "초"
+        case "kcal":
+            return "칼로리"
         default:
             return ""
         }
@@ -79,6 +81,8 @@ public static func getString(key:String) -> String {
             return "min"
         case "sec":
             return "sec"
+        case "kcal":
+            return "kcal"
         default:
             return ""
         }
