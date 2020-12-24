@@ -106,6 +106,13 @@ class UserDefaultManager {
        public static let KEY_IS_FROM_SETTING_FRAGMENT: String = "KEY_IS_FROM_SETTING_FRAGMENT"
        public static let KEY_IS_FROM_SET_POINT_FRAGMENT: String = "KEY_IS_FROM_SET_POINT_FRAGMENT"
     public static let KEY_ROUTE_OPTION: String = "KEY_ROUTE_OPTION"
+    public static let KEY_IS_USE_VIBRATION: String = "KEY_IS_USE_VIBRATION"
+   
+    
+    
+    public static func isUseVibration() -> Bool {
+        return getBool(key: KEY_IS_USE_VIBRATION, defaultValue: true)
+    }
     
     
     public static func getRouteOption() -> String {

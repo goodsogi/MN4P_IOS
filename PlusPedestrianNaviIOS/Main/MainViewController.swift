@@ -26,17 +26,21 @@ protocol ToastDelegate {
     func showToast(message: String)
 }
 
+protocol OverviewExitListenerDelegate {
+    func onExitFromOverview()
+}
+
 protocol GeofenceListenerDelegate {
-    func onEntered(previousGeofence: GeofenceModel, currentGeofence: GeofenceModel)
+    func onEntered(previousGeofence: GeofenceModel, currentGeofence: GeofenceModel?)
     func onApproachedByFiftyMeters(description: String, distanceToGeofenceEnter: Int)
     func onApproached(distanceToGeofenceEnter: Int)
     func onOutOfGeofence()
     func onOutOfGeofenceAgain()
-    func onExit(previousGeofence: GeofenceModel, currentGeofence: GeofenceModel)
+    func onExit(previousGeofence: GeofenceModel?, currentGeofence: GeofenceModel)
    }
 
 protocol SegmentedRoutePointListenerDelegate {
-    func onGetNearestSegmentedRoutePoint(nearestSegmentedRoutePoint: CLLocationCoordinate2D)
+    func onGetNearestSegmentedRoutePoint(nearestSegmentedRoutePoint: CLLocation)
 }
 
 protocol ArriveDestinationListenerDelegate {
@@ -57,7 +61,8 @@ extension Numeric {
 }
 
 
-class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDelegate, FloatingPanelControllerDelegate, LocationListenerDelegate, SelectScreenDelegate, ToastDelegate, RouteOptionPopupDelegate {
+class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDelegate, FloatingPanelControllerDelegate, LocationListenerDelegate, SelectScreenDelegate, ToastDelegate, RouteOptionPopupDelegate, OverviewExitListenerDelegate, GeofenceListenerDelegate, SegmentedRoutePointListenerDelegate, ArriveDestinationListenerDelegate {
+   
     
     func showToast(message: String) {
         Toast.show(message: message, controller: self)
@@ -1093,6 +1098,46 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     @IBOutlet weak var rescanDirectionButton: UIView!
     
     
+    func onExitFromOverview() {
+        <#code#>
+    }
+    
+    func onEntered(previousGeofence: GeofenceModel, currentGeofence: GeofenceModel?) {
+        <#code#>
+    }
+    
+    func onApproachedByFiftyMeters(description: String, distanceToGeofenceEnter: Int) {
+        <#code#>
+    }
+    
+    func onApproached(distanceToGeofenceEnter: Int) {
+        <#code#>
+    }
+    
+    func onOutOfGeofence() {
+        <#code#>
+    }
+    
+    func onOutOfGeofenceAgain() {
+        <#code#>
+    }
+    
+    func onExit(previousGeofence: GeofenceModel?, currentGeofence: GeofenceModel) {
+        <#code#>
+    }
+    
+    func onGetNearestSegmentedRoutePoint(nearestSegmentedRoutePoint: CLLocation) {
+        <#code#>
+    }
+    
+    func onArrivedToDestination() {
+        speakTTS(text: LanguageManager.getString(key: "you_have_arrived"))
+        AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) { }
+    }
+    
+    
+    
+    
     private func showNavigationScreen() {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
@@ -1100,6 +1145,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             self.hideViewsOnRouteInfoScreen()
             
             self.showViewsOnNavigationScreen()
+            self.initNavigationEngine()
                       
             self.screenType = self.NAVIGATION
         })
@@ -1144,14 +1190,13 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         makeNavigationScreenLayout()
         addTapListenerNavigation()
         initNavigationMap()
-        initNavigationEngine()
         //TODO: rescanDirectionButton 버튼 리스터 구현하세요
         
         showNavigationPanel()
     }
     
     private func initNavigationEngine() {
-        
+        NavigationEngine.sharedInstance.initEngine()
     }
     
     

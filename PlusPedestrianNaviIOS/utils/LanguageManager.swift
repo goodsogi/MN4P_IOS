@@ -49,6 +49,8 @@ public static func getString(key:String) -> String {
             return "초"
         case "kcal":
             return "칼로리"
+        case "you_have_arrived":
+            return "목적지에 도착했습니다."
         default:
             return ""
         }
@@ -83,6 +85,8 @@ public static func getString(key:String) -> String {
             return "sec"
         case "kcal":
             return "kcal"
+        case "you_have_arrived":
+            return "You have arrived."
         default:
             return ""
         }
