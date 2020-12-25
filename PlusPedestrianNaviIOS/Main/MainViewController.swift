@@ -31,7 +31,7 @@ protocol OverviewExitListenerDelegate {
 }
 
 protocol GeofenceListenerDelegate {
-    func onEntered(previousGeofence: GeofenceModel, currentGeofence: GeofenceModel?)
+    func onEntered(currentGeofence: GeofenceModel, nextGeofence: GeofenceModel?)
     func onApproachedByFiftyMeters(description: String, distanceToGeofenceEnter: Int)
     func onApproached(distanceToGeofenceEnter: Int)
     func onOutOfGeofence()
@@ -546,7 +546,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
 //            UIAccessibility.post(notification: .announcement, argument: "접근성 웹페이지")
 //        }
         
-        callGetDirectionApi()
+        callGetDirectionApi(notificationName: PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE)
         
     }
     
@@ -563,7 +563,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             self.showViewsOnRouteInfoScreen()
             self.hideClearWaypointsButton()
             self.hidePublicTransportButton()
-            self.callGetDirectionApi()
+            self.findRoute()
             self.addTapListenerRouteInfo()
             self.screenType = self.ROUTE_INFO
         })
@@ -598,7 +598,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         SpinnerView.show(onView: self.view)
     }
     
-    private func callGetDirectionApi() {
+    private func callGetDirectionApi(notificationName: String) {
       
        
         
@@ -613,7 +613,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
 
         let routeOption : String = UserDefaultManager.getRouteOption()
 
-        alamofireManager.getDirection(startPointModel: Mn4pSharedDataStore.startPointModel!, destinationModel: Mn4pSharedDataStore.destinationModel!, selectedRouteOption: routeOption, wayPoints: wayPoints, notificationName : PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE)
+        alamofireManager.getDirection(startPointModel: Mn4pSharedDataStore.startPointModel!, destinationModel: Mn4pSharedDataStore.destinationModel!, selectedRouteOption: routeOption, wayPoints: wayPoints, notificationName : notificationName)
         
     }
     
@@ -636,7 +636,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     @objc func onAlamofireGetDirectionNotificationReceived(_ notification: NSNotification) {
         
         print("plusapps onAlamofireGetDirectionNotificationReceived")
-        if notification.name.rawValue == PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE {
+        if (notification.name.rawValue == PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE ||  notification.name.rawValue == PPNConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION) {
             
             SpinnerView.remove()
             
@@ -644,17 +644,29 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             if notification.userInfo != nil {
                 guard let userInfo = notification.userInfo as? [String:Any] else { return }
                 
-                let result : String = userInfo["result"] as! String
+                let result : String? = userInfo["result"] as? String
                 
                 switch result {
                 case "success" :
                     
-                    Mn4pSharedDataStore.directionModel =  userInfo["directionModel"] as! DirectionModel
+                    Mn4pSharedDataStore.directionModel =  userInfo["directionModel"] as? DirectionModel
+                    
+                    if (notification.name.rawValue == PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE) {
                     saveDirectionToDB()
                     //TODO 계속 구현하세요 
                     showRouteOnMap()
                     handleShowPublicTransportButton()
                     fillOutInfo()
+                    }  else if (notification.name.rawValue == PPNConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION) {
+                        googleMapDrawingManager.showNavigationOverlays(directionModel: Mn4pSharedDataStore.directionModel!)
+                        
+                        //TODO step detector 구현하세요
+                        
+                        NavigationEngine.sharedInstance.initEngine()
+                        speakHourDirectionAtStartOfRescan()
+                        NavigationEngine.sharedInstance.restart()
+                        
+                    }
                     
                     break;
                 case "overApi" :
@@ -664,7 +676,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
                     break;
                     
                 case "fail" :
-                    //TODO: 필요시 구현하세요
+                    //TODO: 오류처리 구현하세요
                     
                     break;
                 default:
@@ -675,6 +687,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             }
         }
     }
+    
+   
+    
     
     private func showRouteOnMap() {
         
@@ -1034,7 +1049,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     @objc func onClearWaypointsButtonTapped(_ sender: UITapGestureRecognizer) {
         hideClearWaypointsButton()
         wayPoints.removeAll()
-        callGetDirectionApi()
+        findRoute()
         
     }
     
@@ -1098,43 +1113,263 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     @IBOutlet weak var rescanDirectionButton: UIView!
     
     
+    @IBOutlet weak var directionIcon: UIImageView!
+    
+    @IBOutlet weak var directionText: UITextView!
+    
+    private var navigationPanelVieweController: NavigationPanelViewController?
+    
     func onExitFromOverview() {
-        <#code#>
+        //TODO 구현하세요 
     }
     
-    func onEntered(previousGeofence: GeofenceModel, currentGeofence: GeofenceModel?) {
-        <#code#>
+    func onEntered(currentGeofence: GeofenceModel, nextGeofence: GeofenceModel?) {
+        
+        let currentGeofenceLocation = CLLocation(latitude: currentGeofence.getLat() ?? 0, longitude: currentGeofence.getLng() ?? 0)
+        let nextGeofenceLocation = CLLocation(latitude: nextGeofence?.getLat() ?? 0, longitude: nextGeofence?.getLng() ?? 0)
+       
+        googleMapDrawingManager.updateMapBearingAndZoom(currentGeofenceLocation: currentGeofenceLocation ,nextGeofenceLocation: nextGeofenceLocation )
+        
+        googleMapDrawingManager.showGeofenceMarker(geofenceModel: currentGeofence)
+        showDirectionTextAndIcon(text: currentGeofence.getDescription() ?? "")
+        runVibration(text: currentGeofence.getDescription() ?? "" )
+        speakTTS(text: currentGeofence.getDescription() ?? "")
     }
     
     func onApproachedByFiftyMeters(description: String, distanceToGeofenceEnter: Int) {
-        <#code#>
+        let message: String = LanguageManager.getGeofenceApproachMessage(distanceToGeofenceEnter: String(distanceToGeofenceEnter))
+        showDirectionTextAndIcon(text: message);
+
+                        if (UserDefaultManager.isUseDistanceVoice()) {
+                            speakTTS(text: message)
+                        }
     }
     
     func onApproached(distanceToGeofenceEnter: Int) {
-        <#code#>
+        let message: String = LanguageManager.getGeofenceApproachMessage(distanceToGeofenceEnter: String(distanceToGeofenceEnter))
+        showDirectionTextAndIcon(text: message);
     }
     
     func onOutOfGeofence() {
-        <#code#>
+        speakTTS(text: LanguageManager.getString(key: "out_of_route_search_route_again"))
+        showDirectionTextAndIcon(text: "")
+        getDirection()
     }
     
     func onOutOfGeofenceAgain() {
-        <#code#>
+        NavigationEngine.sharedInstance.pauseEngine()
+        speakTTS(text: LanguageManager.getString(key: "out_of_route_again_go_back"))
+        showDirectionTextAndIcon(text: "")
+        getDirection()
     }
     
     func onExit(previousGeofence: GeofenceModel?, currentGeofence: GeofenceModel) {
-        <#code#>
+        
+        if (previousGeofence == nil) {
+            return
+        }
+        
+        let currentGeofenceLocation = CLLocation(latitude: previousGeofence?.getLat() ?? 0, longitude: previousGeofence?.getLng() ?? 0)
+        let nextGeofenceLocation = CLLocation(latitude: currentGeofence.getLat() ?? 0, longitude: currentGeofence.getLng() ?? 0)
+       
+        googleMapDrawingManager.updateMapBearingAndZoom(currentGeofenceLocation: currentGeofenceLocation ,nextGeofenceLocation: nextGeofenceLocation )
     }
     
     func onGetNearestSegmentedRoutePoint(nearestSegmentedRoutePoint: CLLocation) {
-        <#code#>
+        //TODO background location service 처리하세요
+        refreshNavigationInfo()
+        googleMapDrawingManager.showNavigationMarker(nearestSegmentedRoutePoint: nearestSegmentedRoutePoint)
+        var progress: Double = NavigationEngine.sharedInstance.getProgress()
+        
+        //TODO 아래 코드 구현하세요.
+        //현재 google map에서 progress는 구현 불가능함
+        //googleMapDrawingManager.showProgress(progress: progress)
     }
+    
+    
     
     func onArrivedToDestination() {
         speakTTS(text: LanguageManager.getString(key: "you_have_arrived"))
-        AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) { }
+        runVibration(text: LanguageManager.getString(key: "you_have_arrived"))
+       
+        showDirectionTextAndIcon(text: LanguageManager.getString(key: "you_have_arrived"))
+        
+        //TODO Firebase Analytics 추가해야 하나?
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 30, execute: {
+            
+            self.finishNavigation()
+            
+      
+        })
+        
     }
     
+    private func refreshNavigationInfo() {
+        let remainingDistance: Int = NavigationEngine.sharedInstance.getRemainingDistance()
+        showRemainingDistance(distance: remainingDistance)
+
+        var remainingMinInt: Int = remainingDistance / 60
+
+            //거리가 몇 미터 남았는데 남은 시간이 0으로 표시되는 이슈 수정
+            if (remainingDistance > 0 && remainingMinInt == 0) {
+                remainingMinInt = 1
+            }
+
+        showRemainingTime(time: remainingMinInt);
+        showArrivalTime(time: remainingMinInt);
+        }
+    
+    private func showArrivalTime(time: Int) {
+        
+        let startDate = Date()
+        let calendar = Calendar.current
+        let date = calendar.date(byAdding: .minute, value: time, to: startDate)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        let arrivalTimeIn24Format = dateFormatter.string(from: date!)
+        
+        let contentDescription: String = LanguageManager.getString(key: "expected_arrival_time") + arrivalTimeIn24Format
+        
+        
+        navigationPanelVieweController?.showArrivalTime(arrivalTimeString: arrivalTimeIn24Format, contentDescription: contentDescription)
+        
+         }
+    
+    private func showRemainingTime(time: Int) {
+        
+        var timeUnitForContentDescription: String = ""
+        if (time > 1) {
+            timeUnitForContentDescription =  LanguageManager.getString(key: "minutes")
+        } else {
+            timeUnitForContentDescription = LanguageManager.getString(key: "minute")
+        }
+        
+        let contentDescription: String = LanguageManager.getString(key: "remaining_time") + String(time)
+            + timeUnitForContentDescription
+        
+        navigationPanelVieweController?.showRemainingTime(remainingTimeString: String(time), contentDescription: contentDescription)
+        
+             }
+
+    
+    private func showRemainingDistance(distance: Int) {
+        let formattedRemainingDistance: String = DistanceStringFormatter.getFormattedDistance(distance: distance)
+        let distanceUnit: String = DistanceStringFormatter.getDistanceUnit(distance: distance)
+
+        var distanceUnitForContentDescription: String = ""
+        if (distanceUnit == "km") {
+            if (distance > 1) {
+                distanceUnitForContentDescription = LanguageManager.getString(key: "kilometers")
+            } else {
+                distanceUnitForContentDescription = LanguageManager.getString(key: "kilometer")
+            }
+        } else {
+            if (distance > 1) {
+                distanceUnitForContentDescription = LanguageManager.getString(key: "meters_full_name")
+            } else {
+                distanceUnitForContentDescription = LanguageManager.getString(key: "meter_full_name")
+            }
+        }
+        
+        let contentDescription: String = LanguageManager.getString(key: "remaining_distance") + formattedRemainingDistance
+            + distanceUnitForContentDescription
+        
+        
+        navigationPanelVieweController?.showRemainingDistance(formattedRemainingDistance: formattedRemainingDistance, distanceUnit: distanceUnit, contentDescription: contentDescription)
+        
+       
+       }
+    
+    
+    private func speakHourDirectionAtStartOfRescan() {
+        
+        let currentLocation: CLLocation? = LocationManager.sharedInstance.getCurrentLocation()
+        let bearingValue: Double = NavigationEngine.sharedInstance.getBearingValueForStartMessage(currentLocation: currentLocation)
+        
+        //TODO compass 구현하세요
+        //final float angleValue = NewCompassManager.getInstance(activity).getAngleValue();
+        let message: String = LanguageManager.getNavigationStartMessageForRescan(bearingValue: bearingValue, angleValue: 0)
+        speakTTS(text: message)
+        
+    }
+    
+    
+    private func getDirection() {
+        if (InternetConnectionChecker.sharedInstance.isOffline()) {            InternetConnectionChecker.sharedInstance.showOfflineAlertPopup(parentViewControler: self)
+            return
+        }
+        
+       //TODO 접근성 구현하세요
+        //현재 오류 발생
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//            UIAccessibility.post(notification: .announcement, argument: "접근성 웹페이지")
+//        }
+        
+        
+        resetCurrentLocationOnStartPoint()
+        
+        callGetDirectionApi(notificationName: PPNConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION)
+    }
+    
+    private func resetCurrentLocationOnStartPoint() {
+        setStartPoint()
+    }
+    
+    private func runVibration(text: String) {
+        VibrationManager.sharedInstance.runVibration(text: text)
+    }
+    
+    private func finishNavigation() {
+        stopTTS()
+        NavigationEngine.sharedInstance.stop()
+        handleNavitionFinished()
+        
+    }
+    
+    private func handleNavitionFinished() {
+        showMainScreen()
+    }
+    
+    private func stopTTS() {
+        //TODO 정상적으로 작동하는지 확인하세요
+        
+        synthesizer.stopSpeaking(at: .immediate)
+    }
+    
+    
+    private func showDirectionTextAndIcon(text: String) {
+        //TODO background location service 처리하세요
+        
+        directionText.text = text
+        
+        directionIcon.image = getDirectionIcon(text: text)
+        
+        
+        
+    }
+    
+    private func getDirectionIcon(text: String) -> UIImage? {
+        
+        if (text.isEmpty) {
+            return nil
+        }
+        
+        if (text == LanguageManager.getString(key: "you_have_arrived")) {
+            return nil
+        }
+        
+        
+        if (text.contains(LanguageManager.getString(key:"turn_left"))) {
+            return UIImage(named: "turn_left_big_white")
+        } else if (text.contains(LanguageManager.getString(key: "turn_left"))) {
+            return UIImage(named: "turn_right_big_white")
+        } else {
+            return UIImage(named: "go_straight_big_white")
+        }
+        
+    }
     
     
     
@@ -1164,13 +1399,15 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         navigationPanelFpc.surfaceView.backgroundColor = HexColorManager.colorWithHexString(hexString: "#333536", alpha: 1)
         navigationPanelFpc.surfaceView.cornerRadius = 10.0
         
-        guard let navigationPanelViewController = self.storyboard?.instantiateViewController(withIdentifier: "navigation_panel") as? NavigationPanelViewController else {
+        navigationPanelVieweController = self.storyboard?.instantiateViewController(withIdentifier: "navigation_panel") as? NavigationPanelViewController
+        
+        if (navigationPanelVieweController == nil) {
             return
         }
         
-        navigationPanelViewController.selectScreenDelegate = self
+        navigationPanelVieweController?.selectScreenDelegate = self
         
-        navigationPanelFpc.set(contentViewController: navigationPanelViewController)
+        navigationPanelFpc.set(contentViewController: navigationPanelVieweController)
         
         
         navigationPanelFpc.addPanel(toParent: self)
@@ -1316,7 +1553,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
          
             wayPoints.append(wayPoint)
             showClearWaypointsButton()
-            callGetDirectionApi()
+            findRoute()
+            
         }
         
         //TODO: 나중에 참조하세요

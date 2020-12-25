@@ -9,9 +9,12 @@
 import CoreHaptics
 
 class VibrationManager {
-
-
-let short1 = CHHapticEvent(eventType: .hapticTransient, parameters: [], relativeTime: 0)
+    
+    static let sharedInstance = VibrationManager()
+    
+    var engine: CHHapticEngine?
+    
+    let short1 = CHHapticEvent(eventType: .hapticTransient, parameters: [], relativeTime: 0)
     let short2 = CHHapticEvent(eventType: .hapticTransient, parameters: [], relativeTime: 0.2)
     let short3 = CHHapticEvent(eventType: .hapticTransient, parameters: [], relativeTime: 0.4)
     let long1 = CHHapticEvent(eventType: .hapticContinuous, parameters: [], relativeTime: 0.6, duration: 0.5)
@@ -20,50 +23,68 @@ let short1 = CHHapticEvent(eventType: .hapticTransient, parameters: [], relative
     let short4 = CHHapticEvent(eventType: .hapticTransient, parameters: [], relativeTime: 2.4)
     let short5 = CHHapticEvent(eventType: .hapticTransient, parameters: [], relativeTime: 2.6)
     let short6 = CHHapticEvent(eventType: .hapticTransient, parameters: [], relativeTime: 2.8)
-
     
-    public static func runVibration(message: String) {
-            if (UserDefaultManager.isUseVibration()) {
-                return
-            }
-
-            if (message.isEmpty) {
-                return
-            }
+    
+    private init() {
+        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else {
+            return
+        }
         
-        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
-
+        do {
+            engine = try CHHapticEngine()
+            try engine?.start()
+        } catch {
+            print("There was an error creating the engine: \(error.localizedDescription)")
+        }
+        
+    }
+    
+    
+    public func runVibration(text: String) {
+        if (UserDefaultManager.isUseVibration()) {
+            return
+        }
+        
+        if (text.isEmpty) {
+            return
+        }
+        
+        guard engine != nil else {
+            return
+        }
         
         
         do {
-                let pattern = try CHHapticPattern(events: [short1, short2, short3, long1, long2, long3, short4, short5, short6], parameters: [])
+            let events = getPattern(text: text)
+            let pattern = try CHHapticPattern(events: events, parameters: [])
             let engine = try CHHapticEngine()
-                let player = try engine?.makePlayer(with: pattern)
-                try player?.start(atTime: 0)
-            } catch {
-                print("Failed to play pattern: \(error.localizedDescription).")
-                   }
-
-        
-        
-
-            if (message.contains(context.getString(R.string.you_have_arrived))) {
-                selectedPattern = VIBRATION_PATTERN_ARRIVE;
-            } else if (message.toLowerCase().contains(context.getString(R.string.six_oclock))) {
-                selectedPattern = VIBRATION_PATTERN_BACK;
-            } else if (message.toLowerCase().contains(context.getString(R.string.turn_left))) {
-                selectedPattern = VIBRATION_PATTERN_LEFT;
-            } else if (message.toLowerCase().contains(context.getString(R.string.turn_right))) {
-                selectedPattern = VIBRATION_PATTERN_RIGHT;
-            } else {
-                selectedPattern = VIBRATION_PATTERN_STRAIGHT;
-            }
-
-            vibrator.vibrate(selectedPattern, -1);
+            
+            let player = try engine.makePlayer(with: pattern)
+            try player.start(atTime: 0)
+        } catch {
+            print("Failed to play pattern: \(error.localizedDescription).")
         }
+        
+        
+    }
+  
     
-    
-    
+    private func getPattern(text: String) -> [CHHapticEvent] {
+        var events: [CHHapticEvent] = [CHHapticEvent]()
+        if (text.contains(LanguageManager.getString(key: "you_have_arrived"))) {
+            events = [long1, short2,long1, short2,long1, short2,long1, short2,long1, short2,long1, short2,long1, short2,long1, short2]
+        } else if (text.contains(LanguageManager.getString(key: "six_oclock"))) {
+            events = [long1, short2, long1, short2,long1, short2,long1, short2]
+        } else if (text.contains(LanguageManager.getString(key:"turn_left"))) {
+            events = [long1, short2, long1, short2]
+        } else if (text.contains(LanguageManager.getString(key:"turn_right"))) {
+            events = [long1, short2,long1, short2,long1, short2]
+        } else {
+            events = [long1, short2]
+        }
+        
+        return events
+    }
     
     
 }

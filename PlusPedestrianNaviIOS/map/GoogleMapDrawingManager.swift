@@ -27,6 +27,8 @@ class GoogleMapDrawingManager {
     
     var geofenceMarker: GMSMarker?
     
+    var navigationMarker: GMSMarker?
+    
     var firstDistanceFromCurrentLocationToRoutePoint = 0
         
     public func setMapView(mapView: GMSMapView) {
@@ -262,29 +264,75 @@ class GoogleMapDrawingManager {
     
     public func showGeofenceMarker(geofenceModel: GeofenceModel) {
         
-        if(geofenceMarker == nil) {
-            geofenceMarker = GMSMarker()
-            geofenceMarker!.title = "geofence marker"
-            geofenceMarker!.groundAnchor = CGPoint(x: 0.5, y: 0.5)
-            geofenceMarker!.icon = self.getScaledImage(image: UIImage(named: "geofence_dot.png")!, scaledToSize: CGSize(width: 20.0, height: 20.0))
-            geofenceMarker!.map = self.mapView
-        }
-        
-        geofenceMarker!.position = CLLocationCoordinate2D(latitude: geofenceModel.getLat()!, longitude: geofenceModel.getLng()!)
-        
+        if (geofenceMarker == nil) {
+            createGeofenceMarker(geofenceModel: geofenceModel)
+                } else {
+                    refreshGeofenceMarker(geofenceModel: geofenceModel)
+                }
+      
     }
     
-    public func refreshMap(geofenceModel: RoutePointModel, currentRoutePointLocation: CLLocation, currentLocation: CLLocation) {
-
-        //위치와 베어링을 한번에 갱신하도록 수정
+    public func showNavigationMarker(nearestSegmentedRoutePoint: CLLocation) {
+        
+        if (navigationMarker == nil) {
+            createNavigationMarker(nearestSegmentedRoutePoint: nearestSegmentedRoutePoint)
+                } else {
+                    refreshNavigationMarker(nearestSegmentedRoutePoint: nearestSegmentedRoutePoint)
+                }
       
-        let currentLocationCoordinate = CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+    }
+    
+    private func refreshNavigationMarker(nearestSegmentedRoutePoint: CLLocation) {
+        navigationMarker!.position = nearestSegmentedRoutePoint.coordinate
+    }
+    
+    private func createNavigationMarker(nearestSegmentedRoutePoint: CLLocation) {
+        navigationMarker = GMSMarker()
+        navigationMarker!.title = "navigation marker"
+        navigationMarker!.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+        navigationMarker!.position = nearestSegmentedRoutePoint.coordinate
+        navigationMarker!.icon = self.getScaledImage(image: UIImage(named: "navigation_marker.png")!, scaledToSize: CGSize(width: 20.0, height: 20.0))
+        navigationMarker!.map = self.mapView
+    }
+    
+    
+    
+    private func refreshGeofenceMarker(geofenceModel: GeofenceModel) {
+        geofenceMarker!.position = CLLocationCoordinate2D(latitude: geofenceModel.getLat() ?? 0, longitude: geofenceModel.getLng() ?? 0)
+    }
+    
+    private func createGeofenceMarker(geofenceModel: GeofenceModel) {
+        geofenceMarker = GMSMarker()
+        geofenceMarker!.title = "geofence marker"
+        geofenceMarker!.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+        geofenceMarker!.position = CLLocationCoordinate2D(latitude: geofenceModel.getLat() ?? 0, longitude: geofenceModel.getLng() ?? 0)
+        geofenceMarker!.icon = self.getScaledImage(image: UIImage(named: "geofence_dot.png")!, scaledToSize: CGSize(width: 20.0, height: 20.0))
+        geofenceMarker!.map = self.mapView
+    }
+    
+    public func updateMapBearingAndZoom(currentGeofenceLocation: CLLocation, nextGeofenceLocation: CLLocation) {
+ 
         
-        let targetBearingInt: Int = getBearing(currentRoutePointLocation : currentRoutePointLocation, currentLocation : currentLocation)
+        ActionDelayManager.run(seconds: 1) { () -> () in // change 2 to desired number of seconds
+            //zoom 처리
+            var bounds = GMSCoordinateBounds()
+            bounds = bounds.includingCoordinate(currentGeofenceLocation.coordinate)
+            bounds = bounds.includingCoordinate(nextGeofenceLocation.coordinate)
+            let update = GMSCameraUpdate.fit(bounds, withPadding: 100.0)
+            self.mapView.animate(with: update)
+            
+            ActionDelayManager.run(seconds: 1) { () -> () in
+            //베어링 처리
+            
+            let targetBearing: Double =  self.getBearing(currentGeofenceLocation : currentGeofenceLocation, nextGeofenceLocation : nextGeofenceLocation)
+            
+            //TODO 시작 좌표값이 맞는지 확인하세요
+            let myNewCamera = GMSCameraPosition.init(target: currentGeofenceLocation.coordinate, zoom:  self.mapView.camera.zoom, bearing: targetBearing , viewingAngle: 0)
+            
+            self.mapView.camera = myNewCamera
+            }
+        }
         
-        let myNewCamera = GMSCameraPosition.init(target: currentLocationCoordinate, zoom: mapView.camera.zoom, bearing: Double(targetBearingInt), viewingAngle: 0)
-        
-        mapView.camera = myNewCamera
         
     }
     
@@ -313,19 +361,19 @@ class GoogleMapDrawingManager {
         secondPolyline.map = nil
     }
     
-    private func getBearing(currentRoutePointLocation: CLLocation, currentLocation: CLLocation) -> Int {
-        var targetBearingInt: Int = 0
+    private func getBearing(currentGeofenceLocation: CLLocation, nextGeofenceLocation: CLLocation) -> Double {
+        let targetBearing: Double = BearingManager.getBearingBetweenTwoPoints1(point1: currentGeofenceLocation, point2: nextGeofenceLocation)
         
+// TODO 아래 코드가 불필요하면 삭제하세요
+//        if(isCurrentLocationAwayFromRoutePoint(currentRoutePointLocation : currentRoutePointLocation, currentLocation : currentLocation)) {
+//            targetBearingInt = Int(BearingManager.getBearingBetweenTwoPoints1(point1: currentRoutePointLocation, point2: currentLocation))
+//
+//        } else {
+//            targetBearingInt = Int(BearingManager.getBearingBetweenTwoPoints1(point1: currentLocation, point2: currentRoutePointLocation))
+//
+//        }
         
-        if(isCurrentLocationAwayFromRoutePoint(currentRoutePointLocation : currentRoutePointLocation, currentLocation : currentLocation)) {
-            targetBearingInt = Int(BearingManager.getBearingBetweenTwoPoints1(point1: currentRoutePointLocation, point2: currentLocation))
-          
-        } else {
-            targetBearingInt = Int(BearingManager.getBearingBetweenTwoPoints1(point1: currentLocation, point2: currentRoutePointLocation))
-           
-        }
-        
-        return targetBearingInt
+        return targetBearing
     }
     
     private func isCurrentLocationAwayFromRoutePoint(currentRoutePointLocation: CLLocation, currentLocation: CLLocation) -> Bool{

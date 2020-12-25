@@ -611,7 +611,7 @@ class NavigationViewController: UIViewController, GMSMapViewDelegate,  CLLocatio
     }
     
     private func refreshMap() {
-        googleMapDrawingManager.refreshMap(geofenceModel: currentRoutePointModel, currentRoutePointLocation: currentRoutePointLocation, currentLocation: userLocation)
+//        googleMapDrawingManager.refreshMap(geofenceModel: currentRoutePointModel, currentRoutePointLocation: currentRoutePointLocation, currentLocation: userLocation)
     }
     
     

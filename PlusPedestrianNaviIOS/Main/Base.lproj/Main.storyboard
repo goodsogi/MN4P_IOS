@@ -328,6 +328,8 @@
                         <outlet property="closeButton" destination="vaW-D9-Iz5" id="O8r-Gm-O0k"/>
                         <outlet property="destinationName" destination="XQ5-cI-7yr" id="3C7-cq-QFb"/>
                         <outlet property="directionBoard" destination="5ph-q1-hHG" id="STw-F0-c63"/>
+                        <outlet property="directionIcon" destination="0CD-oT-9D7" id="xpD-Vu-zSi"/>
+                        <outlet property="directionText" destination="0Fe-DL-o8D" id="jD0-la-fQ4"/>
                         <outlet property="findCurrentLocationButton" destination="FL8-zE-MLS" id="loh-bn-aa7"/>
                         <outlet property="goButton" destination="4yr-LK-IZG" id="Kdm-ZR-PKx"/>
                         <outlet property="mapView" destination="flQ-yi-35f" id="6y7-Sr-Lw1"/>
@@ -1243,7 +1245,7 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="min" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Owq-la-HCM" userLabel="Remaining Time Label">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="min" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Owq-la-HCM" userLabel="Remaining Time Unit">
                                 <rect key="frame" x="112" y="57" width="32" height="24"/>
                                 <color key="textColor" red="0.48968815799999998" green="0.50583010910000004" blue="0.51415866610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -1258,7 +1260,7 @@
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="min" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HKJ-C8-7NK" userLabel="Remaining Distance Label">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="min" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HKJ-C8-7NK" userLabel="Remaining Distance Unit">
                                 <rect key="frame" x="186" y="57" width="32" height="24"/>
                                 <color key="textColor" red="0.48968815799999998" green="0.50583010910000004" blue="0.51415866610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -1348,9 +1350,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="arrivalTime" destination="kpi-5R-ql0" id="wWg-T1-8xh"/>
                         <outlet property="arrivalTimeTextWidthConstraint" destination="YGC-JF-FRO" id="2sk-F1-ajc"/>
                         <outlet property="finishNavigationButton" destination="DL3-U1-7EH" id="stf-07-wfd"/>
+                        <outlet property="remainingDistance" destination="tnK-KG-x6M" id="2PU-F8-rJK"/>
                         <outlet property="remainingDistanceTextWidthConstraint" destination="xKr-Ex-gIk" id="YEE-pq-tfS"/>
+                        <outlet property="remainingDistanceUnit" destination="HKJ-C8-7NK" id="alb-ut-NrF"/>
+                        <outlet property="remainingTime" destination="2gw-jL-KOk" id="Rld-UB-B3g"/>
                         <outlet property="remainingTimeTextWidthConstraint" destination="nek-M6-qh4" id="osy-Ch-v0K"/>
                         <outlet property="showOverviewButton" destination="GVy-Hy-p7O" id="z0Z-dC-iDo"/>
                         <outlet property="showOverviewButtonLeadingConstraint" destination="8Ot-cd-lCi" id="Hoe-zM-VrS"/>

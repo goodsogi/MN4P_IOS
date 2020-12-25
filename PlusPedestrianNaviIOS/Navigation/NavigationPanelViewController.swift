@@ -28,6 +28,15 @@ class NavigationPanelViewController: UIViewController {
     
     @IBOutlet weak var showStreetViewButtonLeadingConstraint: NSLayoutConstraint!
     
+    
+    @IBOutlet weak var remainingTime: UITextField!
+    
+    @IBOutlet weak var remainingDistance: UITextField!
+    
+    @IBOutlet weak var remainingDistanceUnit: UITextField!
+    
+    @IBOutlet weak var arrivalTime: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -58,5 +67,24 @@ class NavigationPanelViewController: UIViewController {
         let buttonIntervalWidth = (screenWidth - (102 + 102))/3
         showOverviewButtonLeadingConstraint?.constant = buttonIntervalWidth
         showStreetViewButtonLeadingConstraint?.constant = buttonIntervalWidth
+    }
+    
+    func showRemainingDistance(formattedRemainingDistance: String, distanceUnit: String, contentDescription: String) {
+        remainingDistance.text = formattedRemainingDistance
+            remainingDistanceUnit.text = distanceUnit
+        
+        remainingDistance.accessibilityLabel = contentDescription
+    }
+    
+    func showRemainingTime(remainingTimeString: String,  contentDescription: String) {
+        remainingTime.text = remainingTimeString
+         
+        remainingTime.accessibilityLabel = contentDescription
+    }
+    
+    func showArrivalTime(arrivalTimeString: String,  contentDescription: String) {
+        arrivalTime.text = arrivalTimeString
+         
+        arrivalTime.accessibilityLabel = contentDescription
     }
 }

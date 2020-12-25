@@ -13,8 +13,25 @@ public class DistanceStringFormatter {
         if (distance >= 1000) {
             return String(format: "%.2fkm", Float(distance)/Float(1000))
         } else {
-            return String(distance) + "m";
+            return String(distance) + "m"
         }
     
     }
+    
+    public static func getFormattedDistance(distance: Int) -> String {
+        if (distance >= 1000) {
+            return String(format: "%.2f", Float(distance)/Float(1000))
+        } else {
+            return String(distance)
+        }
+    
+    }
+    
+    public static func getDistanceUnit(distance: Int) -> String {
+            if (distance >= 1000) {
+                return "km"
+            } else {
+                return "m"
+            }
+        }
 }

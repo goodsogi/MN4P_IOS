@@ -45,7 +45,6 @@
 		1F308ACF24EF9AA5001ED799 /* DistanceStringFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F308ACE24EF9AA5001ED799 /* DistanceStringFormatter.swift */; };
 		1F31636824E682A300E1C7EA /* SetPoint.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F31636724E682A300E1C7EA /* SetPoint.storyboard */; };
 		1F31636A24E682E000E1C7EA /* SearchNearby.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F31636924E682E000E1C7EA /* SearchNearby.storyboard */; };
-		1F31636C24E6831D00E1C7EA /* Navigation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F31636B24E6831D00E1C7EA /* Navigation.storyboard */; };
 		1F31636E24E6834900E1C7EA /* RouteInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F31636D24E6834900E1C7EA /* RouteInfo.storyboard */; };
 		1F31637024E683B400E1C7EA /* SearchPlace.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F31636F24E683B400E1C7EA /* SearchPlace.storyboard */; };
 		1F31637224E683F000E1C7EA /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F31637124E683F000E1C7EA /* Setting.storyboard */; };
@@ -79,6 +78,7 @@
 		1FF1E5EA24F63FE900F196CA /* PlaceVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E5E924F63FE900F196CA /* PlaceVO.swift */; };
 		1FF1E5ED24F6422000F196CA /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E5EC24F6422000F196CA /* RealmManager.swift */; };
 		B3307DB82589AAB00004AB04 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3307DB72589AAB00004AB04 /* GoogleService-Info.plist */; };
+		B3335EE92595B6490066933E /* SOTWFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3335EE82595B6490066933E /* SOTWFormatter.swift */; };
 		B33404EA2590380000F66394 /* GeofenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33404E92590380000F66394 /* GeofenceModel.swift */; };
 		B336651D259443AA00FDA98E /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B336651C259443AA00FDA98E /* VibrationManager.swift */; };
 		B33B2E72259322C500E06F1D /* NavigationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33B2E71259322C500E06F1D /* NavigationEngine.swift */; };
@@ -136,7 +136,6 @@
 		1F308ACE24EF9AA5001ED799 /* DistanceStringFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceStringFormatter.swift; sourceTree = "<group>"; };
 		1F31636724E682A300E1C7EA /* SetPoint.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SetPoint.storyboard; sourceTree = "<group>"; };
 		1F31636924E682E000E1C7EA /* SearchNearby.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchNearby.storyboard; sourceTree = "<group>"; };
-		1F31636B24E6831D00E1C7EA /* Navigation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Navigation.storyboard; sourceTree = "<group>"; };
 		1F31636D24E6834900E1C7EA /* RouteInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RouteInfo.storyboard; sourceTree = "<group>"; };
 		1F31636F24E683B400E1C7EA /* SearchPlace.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchPlace.storyboard; sourceTree = "<group>"; };
 		1F31637124E683F000E1C7EA /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
@@ -171,6 +170,7 @@
 		1FF1E5EC24F6422000F196CA /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		76D48CC66E7E6DC0607E9F6C /* Pods-PlusPedestrianNaviIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B3307DB72589AAB00004AB04 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B3335EE82595B6490066933E /* SOTWFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOTWFormatter.swift; sourceTree = "<group>"; };
 		B33404E92590380000F66394 /* GeofenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceModel.swift; sourceTree = "<group>"; };
 		B336651C259443AA00FDA98E /* VibrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrationManager.swift; sourceTree = "<group>"; };
 		B33B2E71259322C500E06F1D /* NavigationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationEngine.swift; sourceTree = "<group>"; };
@@ -331,11 +331,11 @@
 				07CA0F4F2154D49700E6C4C4 /* NavigationViewController.swift */,
 				079AA9F62165FC78006CD763 /* DownloadProVersionPopupViewController.swift */,
 				1F47579124E265420076DCA5 /* NavigationPanelViewController.swift */,
-				1F31636B24E6831D00E1C7EA /* Navigation.storyboard */,
 				B33B2E71259322C500E06F1D /* NavigationEngine.swift */,
 				B33B2E892593350700E06F1D /* SegmentedRoutePointListMaker.swift */,
 				B33B2E8C2593373900E06F1D /* MapDataConverter.swift */,
 				B336651C259443AA00FDA98E /* VibrationManager.swift */,
+				B3335EE82595B6490066933E /* SOTWFormatter.swift */,
 			);
 			path = navigation;
 			sourceTree = "<group>";
@@ -523,7 +523,6 @@
 				1F31636824E682A300E1C7EA /* SetPoint.storyboard in Resources */,
 				B3307DB82589AAB00004AB04 /* GoogleService-Info.plist in Resources */,
 				078BEDCC212E600100D497C9 /* LaunchScreen.storyboard in Resources */,
-				1F31636C24E6831D00E1C7EA /* Navigation.storyboard in Resources */,
 				1F31637524E684C500E1C7EA /* Favorites.storyboard in Resources */,
 				1F89B0D824F7574A005FE594 /* AlertPopup.storyboard in Resources */,
 				078BEDC9212E600100D497C9 /* Assets.xcassets in Resources */,
@@ -666,6 +665,7 @@
 				1FC630AE24E3CD2D008898B9 /* SearchNearbyPanelViewController.swift in Sources */,
 				1FF1E5E824F6360F00F196CA /* SearchPlaceHistoryTableCell.swift in Sources */,
 				B382CAAC258C9C90005A7331 /* RoutePointModelToStringConverter.swift in Sources */,
+				B3335EE92595B6490066933E /* SOTWFormatter.swift in Sources */,
 				07CA0F4421548C2500E6C4C4 /* ViewElevationMaker.swift in Sources */,
 				1F544C4224FCED1E000406B1 /* SearchPlaceTableViewDelegate.swift in Sources */,
 			);
