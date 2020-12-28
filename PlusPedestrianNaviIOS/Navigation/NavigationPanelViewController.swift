@@ -10,7 +10,8 @@ import UIKit
 
 class NavigationPanelViewController: UIViewController {
 
-    var selectScreenDelegate:SelectScreenDelegate?
+     
+    var finishNavigationPopupDelegate: FinishNavigationPopupDelegate?
     
     @IBOutlet var showOverviewButton: UIView!
     @IBOutlet var showStreetViewButton: UIView!
@@ -36,6 +37,25 @@ class NavigationPanelViewController: UIViewController {
     @IBOutlet weak var remainingDistanceUnit: UITextField!
     
     @IBOutlet weak var arrivalTime: UITextField!
+    
+    
+    @IBAction func onFinishNavigationButtonClicked(_ sender: Any) {
+        showFinishNavigationAlertPopup()
+        
+    }
+    
+    private func showFinishNavigationAlertPopup() {
+        let storyboard = UIStoryboard(name: "AlertPopup", bundle: nil)
+        let modalViewController = storyboard.instantiateViewController(withIdentifier: "FinishNavigationPopup")
+         
+        modalViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        modalViewController.modalTransitionStyle = UIModalTransitionStyle.coverVertical
+        
+        (modalViewController as! FinishNavigationPopupController).finishNavigationPopupDelegate  = finishNavigationPopupDelegate
+         
+        self.present(modalViewController, animated: true, completion: nil)
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

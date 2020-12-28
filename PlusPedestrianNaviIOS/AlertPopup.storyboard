@@ -472,6 +472,84 @@
             </objects>
             <point key="canvasLocation" x="5001" y="1656"/>
         </scene>
+        <!--Finish Navigation Popup-->
+        <scene sceneID="uL0-Ct-wJ6">
+            <objects>
+                <viewController storyboardIdentifier="FinishNavigationPopup" id="bkA-U8-LrS" userLabel="Finish Navigation Popup" customClass="FinishNavigationPopupController" customModule="PlusPedestrianNaviIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ScO-4k-k1l">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RO7-uq-Ejv" userLabel="Content">
+                                <rect key="frame" x="16" y="368" width="382" height="170"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Finish navigation?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Dfg-5R-oUv" userLabel="Message">
+                                        <rect key="frame" x="16" y="24" width="350" height="44"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="lrg-8Y-Y1Y"/>
+                                        </constraints>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6k-8v-THo" userLabel="Cancel Button">
+                                        <rect key="frame" x="50" y="110" width="82" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="82" id="AHs-A4-Zy5"/>
+                                            <constraint firstAttribute="height" constant="36" id="HDt-uH-Bcu"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onCancelButtonTapped:" destination="bkA-U8-LrS" eventType="touchUpInside" id="Yvc-Jy-CXp"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="osw-pI-hnv" userLabel="OK Button">
+                                        <rect key="frame" x="250" y="110" width="82" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="D69-5I-TWw"/>
+                                            <constraint firstAttribute="width" constant="82" id="YED-fT-PQe"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="OK">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onOkButtonTapped:" destination="bkA-U8-LrS" eventType="touchUpInside" id="uPm-sF-mk4"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="o6k-8v-THo" firstAttribute="bottom" secondItem="RO7-uq-Ejv" secondAttribute="bottom" constant="-24" id="2pe-VP-44S"/>
+                                    <constraint firstItem="osw-pI-hnv" firstAttribute="bottom" secondItem="RO7-uq-Ejv" secondAttribute="bottom" constant="-24" id="45Q-V4-oee"/>
+                                    <constraint firstAttribute="height" constant="170" id="7FD-Yh-bvD"/>
+                                    <constraint firstItem="Dfg-5R-oUv" firstAttribute="leading" secondItem="RO7-uq-Ejv" secondAttribute="leading" constant="16" id="9xw-Ep-Dhg"/>
+                                    <constraint firstItem="osw-pI-hnv" firstAttribute="trailing" secondItem="RO7-uq-Ejv" secondAttribute="trailing" constant="-50" id="HjO-Q2-bRD"/>
+                                    <constraint firstItem="Dfg-5R-oUv" firstAttribute="top" secondItem="RO7-uq-Ejv" secondAttribute="top" constant="24" id="Z0r-Al-yt9"/>
+                                    <constraint firstItem="o6k-8v-THo" firstAttribute="leading" secondItem="RO7-uq-Ejv" secondAttribute="leading" constant="50" id="eNx-LF-TEJ"/>
+                                    <constraint firstItem="Dfg-5R-oUv" firstAttribute="trailing" secondItem="RO7-uq-Ejv" secondAttribute="trailing" constant="-16" id="hA3-Bp-R1w"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="P3g-CT-Rdg"/>
+                        <constraints>
+                            <constraint firstItem="RO7-uq-Ejv" firstAttribute="centerY" secondItem="P3g-CT-Rdg" secondAttribute="centerY" id="Eko-dZ-r3W"/>
+                            <constraint firstItem="RO7-uq-Ejv" firstAttribute="leading" secondItem="P3g-CT-Rdg" secondAttribute="leading" constant="16" id="phQ-R0-z7z"/>
+                            <constraint firstItem="RO7-uq-Ejv" firstAttribute="trailing" secondItem="P3g-CT-Rdg" secondAttribute="trailing" constant="-16" id="vcD-JP-4oH"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="popup" destination="RO7-uq-Ejv" id="2Ce-ek-arG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wYj-6j-Fbg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1851" y="1656"/>
+        </scene>
     </scenes>
     <resources>
         <image name="unchecked" width="128" height="106"/>

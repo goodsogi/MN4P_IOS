@@ -68,8 +68,8 @@ class RouteOptionPopupViewController: UIViewController {
     
     @IBAction func onOkButtonTapped(_ sender: Any) {
         self.dismiss(animated: false, completion: nil)
-        saveSelectedRouteOption();
-        routeOptionPopupDelegate?.onRouteOptionSelected();
+        saveSelectedRouteOption()
+        routeOptionPopupDelegate?.onRouteOptionSelected()
         
         
     }

@@ -12,16 +12,15 @@ import GoogleMaps
 
 //Google Map 드로잉 관리 
 class GoogleMapDrawingManager {
+   
+    var polyline : GMSPolyline?
+    var polylineEdge : GMSPolyline?
+  
+    var startMarker: GMSMarker?
+    var endMarker: GMSMarker?
     
-    var firstPolyline : GMSPolyline!
-    var firstPolylineEdge : GMSPolyline!
-    var secondPolyline : GMSPolyline!
-    var secondPolylineEdge : GMSPolyline!
-    var startMarker: GMSMarker!
-    var endMarker: GMSMarker!
-    
-    var currentLocationMarker:GMSMarker!
-    var selectedPlaceMarker:GMSMarker!
+    var currentLocationMarker:GMSMarker?
+    var selectedPlaceMarker:GMSMarker?
     
     var mapView:GMSMapView!
     
@@ -33,10 +32,12 @@ class GoogleMapDrawingManager {
         
     public func setMapView(mapView: GMSMapView) {
         self.mapView = mapView
+        
+   
     }
     
     
-    private func clearMap() {
+    public func clearMap() {
         mapView.clear()
     }
     
@@ -44,13 +45,26 @@ class GoogleMapDrawingManager {
     /*
      메인 화면
      */
-    public func createCurrentLocationMarker(userLocation: CLLocation) {
+    
+    public func clearMainOverlay() {
+        print("plusapps clearMainOverlay")
+        currentLocationMarker?.map = nil
+        currentLocationMarker = nil
+    }
+    
+    
+    
+    private func createCurrentLocationMarker(userLocation: CLLocation) {
+       
         currentLocationMarker = GMSMarker()
         
-        currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.latitude)
-        currentLocationMarker.title = "current location marker"
-        currentLocationMarker.icon = self.getScaledImage(image: UIImage(named: "current_location_marker.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
-        currentLocationMarker.map = self.mapView
+        //아래 코드를 사용하면 마커가 표시안됨, userLocation.coordinate를 사용해야 하는 듯
+       // currentLocationMarker?.position = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+        currentLocationMarker?.position = userLocation.coordinate
+        currentLocationMarker?.title = "current location marker"
+        currentLocationMarker?.icon = self.getScaledImage(image: UIImage(named: "current_location_marker.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
+       
+        currentLocationMarker?.map = self.mapView
     }
     
     
@@ -71,18 +85,21 @@ class GoogleMapDrawingManager {
     }
     
     private func refreshCurrentLocationMarker(userLocation: CLLocation) {
-        currentLocationMarker.position = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude , longitude: userLocation.coordinate.longitude )
+        currentLocationMarker?.position = userLocation.coordinate
     }
     
+   
+    
     func showCurrentLocationMarker(userLocation: CLLocation)  {
-        
-        if (currentLocationMarker == nil) {
+       
+        if (currentLocationMarker == nil) {        
             createCurrentLocationMarker(userLocation: userLocation)
             moveMapToLocation(userLocation: userLocation)
         } else {
             refreshCurrentLocationMarker(userLocation: userLocation);
         }
         
+       
     }
     
     
@@ -92,9 +109,10 @@ class GoogleMapDrawingManager {
      */
     func showPlaceMarker(selectedPlaceModel:PlaceModel) {
         
+                
         if(selectedPlaceMarker == nil) {
             createPlaceMarker(placeModel : selectedPlaceModel)
-        } else {
+        } else {         
             refreshPlaceMarker(placeModel : selectedPlaceModel);
         }
         
@@ -113,18 +131,19 @@ class GoogleMapDrawingManager {
 
     
     private func refreshPlaceMarker(placeModel:PlaceModel) {
-        selectedPlaceMarker.position = CLLocationCoordinate2D(latitude: placeModel.getLatitude() ?? 0, longitude: placeModel.getLongitude() ?? 0)
+        selectedPlaceMarker?.position = CLLocationCoordinate2D(latitude: placeModel.getLatitude() ?? 0, longitude: placeModel.getLongitude() ?? 0)
     }
     
     public func createPlaceMarker(placeModel:PlaceModel) {
         selectedPlaceMarker = GMSMarker()
-        selectedPlaceMarker.position = CLLocationCoordinate2D(latitude: placeModel.getLatitude() ?? 0, longitude: placeModel.getLongitude() ?? 0)
-        selectedPlaceMarker.title = "selected place marker"
-        selectedPlaceMarker.map = self.mapView
+        selectedPlaceMarker?.position = CLLocationCoordinate2D(latitude: placeModel.getLatitude() ?? 0, longitude: placeModel.getLongitude() ?? 0)
+        selectedPlaceMarker?.icon = self.getScaledImage(image: UIImage(named: "place_marker.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
+        selectedPlaceMarker?.title = "selected place marker"
+        selectedPlaceMarker?.map = self.mapView
     }
     
-    func clearPlaceInfoOverlays() {
-        selectedPlaceMarker.map = nil
+    func clearPlaceInfoOverlay() {
+        selectedPlaceMarker?.map = nil
         selectedPlaceMarker = nil
     }
     
@@ -132,9 +151,24 @@ class GoogleMapDrawingManager {
      경로정보 화면
      */
     
-    public func showRouteOverlays(directionModel: DirectionModel) {
+    
+    func clearRouteInfoOverlay() {
+        polylineEdge?.map = nil
+        polylineEdge = nil
+        polyline?.map = nil
+        polyline = nil
         
-        clearMap()
+        startMarker?.map = nil
+       
+              
+        endMarker?.map = nil
+        endMarker = nil
+    }
+    
+    
+    
+    public func showRouteOverlays(directionModel: DirectionModel) {
+       
         
         drawStartEndMarker(directionModel: directionModel)
         
@@ -160,8 +194,8 @@ class GoogleMapDrawingManager {
         ActionDelayManager.run(seconds: 1) { () -> () in // change 2 to desired number of seconds
             //fit map to markers
             var bounds = GMSCoordinateBounds()
-            bounds = bounds.includingCoordinate(self.startMarker.position)
-            bounds = bounds.includingCoordinate(self.endMarker.position)
+            bounds = bounds.includingCoordinate(self.startMarker!.position)
+            bounds = bounds.includingCoordinate(self.endMarker!.position)
             let update = GMSCameraUpdate.fit(bounds, withPadding: 100.0)
             self.mapView.animate(with: update)
         }
@@ -171,24 +205,14 @@ class GoogleMapDrawingManager {
         //두번째 옵션의 경로 polyline 그림
         let path = getPath(directionModel: directionModel)
         
-        firstPolylineEdge = getPolyline(path:path, strokeWidth:9.0, strokeColor: HexColorManager.colorWithHexString(hexString: "0078FF"))
-        firstPolylineEdge.map = mapView
+        polylineEdge = getPolyline(path:path, strokeWidth:9.0, strokeColor: HexColorManager.colorWithHexString(hexString: "0078FF"))
+        polylineEdge?.map = mapView
         
-        firstPolyline = getPolyline(path:path, strokeWidth:6.0, strokeColor: HexColorManager.colorWithHexString(hexString: "32AAFF"))
-        firstPolyline.map = mapView
+        polyline = getPolyline(path:path, strokeWidth:6.0, strokeColor: HexColorManager.colorWithHexString(hexString: "32AAFF"))
+        polyline?.map = mapView
     }
     
-    private func drawSubPolyline(directionModel:DirectionModel) {
-        //두번째 옵션의 경로 polyline 그림
-        let path = getPath(directionModel: directionModel)
-        
-        secondPolylineEdge = getPolyline(path:path, strokeWidth:9.0, strokeColor: HexColorManager.colorWithHexString(hexString: "B38DAFC0"))
-        secondPolylineEdge.map = mapView
-        
-        secondPolyline = getPolyline(path:path, strokeWidth:6.0, strokeColor: HexColorManager.colorWithHexString(hexString: "B3A3CADE"))
-        secondPolyline.map = mapView
-        
-    }
+   
     
     
     private func getPolyline(path:GMSMutablePath, strokeWidth:CGFloat, strokeColor:UIColor) -> GMSPolyline{
@@ -216,17 +240,17 @@ class GoogleMapDrawingManager {
         
         startMarker = GMSMarker()
         
-        startMarker.position = CLLocationCoordinate2D(latitude: directionModel.getRoutePointModels()![0].getLat()!, longitude: directionModel.getRoutePointModels()![0].getLng()!)
-        startMarker.title = "start marker"
-        startMarker.icon = self.getScaledImage(image: UIImage(named: "start_pin.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
-        startMarker.map = self.mapView
+        startMarker?.position = CLLocationCoordinate2D(latitude: directionModel.getRoutePointModels()![0].getLat()!, longitude: directionModel.getRoutePointModels()![0].getLng()!)
+        startMarker?.title = "start marker"
+        startMarker?.icon = self.getScaledImage(image: UIImage(named: "start_pin.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
+        startMarker?.map = self.mapView
         
         endMarker = GMSMarker()
         
-        endMarker.position = CLLocationCoordinate2D(latitude: directionModel.getRoutePointModels()![directionModel.getRoutePointModels()!.count - 1].getLat()!, longitude: directionModel.getRoutePointModels()![directionModel.getRoutePointModels()!.count - 1].getLng()!)
-        endMarker.title = "end marker"
-        endMarker.icon = self.getScaledImage(image: UIImage(named: "destination_pin.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
-        endMarker.map = self.mapView
+        endMarker?.position = CLLocationCoordinate2D(latitude: directionModel.getRoutePointModels()![directionModel.getRoutePointModels()!.count - 1].getLat()!, longitude: directionModel.getRoutePointModels()![directionModel.getRoutePointModels()!.count - 1].getLng()!)
+        endMarker?.title = "end marker"
+        endMarker?.icon = self.getScaledImage(image: UIImage(named: "destination_pin.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
+        endMarker?.map = self.mapView
     }
    
     
@@ -234,9 +258,27 @@ class GoogleMapDrawingManager {
      경로안내 화면
      */
     
-    public func showNavigationOverlays(directionModel: DirectionModel) {
+    func clearNavigationOverlays() {
+        polylineEdge?.map = nil
+        polylineEdge = nil
+        polyline?.map = nil
+        polyline = nil
+              
+        endMarker?.map = nil
+        endMarker = nil
         
-        clearMap()
+        
+        geofenceMarker?.map = nil
+        geofenceMarker = nil
+        
+        navigationMarker?.map = nil
+        navigationMarker = nil
+    }
+    
+    
+    
+    public func showNavigationOverlays(directionModel: DirectionModel) {
+      
         
         drawEndMarker(directionModel: directionModel)
         
@@ -251,10 +293,10 @@ class GoogleMapDrawingManager {
         
         endMarker = GMSMarker()
         
-        endMarker.position = CLLocationCoordinate2D(latitude: directionModel.getRoutePointModels()![directionModel.getRoutePointModels()!.count - 1].getLat()!, longitude: directionModel.getRoutePointModels()![directionModel.getRoutePointModels()!.count - 1].getLng()!)
-        endMarker.title = "end marker"
-        endMarker.icon = self.getScaledImage(image: UIImage(named: "destination_pin.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
-        endMarker.map = self.mapView
+        endMarker?.position = CLLocationCoordinate2D(latitude: directionModel.getRoutePointModels()![directionModel.getRoutePointModels()!.count - 1].getLat()!, longitude: directionModel.getRoutePointModels()![directionModel.getRoutePointModels()!.count - 1].getLng()!)
+        endMarker?.title = "end marker"
+        endMarker?.icon = self.getScaledImage(image: UIImage(named: "destination_pin.png")!, scaledToSize: CGSize(width: 50.0, height: 50.0))
+        endMarker?.map = self.mapView
     }
     
     public func setMapPadding(bottomPadding: CGFloat) {
@@ -335,31 +377,12 @@ class GoogleMapDrawingManager {
         
         
     }
-    
-    public func showFirstRoute(firstDirectionModel:DirectionModel,secondDirectionModel:DirectionModel) {
-        removeAllPolylines()
-        drawSubPolyline(directionModel: secondDirectionModel)
-        drawPolyline(directionModel: firstDirectionModel)
-    }
-    
-    public func showSecondRoute(firstDirectionModel:DirectionModel,secondDirectionModel:DirectionModel) {
-        removeAllPolylines()
-        drawSubPolyline(directionModel: firstDirectionModel)
-        drawPolyline(directionModel: secondDirectionModel)
-        
-    }
-    
+   
     public func setFirstDistanceFromCurrentLocationToRoutePoint(distance : Int) {
         firstDistanceFromCurrentLocationToRoutePoint = distance
     }
     
-    
-    private func removeAllPolylines() {
-        firstPolylineEdge.map = nil
-        firstPolyline.map = nil
-        secondPolylineEdge.map = nil
-        secondPolyline.map = nil
-    }
+  
     
     private func getBearing(currentGeofenceLocation: CLLocation, nextGeofenceLocation: CLLocation) -> Double {
         let targetBearing: Double = BearingManager.getBearingBetweenTwoPoints1(point1: currentGeofenceLocation, point2: nextGeofenceLocation)

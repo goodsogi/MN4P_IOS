@@ -13,6 +13,10 @@ import Alamofire
 import FloatingPanel
 import AVFoundation
 
+protocol FinishNavigationPopupDelegate {
+    func onFinishNavigationConfirmed()
+}
+
 protocol SelectScreenDelegate {
     func showMainScreen()
     func showRouteInfoScreen()
@@ -61,7 +65,9 @@ extension Numeric {
 }
 
 
-class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDelegate, FloatingPanelControllerDelegate, LocationListenerDelegate, SelectScreenDelegate, ToastDelegate, RouteOptionPopupDelegate, OverviewExitListenerDelegate, GeofenceListenerDelegate, SegmentedRoutePointListenerDelegate, ArriveDestinationListenerDelegate {
+class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDelegate, FloatingPanelControllerDelegate, LocationListenerDelegate, SelectScreenDelegate, ToastDelegate, RouteOptionPopupDelegate, OverviewExitListenerDelegate, GeofenceListenerDelegate, SegmentedRoutePointListenerDelegate, ArriveDestinationListenerDelegate, FinishNavigationPopupDelegate {
+   
+    
    
     
     func showToast(message: String) {
@@ -270,20 +276,23 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     private func hideViewsOnPreviousScreen() {
         
-        print("plusapps hideViewsOnPreviousScreen 1")
+      
         if (screenType == NONE) {
+            print("plusapps hideViewsOnPreviousScreen NONE")
             return
         }
-        
-        print("plusapps hideViewsOnPreviousScreen 2")
-        
+            
         if (screenType == MAIN) {
+            print("plusapps hideViewsOnMainScreen")
             hideViewsOnMainScreen()
         } else if (screenType == PLACE_INFO) {
+            print("plusapps hideViewsOnPlaceInfoScreen")
             hideViewsOnPlaceInfoScreen()
         } else if (screenType == ROUTE_INFO) {
+            print("plusapps hideViewsOnRouteInfoScreen")
             hideViewsOnRouteInfoScreen()
         } else if (screenType == NAVIGATION) {
+            print("plusapps hideViewsOnNavigationScreen")
             hideViewsOnNavigationScreen()
         }
     }
@@ -309,7 +318,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     
     internal func showMainScreen() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+      
+       DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             self.hideViewsOnPreviousScreen()
             self.showViewsOnMainScreen()
             self.showMainMap()
@@ -319,6 +329,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     private func showMainMap() {
+        print("plusapps showMainMap")
         let userLocation: CLLocation? = LocationManager.sharedInstance.getCurrentLocation()
         if let location = userLocation {
             showCurrentLocation(userLocation: location)
@@ -386,10 +397,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     private func showCurrentLocation(userLocation: CLLocation) {
-        
-        googleMapDrawingManager.moveMapToPosition(userLocation: userLocation , isNavigationViewController: false)
         googleMapDrawingManager.showCurrentLocationMarker(userLocation: userLocation)
-        
+          
     }
     
     private func speakCurrentLocation(userLocation: CLLocation) {
@@ -426,6 +435,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         settingButton.isHidden = true
         findCurrentLocationButton.isHidden = true
         hidePanel(fpc: mainPanelFpc)
+        googleMapDrawingManager.clearMainOverlay()
+        
     }
     
     /*
@@ -438,7 +449,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     func showPlaceInfoScreen(placeModel: PlaceModel) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             
-            self.hideViewsOnMainScreen()
+            self.hideViewsOnPreviousScreen()
             
             self.showPlaceInfoPanel(placeModel: placeModel)
             
@@ -495,8 +506,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     //    }
     
     private func hideViewsOnPlaceInfoScreen() {
-        googleMapDrawingManager.clearPlaceInfoOverlays()
+       
         hidePanel(fpc: placeInfoPanelFpc)
+        googleMapDrawingManager.clearPlaceInfoOverlay()
     }
     
     /*
@@ -527,9 +539,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     var wayPoints : [CLLocationCoordinate2D] = []
     
     
-    @IBAction func onGoButtonClicked(_ sender: Any) {
-        showNavigationScreen()
-    }
+  
     
     func onRouteOptionSelected() {
         findRoute()
@@ -559,7 +569,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             self.setStartPoint()
             self.setDestinationMdel()
-            self.hideViewsOnPlaceInfoScreen()
+            self.hideViewsOnPreviousScreen()
             self.showViewsOnRouteInfoScreen()
             self.hideClearWaypointsButton()
             self.hidePublicTransportButton()
@@ -728,6 +738,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         publicTransportButton.isHidden = true
         
         routeInfoPanel.isHidden = true
+        
+        googleMapDrawingManager.clearRouteInfoOverlay()
     }
     
     private func fillOutInfo() {
@@ -1205,6 +1217,13 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
     }
     
+    func onFinishNavigationConfirmed() {
+        stopTTS()
+        NavigationEngine.sharedInstance.stop()
+        showMainScreen()
+        
+    }
+    
     private func refreshNavigationInfo() {
         let remainingDistance: Int = NavigationEngine.sharedInstance.getRemainingDistance()
         showRemainingDistance(distance: remainingDistance)
@@ -1377,7 +1396,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             
-            self.hideViewsOnRouteInfoScreen()
+            self.hideViewsOnPreviousScreen()
             
             self.showViewsOnNavigationScreen()
             self.initNavigationEngine()
@@ -1405,7 +1424,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             return
         }
         
-        navigationPanelVieweController?.selectScreenDelegate = self
+      
+        
+        navigationPanelVieweController?.finishNavigationPopupDelegate = self
         
         navigationPanelFpc.set(contentViewController: navigationPanelVieweController)
         
@@ -1420,6 +1441,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         rescanDirectionButton.isHidden = true
         stepDetector.isHidden = true
         hidePanel(fpc: navigationPanelFpc)
+        googleMapDrawingManager.clearNavigationOverlays()
+        
     }
     
     private func showViewsOnNavigationScreen() {

@@ -43,13 +43,21 @@ class NavigationEngine {
     
     public func initEngine() {
 
+        print("plusapps monday 1")
         geofenceList = Mn4pSharedDataStore.directionModel!.getGeofenceModels()!
+        print("plusapps monday 2")
         segmentedRoutePointList = SegmentedRoutePointListMaker.run()
+        print("plusapps monday 3")
         segmentedGeofenceIndexMap = makeSegmentedGeofenceIndexMap()
+        print("plusapps monday 4")
         geofenceEnterAreaMap = makeGeofenceEnterAreaMap()
+        print("plusapps monday 5")
         geofenceIndexMap = makeGeofenceIndexMap()
+        print("plusapps monday 6")
         geofenceEnterCheckMap = initGeofenceEnterCheckMap()
+        print("plusapps monday 7")
         geofenceExitCheckMap = initGeofenceExitCheckMap()
+        print("plusapps monday 8")
         
     }
     
@@ -168,8 +176,8 @@ class NavigationEngine {
             
             for _ in segmentedRoutePointList! {
                //자바에서는 절대값을 Math.abs()로 구하는데 swift는 abs()로 구함
-                let distanceValue1 = abs((segmentedRoutePointList![j].getLat() ?? 0) - (geofenceList![i].getLng() ?? 0))
-                let distanceValue2 = abs((segmentedRoutePointList![j].getLat() ?? 0) - (geofenceList![i].getLng() ?? 0))
+                let distanceValue1 = abs((segmentedRoutePointList![j].getLat() ?? 0) - (geofenceList![i].getLat() ?? 0))
+                let distanceValue2 = abs((segmentedRoutePointList![j].getLng() ?? 0) - (geofenceList![i].getLng() ?? 0))
                 
                 let distance = distanceValue1 + distanceValue2
                 
@@ -182,7 +190,7 @@ class NavigationEngine {
             hashMap[i] =  minDistanceIndex
             minDistance = 1000
             i = i + 1
-            
+            j = 0
         }
         
         
