@@ -13,6 +13,14 @@ import Alamofire
 import FloatingPanel
 import AVFoundation
 
+protocol ShowStreetViewButtonDelegate {
+    func onShowStreetViewButtonTapped()
+}
+
+protocol ShowOverviewButtonDelegate {
+    func onShowOverviewButtonTapped()
+}
+
 protocol FinishNavigationPopupDelegate {
     func onFinishNavigationConfirmed()
 }
@@ -65,9 +73,8 @@ extension Numeric {
 }
 
 
-class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDelegate, FloatingPanelControllerDelegate, LocationListenerDelegate, SelectScreenDelegate, ToastDelegate, RouteOptionPopupDelegate, OverviewExitListenerDelegate, GeofenceListenerDelegate, SegmentedRoutePointListenerDelegate, ArriveDestinationListenerDelegate, FinishNavigationPopupDelegate {
+class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDelegate, FloatingPanelControllerDelegate, LocationListenerDelegate, SelectScreenDelegate, ToastDelegate, RouteOptionPopupDelegate, OverviewExitListenerDelegate, GeofenceListenerDelegate, SegmentedRoutePointListenerDelegate, ArriveDestinationListenerDelegate, FinishNavigationPopupDelegate, ShowOverviewButtonDelegate, ShowStreetViewButtonDelegate {
    
-    
    
     
     func showToast(message: String) {
@@ -309,6 +316,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         let settingButtonContainerBackgroundImg = ImageMaker.getRoundRectangle(width: 60, height: 60, colorHexString: "#333536", cornerRadius: 10.0, alpha: 1.0)
         
         settingButton.backgroundColor = UIColor(patternImage: settingButtonContainerBackgroundImg)
+        
         
         let findCurrentLocationButtonContainerBackgroundImg = ImageMaker.getCircle(width: 60, height: 60, colorHexString: "#333536", alpha: 1.0)
         findCurrentLocationButton.backgroundColor = UIColor(patternImage: findCurrentLocationButtonContainerBackgroundImg)
@@ -1104,6 +1112,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             url.append(",")
             url.append(String(format: "%f", Mn4pSharedDataStore.destinationModel!.getLongitude() ?? 0))
             url.append("&travelmode=transit")
+            
+            
          }
         
         UIApplication.shared.open(URL(string:url)!, options: [:], completionHandler: nil)
@@ -1131,8 +1141,142 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     private var navigationPanelVieweController: NavigationPanelViewController?
     
+    
+    func onShowStreetViewButtonTapped() {
+        showStreetView()
+        collapseBottomBoard()
+    }
+    
+   
+    private func showStreetView() {
+        let activeSegmentedRoutePoint: RoutePointModel = NavigationEngine.sharedInstance.getActiveSegmentedRoutePoint()
+           
+        var url:String = ""
+      
+        
+        if (UserInfoManager.isUserInKorea() != true) {
+              
+            //카카오맵이 설치되어 있는 경우에만 열림
+            //카카오맵 웹페이지를 열려고 하니 웹페이지를 열지만 경로를 표시하지는 않음
+            url.append("kakaomap://roadView?p=")
+            url.append(String(format: "%f", activeSegmentedRoutePoint.getLat() ?? 0))
+            url.append(",")
+            url.append(String(format: "%f", activeSegmentedRoutePoint.getLng() ?? 0))
+          
+            
+            print("plusapps url: " + url)
+            //canOpenUrl이 항상 false 리턴
+            //카카오맵의 url scheme(kakaomap)을 info.plist파일의 LSApplicatinQueriesSchemes에 추가하면 canOpenUrl이 정상적인 값 리턴
+            if (UIApplication.shared.canOpenURL(URL(string:url)!) != true) {
+                if let url = URL(string: "itms-apps://apple.com/app/id304608425") {
+                    UIApplication.shared.open(url)
+                }
+                return
+            }
+
+        } else {
+            //구글맵은 앱이 설치되었으면 앱으로 설치 안되었으면 앱스토어 설치화면으로 이동
+          
+            url.append("comgooglemaps://?center=")
+            url.append(String(format: "%f", activeSegmentedRoutePoint.getLat() ?? 0))
+            url.append(",")
+            url.append(String(format: "%f", activeSegmentedRoutePoint.getLng() ?? 0))
+            url.append("&mapmode=streetview")
+            
+            if (UIApplication.shared.canOpenURL(URL(string:url)!) != true) {
+                if let url = URL(string: "itms-apps://apple.com/app/id585027354") {
+                    UIApplication.shared.open(url)
+                }
+                return
+            }
+         }
+        
+        UIApplication.shared.open(URL(string:url)!, options: [:], completionHandler: nil)
+    }
+   
+    private func collapseBottomBoard() {
+        navigationPanelFpc.move(to: .tip, animated: true)
+    }
+    
+    
+    private func handleCatchedLocation(location: CLLocation) {
+        print("plusapps handleCatchedLocation")
+           if ( NavigationEngine.sharedInstance.getIsEnginePaused()) {
+               return
+           }
+
+        //TODO StepDetectorManager 구현하세요
+//           if (StepDetectorManager.getInstance(activity).isStepStopped()) {
+//               return
+//           }
+        print("plusapps NavigationEngine.sharedInstance.run " + String(location.coordinate.latitude) + " " + String(location.coordinate.longitude)  )
+        NavigationEngine.sharedInstance.run(location: location)
+       }
+    
+    
+    
     func onExitFromOverview() {
-        //TODO 구현하세요 
+        slideDownTopBoard()
+        showNavigationPanel()
+        showRescanButton()
+        googleMapDrawingManager.handleExitFromOverview()
+    }
+    
+    private func slideDownTopBoard() {
+        //swift에서 animation 구현 방법
+         UIView.animate(withDuration: 0.4, delay: 0.0, options: [], animations: {
+              // Add the transformation in this block
+              // self.container is your view that you want to animate
+            let slideDown = CGAffineTransform(translationX: 0, y: 0)
+          
+              self.directionBoard.transform = slideDown
+        }, completion: nil)
+    }
+    
+    private func showRescanButton() {
+         UIView.animate(withDuration: 0.4, delay: 0.0, options: [], animations: {
+              // Add the transformation in this block
+              // self.container is your view that you want to animate
+            let slideLeft = CGAffineTransform(translationX: 0, y: 0)
+          
+              self.rescanDirectionButton.transform = slideLeft
+        }, completion: nil)
+    }
+    
+    func onShowOverviewButtonTapped() {
+        NavigationEngine.sharedInstance.pauseForOverview(overviewExitListenerDelegate: self)
+        showOverviewMap()
+        hidePanel(fpc: navigationPanelFpc)
+        slideUpTopBoard()
+        hideRescanButton()
+        
+    }
+    
+    private func showOverviewMap() {
+        let angle: Double = NavigationEngine.sharedInstance.getAngleForOverview()
+        googleMapDrawingManager.showOverview(angle: angle)
+        
+    }
+    
+    private func slideUpTopBoard() {
+        //swift에서 animation 구현 방법
+         UIView.animate(withDuration: 0.4, delay: 0.0, options: [], animations: {
+              // Add the transformation in this block
+              // self.container is your view that you want to animate
+            let slideUp = CGAffineTransform(translationX: 0, y: -300)
+          
+              self.directionBoard.transform = slideUp
+        }, completion: nil)
+    }
+    
+    private func hideRescanButton() {
+         UIView.animate(withDuration: 0.4, delay: 0.0, options: [], animations: {
+              // Add the transformation in this block
+              // self.container is your view that you want to animate
+            let slideRight = CGAffineTransform(translationX: 200, y: 0)
+          
+              self.rescanDirectionButton.transform = slideRight
+        }, completion: nil)
     }
     
     func onEntered(currentGeofence: GeofenceModel, nextGeofence: GeofenceModel?) {
@@ -1188,6 +1332,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     func onGetNearestSegmentedRoutePoint(nearestSegmentedRoutePoint: CLLocation) {
+        
         //TODO background location service 처리하세요
         refreshNavigationInfo()
         googleMapDrawingManager.showNavigationMarker(nearestSegmentedRoutePoint: nearestSegmentedRoutePoint)
@@ -1197,6 +1342,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         //현재 google map에서 progress는 구현 불가능함
         //googleMapDrawingManager.showProgress(progress: progress)
     }
+    
+    
     
     
     
@@ -1428,6 +1575,10 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
         navigationPanelVieweController?.finishNavigationPopupDelegate = self
         
+        navigationPanelVieweController?.showOverviewButtonDelegate = self
+        
+        navigationPanelVieweController?.showStreetViewButtonDelegate = self
+        
         navigationPanelFpc.set(contentViewController: navigationPanelVieweController)
         
         
@@ -1450,13 +1601,15 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         makeNavigationScreenLayout()
         addTapListenerNavigation()
         initNavigationMap()
-        //TODO: rescanDirectionButton 버튼 리스터 구현하세요
-        
         showNavigationPanel()
     }
     
     private func initNavigationEngine() {
         NavigationEngine.sharedInstance.initEngine()
+        NavigationEngine.sharedInstance.setGeofenceEnterListenerDelegate(geofenceListenerDelegate: self)
+        NavigationEngine.sharedInstance.setArriveDestinationListenerDelegate(arriveDestinationListenerDelegate: self)
+        NavigationEngine.sharedInstance.setSegmentedRoutePointListenerDelegate(segmentedRoutePointListenerDelegate: self)
+        NavigationEngine.sharedInstance.start()
     }
     
     
@@ -1493,7 +1646,13 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     private func rescanDirection() {
-        //TODO 구현하세요
+        pauseNavigation()
+        speakTTS(text: LanguageManager.getString(key: "rescan_direction"))
+        getDirection()
+    }
+    
+    private func pauseNavigation() {
+        NavigationEngine.sharedInstance.pauseEngine()
         
     }
     
@@ -1614,6 +1773,10 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     func onLocationCatched(location: CLLocation) {
         
+        if (screenType == NAVIGATION) {
+            handleCatchedLocation(location: location)
+        }
+        
         //          googleMapDrawingManager.showCurrentLocationOnMap(userLocation: location)
     }
     
@@ -1715,7 +1878,7 @@ class NavigationPanelLayout: FloatingPanelLayout {
     public func insetFor(position: FloatingPanelPosition) -> CGFloat? {
         switch position {
         case .full: return 16.0 // A top inset from safe area
-        case .half: return 500 // A bottom inset from the safe area
+        case .half: return 360 // A bottom inset from the safe area
         case .tip: return 180// A bottom inset from the safe area
         default: return nil // Or `case .hidden: return nil`
         }

@@ -12,6 +12,8 @@ class NavigationPanelViewController: UIViewController {
 
      
     var finishNavigationPopupDelegate: FinishNavigationPopupDelegate?
+    var showOverviewButtonDelegate: ShowOverviewButtonDelegate?
+    var showStreetViewButtonDelegate: ShowStreetViewButtonDelegate?
     
     @IBOutlet var showOverviewButton: UIView!
     @IBOutlet var showStreetViewButton: UIView!
@@ -62,6 +64,7 @@ class NavigationPanelViewController: UIViewController {
 
         // Do any additional setup after loading the view.
          makeLayout()
+        addTapListenerToButtons()
     }
     
     private func makeLayout() {
@@ -77,7 +80,7 @@ class NavigationPanelViewController: UIViewController {
         
         let screenWidth = UIScreen.main.bounds.width
                
-        let textWidth = (screenWidth - (20 + 44 + 44 + 20 + 90 + 18))/3
+        let textWidth = (screenWidth - (10 + 15 + 15 + 20 + 90 + 18))/3
                    
         
         arrivalTimeTextWidthConstraint?.constant = textWidth
@@ -89,8 +92,38 @@ class NavigationPanelViewController: UIViewController {
         showStreetViewButtonLeadingConstraint?.constant = buttonIntervalWidth
     }
     
+    private func addTapListenerToButtons() {
+        let showOverviewButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onShowOverviewButtonTapped(_:)))
+        showOverviewButtonTapGesture.numberOfTapsRequired = 1
+        showOverviewButtonTapGesture.numberOfTouchesRequired = 1
+        showOverviewButton.addGestureRecognizer(showOverviewButtonTapGesture)
+        showOverviewButton.isUserInteractionEnabled = true
+        
+        
+        let showStreetViewButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onShowStreetButtonTapped(_:)))
+        showStreetViewButtonTapGesture.numberOfTapsRequired = 1
+        showStreetViewButtonTapGesture.numberOfTouchesRequired = 1
+        showStreetViewButton.addGestureRecognizer(showStreetViewButtonTapGesture)
+        showStreetViewButton.isUserInteractionEnabled = true
+        
+    }
+    
+    @objc func onShowOverviewButtonTapped(_ sender: UITapGestureRecognizer) {
+    
+        showOverviewButtonDelegate?.onShowOverviewButtonTapped()
+
+    }
+    
+    
+    @objc func onShowStreetButtonTapped(_ sender: UITapGestureRecognizer) {
+        showStreetViewButtonDelegate?.onShowStreetViewButtonTapped()
+    }
+    
+    
+    
     func showRemainingDistance(formattedRemainingDistance: String, distanceUnit: String, contentDescription: String) {
         remainingDistance.text = formattedRemainingDistance
+      
             remainingDistanceUnit.text = distanceUnit
         
         remainingDistance.accessibilityLabel = contentDescription
@@ -103,8 +136,7 @@ class NavigationPanelViewController: UIViewController {
     }
     
     func showArrivalTime(arrivalTimeString: String,  contentDescription: String) {
-        arrivalTime.text = arrivalTimeString
-         
-        arrivalTime.accessibilityLabel = contentDescription
+         arrivalTime.text = arrivalTimeString
+         arrivalTime.accessibilityLabel = contentDescription
     }
 }

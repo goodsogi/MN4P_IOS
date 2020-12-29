@@ -79,6 +79,8 @@ public static func getString(key:String) -> String {
             return "미터"
         case "remaining_distance":
             return "남은거리"
+        case "rescan_direction":
+            return "경로를 재탐색합니다."
         default:
             return ""
         }
@@ -143,6 +145,8 @@ public static func getString(key:String) -> String {
             return "meter"
         case "remaining_distance":
             return "remaining distance"
+        case "rescan_direction":
+            return "Rescan direction"
         default:
             return ""
         }

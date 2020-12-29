@@ -306,9 +306,10 @@ class AlamofireManager {
         
         let directionModel:DirectionModel = DirectionModel()
         
-        let routePointModels:[RoutePointModel] = self.convertToRoutePointModels(json: swiftyJsonVar)
-        directionModel.setRoutePointModels(routePointModels: routePointModels)
-        directionModel.setGeofenceModels(geofenceModels: self.convertToGeofenceModel(routePointModels: routePointModels))
+        let routePointModels:[RoutePointModel] = convertToRoutePointModels(json: swiftyJsonVar)
+        let nonDuplicateroutePointModels:[RoutePointModel] = DataUtils.getNonDuplicateRoutePointModels(routePointModels: routePointModels)
+        directionModel.setRoutePointModels(routePointModels: nonDuplicateroutePointModels)
+        directionModel.setGeofenceModels(geofenceModels: convertToGeofenceModel(routePointModels: routePointModels))
         directionModel.setTotalTime(totalTime: swiftyJsonVar["features"][0]["properties"]["totalTime"].intValue)
         directionModel.setTotalDistance(totalDistance: swiftyJsonVar["features"][0]["properties"]["totalDistance"].intValue)
         

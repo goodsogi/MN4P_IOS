@@ -169,10 +169,10 @@
                                                 </constraints>
                                             </imageView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0Fe-DL-o8D" userLabel="Direction Text">
-                                                <rect key="frame" x="102" y="5" width="258" height="105"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <color key="textColor" systemColor="labelColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <rect key="frame" x="102" y="20" width="258" height="90"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                         </subviews>
@@ -184,7 +184,7 @@
                                             <constraint firstItem="0Fe-DL-o8D" firstAttribute="bottom" secondItem="5ph-q1-hHG" secondAttribute="bottom" constant="-10" id="l1N-aA-DKF"/>
                                             <constraint firstItem="0Fe-DL-o8D" firstAttribute="leading" secondItem="0CD-oT-9D7" secondAttribute="trailing" constant="20" id="mc9-fj-NMh"/>
                                             <constraint firstItem="0CD-oT-9D7" firstAttribute="bottom" secondItem="5ph-q1-hHG" secondAttribute="bottom" constant="-21" id="rfd-gL-DTe"/>
-                                            <constraint firstItem="0Fe-DL-o8D" firstAttribute="top" secondItem="5ph-q1-hHG" secondAttribute="top" constant="5" id="yFa-RS-kLi"/>
+                                            <constraint firstItem="0Fe-DL-o8D" firstAttribute="top" secondItem="5ph-q1-hHG" secondAttribute="top" constant="20" id="yFa-RS-kLi"/>
                                         </constraints>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3x3-9r-XyK" userLabel="Clear Waypoints Button Container">
@@ -1221,47 +1221,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kpi-5R-ql0" userLabel="Arrival Time">
-                                <rect key="frame" x="20" y="29" width="50" height="28"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kpi-5R-ql0" userLabel="Arrival Time">
+                                <rect key="frame" x="20" y="29" width="60" height="28"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="YGC-JF-FRO"/>
+                                    <constraint firstAttribute="width" constant="60" id="YGC-JF-FRO"/>
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="arrival" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xSh-wn-6Dh" userLabel="Arrival Time Label">
-                                <rect key="frame" x="17" y="57" width="53" height="24"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="arrival" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xSh-wn-6Dh" userLabel="Arrival Time Label">
+                                <rect key="frame" x="27" y="57" width="53" height="24"/>
                                 <color key="textColor" red="0.48968815799999998" green="0.50583010910000004" blue="0.51415866610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2gw-jL-KOk" userLabel="Remaining Time">
-                                <rect key="frame" x="114" y="29" width="30" height="28"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2gw-jL-KOk" userLabel="Remaining Time">
+                                <rect key="frame" x="95" y="29" width="70" height="28"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="nek-M6-qh4"/>
+                                    <constraint firstAttribute="width" constant="70" id="nek-M6-qh4"/>
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="min" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Owq-la-HCM" userLabel="Remaining Time Unit">
-                                <rect key="frame" x="112" y="57" width="32" height="24"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="min" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Owq-la-HCM" userLabel="Remaining Time Unit">
+                                <rect key="frame" x="133" y="57" width="32" height="24"/>
                                 <color key="textColor" red="0.48968815799999998" green="0.50583010910000004" blue="0.51415866610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tnK-KG-x6M" userLabel="Remaining Distance">
-                                <rect key="frame" x="188" y="29" width="30" height="28"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tnK-KG-x6M" userLabel="Remaining Distance">
+                                <rect key="frame" x="180" y="29" width="70" height="28"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="xKr-Ex-gIk"/>
+                                    <constraint firstAttribute="width" constant="70" id="xKr-Ex-gIk"/>
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="min" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HKJ-C8-7NK" userLabel="Remaining Distance Unit">
-                                <rect key="frame" x="186" y="57" width="32" height="24"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HKJ-C8-7NK" userLabel="Remaining Distance Unit">
+                                <rect key="frame" x="245" y="57" width="5" height="25.5"/>
                                 <color key="textColor" red="0.48968815799999998" green="0.50583010910000004" blue="0.51415866610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -1331,7 +1334,7 @@
                         <constraints>
                             <constraint firstItem="2gw-jL-KOk" firstAttribute="top" secondItem="kpi-5R-ql0" secondAttribute="top" id="13a-ak-GmT"/>
                             <constraint firstItem="kpi-5R-ql0" firstAttribute="top" secondItem="4Af-go-i78" secondAttribute="top" constant="29" id="1WH-a6-ciK"/>
-                            <constraint firstItem="tnK-KG-x6M" firstAttribute="leading" secondItem="2gw-jL-KOk" secondAttribute="trailing" constant="44" id="2LX-ct-6ZW"/>
+                            <constraint firstItem="tnK-KG-x6M" firstAttribute="leading" secondItem="2gw-jL-KOk" secondAttribute="trailing" constant="15" id="2LX-ct-6ZW"/>
                             <constraint firstItem="HKJ-C8-7NK" firstAttribute="trailing" secondItem="tnK-KG-x6M" secondAttribute="trailing" id="53e-il-zhQ"/>
                             <constraint firstItem="GVy-Hy-p7O" firstAttribute="leading" secondItem="4Af-go-i78" secondAttribute="leading" constant="50" id="8Ot-cd-lCi"/>
                             <constraint firstItem="UQV-t8-Odo" firstAttribute="top" secondItem="DL3-U1-7EH" secondAttribute="bottom" constant="13" id="AFM-0v-plP"/>
@@ -1344,7 +1347,7 @@
                             <constraint firstItem="tnK-KG-x6M" firstAttribute="top" secondItem="2gw-jL-KOk" secondAttribute="top" id="V8t-BX-Hcw"/>
                             <constraint firstItem="xSh-wn-6Dh" firstAttribute="trailing" secondItem="kpi-5R-ql0" secondAttribute="trailing" id="YUI-jW-1xu"/>
                             <constraint firstItem="Owq-la-HCM" firstAttribute="top" secondItem="2gw-jL-KOk" secondAttribute="bottom" id="ZTH-cG-ylj"/>
-                            <constraint firstItem="2gw-jL-KOk" firstAttribute="leading" secondItem="kpi-5R-ql0" secondAttribute="trailing" constant="44" id="avS-Ij-s6k"/>
+                            <constraint firstItem="2gw-jL-KOk" firstAttribute="leading" secondItem="kpi-5R-ql0" secondAttribute="trailing" constant="15" id="avS-Ij-s6k"/>
                             <constraint firstItem="IHN-I5-KM1" firstAttribute="leading" secondItem="GVy-Hy-p7O" secondAttribute="trailing" constant="50" id="bpV-Ih-HZP"/>
                             <constraint firstItem="xSh-wn-6Dh" firstAttribute="top" secondItem="kpi-5R-ql0" secondAttribute="bottom" id="drV-QX-3xG"/>
                             <constraint firstItem="kpi-5R-ql0" firstAttribute="leading" secondItem="4Af-go-i78" secondAttribute="leading" constant="20" id="kM2-1i-JM2"/>
@@ -1361,8 +1364,8 @@
                         <outlet property="remainingDistanceUnit" destination="HKJ-C8-7NK" id="alb-ut-NrF"/>
                         <outlet property="remainingTime" destination="2gw-jL-KOk" id="Rld-UB-B3g"/>
                         <outlet property="remainingTimeTextWidthConstraint" destination="nek-M6-qh4" id="osy-Ch-v0K"/>
-                        <outlet property="showOverviewButton" destination="GVy-Hy-p7O" id="z0Z-dC-iDo"/>
-                        <outlet property="showOverviewButtonLeadingConstraint" destination="8Ot-cd-lCi" id="Hoe-zM-VrS"/>
+                        <outlet property="showOverviewButton" destination="GVy-Hy-p7O" id="5fN-Ga-hTZ"/>
+                        <outlet property="showOverviewButtonLeadingConstraint" destination="8Ot-cd-lCi" id="cn4-Sm-yHo"/>
                         <outlet property="showStreetViewButton" destination="IHN-I5-KM1" id="SL2-78-6Hc"/>
                         <outlet property="showStreetViewButtonLeadingConstraint" destination="bpV-Ih-HZP" id="56h-Py-5al"/>
                     </connections>
@@ -1391,9 +1394,6 @@
         <image name="share" width="72" height="72"/>
         <image name="street_view" width="128" height="128"/>
         <image name="subway" width="128" height="128"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

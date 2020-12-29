@@ -42,22 +42,24 @@ class NavigationEngine {
      */
     
     public func initEngine() {
-
-        print("plusapps monday 1")
+        
+        //TODO 값이 부정확하니 수정하세요
+        
         geofenceList = Mn4pSharedDataStore.directionModel!.getGeofenceModels()!
-        print("plusapps monday 2")
+        
         segmentedRoutePointList = SegmentedRoutePointListMaker.run()
-        print("plusapps monday 3")
+        print("plusapps geofenceList size: " + String(geofenceList?.count ?? 0))
+        print("plusapps segmentedRoutePointList size: " + String(segmentedRoutePointList?.count ?? 0))
+        
         segmentedGeofenceIndexMap = makeSegmentedGeofenceIndexMap()
-        print("plusapps monday 4")
+        
         geofenceEnterAreaMap = makeGeofenceEnterAreaMap()
-        print("plusapps monday 5")
+        
         geofenceIndexMap = makeGeofenceIndexMap()
-        print("plusapps monday 6")
+        
         geofenceEnterCheckMap = initGeofenceEnterCheckMap()
-        print("plusapps monday 7")
-        geofenceExitCheckMap = initGeofenceExitCheckMap()
-        print("plusapps monday 8")
+        
+        geofenceExitCheckMap = initGeofenceExitCheckMap()      
         
     }
     
@@ -175,7 +177,7 @@ class NavigationEngine {
         for _ in geofenceList! {
             
             for _ in segmentedRoutePointList! {
-               //자바에서는 절대값을 Math.abs()로 구하는데 swift는 abs()로 구함
+                //자바에서는 절대값을 Math.abs()로 구하는데 swift는 abs()로 구함
                 let distanceValue1 = abs((segmentedRoutePointList![j].getLat() ?? 0) - (geofenceList![i].getLat() ?? 0))
                 let distanceValue2 = abs((segmentedRoutePointList![j].getLng() ?? 0) - (geofenceList![i].getLng() ?? 0))
                 
@@ -221,71 +223,72 @@ class NavigationEngine {
         if (isLocationOnPath(currentLocation: location) != true) {
             outOfRouteCount = outOfRouteCount ?? 0 + 1
             if ((outOfRouteCount ?? 0) >= MAX_OUT_OF_ROUTE_COUNT) {
-                        pauseEngine()
-                        outOfRouteCount = 0
-                        geofenceListenerDelegate?.onOutOfGeofence()
-                    }
-                    return
-                } else {
-                    outOfRouteCount = 0
-                }
-
-                setRemainDistanceToGeofence()
-                handleNearestSegmentedRoutePoint()
-                showNavigationMarker()
-                handleGeofenceApproach()
+                pauseEngine()
+                outOfRouteCount = 0
+                geofenceListenerDelegate?.onOutOfGeofence()
+            }
+            return
+        } else {
+            outOfRouteCount = 0
+        }
+        
+        setRemainDistanceToGeofence()
+        handleNearestSegmentedRoutePoint()
+        showNavigationMarker()
+        handleGeofenceApproach()
     }
     
     private func handleGeofenceApproach() {
-           if( isGeofenceApproachDelayHandled == false) {
-               return
-           }
-
+        if( isGeofenceApproachDelayHandled == false) {
+            return
+        }
+        
         let geofenceIndex: Int = geofenceIndexMap![activeSegmentedRoutePointIndex] ?? 0
         let segmentedGeofenceIndex: Int = segmentedGeofenceIndexMap![geofenceIndex ] ?? 0
         let distanceToGeofenceEnter: Int = segmentedGeofenceIndex - (activeSegmentedRoutePointIndex) - 20
-
-           if (distanceToGeofenceEnter <= 0) {
-               return
-           }
-
+        
+        if (distanceToGeofenceEnter <= 0) {
+            return
+        }
+        
         geofenceListenerDelegate?.onApproached(distanceToGeofenceEnter: distanceToGeofenceEnter)
-
-           if (distanceToGeofenceEnter <= (approachDistanceToGeofenceEnter ?? 0) && approachDistanceToGeofenceEnter != 0) {
+        
+        if (distanceToGeofenceEnter <= (approachDistanceToGeofenceEnter ?? 0) && approachDistanceToGeofenceEnter != 0) {
             geofenceListenerDelegate?.onApproachedByFiftyMeters(description: geofenceList![geofenceIndex].getDescription() ?? "", distanceToGeofenceEnter: (approachDistanceToGeofenceEnter ?? 0))
             approachDistanceToGeofenceEnter = (approachDistanceToGeofenceEnter ?? 0) - 50
-               startGeofenceApproachDelayHandler()
-           }
-       }
+            startGeofenceApproachDelayHandler()
+        }
+    }
     
     
     
     private func showNavigationMarker() {
+        print("plusapps showNavigationMarker")
         let segmentedRoutePoint: RoutePointModel = segmentedRoutePointList![activeSegmentedRoutePointIndex ]
         let segmentedRoutePointLocation: CLLocation = MapDataConverter.convertToLocation(latitude: segmentedRoutePoint.getLat() ?? 0, longitude: segmentedRoutePoint.getLng() ?? 0)
-            segmentedRoutePointListenerDelegate?.onGetNearestSegmentedRoutePoint(nearestSegmentedRoutePoint: segmentedRoutePointLocation)
-        }
+        segmentedRoutePointListenerDelegate?.onGetNearestSegmentedRoutePoint(nearestSegmentedRoutePoint: segmentedRoutePointLocation)
+    }
     
     
     
     private func setRemainDistanceToGeofence() {
         remainDistanceToGeofence = (remainDistanceToGeofence ?? 0) - 1
-        }
+    }
     
     
     private func isLocationOnPath(currentLocation: CLLocation) -> Bool {
         if (activeSegmentedRoutePointIndex == segmentedRoutePointList!.count) {
             pauseEngine()
-                    return false
-                }
-
+            return false
+        }
+        
         let minDistanceIndex: Int = getMinDistanceIndex(iValue: activeSegmentedRoutePointIndex, currentLocation: currentLocation)
-
-                if (minDistanceIndex != -1) {
-                    activeSegmentedRoutePointIndex = minDistanceIndex
-                }
-
-                return minDistanceIndex != -1
+        
+        if (minDistanceIndex != -1) {
+            activeSegmentedRoutePointIndex = minDistanceIndex
+        }
+        
+        return minDistanceIndex != -1
     }
     
     
@@ -298,113 +301,113 @@ class NavigationEngine {
         
         
         for i in iValue..<segmentedRoutePointList!.count {
-          
+            
             routePointLocation = MapDataConverter.convertToLocation(latitude: segmentedRoutePointList![i].getLat() ?? 0, longitude:  segmentedRoutePointList![i].getLng() ?? 0)
             
             distance = Int(currentLocation.distance(from: routePointLocation))
-         
-                if (distance <= ENTER_SEGMENTED_ROUTE_POINT && distance < minDistance) {
-                    minDistance = distance
-                    minDistanceIndex = i
-                    isFoundMinDistance = true
-                }
-
-                //min distance 값을 찾았고 20미터보다 큰 distance 값을 만나면 for loop 중지
-                if (isFoundMinDistance && distance > ENTER_SEGMENTED_ROUTE_POINT) {
-                    break
-                }
+            
+            if (distance <= ENTER_SEGMENTED_ROUTE_POINT && distance < minDistance) {
+                minDistance = distance
+                minDistanceIndex = i
+                isFoundMinDistance = true
             }
-
-            return minDistanceIndex
+            
+            //min distance 값을 찾았고 20미터보다 큰 distance 값을 만나면 for loop 중지
+            if (isFoundMinDistance && distance > ENTER_SEGMENTED_ROUTE_POINT) {
+                break
+            }
         }
+        
+        return minDistanceIndex
+    }
     
     private func handleNearestSegmentedRoutePoint() {
         let geofenceIndex: Int = geofenceIndexMap![activeSegmentedRoutePointIndex] ?? 0
         let previousGeofenceIndex: Int = geofenceIndex - 1
         let currentGeofenceModel: GeofenceModel = geofenceList![geofenceIndex]
         let previousGeofenceModel: GeofenceModel? = previousGeofenceIndex == -1 ? nil : geofenceList![previousGeofenceIndex]
-
-           //minDistanceIndex가 geofence enter 영역에 있을 때 처리
+        
+        //minDistanceIndex가 geofence enter 영역에 있을 때 처리
         if (geofenceEnterAreaMap![activeSegmentedRoutePointIndex] ?? false) {
-               //이전 geofence exit 처리했는지 확인
-               if (geofenceIndex != 0) {
-                   handleGeofenceExit(previousGeofenceIndex: previousGeofenceIndex, previousGeofenceModel: previousGeofenceModel, geofenceModel: currentGeofenceModel)
-               }
-
-               if (!isArriveGeofence()) {
-                   return
-               }
-
-               //현재 geofence enter 처리
+            //이전 geofence exit 처리했는지 확인
+            if (geofenceIndex != 0) {
+                handleGeofenceExit(previousGeofenceIndex: previousGeofenceIndex, previousGeofenceModel: previousGeofenceModel, geofenceModel: currentGeofenceModel)
+            }
+            
+            if (!isArriveGeofence()) {
+                return
+            }
+            
+            //현재 geofence enter 처리
             var nextGeofenceModel: GeofenceModel? = nil
             if (geofenceIndex + 1 < geofenceList!.count) {
-                   nextGeofenceModel = geofenceList![geofenceIndex + 1]
-               }
+                nextGeofenceModel = geofenceList![geofenceIndex + 1]
+            }
             handleGeofenceEnter(geofenceIndex: geofenceIndex, currentGeofenceModel: currentGeofenceModel, nextGeofenceModel: nextGeofenceModel)
-
-           } else {
-               handleGeofenceExit( previousGeofenceIndex: previousGeofenceIndex, previousGeofenceModel: previousGeofenceModel, geofenceModel: currentGeofenceModel)
-  
-           }
-       }
+            
+        } else {
+            handleGeofenceExit( previousGeofenceIndex: previousGeofenceIndex, previousGeofenceModel: previousGeofenceModel, geofenceModel: currentGeofenceModel)
+            
+        }
+    }
     
     private func isArriveGeofence() -> Bool {
         return remainDistanceToGeofence ?? 0 <= 0
-        }
+    }
     
     private func handleGeofenceExit(previousGeofenceIndex: Int, previousGeofenceModel: GeofenceModel?, geofenceModel: GeofenceModel) {
-           if (geofenceExitCheckMap![previousGeofenceIndex] != true) {
-               geofenceExitCheckMap![previousGeofenceIndex] = true
-               geofenceListenerDelegate?.onExit(previousGeofence: previousGeofenceModel, currentGeofence: geofenceModel);
-               setInitialApproachDistanceToGeofence()
-           }
-       }
+        if (geofenceExitCheckMap![previousGeofenceIndex] != true) {
+            geofenceExitCheckMap![previousGeofenceIndex] = true
+            geofenceListenerDelegate?.onExit(previousGeofence: previousGeofenceModel, currentGeofence: geofenceModel);
+            setInitialApproachDistanceToGeofence()
+        }
+    }
     
     private func handleGeofenceEnter(geofenceIndex: Int, currentGeofenceModel: GeofenceModel, nextGeofenceModel: GeofenceModel?) {
-            if (geofenceEnterCheckMap![geofenceIndex] != true) {
-                geofenceEnterCheckMap![geofenceIndex] = true
-                if (geofenceIndex == geofenceList!.count - 1) {
-                    arriveDestinationListenerDelegate?.onArrivedToDestination()
-                } else {
-                    geofenceListenerDelegate?.onEntered(currentGeofence: currentGeofenceModel, nextGeofence: nextGeofenceModel)
-                    let segmentedGeofenceIndex: Int = segmentedGeofenceIndexMap![geofenceIndex] ?? 0
-                    remainDistanceToGeofence = segmentedGeofenceIndex - (activeSegmentedRoutePointIndex)
-                    }
+        if (geofenceEnterCheckMap![geofenceIndex] != true) {
+            geofenceEnterCheckMap![geofenceIndex] = true
+            if (geofenceIndex == geofenceList!.count - 1) {
+                arriveDestinationListenerDelegate?.onArrivedToDestination()
+            } else {
+                geofenceListenerDelegate?.onEntered(currentGeofence: currentGeofenceModel, nextGeofence: nextGeofenceModel)
+                let segmentedGeofenceIndex: Int = segmentedGeofenceIndexMap![geofenceIndex] ?? 0
+                remainDistanceToGeofence = segmentedGeofenceIndex - (activeSegmentedRoutePointIndex)
             }
         }
+    }
     
     private func setInitialApproachDistanceToGeofence() {
         let geofenceIndex: Int = geofenceIndexMap![activeSegmentedRoutePointIndex] ?? 0
         let segmentedGeofenceIndex: Int = segmentedGeofenceIndexMap![geofenceIndex] ?? 0
         let distanceToGeofenceEnter: Int = segmentedGeofenceIndex - (activeSegmentedRoutePointIndex) - 20
-            approachDistanceToGeofenceEnter = distanceToGeofenceEnter / 50 * 50;
-
-            //최소한 경로안내 지점(geofence - 20)에서 10미터 앞이면 approach 안내 처리
-            if (distanceToGeofenceEnter > 10) {
-                geofenceListenerDelegate?.onApproachedByFiftyMeters(description: "", distanceToGeofenceEnter: distanceToGeofenceEnter);
-                //같은 거리를 두 번 안내 방지
-                if (distanceToGeofenceEnter % 50 == 0) {
-                    approachDistanceToGeofenceEnter = (approachDistanceToGeofenceEnter ?? 0) - 50
-                }
-                startGeofenceApproachDelayHandler()
+        approachDistanceToGeofenceEnter = distanceToGeofenceEnter / 50 * 50;
+        
+        //최소한 경로안내 지점(geofence - 20)에서 10미터 앞이면 approach 안내 처리
+        if (distanceToGeofenceEnter > 10) {
+            geofenceListenerDelegate?.onApproachedByFiftyMeters(description: "", distanceToGeofenceEnter: distanceToGeofenceEnter);
+            //같은 거리를 두 번 안내 방지
+            if (distanceToGeofenceEnter % 50 == 0) {
+                approachDistanceToGeofenceEnter = (approachDistanceToGeofenceEnter ?? 0) - 50
             }
+            startGeofenceApproachDelayHandler()
         }
-
+    }
+    
     private func startGeofenceApproachDelayHandler() {
-          //TODO 자바의 handler를 제거했는데 제대로 작동하는지 확인하세요
-
-            isGeofenceApproachDelayHandled = false
+        //TODO 자바의 handler를 제거했는데 제대로 작동하는지 확인하세요
+        
+        isGeofenceApproachDelayHandled = false
         
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
             
             self.isGeofenceApproachDelayHandled = true
             
-      
+            
         })
     }
-        
-
+    
+    
     
     
     /*
@@ -415,43 +418,44 @@ class NavigationEngine {
     private var isEngineRunning: Bool = false
     
     public func pauseEngine() {
-            isEnginePaused = true
-        }
+        isEnginePaused = true
+    }
     
     public func pauseForOverview(overviewExitListenerDelegate: OverviewExitListenerDelegate) {
-
-           if (isEnginePaused) {
-               return
-           }
-
-           isEnginePaused = true
-
+        print("plusapps pauseForOverview ")
+        if (isEnginePaused) {
+            return
+        }
+        
+        isEnginePaused = true
+        
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
+            print("plusapps pauseForOverview verviewExitListenerDelegate.onExitFromOverview()")
             overviewExitListenerDelegate.onExitFromOverview()
             self.isEnginePaused = false
             
-      
+            
         })
-         
-       }
+        
+    }
     
     public func restart() {
-           isEnginePaused = false
-       }
-
-       public func getIsEnginePaused() -> Bool {
-           return isEnginePaused
-       }
-
-       public func betIsEngineRunning() -> Bool {
-           return isEngineRunning
-       }
-
-       public func stop() {
-           isEnginePaused = true
-           isEngineRunning = false
-       }
+        isEnginePaused = false
+    }
+    
+    public func getIsEnginePaused() -> Bool {
+        return isEnginePaused
+    }
+    
+    public func betIsEngineRunning() -> Bool {
+        return isEngineRunning
+    }
+    
+    public func stop() {
+        isEnginePaused = true
+        isEngineRunning = false
+    }
     
     /*
      progress/남은 거리/current geofence 가져오기
@@ -460,84 +464,84 @@ class NavigationEngine {
     
     public func getProgress() -> Double {
         return Double(activeSegmentedRoutePointIndex) / Double(segmentedRoutePointList!.count)
-       }
-
-       public func getRemainingDistance() -> Int {
+    }
+    
+    public func getRemainingDistance() -> Int {
         return segmentedRoutePointList!.count - (activeSegmentedRoutePointIndex)
-       }
-
-       public func getActiveSegmentedRoutePoint() -> RoutePointModel {
-           return segmentedRoutePointList![activeSegmentedRoutePointIndex]
-       }
+    }
+    
+    public func getActiveSegmentedRoutePoint() -> RoutePointModel {
+        return segmentedRoutePointList![activeSegmentedRoutePointIndex]
+    }
     
     public func getAngleForOverview() -> Double {
         if ((activeSegmentedRoutePointIndex) <= 0) {
-                return 0
-            }
-
+            return 0
+        }
+        
         let geofenceIndex: Int = geofenceIndexMap![activeSegmentedRoutePointIndex ] ?? 0
         let previousGeofenceIndex: Int = geofenceIndex - 1
         let geofenceModel: GeofenceModel = geofenceList![geofenceIndex]
         let previousGeofenceModel: GeofenceModel = geofenceList![previousGeofenceIndex]
-      
+        
         let geofenceLocation: CLLocation = MapDataConverter.convertToLocation(latitude: geofenceModel.getLat() ?? 0, longitude: geofenceModel.getLng() ?? 0)
         
         let previousGeofenceLocation: CLLocation = MapDataConverter.convertToLocation(latitude: previousGeofenceModel.getLat() ?? 0, longitude: previousGeofenceModel.getLng() ?? 0)
         
         
         return BearingManager.getBearingBetweenTwoPoints1(point1: previousGeofenceLocation, point2: geofenceLocation)
-        }
+    }
     
     
-  
+    
     public func start() {
-           isEnginePaused = false
-           isEngineRunning = true
-       }
+        isEnginePaused = false
+        isEngineRunning = true
+    }
     
     public func getBearingValueForStartMessage(currentLocation: CLLocation?) -> Double {
-
+        
         let minDistanceIndex: Int = getMinDistanceIndex(iValue: 0, currentLocation: currentLocation)
-
-            if (minDistanceIndex == -1) {
-                return 0;
-            }
-
-            if (currentLocation == nil) {
-                return 0
-            }
-
+        
+        if (minDistanceIndex == -1) {
+            return 0;
+        }
+        
+        if (currentLocation == nil) {
+            return 0
+        }
+        
         var firstGeofenceLocation: CLLocation
         var secondGeofenceLocation: CLLocation
-      
+        
         let geofenceIndex: Int = geofenceIndexMap![minDistanceIndex] ?? 0
-
-            if (geofenceIndex == 0) {
-                let nextGeofenceIndex: Int  = geofenceIndex + 1
-
-                let geofenceModel: GeofenceModel = geofenceList![geofenceIndex]
-                let nextGeofenceModel: GeofenceModel = geofenceList![nextGeofenceIndex]
-
-                firstGeofenceLocation = MapDataConverter.convertToLocation(latitude: geofenceModel.getLat() ?? 0, longitude: geofenceModel.getLng() ?? 0)
-                secondGeofenceLocation = MapDataConverter.convertToLocation(latitude: nextGeofenceModel.getLat() ?? 0, longitude: nextGeofenceModel.getLng() ?? 0)
-               
-            } else {
-                let previousGeofenceIndex: Int = geofenceIndex - 1
-                
-                let geofenceModel: GeofenceModel = geofenceList![geofenceIndex]
-                let previousGeofenceModel: GeofenceModel = geofenceList![previousGeofenceIndex]
-
-                firstGeofenceLocation = MapDataConverter.convertToLocation(latitude: previousGeofenceModel.getLat() ?? 0, longitude: previousGeofenceModel.getLng() ?? 0)
-                secondGeofenceLocation = MapDataConverter.convertToLocation(latitude: geofenceModel.getLat() ?? 0, longitude: geofenceModel.getLng() ?? 0)
-            }
-
-        return BearingManager.getBearingBetweenTwoPoints1(point1: firstGeofenceLocation, point2: secondGeofenceLocation)
+        
+        if (geofenceIndex == 0) {
+            let nextGeofenceIndex: Int  = geofenceIndex + 1
+            
+            let geofenceModel: GeofenceModel = geofenceList![geofenceIndex]
+            let nextGeofenceModel: GeofenceModel = geofenceList![nextGeofenceIndex]
+            
+            firstGeofenceLocation = MapDataConverter.convertToLocation(latitude: geofenceModel.getLat() ?? 0, longitude: geofenceModel.getLng() ?? 0)
+            secondGeofenceLocation = MapDataConverter.convertToLocation(latitude: nextGeofenceModel.getLat() ?? 0, longitude: nextGeofenceModel.getLng() ?? 0)
+            
+        } else {
+            let previousGeofenceIndex: Int = geofenceIndex - 1
+            
+            let geofenceModel: GeofenceModel = geofenceList![geofenceIndex]
+            let previousGeofenceModel: GeofenceModel = geofenceList![previousGeofenceIndex]
+            
+            firstGeofenceLocation = MapDataConverter.convertToLocation(latitude: previousGeofenceModel.getLat() ?? 0, longitude: previousGeofenceModel.getLng() ?? 0)
+            secondGeofenceLocation = MapDataConverter.convertToLocation(latitude: geofenceModel.getLat() ?? 0, longitude: geofenceModel.getLng() ?? 0)
         }
+        
+        return BearingManager.getBearingBetweenTwoPoints1(point1: firstGeofenceLocation, point2: secondGeofenceLocation)
+    }
     
     
     private func getMinDistanceIndex(iValue: Int, currentLocation: CLLocation?) -> Int {
         var routePointLocation: CLLocation
-            var distance: Int
+        var distance: Int
         var minDistance: Int = 10000
         var minDistanceIndex: Int = -1
         var isFoundMinDistance: Bool = false
@@ -560,9 +564,9 @@ class NavigationEngine {
             
         }
         
-           
-
-            return minDistanceIndex
-        }
-
+        
+        
+        return minDistanceIndex
+    }
+    
 }

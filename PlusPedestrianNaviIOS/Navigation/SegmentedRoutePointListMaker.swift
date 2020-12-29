@@ -13,6 +13,8 @@ class SegmentedRoutePointListMaker {
     public static func run() -> [RoutePointModel] {
         
         let routePointList = Mn4pSharedDataStore.directionModel!.getRoutePointModels()
+        print("plusapps routePointList size: " + String(routePointList?.count ?? 0))
+        
         var segmentedRoutePointList: [RoutePointModel] = [RoutePointModel]()
         
         var firstRoutePointLocation: CLLocation
@@ -29,20 +31,21 @@ class SegmentedRoutePointListMaker {
         var routePointLongitudeDelta: Double
         
         
-        var i: Int = 0
-        for _ in routePointList! {
+        
+        for i in 0..<routePointList!.count - 1 {
             
             firstRoutePointLocation = MapDataConverter.convertToLocation(latitude: routePointList![i].getLat() ?? 0, longitude:  routePointList![i].getLng() ?? 0)
             
             secondRoutePointLocation = MapDataConverter.convertToLocation(latitude: routePointList![i + 1].getLat() ?? 0, longitude:  routePointList![i + 1].getLng() ?? 0)
             
             
-            firstRoutePointLatitude = firstRoutePointLocation.coordinate.latitude
-            firstRoutePointLongitude = firstRoutePointLocation.coordinate.longitude
+            firstRoutePointLatitude = routePointList![i].getLat() ?? 0
+            firstRoutePointLongitude = routePointList![i].getLng() ?? 0
             
-            secondRoutePointLatitude = secondRoutePointLocation.coordinate.latitude
-            secondRoutePointLongitude = secondRoutePointLocation.coordinate.longitude
+            secondRoutePointLatitude = routePointList![i + 1].getLat() ?? 0
+            secondRoutePointLongitude = routePointList![i + 1].getLng() ?? 0
             
+           
             distance = Int(secondRoutePointLocation.distance(from: firstRoutePointLocation))
             
             if (distance == 0) {
@@ -62,11 +65,6 @@ class SegmentedRoutePointListMaker {
                 segmentedRoutePoint.setLng(lng: firstRoutePointLongitude + (routePointLongitudeDelta * Double(j)))
                             segmentedRoutePointList.append(segmentedRoutePoint)
                         }
-            
-            
-            
-            
-            i = i + 1
         }
         
         

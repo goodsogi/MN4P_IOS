@@ -258,6 +258,24 @@ class GoogleMapDrawingManager {
      경로안내 화면
      */
     
+    private let ZINDEX_NAVIGATION_MARKER: Int32 = 10
+    private let ZINDEX_GEOFENCE_MARKER: Int32 = 7
+    
+    public func handleExitFromOverview( ) {
+        applyAngleToNavigationMarker(angle: 0)
+        //TODO 필요시 구현하세요 
+        //restoreMapToPreviousState()
+    }
+    
+    public func showOverview(angle : Double) {
+        zoomMapWithPolyline()
+        applyAngleToNavigationMarker(angle: angle)
+    }
+    
+    private func applyAngleToNavigationMarker(angle : Double) {
+        navigationMarker?.rotation = angle
+    }
+    
     func clearNavigationOverlays() {
         polylineEdge?.map = nil
         polylineEdge = nil
@@ -333,7 +351,8 @@ class GoogleMapDrawingManager {
         navigationMarker!.title = "navigation marker"
         navigationMarker!.groundAnchor = CGPoint(x: 0.5, y: 0.5)
         navigationMarker!.position = nearestSegmentedRoutePoint.coordinate
-        navigationMarker!.icon = self.getScaledImage(image: UIImage(named: "navigation_marker.png")!, scaledToSize: CGSize(width: 20.0, height: 20.0))
+        navigationMarker!.zIndex = ZINDEX_NAVIGATION_MARKER
+        navigationMarker!.icon = self.getScaledImage(image: UIImage(named: "navigation_marker.png")!, scaledToSize: CGSize(width: 60.0, height: 60.0))
         navigationMarker!.map = self.mapView
     }
     
@@ -347,6 +366,7 @@ class GoogleMapDrawingManager {
         geofenceMarker = GMSMarker()
         geofenceMarker!.title = "geofence marker"
         geofenceMarker!.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+        geofenceMarker!.zIndex = ZINDEX_GEOFENCE_MARKER
         geofenceMarker!.position = CLLocationCoordinate2D(latitude: geofenceModel.getLat() ?? 0, longitude: geofenceModel.getLng() ?? 0)
         geofenceMarker!.icon = self.getScaledImage(image: UIImage(named: "geofence_dot.png")!, scaledToSize: CGSize(width: 20.0, height: 20.0))
         geofenceMarker!.map = self.mapView
