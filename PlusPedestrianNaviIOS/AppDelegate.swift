@@ -10,6 +10,7 @@ import UIKit
 import GoogleMaps
 import GoogleMobileAds
 import Firebase
+import NMapsMap
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
@@ -35,6 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIWindowSceneDelegate {
         //Google Map
         GMSServices.provideAPIKey("AIzaSyDz4c2U4b2Bur2B6nNygQBtZzaEfGueFYI")
         
+        //네이버 지도
+        NMFAuthManager.shared().clientId = "cipkh0mdhv"
        
         // Admob
         GADMobileAds.configure(withApplicationID: "ca-app-pub-7576584379236747~6363552704")

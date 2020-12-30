@@ -11,7 +11,63 @@ import UIKit
 import GoogleMaps
 
 //Google Map 드로잉 관리 
-class GoogleMapDrawingManager {
+class GoogleMapDrawingManager : IMapRenderer {
+    func setMap(map: Any) {
+        <#code#>
+    }
+    
+    func createMap() {
+        <#code#>
+    }
+    
+    func setMapPadding(value: Int) {
+        <#code#>
+    }
+    
+    func clearMap(screenType: Int) {
+        <#code#>
+    }
+    
+    func applyAngleToCurrentLocationMarker(angle: Double) {
+        <#code#>
+    }
+    
+    func getMapCenterLatitude() {
+        <#code#>
+    }
+    
+    func getMapCenterLongitude() {
+        <#code#>
+    }
+    
+    func showPlaceMarker(placePosition: CLLocation) {
+        <#code#>
+    }
+    
+    func showNavigationOverlays() {
+        <#code#>
+    }
+    
+    func showSearchNearbyPlaceMarkers() {
+        <#code#>
+    }
+    
+    func enlargeZoomForSearchNearby() {
+        <#code#>
+    }
+    
+    func handleMarkerClick(placeModelOfSelectedMarker: PlaceModel) {
+        <#code#>
+    }
+    
+    func resetSelectedMarkerIcon() {
+        <#code#>
+    }
+    
+    func showProgress(progress: Double) {
+        <#code#>
+    }
+    
    
     var polyline : GMSPolyline?
     var polylineEdge : GMSPolyline?
@@ -69,10 +125,10 @@ class GoogleMapDrawingManager {
     
     
     
-    private func moveMapToLocation(userLocation: CLLocation) {
+    private func moveMapToLocation(location: CLLocation) {
         
         let zoomValue : Float = 14
-        let camera = GMSCameraPosition.camera(withLatitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude, zoom: zoomValue)
+        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: zoomValue)
         mapView.camera = camera
     }
     
@@ -90,13 +146,13 @@ class GoogleMapDrawingManager {
     
    
     
-    func showCurrentLocationMarker(userLocation: CLLocation)  {
+    func showCurrentLocationMarker(currentLocation: CLLocation)  {
        
         if (currentLocationMarker == nil) {        
-            createCurrentLocationMarker(userLocation: userLocation)
-            moveMapToLocation(userLocation: userLocation)
+            createCurrentLocationMarker(userLocation: currentLocation)
+            moveMapToLocation(userLocation: currentLocation)
         } else {
-            refreshCurrentLocationMarker(userLocation: userLocation);
+            refreshCurrentLocationMarker(userLocation: currentLocation);
         }
         
        
@@ -169,6 +225,7 @@ class GoogleMapDrawingManager {
     
     public func showRouteOverlays(directionModel: DirectionModel) {
        
+        clearMap()        
         
         drawStartEndMarker(directionModel: directionModel)
         

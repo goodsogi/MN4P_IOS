@@ -127,7 +127,7 @@
                                     <constraint firstAttribute="height" constant="1" id="qpV-09-GxR"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hup-Vl-Xb9" userLabel="Direction History List">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hup-Vl-Xb9" userLabel="Direction History Table">
                                 <rect key="frame" x="0.0" y="273" width="414" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -175,6 +175,16 @@
                             <constraint firstItem="hup-Vl-Xb9" firstAttribute="bottom" secondItem="Xkd-sH-PID" secondAttribute="bottom" id="vFL-ur-xkS"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="nGe-h7-YXZ" id="oFX-bm-bwv"/>
+                        <outlet property="destinationMarker" destination="duZ-dU-hM3" id="9Jv-PK-mbM"/>
+                        <outlet property="destinationName" destination="rAe-Bs-K4Y" id="BGD-nP-Ljg"/>
+                        <outlet property="directionHistoryTable" destination="hup-Vl-Xb9" id="Td2-6D-jfj"/>
+                        <outlet property="findRouteButton" destination="blZ-2m-qoH" id="I8F-c9-Hj5"/>
+                        <outlet property="startPointMarker" destination="hsf-BK-meW" id="KCL-Va-vMW"/>
+                        <outlet property="startPointName" destination="xv6-4y-aoO" id="hcL-4g-LW1"/>
+                        <outlet property="swapButton" destination="y2R-1b-5JF" id="vkH-Sg-uXW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VdP-dc-ByD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

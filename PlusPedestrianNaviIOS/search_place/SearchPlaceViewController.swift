@@ -38,11 +38,11 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
         
         initLayout()
         
-        createLayout()
         
         initAlamofireManager()
         
         initSearchKeywordInput()
+                
         
         initTableDelegateAndDataSource()
         
@@ -54,7 +54,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
         
         initViewControllerLifecycleObserver()
         
-        //showSearchPlaceHistoryTable()
+        createLayout()
         
     }
     
@@ -132,22 +132,27 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
     func onSearchPlaceHistoryTableViewTapped(row: Int) {
         //TODO 제대로 작동하는지 확인하세요
         if let delegate = self.selectPlaceDelegate {
-            let placeModel = PlaceModel()
-            placeModel.setName(name: searchPlaceHistoryDatas?[row].name ?? "")
-            placeModel.setLatitude(latitude: searchPlaceHistoryDatas?[row].latitude ?? 0)
-            placeModel.setLongitude(longitude: searchPlaceHistoryDatas?[row].longitude ?? 0)
-            placeModel.setAddress(address: searchPlaceHistoryDatas?[row].address ?? "")
-            placeModel.setBizname(bizName: searchPlaceHistoryDatas?[row].bizName ?? "")
-            placeModel.setDistance(distance: searchPlaceHistoryDatas?[row].distance ?? 0)
-            placeModel.setTelNo(telNo: searchPlaceHistoryDatas?[row].telNo ?? "")
+            let reversedIndex = (searchPlaceHistoryDatas?.count ?? 0) - 1 - row
             
-            delegate.onPlaceSelected(placeModel: placeModels[row], searchType: Mn4pSharedDataStore.searchType ?? SearchPlaceViewController.PLACE)
+            let placeModel = PlaceModel()
+            placeModel.setName(name: searchPlaceHistoryDatas?[reversedIndex].name ?? "")
+            placeModel.setLatitude(latitude: searchPlaceHistoryDatas?[reversedIndex].latitude ?? 0)
+            placeModel.setLongitude(longitude: searchPlaceHistoryDatas?[reversedIndex].longitude ?? 0)
+            placeModel.setAddress(address: searchPlaceHistoryDatas?[reversedIndex].address ?? "")
+            placeModel.setBizname(bizName: searchPlaceHistoryDatas?[reversedIndex].bizName ?? "")
+            placeModel.setDistance(distance: searchPlaceHistoryDatas?[reversedIndex].distance ?? 0)
+            placeModel.setTelNo(telNo: searchPlaceHistoryDatas?[reversedIndex].telNo ?? "")
+            
+     
+            
+            delegate.onPlaceSelected(placeModel: placeModel, searchType: Mn4pSharedDataStore.searchType ?? SearchPlaceViewController.PLACE)
         }
         self.dismiss(animated: true)
     }
     private func initTableDelegateAndDataSource() {
+      
         self.searchPlaceTableViewDelegate = SearchPlaceTableViewDelegate(placeTable: placeTable, searchPlaceHistoryTable: searchPlaceHistoryTable, tapPlaceTableViewDelegate: self, tapSearchPlaceHistoryTableViewDelegate: self)
-        self.searchPlaceTableViewDataSource = SearchPlaceTableViewDataSource(placeTable: placeTable, searchPlaceHistoryTable: searchPlaceHistoryTable, placeData: [], searchPlaceHistoryData:nil)
+        self.searchPlaceTableViewDataSource = SearchPlaceTableViewDataSource(placeTable: placeTable, searchPlaceHistoryTable: searchPlaceHistoryTable, placeData: [], searchPlaceHistoryData: nil)
         
     }
     
@@ -163,7 +168,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
         
         //hidden으로 지정하지 않았는데 TableView가 안보여서 isHidden을 false로 지정하니 보임
         //Swift 버그인가?
-        self.placeTable.isHidden = false
+        self.placeTable.isHidden = true
         
     }
     
@@ -182,17 +187,16 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
     
     private func showSearchPlaceHistoryTable() {
         
+        
         searchPlaceHistoryDatas = RealmManager.sharedInstance.getSearchPlaceHistory()
         
         if (searchPlaceHistoryDatas?.count == 0) {
             return
         }
-        
-        
+         
         self.searchPlaceTableViewDataSource?.searchPlaceHistoryData = searchPlaceHistoryDatas
         self.searchPlaceHistoryTable.reloadData()
-        
-    }
+     }
     
     
     
@@ -526,19 +530,12 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
                     
                     showSortButton()
                     putDeleteButtonToRightOfSortButton()
-                    
-                    self.placeModels = userInfo["placeModels"] as! [PlaceModel]
-                    
-                    setDistance(placeModels: self.placeModels)
-                    
-                    searchPlaceTableViewDataSource?.placeData = self.placeModels
-                    self.placeTable.reloadData()
-                    
-                    
+                    showPlaceTable(userInfo: userInfo)
+                     
                     break;
                 case "overApi" :
                     
-                    self.showOverApiAlert()
+                    showOverApiAlert()
                     
                     break;
                     
@@ -553,6 +550,23 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
                 
             }
         }
+    }
+    private func showPlaceTable(userInfo: [String:Any]) {
+        placeModels = userInfo["placeModels"] as! [PlaceModel]
+        
+        if (placeModels.count > 0) {
+            //placeTable을 표시영역을 지정하지 않으면 이상하게 content가 표시안됨
+            //영역을 지정하면 아래 searchPlaceHistoryTable은 클릭할 수 없음
+            //따라서 장소검색 결과값이 있으면 isHidden을 false로 없으면 true로 사용해서 처리 
+            placeTable.isHidden = false
+        setDistance(placeModels: placeModels)
+        
+        searchPlaceTableViewDataSource?.placeData = placeModels
+        placeTable.reloadData()
+        } else {
+            placeTable.isHidden = true
+        }
+        
     }
     
     private func initAlamofireManager() {

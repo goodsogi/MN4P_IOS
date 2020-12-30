@@ -21,7 +21,7 @@ class SearchPlaceTableViewDataSource: NSObject, UITableViewDataSource {
      
     
     init(placeTable:UITableView, searchPlaceHistoryTable:UITableView, placeData: [PlaceModel], searchPlaceHistoryData: Results<PlaceVO>?) {
-        print("tableview data: ", searchPlaceHistoryData)
+        print("plusapps tableview data: ", searchPlaceHistoryData)
         self.placeTable = placeTable
               self.searchPlaceHistoryTable = searchPlaceHistoryTable
         self.searchPlaceHistoryData = searchPlaceHistoryData
@@ -30,11 +30,11 @@ class SearchPlaceTableViewDataSource: NSObject, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
          if (tableView === placeTable) {
-            print("tableview PlaceTableViewDataSource count: ", self.placeData.count)
+            print("plusapps tableview PlaceTableViewDataSource count: ", self.placeData.count)
                    return self.placeData.count
          } else {
         
-        print("tableview SearchPlaceHistoryTableViewDataSource count: ", self.searchPlaceHistoryData?.count)
+        print("plusapps tableview SearchPlaceHistoryTableViewDataSource count: ", self.searchPlaceHistoryData?.count)
         return self.searchPlaceHistoryData?.count ?? 0
         }
         
@@ -67,9 +67,12 @@ class SearchPlaceTableViewDataSource: NSObject, UITableViewDataSource {
           } else {
          print("tableview cellForRowAt: ", indexPath)
        let cell = tableView.dequeueReusableCell(withIdentifier: "searchPlaceHistoryTableCell") as! SearchPlaceHistoryTableCell
-                         cell.placeName = searchPlaceHistoryData?[indexPath.row].name
-                         cell.address = searchPlaceHistoryData?[indexPath.row].address
-                         cell.clockIcon = UIImage(named: "clock.png")
+                        
+            let reversedIndex = (searchPlaceHistoryData?.count ?? 0) - 1 - indexPath.row
+            cell.placeName = searchPlaceHistoryData?[reversedIndex].name
+            cell.address = searchPlaceHistoryData?[reversedIndex].address
+            
+                        cell.clockIcon = UIImage(named: "clock.png")
                          //스크롤을 해야 데이터가 전부 표시되는 이슈 발생
                          cell.layoutSubviews()
 

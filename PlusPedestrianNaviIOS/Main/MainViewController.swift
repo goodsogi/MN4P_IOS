@@ -13,6 +13,12 @@ import Alamofire
 import FloatingPanel
 import AVFoundation
 
+
+protocol SetPointDelegate {
+    func onRoutePointSet()
+}
+
+
 protocol ShowStreetViewButtonDelegate {
     func onShowStreetViewButtonTapped()
 }
@@ -73,7 +79,9 @@ extension Numeric {
 }
 
 
-class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDelegate, FloatingPanelControllerDelegate, LocationListenerDelegate, SelectScreenDelegate, ToastDelegate, RouteOptionPopupDelegate, OverviewExitListenerDelegate, GeofenceListenerDelegate, SegmentedRoutePointListenerDelegate, ArriveDestinationListenerDelegate, FinishNavigationPopupDelegate, ShowOverviewButtonDelegate, ShowStreetViewButtonDelegate {
+class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDelegate, FloatingPanelControllerDelegate, LocationListenerDelegate, SelectScreenDelegate, ToastDelegate, RouteOptionPopupDelegate, OverviewExitListenerDelegate, GeofenceListenerDelegate, SegmentedRoutePointListenerDelegate, ArriveDestinationListenerDelegate, FinishNavigationPopupDelegate, ShowOverviewButtonDelegate, ShowStreetViewButtonDelegate, SetPointDelegate {
+   
+    
    
    
     
@@ -85,6 +93,10 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     /*
      공통
      */
+    
+    
+    @IBOutlet weak var mapContainer: UIView!
+    
     //Google Map
     @IBOutlet weak var mapView: GMSMapView!
     var googleMapDrawingManager: GoogleMapDrawingManager!
@@ -126,7 +138,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
         initLocationManager()
         
-        initMapView()
+        initMapManager()
         
         initGoogleMapDrawingManager()
         
@@ -276,30 +288,30 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     private func showScreenOnOtherStoryboard(storyboardName:String, viewControllerStoryboardId:String) {
         let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
-        let mainTopBarViewController = storyboard.instantiateViewController(withIdentifier: viewControllerStoryboardId)
+        let viewController = storyboard.instantiateViewController(withIdentifier: viewControllerStoryboardId)
         
-        self.present(mainTopBarViewController, animated: true, completion: nil)
+        //swift에서 is 키워드는 자바의 instanceOf인 듯
+        if (viewController is SetPointViewController) {
+            (viewController as! SetPointViewController).setPointDelegate = self
+        }
+        
+        self.present(viewController, animated: true, completion: nil)
     }
     
     private func hideViewsOnPreviousScreen() {
         
       
         if (screenType == NONE) {
-            print("plusapps hideViewsOnPreviousScreen NONE")
             return
         }
             
         if (screenType == MAIN) {
-            print("plusapps hideViewsOnMainScreen")
             hideViewsOnMainScreen()
         } else if (screenType == PLACE_INFO) {
-            print("plusapps hideViewsOnPlaceInfoScreen")
             hideViewsOnPlaceInfoScreen()
         } else if (screenType == ROUTE_INFO) {
-            print("plusapps hideViewsOnRouteInfoScreen")
             hideViewsOnRouteInfoScreen()
         } else if (screenType == NAVIGATION) {
-            print("plusapps hideViewsOnNavigationScreen")
             hideViewsOnNavigationScreen()
         }
     }
@@ -317,9 +329,13 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
         settingButton.backgroundColor = UIColor(patternImage: settingButtonContainerBackgroundImg)
         
+        settingButton.isHidden = false
+        
         
         let findCurrentLocationButtonContainerBackgroundImg = ImageMaker.getCircle(width: 60, height: 60, colorHexString: "#333536", alpha: 1.0)
         findCurrentLocationButton.backgroundColor = UIColor(patternImage: findCurrentLocationButtonContainerBackgroundImg)
+        
+        findCurrentLocationButton.isHidden = false
         
     }
     
@@ -465,8 +481,22 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             
             self.showPlaceInfoMap(placeModel: placeModel)
             
+            self.addPlaceToSearchHistory()
+            
             self.screenType = self.PLACE_INFO
         })
+    }
+    
+    private func addPlaceToSearchHistory() {
+       
+        //지도상 지점/집/직장은 제외
+        if (Mn4pSharedDataStore.placeModel!.getName() == LanguageManager.getString(key: "pin_location") || Mn4pSharedDataStore.placeModel!.getName() == LanguageManager.getString(key: "home")
+                        || Mn4pSharedDataStore.placeModel!.getName() == LanguageManager.getString(key: "work")) {
+                    return
+                }
+
+            RealmManager.sharedInstance.addPlaceToSearchHistory(placeModel: Mn4pSharedDataStore.placeModel! )
+        
     }
     
     
@@ -547,7 +577,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     var wayPoints : [CLLocationCoordinate2D] = []
     
     
-  
+    func onRoutePointSet() {
+        findRoute()
+    }
     
     func onRouteOptionSelected() {
         findRoute()
@@ -730,10 +762,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             
             placeModel.setLongitude(longitude: location.coordinate.longitude)
             
-            print("plusapps isLanguageKorean: " + String(UserInfoManager.isLanguageKorean()))
-            
-            let name = (UserInfoManager.isLanguageKorean()) ? "나의 위치": "Your location"
-            placeModel.setName(name: name)
+            placeModel.setName(name: LanguageManager.getString(key: "your_location"))
             placeModel.setAccuracy(accuracy: location.horizontalAccuracy)
             
             Mn4pSharedDataStore.startPointModel = placeModel
@@ -761,7 +790,15 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     private func showDestinationName() {
-        destinationName.text = selectedPlaceModel.getName()! + "까지"
+        destinationName.text = getDestinationName()
+    }
+    
+    private func getDestinationName() -> String {
+        if (UserInfoManager.isLanguageKorean()) {
+                    return (Mn4pSharedDataStore.destinationModel?.getName() ?? "")  + "까지"
+                } else {
+                    return "To " + (Mn4pSharedDataStore.destinationModel?.getName() ?? "")
+                }
     }
     
     private func showStartPointName() {
@@ -1756,10 +1793,14 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         print(coordinate)
     }
     
-    private func initMapView() {
-        let camera = GMSCameraPosition.camera(withLatitude: 37.534459, longitude: 126.983314, zoom: 14)
-        mapView.camera = camera
-        mapView.delegate = self
+    private func initMapManager() {
+        MapManager.sharedInstance.setMapContainer(mapContainer: mapContainer)
+        MapManager.sharedInstance.initMapClientAndRenderer()
+       
+        
+//        let camera = GMSCameraPosition.camera(withLatitude: 37.534459, longitude: 126.983314, zoom: 14)
+//        mapView.camera = camera
+//        mapView.delegate = self
         //이 메소드가 viewDidLoad보다 먼저 호출됨
         
         

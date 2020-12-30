@@ -20,6 +20,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hV5-u2-T36" userLabel="Main Screen">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="COJ-UM-pr2" userLabel="Map Container">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="flQ-yi-35f" customClass="GMSMapView">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -295,6 +299,9 @@
                                     <constraint firstItem="3x3-9r-XyK" firstAttribute="bottom" secondItem="CHh-ok-ECT" secondAttribute="top" constant="-20" id="BhU-U9-5Uj"/>
                                     <constraint firstItem="flQ-yi-35f" firstAttribute="width" secondItem="hV5-u2-T36" secondAttribute="width" id="Df6-Uc-kqs"/>
                                     <constraint firstItem="LK0-ql-cxN" firstAttribute="bottom" secondItem="hV5-u2-T36" secondAttribute="bottom" constant="-220" id="Gya-Oc-2zj"/>
+                                    <constraint firstItem="COJ-UM-pr2" firstAttribute="top" secondItem="hV5-u2-T36" secondAttribute="top" id="H07-Oj-MLU"/>
+                                    <constraint firstItem="COJ-UM-pr2" firstAttribute="leading" secondItem="hV5-u2-T36" secondAttribute="leading" id="Htc-6Q-mFc"/>
+                                    <constraint firstItem="COJ-UM-pr2" firstAttribute="trailing" secondItem="hV5-u2-T36" secondAttribute="trailing" id="Mgx-qE-Gp9"/>
                                     <constraint firstItem="flQ-yi-35f" firstAttribute="leading" secondItem="hV5-u2-T36" secondAttribute="leading" id="OVi-h4-Nma"/>
                                     <constraint firstItem="iP5-7Y-vVs" firstAttribute="leading" secondItem="hV5-u2-T36" secondAttribute="leading" id="Ocf-1j-rhG"/>
                                     <constraint firstItem="FL8-zE-MLS" firstAttribute="trailing" secondItem="hV5-u2-T36" secondAttribute="trailing" constant="-14" id="OjD-AE-lOZ"/>
@@ -310,6 +317,7 @@
                                     <constraint firstItem="FL8-zE-MLS" firstAttribute="bottom" secondItem="hV5-u2-T36" secondAttribute="bottom" constant="-370" id="fbU-tW-zvy"/>
                                     <constraint firstItem="CHh-ok-ECT" firstAttribute="bottom" secondItem="hV5-u2-T36" secondAttribute="bottom" constant="-304" id="jia-BI-n5H"/>
                                     <constraint firstItem="iP5-7Y-vVs" firstAttribute="trailing" secondItem="hV5-u2-T36" secondAttribute="trailing" id="jsg-IB-bMN"/>
+                                    <constraint firstItem="COJ-UM-pr2" firstAttribute="bottom" secondItem="hV5-u2-T36" secondAttribute="bottom" id="lWF-KW-JNc"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -332,6 +340,7 @@
                         <outlet property="directionText" destination="0Fe-DL-o8D" id="jD0-la-fQ4"/>
                         <outlet property="findCurrentLocationButton" destination="FL8-zE-MLS" id="loh-bn-aa7"/>
                         <outlet property="goButton" destination="4yr-LK-IZG" id="Kdm-ZR-PKx"/>
+                        <outlet property="mapContainer" destination="COJ-UM-pr2" id="trC-DH-Dx9"/>
                         <outlet property="mapView" destination="flQ-yi-35f" id="6y7-Sr-Lw1"/>
                         <outlet property="publicTransportButton" destination="CHh-ok-ECT" id="ePP-9Z-zBY"/>
                         <outlet property="rescanDirectionButton" destination="LK0-ql-cxN" id="WaA-Dt-vE1"/>

@@ -51,12 +51,12 @@ class UserDefaultManager {
            userDefaults.synchronize()
        }
        
-       private static func getInt(key:String) -> Int {
+       private static func getInt(key:String, defaultValue:Int) -> Int {
           let userDefaults = UserDefaults.standard
            if let value = userDefaults.value(forKey: key) as? Int {
                return value
            } else {
-               return 0
+               return defaultValue
            }
        }
     
@@ -125,14 +125,13 @@ class UserDefaultManager {
     public static func saveRouteOption(routeOption: String) {
            saveString(key: KEY_ROUTE_OPTION, value: routeOption)
        }
-      
-    
+  
     public static func getCurrentMapOption() -> Int {
-        return getInt(key: KEY_CURRENT_MAP)
+        return getInt(key: KEY_CURRENT_MAP, defaultValue: PPNConstants.NO_MAP)
     }
     
     public static func getUserLocation() -> Int {
-        return getInt(key: KEY_USER_LOCATION)
+        return getInt(key: KEY_USER_LOCATION, defaultValue: 0)
     }
     
     public static func saveUserLocation(userLocation: Int) {

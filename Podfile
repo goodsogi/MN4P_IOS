@@ -18,4 +18,5 @@ pod 'RealmSwift'
 pod 'ReachabilitySwift'
 pod 'GoogleAnalytics'
 pod 'Firebase/DynamicLinks'
+pod 'NMapsMap'
 end

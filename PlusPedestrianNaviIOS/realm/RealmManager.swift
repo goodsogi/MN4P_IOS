@@ -122,7 +122,7 @@ let realm = try! Realm()
         
         
     public func hasFavorites() -> Bool{
-       let results = realm.objects(PlaceVO.self)
+       let results = realm.objects(FavoriteVO.self)
         return results.count != 0
     }
     
@@ -139,7 +139,7 @@ let realm = try! Realm()
         
         do {
             try realm.write {
-                realm.delete(realm.objects(FavoriteVO.self).filter("latitude = %@ AND longitude = %@", latitude, longitude))
+                realm.delete(realm.objects(PlaceVO.self).filter("latitude = %@ AND longitude = %@", latitude, longitude))
             }
         } catch {
             print("Error Delete \(error)")
@@ -148,11 +148,14 @@ let realm = try! Realm()
     }
     
     public func addPlaceToSearchHistory(placeModel: PlaceModel) {
-              
+       
+        print("plusapps addPlaceToSearchHistory 1")
         if (isPlaceAddedToSearchPlaceHistory(placeModel:placeModel)) {
+            print("plusapps addPlaceToSearchHistory 2")
             deletePlaceOnSearchPlaceHistory(placeModel:placeModel);
         }
 
+        print("plusapps addPlaceToSearchHistory 3")
         savePlaceToSearchHistory(placeModel:placeModel);
        
     }
@@ -189,8 +192,8 @@ let realm = try! Realm()
     }
         
     
-    public func getSearchPlaceHistory() -> Results<PlaceVO>{
-       let results = realm.objects(PlaceVO.self)
+    public func getSearchPlaceHistory() -> Results<PlaceVO> {
+        let results = realm.objects(PlaceVO.self)
        return results
        }
         
@@ -234,11 +237,14 @@ let realm = try! Realm()
      */
     
     public func addDirectionToDirectionHistory() {
+        print("plusapps addDirectionToDirectionHistory 1")
               
         if (isDirectionAddedToDirectionHistory()) {
+            print("plusapps addDirectionToDirectionHistory 2")
             deleteDirecectionOnDirectionHistory()
         }
 
+        print("plusapps addDirectionToDirectionHistory 3")
         saveDirectionToDB()
        
     }
@@ -269,6 +275,7 @@ let realm = try! Realm()
         let destinationLongitude = Mn4pSharedDataStore.destinationModel!.getLongitude() ?? 0
         
         let results = try! Realm().objects(DirectionVO.self).filter("startPointLatitude = %@ AND startPointLongitude = %@ AND destinationLatitude = %@ AND destinationLongitude = %@", startPointLatitude, startPointLongitude, destinationLatitude, destinationLongitude)
+     
         return results.count != 0
     }
     
@@ -306,4 +313,33 @@ let realm = try! Realm()
         }
     }
         
+    
+    public func getDirectionHistory() -> Results<DirectionVO> {
+        let results = realm.objects(DirectionVO.self)
+       return results
+       }
+    
+    public func getStartPointModelFromDirectionVO(directionVO: DirectionVO) -> PlaceModel {
+      
+        let placeModel: PlaceModel = PlaceModel()
+        placeModel.setName(name: directionVO.startPointName ?? "")
+        placeModel.setAddress(address: directionVO.startPointAddress ?? "")
+        placeModel.setLatitude(latitude: directionVO.startPointLatitude)
+        placeModel.setLongitude(longitude: directionVO.startPointLongitude)
+        placeModel.setBizname(bizName: directionVO.startPointBizName ?? "")
+        placeModel.setTelNo(telNo: directionVO.startPointTelNo ?? "")
+            return placeModel
+        }
+    
+    public func getDestinationModelFromDirectionVO(directionVO: DirectionVO) -> PlaceModel {
+    
+        let placeModel: PlaceModel = PlaceModel()
+        placeModel.setName(name: directionVO.destinationName ?? "")
+        placeModel.setAddress(address: directionVO.destinationAddress ?? "")
+        placeModel.setLatitude(latitude: directionVO.destinationLatitude)
+        placeModel.setLongitude(longitude: directionVO.destinationLongitude)
+        placeModel.setBizname(bizName: directionVO.destinationBizName ?? "")
+        placeModel.setTelNo(telNo: directionVO.destinationTelNo ?? "")
+            return placeModel
+        }
 }

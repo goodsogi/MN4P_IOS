@@ -76,6 +76,8 @@
 		1FF1E5EA24F63FE900F196CA /* PlaceVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E5E924F63FE900F196CA /* PlaceVO.swift */; };
 		1FF1E5ED24F6422000F196CA /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF1E5EC24F6422000F196CA /* RealmManager.swift */; };
 		B3307DB82589AAB00004AB04 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3307DB72589AAB00004AB04 /* GoogleService-Info.plist */; };
+		B332F35E259C326C006BE8E1 /* DirectionHistoryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B332F35D259C326C006BE8E1 /* DirectionHistoryTableCell.swift */; };
+		B332F38C259C6CAB006BE8E1 /* IMapRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B332F38B259C6CAB006BE8E1 /* IMapRenderer.swift */; };
 		B3335EE92595B6490066933E /* SOTWFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3335EE82595B6490066933E /* SOTWFormatter.swift */; };
 		B33404EA2590380000F66394 /* GeofenceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33404E92590380000F66394 /* GeofenceModel.swift */; };
 		B335B64B259B15D800570025 /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B335B64A259B15D800570025 /* DataUtils.swift */; };
@@ -168,6 +170,8 @@
 		1FF1E5EC24F6422000F196CA /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		76D48CC66E7E6DC0607E9F6C /* Pods-PlusPedestrianNaviIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PlusPedestrianNaviIOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PlusPedestrianNaviIOS/Pods-PlusPedestrianNaviIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B3307DB72589AAB00004AB04 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B332F35D259C326C006BE8E1 /* DirectionHistoryTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionHistoryTableCell.swift; sourceTree = "<group>"; };
+		B332F38B259C6CAB006BE8E1 /* IMapRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMapRenderer.swift; sourceTree = "<group>"; };
 		B3335EE82595B6490066933E /* SOTWFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOTWFormatter.swift; sourceTree = "<group>"; };
 		B33404E92590380000F66394 /* GeofenceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofenceModel.swift; sourceTree = "<group>"; };
 		B335B64A259B15D800570025 /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
@@ -420,6 +424,7 @@
 			children = (
 				1FC630B024E3D802008898B9 /* SetPointViewController.swift */,
 				1F31636724E682A300E1C7EA /* SetPoint.storyboard */,
+				B332F35D259C326C006BE8E1 /* DirectionHistoryTableCell.swift */,
 			);
 			path = set_point;
 			sourceTree = "<group>";
@@ -432,6 +437,7 @@
 				1FD5BC5024E52D1D0029F7B3 /* NaverMapClient.swift */,
 				1FD5BC5224E52D4D0029F7B3 /* GoogleMapClient.swift */,
 				077853E32152483C0059B489 /* GoogleMapDrawingManager.swift */,
+				B332F38B259C6CAB006BE8E1 /* IMapRenderer.swift */,
 			);
 			path = map;
 			sourceTree = "<group>";
@@ -621,6 +627,7 @@
 				1F8E05E024E0E631000953A2 /* PlaceInfoViewController.swift in Sources */,
 				B33B2E72259322C500E06F1D /* NavigationEngine.swift in Sources */,
 				B382CAA5258C95A9005A7331 /* DirectionVO.swift in Sources */,
+				B332F38C259C6CAB006BE8E1 /* IMapRenderer.swift in Sources */,
 				1FC630A924E3C316008898B9 /* FavoritesViewController.swift in Sources */,
 				1F88E17C24DBEF070039C517 /* MainPanelViewController.swift in Sources */,
 				070BA288213E3E9300B00383 /* PlaceTableCell.swift in Sources */,
@@ -666,6 +673,7 @@
 				1FF1E5E824F6360F00F196CA /* SearchPlaceHistoryTableCell.swift in Sources */,
 				B382CAAC258C9C90005A7331 /* RoutePointModelToStringConverter.swift in Sources */,
 				B3335EE92595B6490066933E /* SOTWFormatter.swift in Sources */,
+				B332F35E259C326C006BE8E1 /* DirectionHistoryTableCell.swift in Sources */,
 				07CA0F4421548C2500E6C4C4 /* ViewElevationMaker.swift in Sources */,
 				1F544C4224FCED1E000406B1 /* SearchPlaceTableViewDelegate.swift in Sources */,
 			);
