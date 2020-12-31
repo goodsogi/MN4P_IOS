@@ -515,7 +515,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
     var alamofireManager : AlamofireManager!
     
     @objc func receiveAlamofireSearchPlaceNotification(_ notification: NSNotification) {
-        if notification.name.rawValue == PPNConstants.NOTIFICATION_ALAMOFIRE_SEARCH_PLACE {
+        if notification.name.rawValue == Mn4pConstants.NOTIFICATION_ALAMOFIRE_SEARCH_PLACE {
             
             SpinnerView.remove()
             
@@ -573,7 +573,7 @@ class SearchPlaceViewController: UIViewController, UITextFieldDelegate,   SFSpee
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(SearchPlaceViewController.receiveAlamofireSearchPlaceNotification(_:)),
-                                               name: NSNotification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_SEARCH_PLACE),
+                                               name: NSNotification.Name(rawValue: Mn4pConstants.NOTIFICATION_ALAMOFIRE_SEARCH_PLACE),
                                                object: nil)
         
         alamofireManager = AlamofireManager()

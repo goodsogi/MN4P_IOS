@@ -8,6 +8,9 @@
 import UIKit
 
 protocol MapClient {
-    func setMapContainer(mapContainer: UIView)
-    func createMap()
+    func createMap(mapContainer: UIView)
+    func getRenderer() -> IMapRenderer?
+    func initRenderer(mapView: Any)
 }
+
+

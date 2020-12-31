@@ -95,11 +95,13 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
      */
     
     
+    @IBOutlet weak var mapContainerBottomContraint: NSLayoutConstraint!
+    
     @IBOutlet weak var mapContainer: UIView!
     
     //Google Map
     @IBOutlet weak var mapView: GMSMapView!
-    var googleMapDrawingManager: GoogleMapDrawingManager!
+    var googleMapDrawingManager: GoogleMapRenderer!
     
     //TTS 엔진
     var synthesizer : AVSpeechSynthesizer!
@@ -140,8 +142,6 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
         initMapManager()
         
-        initGoogleMapDrawingManager()
-        
         initInternetConnectionChecker()
         
         showMainScreen()
@@ -173,7 +173,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     private func removeNotificationObserver() {
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "clickFirebaseDynamicLink"), object: nil)
         
-        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: Mn4pConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE), object: nil)
     }
     
     private func addNotificationObserver() {
@@ -181,7 +181,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(onAlamofireGetDirectionNotificationReceived(_:)),
-                                               name: NSNotification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE),
+                                               name: NSNotification.Name(rawValue: Mn4pConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE),
                                                object: nil)
          
     }
@@ -200,11 +200,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         LocationManager.sharedInstance.setLocationListener(locationListener: self)
     }
     
-    private func initGoogleMapDrawingManager() {
-        googleMapDrawingManager = GoogleMapDrawingManager()
-        googleMapDrawingManager.setMapView(mapView:mapView)
-       
-    }
+  
     
     private func initInternetConnectionChecker() {
         InternetConnectionChecker.sharedInstance.run()
@@ -353,14 +349,26 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     private func showMainMap() {
+        
+//        if (MapManager.sharedInstance.getActiveMapRenderer()! is NaverMapRenderer) {
+//      print("plusapps mapContainerBottomContraint.constant = -400")
+//            mapContainerBottomContraint.constant = -240
+//            mapContainer.layoutIfNeeded()
+//        } else {
+//        MapManager.sharedInstance.getActiveMapRenderer()!.setMapPadding(value: 240)
+//        }
+     
+        MapManager.sharedInstance.getActiveMapRenderer()!.setMapPadding(value: 240)
+        
         print("plusapps showMainMap")
         let userLocation: CLLocation? = LocationManager.sharedInstance.getCurrentLocation()
         if let location = userLocation {
+            //print할 때 String을 사용하면 안될 때 ,뒤에 변수를 두면 됨 
+            print("plusapps ", location.coordinate)
             showCurrentLocation(userLocation: location)
             
         }
-        googleMapDrawingManager.setMapPadding(bottomPadding: 240)
-        
+          
     }
     
     private func showViewsOnMainScreen() {
@@ -421,7 +429,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     private func showCurrentLocation(userLocation: CLLocation) {
-        googleMapDrawingManager.showCurrentLocationMarker(userLocation: userLocation)
+        print("plusapps showCurrentLocation")
+        MapManager.sharedInstance.getActiveMapRenderer()?.showCurrentLocationMarker(currentLocation: userLocation)
           
     }
     
@@ -459,7 +468,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         settingButton.isHidden = true
         findCurrentLocationButton.isHidden = true
         hidePanel(fpc: mainPanelFpc)
-        googleMapDrawingManager.clearMainOverlay()
+        MapManager.sharedInstance.getActiveMapRenderer()!.clearMap(screenType: Mn4pConstants.MAIN)
         
     }
     
@@ -501,7 +510,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     
     private func showPlaceInfoMap(placeModel: PlaceModel) {
-        googleMapDrawingManager.showPlaceMarker(selectedPlaceModel: placeModel)
+        MapManager.sharedInstance.getActiveMapRenderer()!.showPlaceMarker(placeModel: placeModel)
         
     }
     
@@ -546,7 +555,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     private func hideViewsOnPlaceInfoScreen() {
        
         hidePanel(fpc: placeInfoPanelFpc)
-        googleMapDrawingManager.clearPlaceInfoOverlay()
+        MapManager.sharedInstance.getActiveMapRenderer()!.clearMap(screenType: Mn4pConstants.PLACE_INFO)
     }
     
     /*
@@ -596,7 +605,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
 //            UIAccessibility.post(notification: .announcement, argument: "접근성 웹페이지")
 //        }
         
-        callGetDirectionApi(notificationName: PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE)
+        callGetDirectionApi(notificationName: Mn4pConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE)
         
     }
     
@@ -686,7 +695,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     @objc func onAlamofireGetDirectionNotificationReceived(_ notification: NSNotification) {
         
         print("plusapps onAlamofireGetDirectionNotificationReceived")
-        if (notification.name.rawValue == PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE ||  notification.name.rawValue == PPNConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION) {
+        if (notification.name.rawValue == Mn4pConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE ||  notification.name.rawValue == Mn4pConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION) {
             
             SpinnerView.remove()
             
@@ -701,14 +710,14 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
                     
                     Mn4pSharedDataStore.directionModel =  userInfo["directionModel"] as? DirectionModel
                     
-                    if (notification.name.rawValue == PPNConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE) {
+                    if (notification.name.rawValue == Mn4pConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE) {
                     saveDirectionToDB()
                     //TODO 계속 구현하세요 
                     showRouteOnMap()
                     handleShowPublicTransportButton()
                     fillOutInfo()
-                    }  else if (notification.name.rawValue == PPNConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION) {
-                        googleMapDrawingManager.showNavigationOverlays(directionModel: Mn4pSharedDataStore.directionModel!)
+                    }  else if (notification.name.rawValue == Mn4pConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION) {
+                        MapManager.sharedInstance.getActiveMapRenderer()!.showNavigationOverlays(directionModel: Mn4pSharedDataStore.directionModel!)
                         
                         //TODO step detector 구현하세요
                         
@@ -743,7 +752,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     private func showRouteOnMap() {
         
-        googleMapDrawingManager.showRouteOverlays(directionModel: Mn4pSharedDataStore.directionModel!)
+        MapManager.sharedInstance.getActiveMapRenderer()!.showRouteOverlays(directionModel: Mn4pSharedDataStore.directionModel!)
         
     }
     
@@ -776,7 +785,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
         routeInfoPanel.isHidden = true
         
-        googleMapDrawingManager.clearRouteInfoOverlay()
+        MapManager.sharedInstance.getActiveMapRenderer()!.clearMap(screenType: Mn4pConstants.ROUTE_INFO)
     }
     
     private func fillOutInfo() {
@@ -1256,7 +1265,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         slideDownTopBoard()
         showNavigationPanel()
         showRescanButton()
-        googleMapDrawingManager.handleExitFromOverview()
+        MapManager.sharedInstance.getActiveMapRenderer()!.handleExitFromOverview()
     }
     
     private func slideDownTopBoard() {
@@ -1291,7 +1300,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     private func showOverviewMap() {
         let angle: Double = NavigationEngine.sharedInstance.getAngleForOverview()
-        googleMapDrawingManager.showOverview(angle: angle)
+        MapManager.sharedInstance.getActiveMapRenderer()!.showOverview(angle: angle)
         
     }
     
@@ -1321,9 +1330,9 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         let currentGeofenceLocation = CLLocation(latitude: currentGeofence.getLat() ?? 0, longitude: currentGeofence.getLng() ?? 0)
         let nextGeofenceLocation = CLLocation(latitude: nextGeofence?.getLat() ?? 0, longitude: nextGeofence?.getLng() ?? 0)
        
-        googleMapDrawingManager.updateMapBearingAndZoom(currentGeofenceLocation: currentGeofenceLocation ,nextGeofenceLocation: nextGeofenceLocation )
+        MapManager.sharedInstance.getActiveMapRenderer()!.updateMapBearingAndZoom(currentGeofenceLocation: currentGeofenceLocation ,nextGeofenceLocation: nextGeofenceLocation )
         
-        googleMapDrawingManager.showGeofenceMarker(geofenceModel: currentGeofence)
+        MapManager.sharedInstance.getActiveMapRenderer()!.showGeofenceMarker(geofenceModel: currentGeofence)
         showDirectionTextAndIcon(text: currentGeofence.getDescription() ?? "")
         runVibration(text: currentGeofence.getDescription() ?? "" )
         speakTTS(text: currentGeofence.getDescription() ?? "")
@@ -1365,19 +1374,19 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         let currentGeofenceLocation = CLLocation(latitude: previousGeofence?.getLat() ?? 0, longitude: previousGeofence?.getLng() ?? 0)
         let nextGeofenceLocation = CLLocation(latitude: currentGeofence.getLat() ?? 0, longitude: currentGeofence.getLng() ?? 0)
        
-        googleMapDrawingManager.updateMapBearingAndZoom(currentGeofenceLocation: currentGeofenceLocation ,nextGeofenceLocation: nextGeofenceLocation )
+        MapManager.sharedInstance.getActiveMapRenderer()!.updateMapBearingAndZoom(currentGeofenceLocation: currentGeofenceLocation ,nextGeofenceLocation: nextGeofenceLocation )
     }
     
     func onGetNearestSegmentedRoutePoint(nearestSegmentedRoutePoint: CLLocation) {
         
         //TODO background location service 처리하세요
         refreshNavigationInfo()
-        googleMapDrawingManager.showNavigationMarker(nearestSegmentedRoutePoint: nearestSegmentedRoutePoint)
+        MapManager.sharedInstance.getActiveMapRenderer()!.showNavigationMarker(nearestSegmentedRoutePoint: nearestSegmentedRoutePoint)
         var progress: Double = NavigationEngine.sharedInstance.getProgress()
         
         //TODO 아래 코드 구현하세요.
         //현재 google map에서 progress는 구현 불가능함
-        //googleMapDrawingManager.showProgress(progress: progress)
+        //MapManager.sharedInstance.getActiveMapRenderer()!.showProgress(progress: progress)
     }
     
     
@@ -1513,7 +1522,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
         resetCurrentLocationOnStartPoint()
         
-        callGetDirectionApi(notificationName: PPNConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION)
+        callGetDirectionApi(notificationName: Mn4pConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION)
     }
     
     private func resetCurrentLocationOnStartPoint() {
@@ -1592,7 +1601,6 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     
     private func showNavigationPanel() {
-        print("plusapps showNavigationPanel")
         panelType = NAVIGATION
         
         navigationPanelFpc = FloatingPanelController()
@@ -1629,8 +1637,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         rescanDirectionButton.isHidden = true
         stepDetector.isHidden = true
         hidePanel(fpc: navigationPanelFpc)
-        googleMapDrawingManager.clearNavigationOverlays()
-        
+        MapManager.sharedInstance.getActiveMapRenderer()!.clearMap(screenType: Mn4pConstants.NAVIGATION)
     }
     
     private func showViewsOnNavigationScreen() {
@@ -1651,10 +1658,16 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     
     private func initNavigationMap() {
+      //  MapManager.sharedInstance.getActiveMapRenderer()!.setMapPadding(value:  0)
+        if (MapManager.sharedInstance.getActiveMapRenderer()! is NaverMapRenderer) {
+            mapContainerBottomContraint.constant = 0
+        } else {
+        MapManager.sharedInstance.getActiveMapRenderer()!.setMapPadding(value: 240)
+        }
         
-        googleMapDrawingManager.showNavigationOverlays(directionModel: Mn4pSharedDataStore.directionModel!)
-        googleMapDrawingManager.setMapPadding(bottomPadding: 0)
-    }
+        
+        MapManager.sharedInstance.getActiveMapRenderer()!.showNavigationOverlays(directionModel: Mn4pSharedDataStore.directionModel!)
+       }
     
     private func makeNavigationScreenLayout() {
         directionBoard.isHidden = false
@@ -1793,7 +1806,11 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         print(coordinate)
     }
     
+ 
+    
     private func initMapManager() {
+     
+        
         MapManager.sharedInstance.setMapContainer(mapContainer: mapContainer)
         MapManager.sharedInstance.initMapClientAndRenderer()
        
@@ -1818,7 +1835,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             handleCatchedLocation(location: location)
         }
         
-        //          googleMapDrawingManager.showCurrentLocationOnMap(userLocation: location)
+        //          MapManager.sharedInstance.getActiveMapRenderer()!.OnMap(userLocation: location)
     }
     
     func onFirstLocationCatched(location: CLLocation) {

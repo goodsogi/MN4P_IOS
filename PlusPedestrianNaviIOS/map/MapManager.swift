@@ -21,7 +21,8 @@ class MapManager {
     
     private var mapContainer: UIView?
     
-      
+    private var activeMapClient: MapClient?
+    private var activeMapRenderer: IMapRenderer?
     
     
     public func initMapClientAndRenderer() {
@@ -29,12 +30,12 @@ class MapManager {
         
         //한국에 있지 않은 경우
         if (!UserInfoManager.isUserInKorea()) {
-            if (activeMap == PPNConstants.NO_MAP) {
+            if (activeMap == Mn4pConstants.NO_MAP) {
                 activeMap = GOOGLE_MAP;
                 UserDefaultManager.saveCurrentMapOption(mapOption: GOOGLE_MAP);
             }
         } else {
-            if (activeMap == PPNConstants.NO_MAP) {
+            if (activeMap == Mn4pConstants.NO_MAP) {
                 activeMap = NAVER_MAP;
                 UserDefaultManager.saveCurrentMapOption(mapOption: NAVER_MAP);
             }
@@ -51,41 +52,24 @@ class MapManager {
     
     func setActiveMapClientAndRenderer(mapOption: Int) {
         
-        
-        var mapClient: MapClient
-        
                 switch (mapOption) {
                     case NAVER_MAP:
-                        mapClient = NaverMapClient()
+                        activeMapClient = NaverMapClient()
+                     
                         break;
                     case GOOGLE_MAP:
-                        mapClient = GoogleMapClient()
-                        break;
+                        activeMapClient = GoogleMapClient()
+                         break;
                     default:
-                        mapClient = GoogleMapClient()
+                        activeMapClient = GoogleMapClient()
                         break;
                 }
         
-        mapClient.setMapContainer(mapContainer: mapContainer!)
-        mapClient.createMap()
+        activeMapClient?.createMap(mapContainer: mapContainer!)
         
-//        MapClient mapClient = null;
-//
-//        switch (mapOption) {
-//            case NAVER_MAP:
-//                mapClient = new NaverMapClient(context);
-//                break;
-//            case GOOGLE_MAP:
-//                mapClient = new GoogleMapClient(context);
-//                break;
-//            case OFFLINE_MAP:
-//                mapClient = new OfflineMapClient(context);
-//                break;
-//            default:
-//                mapClient = new NaverMapClient(context);
-//                break;
-//        }
-//
+        activeMapRenderer = activeMapClient?.getRenderer()
+        
+
 //        final MapClient finalMapClient = mapClient;
 //        mapClient.createMap(new MapReadyListener() {
 //
@@ -104,4 +88,14 @@ class MapManager {
 //
 //        activeMapClient = mapClient;
     }
+    
+    
+    func getActiveMapClient() -> MapClient? {
+        return activeMapClient
+    }
+    
+    func getActiveMapRenderer() -> IMapRenderer? {
+        return activeMapRenderer
+    }
+    
 }

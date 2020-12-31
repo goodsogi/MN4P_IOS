@@ -10,12 +10,12 @@
 		070BA288213E3E9300B00383 /* PlaceTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070BA287213E3E9300B00383 /* PlaceTableCell.swift */; };
 		0749B9A02146381F0082E1E6 /* DirectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749B99F2146381F0082E1E6 /* DirectionModel.swift */; };
 		0749B9A221463A800082E1E6 /* RoutePointModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749B9A121463A800082E1E6 /* RoutePointModel.swift */; };
-		0749B9A4214646E20082E1E6 /* PPNConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749B9A3214646E20082E1E6 /* PPNConstants.swift */; };
+		0749B9A4214646E20082E1E6 /* Mn4pConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749B9A3214646E20082E1E6 /* Mn4pConstants.swift */; };
 		07697F6C21636CCB003D2566 /* LocalFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07697F6B21636CCA003D2566 /* LocalFileManager.swift */; };
 		076A8E652137A7A100858716 /* HexColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A8E642137A7A100858716 /* HexColorManager.swift */; };
 		076ACEE32147D4020042B254 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076ACEE22147D4020042B254 /* UserDefaultManager.swift */; };
 		077853E22152408D0059B489 /* RouteSelectBoardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077853E12152408D0059B489 /* RouteSelectBoardManager.swift */; };
-		077853E42152483C0059B489 /* GoogleMapDrawingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077853E32152483C0059B489 /* GoogleMapDrawingManager.swift */; };
+		077853E42152483C0059B489 /* GoogleMapRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077853E32152483C0059B489 /* GoogleMapRenderer.swift */; };
 		0779FB7721646BC400E60AC0 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0779FB7621646BC400E60AC0 /* SpinnerView.swift */; };
 		078BEDC2212E5FFF00D497C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */; };
 		078BEDC4212E5FFF00D497C9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078BEDC3212E5FFF00D497C9 /* MainViewController.swift */; };
@@ -29,7 +29,6 @@
 		07CA0F4421548C2500E6C4C4 /* ViewElevationMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CA0F4321548C2500E6C4C4 /* ViewElevationMaker.swift */; };
 		07CA0F462154978100E6C4C4 /* ActionDelayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CA0F452154978100E6C4C4 /* ActionDelayManager.swift */; };
 		07CA0F4A2154A5A500E6C4C4 /* ImageMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CA0F492154A5A500E6C4C4 /* ImageMaker.swift */; };
-		07CA0F502154D49700E6C4C4 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CA0F4F2154D49700E6C4C4 /* NavigationViewController.swift */; };
 		07D1C8342170676200DC38BA /* AlamofireManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1C8332170676200DC38BA /* AlamofireManager.swift */; };
 		07D1C836217083F300DC38BA /* OverApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1C835217083F200DC38BA /* OverApiManager.swift */; };
 		07F2224021392ABF00EDFBB0 /* SearchPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F2223F21392ABF00EDFBB0 /* SearchPlaceViewController.swift */; };
@@ -86,6 +85,7 @@
 		B33B2E72259322C500E06F1D /* NavigationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33B2E71259322C500E06F1D /* NavigationEngine.swift */; };
 		B33B2E8A2593350700E06F1D /* SegmentedRoutePointListMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33B2E892593350700E06F1D /* SegmentedRoutePointListMaker.swift */; };
 		B33B2E8D2593373900E06F1D /* MapDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33B2E8C2593373900E06F1D /* MapDataConverter.swift */; };
+		B35189D8259D72BE00CDDB3B /* NaverMapRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35189D7259D72BE00CDDB3B /* NaverMapRenderer.swift */; };
 		B382CA31258C3DE9005A7331 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382CA30258C3DE9005A7331 /* LanguageManager.swift */; };
 		B382CA49258C4A6E005A7331 /* RouteOptionPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382CA48258C4A6E005A7331 /* RouteOptionPopupViewController.swift */; };
 		B382CAA5258C95A9005A7331 /* DirectionVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B382CAA4258C95A9005A7331 /* DirectionVO.swift */; };
@@ -101,12 +101,12 @@
 		0745C31421423AC70090D395 /* MyHomeLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MyHomeLocation.gpx; sourceTree = "<group>"; };
 		0749B99F2146381F0082E1E6 /* DirectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionModel.swift; sourceTree = "<group>"; };
 		0749B9A121463A800082E1E6 /* RoutePointModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePointModel.swift; sourceTree = "<group>"; };
-		0749B9A3214646E20082E1E6 /* PPNConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPNConstants.swift; sourceTree = "<group>"; };
+		0749B9A3214646E20082E1E6 /* Mn4pConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mn4pConstants.swift; sourceTree = "<group>"; };
 		07697F6B21636CCA003D2566 /* LocalFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileManager.swift; sourceTree = "<group>"; };
 		076A8E642137A7A100858716 /* HexColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexColorManager.swift; sourceTree = "<group>"; };
 		076ACEE22147D4020042B254 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 		077853E12152408D0059B489 /* RouteSelectBoardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSelectBoardManager.swift; sourceTree = "<group>"; };
-		077853E32152483C0059B489 /* GoogleMapDrawingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapDrawingManager.swift; sourceTree = "<group>"; };
+		077853E32152483C0059B489 /* GoogleMapRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapRenderer.swift; sourceTree = "<group>"; };
 		0779FB7621646BC400E60AC0 /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		078BEDBE212E5FFF00D497C9 /* PlusPedestrianNaviIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlusPedestrianNaviIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		078BEDC1212E5FFF00D497C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -122,7 +122,6 @@
 		07CA0F4321548C2500E6C4C4 /* ViewElevationMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewElevationMaker.swift; sourceTree = "<group>"; };
 		07CA0F452154978100E6C4C4 /* ActionDelayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDelayManager.swift; sourceTree = "<group>"; };
 		07CA0F492154A5A500E6C4C4 /* ImageMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMaker.swift; sourceTree = "<group>"; };
-		07CA0F4F2154D49700E6C4C4 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		07D1C8332170676200DC38BA /* AlamofireManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireManager.swift; sourceTree = "<group>"; };
 		07D1C835217083F200DC38BA /* OverApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverApiManager.swift; sourceTree = "<group>"; };
 		07F2223F21392ABF00EDFBB0 /* SearchPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceViewController.swift; sourceTree = "<group>"; };
@@ -180,6 +179,7 @@
 		B33B2E71259322C500E06F1D /* NavigationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationEngine.swift; sourceTree = "<group>"; };
 		B33B2E892593350700E06F1D /* SegmentedRoutePointListMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedRoutePointListMaker.swift; sourceTree = "<group>"; };
 		B33B2E8C2593373900E06F1D /* MapDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDataConverter.swift; sourceTree = "<group>"; };
+		B35189D7259D72BE00CDDB3B /* NaverMapRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMapRenderer.swift; sourceTree = "<group>"; };
 		B382CA30258C3DE9005A7331 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		B382CA48258C4A6E005A7331 /* RouteOptionPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteOptionPopupViewController.swift; sourceTree = "<group>"; };
 		B382CAA4258C95A9005A7331 /* DirectionVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionVO.swift; sourceTree = "<group>"; };
@@ -267,7 +267,7 @@
 				078BEDC8212E600100D497C9 /* Assets.xcassets */,
 				078BEDCA212E600100D497C9 /* LaunchScreen.storyboard */,
 				078BEDCD212E600100D497C9 /* Info.plist */,
-				0749B9A3214646E20082E1E6 /* PPNConstants.swift */,
+				0749B9A3214646E20082E1E6 /* Mn4pConstants.swift */,
 				1F308A8324EF6DC5001ED799 /* Mn4pSharedDataStore.swift */,
 				B3900E1C2589CD3800ACFCF4 /* SceneDelegate.swift */,
 			);
@@ -330,7 +330,6 @@
 		07CA0F4E2154A9F600E6C4C4 /* navigation */ = {
 			isa = PBXGroup;
 			children = (
-				07CA0F4F2154D49700E6C4C4 /* NavigationViewController.swift */,
 				079AA9F62165FC78006CD763 /* DownloadProVersionPopupViewController.swift */,
 				1F47579124E265420076DCA5 /* NavigationPanelViewController.swift */,
 				B33B2E71259322C500E06F1D /* NavigationEngine.swift */,
@@ -436,8 +435,9 @@
 				1FD5BC4E24E52CED0029F7B3 /* MapClient.swift */,
 				1FD5BC5024E52D1D0029F7B3 /* NaverMapClient.swift */,
 				1FD5BC5224E52D4D0029F7B3 /* GoogleMapClient.swift */,
-				077853E32152483C0059B489 /* GoogleMapDrawingManager.swift */,
+				077853E32152483C0059B489 /* GoogleMapRenderer.swift */,
 				B332F38B259C6CAB006BE8E1 /* IMapRenderer.swift */,
+				B35189D7259D72BE00CDDB3B /* NaverMapRenderer.swift */,
 			);
 			path = map;
 			sourceTree = "<group>";
@@ -620,7 +620,8 @@
 				07D1C8342170676200DC38BA /* AlamofireManager.swift in Sources */,
 				0749B9A221463A800082E1E6 /* RoutePointModel.swift in Sources */,
 				1F2BCA6424F8EB4F00DD010F /* LocationManager.swift in Sources */,
-				0749B9A4214646E20082E1E6 /* PPNConstants.swift in Sources */,
+				0749B9A4214646E20082E1E6 /* Mn4pConstants.swift in Sources */,
+				B35189D8259D72BE00CDDB3B /* NaverMapRenderer.swift in Sources */,
 				1F47579224E265420076DCA5 /* NavigationPanelViewController.swift in Sources */,
 				B3900E1D2589CD3800ACFCF4 /* SceneDelegate.swift in Sources */,
 				0779FB7721646BC400E60AC0 /* SpinnerView.swift in Sources */,
@@ -643,11 +644,10 @@
 				079AA9F72165FC78006CD763 /* DownloadProVersionPopupViewController.swift in Sources */,
 				078BEDC4212E5FFF00D497C9 /* MainViewController.swift in Sources */,
 				1FD5BC4D24E51C140029F7B3 /* AddressManager.swift in Sources */,
-				077853E42152483C0059B489 /* GoogleMapDrawingManager.swift in Sources */,
+				077853E42152483C0059B489 /* GoogleMapRenderer.swift in Sources */,
 				07FE883A216C7C3E000F624B /* SettingViewController.swift in Sources */,
 				1F544C4424FCEEE2000406B1 /* SearchPlaceTableViewDataSource.swift in Sources */,
 				07CA0F462154978100E6C4C4 /* ActionDelayManager.swift in Sources */,
-				07CA0F502154D49700E6C4C4 /* NavigationViewController.swift in Sources */,
 				B382CA31258C3DE9005A7331 /* LanguageManager.swift in Sources */,
 				1F89B0DA24F75985005FE594 /* OfflineAlertPopupViewController.swift in Sources */,
 				07CA0F4A2154A5A500E6C4C4 /* ImageMaker.swift in Sources */,

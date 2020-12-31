@@ -44,14 +44,14 @@ class AlamofireManager {
                     if let responseData = response.result.value {
                         
                         NotificationCenter.default.post(
-                            name: Notification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_SEARCH_PLACE),
+                            name: Notification.Name(rawValue: Mn4pConstants.NOTIFICATION_ALAMOFIRE_SEARCH_PLACE),
                             object: nil,
                             userInfo: ["result": "success",  "placeModels" : self.extractPlaceModels(responseData: responseData)])
                         
                     } else {
                         
                         NotificationCenter.default.post(
-                            name: Notification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_SEARCH_PLACE),
+                            name: Notification.Name(rawValue: Mn4pConstants.NOTIFICATION_ALAMOFIRE_SEARCH_PLACE),
                             object: nil,
                             userInfo: ["result": "fail"])
                         
@@ -62,13 +62,13 @@ class AlamofireManager {
                     //TODO 나중에 제대로 작동하는지 확인하세요
                     if(error.localizedDescription.contains("forbidden")) {
                         NotificationCenter.default.post(
-                            name: Notification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_SEARCH_PLACE),
+                            name: Notification.Name(rawValue: Mn4pConstants.NOTIFICATION_ALAMOFIRE_SEARCH_PLACE),
                             object: nil,
                             userInfo: ["result": "overApi"])
                     } else {
                         
                         NotificationCenter.default.post(
-                            name: Notification.Name(rawValue: PPNConstants.NOTIFICATION_ALAMOFIRE_SEARCH_PLACE),
+                            name: Notification.Name(rawValue: Mn4pConstants.NOTIFICATION_ALAMOFIRE_SEARCH_PLACE),
                             object: nil,
                             userInfo: ["result": "fail"])
                     }
@@ -321,7 +321,7 @@ class AlamofireManager {
         
         var geofenceModel: GeofenceModel
         for routePointModel in routePointModels {
-            if (routePointModel.getType() == PPNConstants.TYPE_POINT) {
+            if (routePointModel.getType() == Mn4pConstants.TYPE_POINT) {
                 geofenceModel = GeofenceModel()
                 geofenceModel.setLat(lat: routePointModel.getLat() ?? 0)
                 geofenceModel.setLng(lng: routePointModel.getLng() ?? 0)
@@ -357,7 +357,7 @@ class AlamofireManager {
                 routePointModel.setLng(lng: subJson["geometry"]["coordinates"][0].doubleValue);
                 routePointModel.setRoadNo(roadNo: 0); //0:자전거 도로 없음
                 routePointModel.setDescription(description: self.convertToKindDescription(description: subJson["properties"]["description"].stringValue));
-                routePointModel.setType(type: PPNConstants.TYPE_POINT);
+                routePointModel.setType(type: Mn4pConstants.TYPE_POINT);
                 routePointModels.append(routePointModel);
                 
             } else {
@@ -369,7 +369,7 @@ class AlamofireManager {
                     routePointModel.setLng(lng: coordinates[0].doubleValue);
                     routePointModel.setRoadNo(roadNo: subJson["properties"]["roadType"].intValue); //0:자전거 도로 없음
                     routePointModel.setDescription(description: self.convertToKindDescription(description: subJson["properties"]["description"].stringValue));
-                    routePointModel.setType(type: PPNConstants.TYPE_LINE);
+                    routePointModel.setType(type: Mn4pConstants.TYPE_LINE);
                     routePointModels.append(routePointModel);
                     
                 }

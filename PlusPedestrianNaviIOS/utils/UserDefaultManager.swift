@@ -127,7 +127,7 @@ class UserDefaultManager {
        }
   
     public static func getCurrentMapOption() -> Int {
-        return getInt(key: KEY_CURRENT_MAP, defaultValue: PPNConstants.NO_MAP)
+        return getInt(key: KEY_CURRENT_MAP, defaultValue: Mn4pConstants.NO_MAP)
     }
     
     public static func getUserLocation() -> Int {

@@ -7,6 +7,7 @@
 //
 
 import CoreLocation
+import UIKit
 
 protocol IMapRenderer {
     
@@ -18,12 +19,9 @@ protocol IMapRenderer {
     //***************************************************************************************
     
     
-    func setMap(map: Any)
+    func setMap(mapView: Any)   
     
-    
-    func createMap()
-    
-    func setMapPadding(value: Int)
+    func setMapPadding(value: CGFloat)
     
     func clearMap(screenType: Int)
     
@@ -59,7 +57,7 @@ protocol IMapRenderer {
     //
     //***************************************************************************************
     
-    func showPlaceMarker(placePosition: CLLocation)
+    func showPlaceMarker(placeModel: PlaceModel)
     
     
     //***************************************************************************************
@@ -77,7 +75,7 @@ protocol IMapRenderer {
     //
     //***************************************************************************************
     
-    func showNavigationOverlays()
+    func showNavigationOverlays(directionModel: DirectionModel)
     
     func showOverview(angle: Double)
     

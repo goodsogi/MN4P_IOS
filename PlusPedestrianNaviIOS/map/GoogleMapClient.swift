@@ -9,28 +9,34 @@ import UIKit
 import GoogleMaps
 
 public class GoogleMapClient: NSObject, MapClient, GMSMapViewDelegate {
+   
+     var renderer: IMapRenderer?
     
-    var mapContainer: UIView?
-    
-    func setMapContainer(mapContainer: UIView) {
-         
-        self.mapContainer = mapContainer
-    }
-    
-    
-    func createMap() {
+    func createMap(mapContainer: UIView) {
         print("plusapps GoogleMapClient createMap")
         let camera =  GMSCameraPosition.camera(withLatitude: 37.534459, longitude: 126.983314, zoom: 14)
-           let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        let mapView = GMSMapView.map(withFrame: mapContainer.frame, camera: camera)
         mapView.delegate = self
         
         //mapContainer = mapView라고 하면 지도가 표시 안됨 
-        mapContainer!.addSubview(mapView)
+        mapContainer.addSubview(mapView)
+      
+        initRenderer(mapView: mapView)
+    }
+    
+    func initRenderer(mapView: Any) {
+        renderer = GoogleMapRenderer()
+        renderer?.setMap(mapView: mapView)
+        }
+    
+    func getRenderer() -> IMapRenderer? {
+        print("plusapps GoogleMapClient getRenderer")
+        return renderer
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
-        NSLog("marker was tapped")
+        print("marker was tapped")
         
         //TODO: 나중에 마커 탭 처리할 때 참조하세요
         

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PPNConstants {
+class Mn4pConstants {
 
     public static let TYPE_POINT: Int = 0
     public static let TYPE_LINE: Int = 1
@@ -34,5 +34,11 @@ class PPNConstants {
     
     public static let USER_NAME: String = "USER_NAME"
     public static let NO_MAP: Int = -1
- 
+    
+    public static let NONE: Int = -1
+    public static let MAIN: Int = 0
+    public static let PLACE_INFO: Int = 1
+    public static let NAVIGATION: Int = 2
+    public static let ROUTE_INFO: Int = 3
+    public static let SEARCH_NEARBY: Int = 4
 }
