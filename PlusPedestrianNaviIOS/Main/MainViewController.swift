@@ -349,24 +349,11 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     private func showMainMap() {
-        
-//        if (MapManager.sharedInstance.getActiveMapRenderer()! is NaverMapRenderer) {
-//      print("plusapps mapContainerBottomContraint.constant = -400")
-//            mapContainerBottomContraint.constant = -240
-//            mapContainer.layoutIfNeeded()
-//        } else {
-//        MapManager.sharedInstance.getActiveMapRenderer()!.setMapPadding(value: 240)
-//        }
-     
-        MapManager.sharedInstance.getActiveMapRenderer()!.setMapPadding(value: 240)
-        
-        print("plusapps showMainMap")
+
+        MapManager.sharedInstance.getActiveMapRenderer()!.setMapPadding(value: 310)
         let userLocation: CLLocation? = LocationManager.sharedInstance.getCurrentLocation()
         if let location = userLocation {
-            //print할 때 String을 사용하면 안될 때 ,뒤에 변수를 두면 됨 
-            print("plusapps ", location.coordinate)
             showCurrentLocation(userLocation: location)
-            
         }
           
     }
@@ -378,7 +365,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     }
     
     private func showMainPanel() {
-        print("plusapps showMainPanel")
+     
         panelType = MAIN
         
         mainPanelFpc = FloatingPanelController()
@@ -510,6 +497,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     
     private func showPlaceInfoMap(placeModel: PlaceModel) {
+        MapManager.sharedInstance.getActiveMapRenderer()!.setMapPadding(value: 240)
         MapManager.sharedInstance.getActiveMapRenderer()!.showPlaceMarker(placeModel: placeModel)
         
     }
@@ -713,7 +701,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
                     if (notification.name.rawValue == Mn4pConstants.NOTIFICATION_ALAMOFIRE_FIND_ROUTE) {
                     saveDirectionToDB()
                     //TODO 계속 구현하세요 
-                    showRouteOnMap()
+                    showRouteInfoMap()
                     handleShowPublicTransportButton()
                     fillOutInfo()
                     }  else if (notification.name.rawValue == Mn4pConstants.NOTIFICATION_ALAMOFIRE_GET_DIRECTION) {
@@ -750,8 +738,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
    
     
     
-    private func showRouteOnMap() {
-        
+    private func showRouteInfoMap() {
+        MapManager.sharedInstance.getActiveMapRenderer()!.setMapPadding(value: 256)
         MapManager.sharedInstance.getActiveMapRenderer()!.showRouteOverlays(directionModel: Mn4pSharedDataStore.directionModel!)
         
     }
@@ -1658,13 +1646,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     
     private func initNavigationMap() {
-      //  MapManager.sharedInstance.getActiveMapRenderer()!.setMapPadding(value:  0)
-        if (MapManager.sharedInstance.getActiveMapRenderer()! is NaverMapRenderer) {
-            mapContainerBottomContraint.constant = 0
-        } else {
-        MapManager.sharedInstance.getActiveMapRenderer()!.setMapPadding(value: 240)
-        }
-        
+        MapManager.sharedInstance.getActiveMapRenderer()!.setMapPadding(value:  0)
         
         MapManager.sharedInstance.getActiveMapRenderer()!.showNavigationOverlays(directionModel: Mn4pSharedDataStore.directionModel!)
        }
@@ -1813,14 +1795,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
         
         MapManager.sharedInstance.setMapContainer(mapContainer: mapContainer)
         MapManager.sharedInstance.initMapClientAndRenderer()
-       
-        
-//        let camera = GMSCameraPosition.camera(withLatitude: 37.534459, longitude: 126.983314, zoom: 14)
-//        mapView.camera = camera
-//        mapView.delegate = self
-        //이 메소드가 viewDidLoad보다 먼저 호출됨
-        
-        
+     
     }
     
     /*
@@ -1835,7 +1810,7 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
             handleCatchedLocation(location: location)
         }
         
-        //          MapManager.sharedInstance.getActiveMapRenderer()!.OnMap(userLocation: location)
+       
     }
     
     func onFirstLocationCatched(location: CLLocation) {

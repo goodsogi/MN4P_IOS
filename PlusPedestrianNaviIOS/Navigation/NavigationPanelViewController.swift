@@ -47,15 +47,30 @@ class NavigationPanelViewController: UIViewController {
     }
     
     private func showFinishNavigationAlertPopup() {
-        let storyboard = UIStoryboard(name: "AlertPopup", bundle: nil)
-        let modalViewController = storyboard.instantiateViewController(withIdentifier: "FinishNavigationPopup")
-         
-        modalViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-        modalViewController.modalTransitionStyle = UIModalTransitionStyle.coverVertical
+//        let storyboard = UIStoryboard(name: "AlertPopup", bundle: nil)
+//        let modalViewController = storyboard.instantiateViewController(withIdentifier: "FinishNavigationPopup")
+//         
+//        modalViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+//        modalViewController.modalTransitionStyle = UIModalTransitionStyle.coverVertical
+//        
+//        (modalViewController as! FinishNavigationPopupController).finishNavigationPopupDelegate  = finishNavigationPopupDelegate
+//         
+//        self.present(modalViewController, animated: true, completion: nil)
         
-        (modalViewController as! FinishNavigationPopupController).finishNavigationPopupDelegate  = finishNavigationPopupDelegate
-         
-        self.present(modalViewController, animated: true, completion: nil)
+        let alert = UIAlertController(title: "", message: LanguageManager.getString(key: "wanna_finish_navigation"), preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: LanguageManager.getString(key: "ok"), style: .default) { (action) in
+            self.finishNavigationPopupDelegate?.onFinishNavigationConfirmed()
+            alert.dismiss(animated: true, completion: nil)
+                }
+        let cancelAction = UIAlertAction(title: LanguageManager.getString(key: "cancel"), style: .default) { (action) in
+            alert.dismiss(animated: true, completion: nil)
+                }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(okAction)
+        
+        present(alert, animated: false, completion: nil)
+        
     }
     
     

@@ -28,22 +28,20 @@ class NaverMapRenderer : IMapRenderer {
     
     
     func setMapPadding(value: CGFloat) {
-        print("plusapps setMapPadding value: ", value)
-        var insets = UIEdgeInsets()
-        insets.top = 0
-        insets.bottom = value
-        insets.left = 0
-        insets.right = 0
-       
-      
-        let screenSize = UIScreen.main.bounds
-        let screenWidth = screenSize.width
-        let screenHeight = screenSize.height
-       
-       // mapContainer?.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight - value)
         
-        self.mapView?.contentInset = insets
-        self.mapView?.layoutIfNeeded()
+        //mapContainer의 높이를 조절하는 것으로 네이버 지도의 높이를 조절 불가능
+        //mapContainer의 높이를 줄이면 네이버 지도가 이상한 위치에 표시됨
+        
+        //mapContainer의 inset을 사용해야 함, inset은 안드로이드의 padding에 해당하는 듯
+        //dy는 해딩 패딩값의 절반임 
+        
+        let dyValue: CGFloat = value / 2 
+        self.mapView!.superview!.bounds = self.mapView!.superview!.frame.insetBy(dx: 0, dy: dyValue)
+        
+        //네이버지도 로고를 표시하기 위해 contentInset 지정
+        //contentInset을 지정하면 마커의 위치가 이상해져 사용안하는 것이 좋을 듯
+       // let insets = UIEdgeInsets(top: 0, left: 0, bottom: dyValue, right: 0)
+       // self.mapView!.contentInset = insets
         
     }
     
@@ -93,7 +91,7 @@ class NaverMapRenderer : IMapRenderer {
         polyline = nil
         
         startPointMarker?.mapView = nil
-        startPointMarker = nil
+        //startPointMarker = nil
         
         destinationMarker?.mapView = nil
         destinationMarker = nil
@@ -258,6 +256,14 @@ class NaverMapRenderer : IMapRenderer {
             //TODO 필요시 아래 코드 사용하세요
 //            let zoomLevel: Double = NMFCameraUtils.getFittableZoomLevel(with: <#T##NMGLatLngBounds#>, insets: <#T##UIEdgeInsets#>, mapView: mapView!)
 
+            if (self.startPointMarker == nil) {
+                print("plusapps startPointMarker == nil")
+            }
+            
+            print("plusapps self.startPointMarker!.position ", self.startPointMarker!.position)
+            
+            
+           
             
             let bounds = NMGLatLngBounds()
             bounds.southWest = NMGLatLng(lat: max(self.startPointMarker!.position.lat, self.destinationMarker!.position.lat), lng: min(self.startPointMarker!.position.lng, self.destinationMarker!.position.lng))
@@ -339,7 +345,7 @@ class NaverMapRenderer : IMapRenderer {
         polyline = nil
         
         startPointMarker?.mapView = nil
-        startPointMarker = nil
+        //startPointMarker = nil
               
         destinationMarker?.mapView = nil
         destinationMarker = nil

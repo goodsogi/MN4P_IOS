@@ -23,6 +23,12 @@ public static func getString(key:String) -> String {
     private static func getKoreanWord(key:String) -> String {
         
         switch key {
+        case "ok":
+            return "확인"
+        case "cancel":
+            return "취소"
+        case "wanna_finish_navigation":
+            return "경로안내를 종료하시겠습니까?"
         case "pin_location":
             return "지도상 지점"
         case "recommended":
@@ -93,6 +99,12 @@ public static func getString(key:String) -> String {
     private static func getEnglishWord(key:String) -> String {
         
         switch key {
+        case "ok":
+            return "OK"
+        case "cancel":
+            return "Cancel"
+        case "wanna_finish_navigation":
+            return "Finish navigation?"
         case "pin_location":
             return "Pin location"
         case "recommended":
