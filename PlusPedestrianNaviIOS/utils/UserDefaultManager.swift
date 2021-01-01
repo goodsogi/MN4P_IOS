@@ -108,8 +108,15 @@ class UserDefaultManager {
     public static let KEY_ROUTE_OPTION: String = "KEY_ROUTE_OPTION"
     public static let KEY_IS_USE_VIBRATION: String = "KEY_IS_USE_VIBRATION"
     public static let KEY_IS_USE_DISTANCE_VOICE: String = "KEY_IS_USE_DISTANCE_VOICE"
+    public static let KEY_CURRENT_VOICE_TYPE: String = "KEY_CURRENT_VOICE_TYPE"
    
+    public static func getCurrentVoiceOption() -> Int {
+        return getInt(key: KEY_CURRENT_VOICE_TYPE, defaultValue: Mn4pConstants.KAREN)
+    }
     
+    public static func saveCurrentVoiceOption(option: Int) {
+           saveInt(key: KEY_CURRENT_VOICE_TYPE, value: option)
+       }
    
     public static func isUseVibration() -> Bool {
         return getBool(key: KEY_IS_USE_VIBRATION, defaultValue: true)
@@ -127,7 +134,7 @@ class UserDefaultManager {
        }
   
     public static func getCurrentMapOption() -> Int {
-        return getInt(key: KEY_CURRENT_MAP, defaultValue: Mn4pConstants.NO_MAP)
+        return getInt(key: KEY_CURRENT_MAP, defaultValue: MapManager.NO_MAP)
     }
     
     public static func getUserLocation() -> Int {

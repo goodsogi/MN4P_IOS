@@ -14,9 +14,9 @@ class MapManager {
     static let sharedInstance = MapManager()
     private init() {}
 
-  
-     public let NAVER_MAP = 0
-     public let GOOGLE_MAP = 1
+    public static let NO_MAP = -1
+     public static let NAVER_MAP = 0
+     public static let GOOGLE_MAP = 1
      //public let OFFLINE_MAP = 2
     
     private var mapContainer: UIView?
@@ -30,14 +30,14 @@ class MapManager {
         
         //한국에 있지 않은 경우
         if (!UserInfoManager.isUserInKorea()) {
-            if (activeMap == Mn4pConstants.NO_MAP) {
-                activeMap = GOOGLE_MAP;
-                UserDefaultManager.saveCurrentMapOption(mapOption: GOOGLE_MAP);
+            if (activeMap == MapManager.NO_MAP) {
+                activeMap = MapManager.GOOGLE_MAP;
+                UserDefaultManager.saveCurrentMapOption(mapOption: MapManager.GOOGLE_MAP);
             }
         } else {
-            if (activeMap == Mn4pConstants.NO_MAP) {
-                activeMap = NAVER_MAP;
-                UserDefaultManager.saveCurrentMapOption(mapOption: NAVER_MAP);
+            if (activeMap == MapManager.NO_MAP) {
+                activeMap = MapManager.NAVER_MAP;
+                UserDefaultManager.saveCurrentMapOption(mapOption: MapManager.NAVER_MAP);
             }
         }
 
@@ -53,11 +53,11 @@ class MapManager {
     func setActiveMapClientAndRenderer(mapOption: Int) {
         
                 switch (mapOption) {
-                    case NAVER_MAP:
+                case MapManager.NAVER_MAP:
                         activeMapClient = NaverMapClient()
                      
                         break;
-                    case GOOGLE_MAP:
+                case MapManager.GOOGLE_MAP:
                         activeMapClient = GoogleMapClient()
                          break;
                     default:

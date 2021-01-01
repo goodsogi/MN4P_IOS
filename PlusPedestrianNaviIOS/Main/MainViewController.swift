@@ -1827,6 +1827,8 @@ class MainViewController: UIViewController, GMSMapViewDelegate , SelectPlaceDele
     
     private func initTTS() {
         synthesizer = AVSpeechSynthesizer()
+        
+        print(AVSpeechSynthesisVoice.speechVoices())
     }
     private func gainAudioFocus() {
         

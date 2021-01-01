@@ -18,10 +18,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RqY-Ir-HG2" userLabel="Settings Screen">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="896"/>
                                 <subviews>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VfK-Pl-bgv" userLabel="Top Bar">
-                                        <rect key="frame" x="0.0" y="40" width="414" height="50"/>
+                                        <rect key="frame" x="0.0" y="20" width="414" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0bg-5O-K9a" userLabel="Back Button">
                                                 <rect key="frame" x="16" y="2.5" width="45" height="45"/>
@@ -50,10 +50,10 @@
                                         </constraints>
                                     </view>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MpV-xv-4s9">
-                                        <rect key="frame" x="0.0" y="90" width="414" height="806"/>
+                                        <rect key="frame" x="0.0" y="70" width="414" height="826"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="128" translatesAutoresizingMaskIntoConstraints="NO" id="6Uw-7z-UmI" userLabel="Content View">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="1311"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="1083"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oHZ-kG-1m6" userLabel="App Settings Label Container">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="57"/>
@@ -75,14 +75,15 @@
                                                             <constraint firstItem="5h4-ij-IR9" firstAttribute="leading" secondItem="oHZ-kG-1m6" secondAttribute="leading" constant="16" id="vBK-7j-ns9"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcK-Qi-L6O" userLabel="Map Label Container">
-                                                        <rect key="frame" x="0.0" y="57" width="414" height="57"/>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcK-Qi-L6O" userLabel="Map Label Container">
+                                                        <rect key="frame" x="0.0" y="57" width="414" height="0.0"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Map" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7N5-0z-ly8" userLabel="Map Label">
-                                                                <rect key="frame" x="16" y="0.0" width="29" height="57"/>
+                                                                <rect key="frame" x="16" y="-28.5" width="29" height="57"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="57" id="krB-cd-cSY"/>
                                                                 </constraints>
+                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -90,12 +91,12 @@
                                                         <color key="backgroundColor" red="0.96068006750000001" green="0.96084433790000001" blue="0.96066969629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="7N5-0z-ly8" firstAttribute="leading" secondItem="wcK-Qi-L6O" secondAttribute="leading" constant="16" id="Jmf-Eu-WVE"/>
-                                                            <constraint firstAttribute="height" constant="57" id="gIh-SO-f3b"/>
+                                                            <constraint firstAttribute="height" id="gIh-SO-f3b"/>
                                                             <constraint firstItem="7N5-0z-ly8" firstAttribute="centerY" secondItem="wcK-Qi-L6O" secondAttribute="centerY" id="xqQ-HY-5uv"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cs8-YJ-TCD" userLabel="Choose Map Menu">
-                                                        <rect key="frame" x="0.0" y="114" width="414" height="57"/>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cs8-YJ-TCD" userLabel="Choose Map Menu">
+                                                        <rect key="frame" x="0.0" y="57" width="414" height="0.0"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Map" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xVM-fk-urj" userLabel="Choose Map Label">
                                                                 <rect key="frame" x="16" y="10" width="29" height="18.5"/>
@@ -110,14 +111,14 @@
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="Nkc-f3-cGY" userLabel="Arrow Icon">
-                                                                <rect key="frame" x="360" y="7.5" width="42" height="42"/>
+                                                                <rect key="frame" x="360" y="-21" width="42" height="42"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="42" id="PfI-JX-vTr"/>
                                                                     <constraint firstAttribute="height" constant="42" id="tzL-at-KnJ"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LvZ-nd-MBv" userLabel="Line">
-                                                                <rect key="frame" x="0.0" y="56.5" width="414" height="0.5"/>
+                                                                <rect key="frame" x="0.0" y="-0.5" width="414" height="0.5"/>
                                                                 <color key="backgroundColor" red="0.6509079337" green="0.6510220766" blue="0.6509007215" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="0.5" id="Q9B-s4-Nng"/>
@@ -133,19 +134,20 @@
                                                             <constraint firstItem="LvZ-nd-MBv" firstAttribute="bottom" secondItem="cs8-YJ-TCD" secondAttribute="bottom" id="dJw-uU-xW2"/>
                                                             <constraint firstItem="Nkc-f3-cGY" firstAttribute="centerY" secondItem="cs8-YJ-TCD" secondAttribute="centerY" id="eAN-Kz-ixq"/>
                                                             <constraint firstItem="Nkc-f3-cGY" firstAttribute="trailing" secondItem="cs8-YJ-TCD" secondAttribute="trailing" constant="-12" id="iQS-Vq-dV8"/>
-                                                            <constraint firstAttribute="height" constant="57" id="rYL-uj-6aD"/>
+                                                            <constraint firstAttribute="height" id="rYL-uj-6aD"/>
                                                             <constraint firstItem="PCo-lt-97y" firstAttribute="leading" secondItem="xVM-fk-urj" secondAttribute="leading" id="srT-gW-8Ji"/>
                                                             <constraint firstItem="xVM-fk-urj" firstAttribute="top" secondItem="cs8-YJ-TCD" secondAttribute="top" constant="10" id="zct-yE-Z43"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Mb-ag-RRu" userLabel="TTS Label Container">
-                                                        <rect key="frame" x="0.0" y="171" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="57" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TTS" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JBu-yM-WYn" userLabel="TTS Label">
                                                                 <rect key="frame" x="16" y="0.0" width="27" height="57"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="57" id="Mia-yM-AVB"/>
                                                                 </constraints>
+                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -157,8 +159,8 @@
                                                             <constraint firstItem="JBu-yM-WYn" firstAttribute="leading" secondItem="5Mb-ag-RRu" secondAttribute="leading" constant="16" id="sp0-tN-8u0"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qYA-5l-Xib" userLabel="Choose TTS Engine Menu">
-                                                        <rect key="frame" x="0.0" y="228" width="414" height="57"/>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qYA-5l-Xib" userLabel="Choose TTS Engine Menu">
+                                                        <rect key="frame" x="0.0" y="114" width="414" height="0.0"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TTS engine" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wgo-ze-69s" userLabel="Choose TTS Engine Label">
                                                                 <rect key="frame" x="16" y="10" width="74" height="18.5"/>
@@ -173,14 +175,14 @@
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="cfW-Lh-Aec" userLabel="Arrow Icon">
-                                                                <rect key="frame" x="360" y="7.5" width="42" height="42"/>
+                                                                <rect key="frame" x="360" y="-21" width="42" height="42"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="42" id="3aA-H6-JRR"/>
                                                                     <constraint firstAttribute="width" constant="42" id="YXW-iB-uB1"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mXk-LP-lg7" userLabel="Line">
-                                                                <rect key="frame" x="0.0" y="56.5" width="414" height="0.5"/>
+                                                                <rect key="frame" x="0.0" y="-0.5" width="414" height="0.5"/>
                                                                 <color key="backgroundColor" red="0.6509079337" green="0.6510220766" blue="0.6509007215" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="0.5" id="InK-Z4-GUx"/>
@@ -194,15 +196,15 @@
                                                             <constraint firstItem="mXk-LP-lg7" firstAttribute="trailing" secondItem="qYA-5l-Xib" secondAttribute="trailing" id="T12-x9-KhA"/>
                                                             <constraint firstItem="cfW-Lh-Aec" firstAttribute="trailing" secondItem="qYA-5l-Xib" secondAttribute="trailing" constant="-12" id="aAM-OF-Eia"/>
                                                             <constraint firstItem="wgo-ze-69s" firstAttribute="top" secondItem="qYA-5l-Xib" secondAttribute="top" constant="10" id="m3v-bi-bEZ"/>
-                                                            <constraint firstAttribute="height" constant="57" id="qIa-tr-I0g"/>
+                                                            <constraint firstAttribute="height" id="qIa-tr-I0g"/>
                                                             <constraint firstItem="GTP-Xf-dbg" firstAttribute="leading" secondItem="wgo-ze-69s" secondAttribute="leading" id="t2J-cn-jJS"/>
                                                             <constraint firstItem="mXk-LP-lg7" firstAttribute="bottom" secondItem="qYA-5l-Xib" secondAttribute="bottom" id="tJ9-hZ-seO"/>
                                                             <constraint firstItem="wgo-ze-69s" firstAttribute="leading" secondItem="qYA-5l-Xib" secondAttribute="leading" constant="16" id="vE8-Wb-HFd"/>
                                                             <constraint firstItem="mXk-LP-lg7" firstAttribute="leading" secondItem="qYA-5l-Xib" secondAttribute="leading" id="wMa-hK-dMf"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECx-B7-2Wv" userLabel="Choose Voice Menu">
-                                                        <rect key="frame" x="0.0" y="285" width="414" height="57"/>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECx-B7-2Wv" userLabel="Choose Voice Menu">
+                                                        <rect key="frame" x="0.0" y="114" width="414" height="0.0"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Voice" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rtS-OB-lVl" userLabel="Choose Voice Label">
                                                                 <rect key="frame" x="16" y="10" width="36" height="18.5"/>
@@ -217,14 +219,14 @@
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_right" translatesAutoresizingMaskIntoConstraints="NO" id="QcU-Xh-7xs" userLabel="Arrow Icon">
-                                                                <rect key="frame" x="360" y="7.5" width="42" height="42"/>
+                                                                <rect key="frame" x="360" y="-21" width="42" height="42"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="42" id="89g-ze-LN3"/>
                                                                     <constraint firstAttribute="height" constant="42" id="E5O-qS-3Q8"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5UD-Mu-hAJ" userLabel="Line">
-                                                                <rect key="frame" x="0.0" y="56.5" width="414" height="0.5"/>
+                                                                <rect key="frame" x="0.0" y="-0.5" width="414" height="0.5"/>
                                                                 <color key="backgroundColor" red="0.6509079337" green="0.6510220766" blue="0.6509007215" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="0.5" id="0BZ-ej-bRW"/>
@@ -236,7 +238,7 @@
                                                             <constraint firstItem="QcU-Xh-7xs" firstAttribute="centerY" secondItem="ECx-B7-2Wv" secondAttribute="centerY" id="3Kv-S3-roC"/>
                                                             <constraint firstItem="5UD-Mu-hAJ" firstAttribute="leading" secondItem="ECx-B7-2Wv" secondAttribute="leading" id="Bwd-Ad-OR9"/>
                                                             <constraint firstItem="5UD-Mu-hAJ" firstAttribute="trailing" secondItem="ECx-B7-2Wv" secondAttribute="trailing" id="CXe-Zw-cHR"/>
-                                                            <constraint firstAttribute="height" constant="57" id="DmE-eO-pkj"/>
+                                                            <constraint firstAttribute="height" id="DmE-eO-pkj"/>
                                                             <constraint firstItem="ui1-UU-hWu" firstAttribute="leading" secondItem="rtS-OB-lVl" secondAttribute="leading" id="Qau-sR-q7t"/>
                                                             <constraint firstItem="5UD-Mu-hAJ" firstAttribute="bottom" secondItem="ECx-B7-2Wv" secondAttribute="bottom" id="RT6-b1-wgN"/>
                                                             <constraint firstItem="QcU-Xh-7xs" firstAttribute="trailing" secondItem="ECx-B7-2Wv" secondAttribute="trailing" constant="-12" id="U1K-RX-oPd"/>
@@ -246,7 +248,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i5s-uM-G8U" userLabel="Choose Talking Speed Menu">
-                                                        <rect key="frame" x="0.0" y="342" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="114" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Speed" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BPt-fO-2xs" userLabel="Choose Talking Speed Label">
                                                                 <rect key="frame" x="16" y="10" width="42" height="18.5"/>
@@ -290,13 +292,14 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="74i-Hz-vWZ" userLabel="Home Work Label Container">
-                                                        <rect key="frame" x="0.0" y="399" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="171" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Home/Work" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wrr-vQ-gnP" userLabel="Home Work Label">
                                                                 <rect key="frame" x="16" y="0.0" width="76" height="57"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="57" id="R0c-Cx-aNG"/>
                                                                 </constraints>
+                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -309,7 +312,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BZg-Kg-TV4" userLabel="Set Home Menu">
-                                                        <rect key="frame" x="0.0" y="456" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="228" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Home" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BT1-C8-iZP" userLabel="Home Label">
                                                                 <rect key="frame" x="16" y="10" width="39" height="18.5"/>
@@ -349,7 +352,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="30N-ek-1lL" userLabel="Set Work Menu">
-                                                        <rect key="frame" x="0.0" y="513" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="285" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Work" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YkD-My-Esv" userLabel="Work Label">
                                                                 <rect key="frame" x="16" y="10" width="34" height="18.5"/>
@@ -389,13 +392,14 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HbY-mw-V45" userLabel="History Label Container">
-                                                        <rect key="frame" x="0.0" y="570" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="342" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="History" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nky-mt-Uiw" userLabel="History Label">
                                                                 <rect key="frame" x="16" y="0.0" width="47" height="57"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="57" id="R3S-Ng-Nw7"/>
                                                                 </constraints>
+                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -408,7 +412,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0cF-KH-vzI" userLabel="Delete History Menu">
-                                                        <rect key="frame" x="0.0" y="570" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="342" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Delete history" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aeq-ny-8Ey" userLabel="Delete History Label">
                                                                 <rect key="frame" x="16" y="19.5" width="90" height="18.5"/>
@@ -444,13 +448,14 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hRi-Y6-sUf" userLabel="Navigation Label Container">
-                                                        <rect key="frame" x="0.0" y="627" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="399" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Navigation" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y2f-ph-4D1" userLabel="Navigation Label">
                                                                 <rect key="frame" x="16" y="0.0" width="69" height="57"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="57" id="GM4-18-H0K"/>
                                                                 </constraints>
+                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
@@ -463,7 +468,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lr0-OO-oKQ" userLabel="Enable Background Navigation Menu">
-                                                        <rect key="frame" x="0.0" y="684" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="456" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Background navigation" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mqc-t7-H2B" userLabel="Enable Background Navigation Label">
                                                                 <rect key="frame" x="16" y="19.5" width="148" height="18.5"/>
@@ -495,7 +500,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="egY-C4-2O9" userLabel="Show Direction Sign Over Other App Menu">
-                                                        <rect key="frame" x="0.0" y="741" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="513" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Show direction sign over other app" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vfu-Me-VHQ" userLabel="Show Direction Sign Over Other App Label">
                                                                 <rect key="frame" x="16" y="19" width="225" height="19"/>
@@ -527,7 +532,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2w-La-mGx" userLabel="Use Vibration Menu">
-                                                        <rect key="frame" x="0.0" y="798" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="570" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Vibration" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="59Z-iU-Nlc" userLabel="Use Vibration Label">
                                                                 <rect key="frame" x="16" y="19.5" width="59" height="18.5"/>
@@ -559,7 +564,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DAu-tN-QRE" userLabel="Use Step Detector Menu">
-                                                        <rect key="frame" x="0.0" y="855" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="627" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Step detector" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5qL-Xe-mrb" userLabel="Use Step Detector Label">
                                                                 <rect key="frame" x="16" y="19" width="89" height="19"/>
@@ -591,7 +596,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iBu-S9-k0j" userLabel="Use Voice Direction Menu">
-                                                        <rect key="frame" x="0.0" y="912" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="684" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Voice direction" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uek-s3-313" userLabel="Use Voice Direction Label">
                                                                 <rect key="frame" x="16" y="19.5" width="97" height="18.5"/>
@@ -623,7 +628,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jud-vO-WIy" userLabel="Use Distance Voice Menu">
-                                                        <rect key="frame" x="0.0" y="969" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="741" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Voice direction of distance to the next direction point" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gYM-4x-2gt" userLabel="Use Distance Voice Label">
                                                                 <rect key="frame" x="16" y="19.5" width="342" height="18.5"/>
@@ -655,7 +660,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sZ7-nP-6a3" userLabel="Support Label Container">
-                                                        <rect key="frame" x="0.0" y="1026" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="798" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Support" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ANi-wu-s6v" userLabel="Support Label">
                                                                 <rect key="frame" x="16" y="0.0" width="57" height="57"/>
@@ -675,7 +680,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Bo-BN-ujP" userLabel="Suggestion Menu">
-                                                        <rect key="frame" x="0.0" y="1083" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="855" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Suggestion/Ask" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zCI-Z7-GM8" userLabel="Suggestion Label">
                                                                 <rect key="frame" x="16" y="10" width="101" height="18.5"/>
@@ -719,7 +724,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jRI-xl-6re" userLabel="App Info Label Container">
-                                                        <rect key="frame" x="0.0" y="1140" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="912" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="App Info" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HD6-fj-DEM" userLabel="App Info Label">
                                                                 <rect key="frame" x="16" y="0.0" width="59" height="57"/>
@@ -739,7 +744,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ta6-rh-fbn" userLabel="Show Open Source License Menu">
-                                                        <rect key="frame" x="0.0" y="1197" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="969" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Open source" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UD6-0o-i2s" userLabel="Open Source License Label">
                                                                 <rect key="frame" x="16" y="10" width="83" height="18.5"/>
@@ -783,7 +788,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQW-9o-xkz" userLabel="Show App Version Menu">
-                                                        <rect key="frame" x="0.0" y="1254" width="414" height="57"/>
+                                                        <rect key="frame" x="0.0" y="1026" width="414" height="57"/>
                                                         <subviews>
                                                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="App version" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o8C-lj-psr" userLabel="App Version Label">
                                                                 <rect key="frame" x="16" y="10" width="77" height="18.5"/>
@@ -920,7 +925,7 @@
                                     <constraint firstItem="MpV-xv-4s9" firstAttribute="trailing" secondItem="RqY-Ir-HG2" secondAttribute="trailing" id="Hvf-PI-tGO"/>
                                     <constraint firstItem="MpV-xv-4s9" firstAttribute="top" secondItem="VfK-Pl-bgv" secondAttribute="bottom" id="KDu-D9-8L2"/>
                                     <constraint firstItem="MpV-xv-4s9" firstAttribute="leading" secondItem="RqY-Ir-HG2" secondAttribute="leading" id="KJG-uK-DsE"/>
-                                    <constraint firstItem="VfK-Pl-bgv" firstAttribute="top" secondItem="RqY-Ir-HG2" secondAttribute="top" constant="40" id="aZs-e9-Ih2"/>
+                                    <constraint firstItem="VfK-Pl-bgv" firstAttribute="top" secondItem="RqY-Ir-HG2" secondAttribute="top" constant="20" id="aZs-e9-Ih2"/>
                                     <constraint firstItem="VfK-Pl-bgv" firstAttribute="leading" secondItem="RqY-Ir-HG2" secondAttribute="leading" id="bZc-z2-7FR"/>
                                     <constraint firstItem="VfK-Pl-bgv" firstAttribute="width" secondItem="RqY-Ir-HG2" secondAttribute="width" id="cTh-k9-APX"/>
                                     <constraint firstItem="MpV-xv-4s9" firstAttribute="bottom" secondItem="RqY-Ir-HG2" secondAttribute="bottom" id="gdF-Ty-Ajj"/>
@@ -930,13 +935,22 @@
                         <viewLayoutGuide key="safeArea" id="0I1-kL-Wk9"/>
                         <constraints>
                             <constraint firstItem="RqY-Ir-HG2" firstAttribute="height" secondItem="486-c7-d6L" secondAttribute="height" id="11B-ns-6CD"/>
-                            <constraint firstItem="RqY-Ir-HG2" firstAttribute="top" secondItem="486-c7-d6L" secondAttribute="top" id="BNh-Hu-Uor"/>
+                            <constraint firstItem="RqY-Ir-HG2" firstAttribute="top" secondItem="0I1-kL-Wk9" secondAttribute="top" id="BNh-Hu-Uor"/>
                             <constraint firstItem="RqY-Ir-HG2" firstAttribute="leading" secondItem="0I1-kL-Wk9" secondAttribute="leading" id="Qs7-a7-vGO"/>
                             <constraint firstItem="RqY-Ir-HG2" firstAttribute="width" secondItem="486-c7-d6L" secondAttribute="width" id="ooK-q4-k65"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="chooseMapMenu" destination="cs8-YJ-TCD" id="wvE-es-jsd"/>
+                        <outlet property="chooseMapMenuHeightConstraint" destination="rYL-uj-6aD" id="Pgs-HI-3Vo"/>
+                        <outlet property="chooseTalkingSpeedMenu" destination="i5s-uM-G8U" id="afP-Vv-Y3b"/>
+                        <outlet property="chooseVoiceMenu" destination="ECx-B7-2Wv" id="aez-m4-YiR"/>
+                        <outlet property="chooseVoiceMenuHeightConstraint" destination="DmE-eO-pkj" id="oLE-OT-nT6"/>
+                        <outlet property="mapLabel" destination="wcK-Qi-L6O" id="KhK-LN-FQ3"/>
+                        <outlet property="mapLabelContainerHeightConstraint" destination="gIh-SO-f3b" id="7Aa-e2-j9r"/>
+                        <outlet property="mapName" destination="PCo-lt-97y" id="5fe-zO-Nfc"/>
                         <outlet property="suggestionMenu" destination="cs8-YJ-TCD" id="e9s-dX-2Nr"/>
+                        <outlet property="voiceOption" destination="ui1-UU-hWu" id="Kvn-e0-s8K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="utH-Le-3VB" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -33,7 +33,7 @@ class Mn4pConstants {
     public static let NOTIFICATION_ALAMOFIRE_SEARCH_PLACE: String = "NOTIFICATION_ALAMOFIRE_SEARCH_PLACE"
     
     public static let USER_NAME: String = "USER_NAME"
-    public static let NO_MAP: Int = -1
+   
     
     public static let NONE: Int = -1
     public static let MAIN: Int = 0
@@ -41,4 +41,13 @@ class Mn4pConstants {
     public static let NAVIGATION: Int = 2
     public static let ROUTE_INFO: Int = 3
     public static let SEARCH_NEARBY: Int = 4
+    
+    
+    public static let KAREN: Int = 0
+        public static let DANIEL: Int = 1
+        public static let MOIRA: Int = 2
+        public static let SAMANTHA: Int = 3
+    
+    
+    
 }
